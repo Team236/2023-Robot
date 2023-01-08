@@ -60,7 +60,16 @@ public final class Constants {
         }
     }
 }
+  public static class MotorControllers {
 
+    //placeholder numbers for beginning of season because we haven't built the thing yet
+    public static final int ID_LEFT_FRONT = 1;
+    public static final int ID_RIGHT_FRONT = 2;
+    public static final int ID_LEFT_REAR = 3;
+    public static final int ID_RIGHT_REAR = 4;
+
+    }
+  }
 
   }
 
