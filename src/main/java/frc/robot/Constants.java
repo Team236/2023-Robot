@@ -13,7 +13,54 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-  public static class OperatorConstants {
-    public static final int kDriverControllerPort = 0;
-  }
+  public static class ControllerConstants {
+    public static final int USB_LEFT_STICK = 0;
+    public static final int USB_RIGHT_STICK = 1;
+    public static final int USB_CONTROLLER = 2;
+    public static class Thrustmaster {
+        public static final int TRIGGER = 1;
+        public static final int BUTTON_MIDDLE = 2;
+        public static final int BUTTON_LEFT = 3;
+        public static final int BUTTON_RIGHT = 4;
+        public static final int LEFT_BASE_1 = 11;
+        public static final int LEFT_BASE_2 = 16;
+        public static final int LEFT_BASE_3 = 13;
+        public static final int LEFT_BASE_4 = 14;
+        public static final int RIGHT_BASE_5 = 7;
+        public static final int RIGHT_BASE_6 = 8;
+        public static final int RIGHT_BASE_7 = 5;
+        public static final int RIGHT_BASE_8 = 10;
+
+        public static class AxesThrustmaster {
+            public static final int X = 0;
+            public static final int Y = 1;
+            public static final int Z = 2;
+            public static final int THROTTLE = 3;
+        }       
+    }
+    public static class LogitechF310 {
+        // ****when controller is in DirectInput mode (use slider on the back of the controller)
+        public static final int A = 2;
+        public static final int B = 3;
+        public static final int X = 1;
+        public static final int Y = 4;
+        public static final int LB = 5;
+        public static final int RB = 6;
+        public static final int BACK = 9;
+        public static final int START = 10;
+        public static final int LEFT_PRESS = 7;
+        public static final int RIGHT_PRESS = 8;
+        public class AxesController {
+            public static final int LEFT_X = 0;
+            public static final int LEFT_Y = 1;
+            public static final int LT = 2;
+            public static final int RT = 3;
+            public static final int RIGHT_X = 4;
+            public static final int RIGHT_Y = 5;
+        }
+    }
 }
+
+
+  }
+
