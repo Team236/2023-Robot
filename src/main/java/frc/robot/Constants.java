@@ -69,6 +69,13 @@ public final class Constants {
     public static final int ID_RIGHT_REAR = 4;
 
     }
+
+
+public static class DriveConstants {
+
+  public static final double LEFT_DEADZONE = 0.17; //0.15???
+  public static final double RIGHT_DEADZONE = 0.17;
+}
   }
 
   
