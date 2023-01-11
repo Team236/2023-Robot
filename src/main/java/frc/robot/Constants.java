@@ -75,6 +75,7 @@ public static class DriveConstants {
 
   public static final double LEFT_DEADZONE = 0.17; //0.15???
   public static final double RIGHT_DEADZONE = 0.17;
+  public static final boolean IS_DEADZONE = true;
 }
   }
 

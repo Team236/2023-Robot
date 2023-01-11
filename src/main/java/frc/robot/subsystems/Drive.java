@@ -44,24 +44,24 @@ public class Drive extends SubsystemBase {
     rightEncoder = rightFront.getEncoder();
   }
 
-  public void SetLeftSpeed(double speed) {
+  public void setLeftSpeed(double speed) {
     leftFront.set(speed);
   }
 
-  public void SetRightSpeed(double speed) {
+  public void setRightSpeed(double speed) {
     rightFront.set(speed);
   }
 
-  public void SetBothSpeeds(double speed) {
+  public void setBothSpeeds(double speed) {
     rightFront.set(speed);
     leftFront.set(speed);
   }
-  public void SetLeftSpeedWithDeadzone(double speed) {
+  public void setLeftSpeedWithDeadzone(double speed) {
     double leftSpeed = speed;
     if(leftSpeed < DriveConstants.LEFT_DEADZONE && leftSpeed > -DriveConstants.LEFT_DEADZONE) {
       leftSpeed = 0;
     }
-    else SetLeftSpeed(leftSpeed);
+    else setLeftSpeed(leftSpeed);
   }
 
   public void setRightSpeedWithDeadzone(double speed) {
@@ -69,9 +69,15 @@ public class Drive extends SubsystemBase {
     if(rightSpeed < DriveConstants.RIGHT_DEADZONE && rightSpeed > -DriveConstants.RIGHT_DEADZONE) {
       rightSpeed = 0;
     }
-    else SetRightSpeed(rightSpeed);
+    else setRightSpeed(rightSpeed);
   }
 
+  public void stop(double speed) {
+    setLeftSpeed(0);
+    setRightSpeed(0);
+  }
+
+  
 
   @Override
   public void periodic() {
