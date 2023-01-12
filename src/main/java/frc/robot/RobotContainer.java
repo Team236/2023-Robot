@@ -5,11 +5,13 @@
 package frc.robot;
 
 import frc.robot.Constants;
-
+import frc.robot.Constants.ControllerConstants;
 import frc.robot.commands.DriveWithJoysticks;
 import frc.robot.subsystems.Drive;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /**
@@ -19,15 +21,26 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
-  // The robot's subsystems and commands are defined here...
-  private final Drive m_exampleSubsystem = new Drive();
+  //**JOYSTICKS */
+  Joystick controller = new Joystick(Constants.ControllerConstants.USB_CONTROLLER);
+  Joystick leftStick = new Joystick(Constants.ControllerConstants.USB_LEFT_STICK);
+  Joystick rightStick = new Joystick(Constants.ControllerConstants.USB_RIGHT_STICK);
 
-  // Replace with CommandPS4Controller or CommandJoystick if needed
- 
+  // SUBSYSTEMS****.
+  private final Drive drive = new Drive();
+
+  //COMMANDS****
+  //AUTO
+
+  //DRIVE
+ private final DriveWithJoysticks driveWithJoysticks = new DriveWithJoysticks(drive, leftStick, rightStick);
       
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+
+    drive.setDefaultCommand(driveWithJoysticks);
+
     // Configure the trigger bindings
     configureBindings();
   }
@@ -42,11 +55,48 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
+      // CREATE BUTTONS
+    // *CONTROLLER
+    JoystickButton x = new JoystickButton(controller, ControllerConstants.LogitechF310.X);
+    JoystickButton a = new JoystickButton(controller, ControllerConstants.LogitechF310.A);
+    JoystickButton b = new JoystickButton(controller, ControllerConstants.LogitechF310.B);
+    JoystickButton y = new JoystickButton(controller, ControllerConstants.LogitechF310.Y);
+    JoystickButton lb = new JoystickButton(controller, ControllerConstants.LogitechF310.LB);
+    JoystickButton rb = new JoystickButton(controller, ControllerConstants.LogitechF310.RB);
+    JoystickButton back = new JoystickButton(controller, ControllerConstants.LogitechF310.BACK);
+    JoystickButton start = new JoystickButton(controller, ControllerConstants.LogitechF310.START);
+    JoystickButton leftPress = new JoystickButton(controller, ControllerConstants.LogitechF310.LEFT_PRESS);
+    JoystickButton rightPress = new JoystickButton(controller, ControllerConstants.LogitechF310.RIGHT_PRESS);
 
+    // *LEFT STICK
+    JoystickButton leftTrigger = new JoystickButton(leftStick,ControllerConstants.Thrustmaster.TRIGGER);
+    JoystickButton leftMiddle = new JoystickButton(leftStick, ControllerConstants.Thrustmaster.BUTTON_MIDDLE);
+    JoystickButton leftStickLeft = new JoystickButton(leftStick, ControllerConstants.Thrustmaster.BUTTON_LEFT);
+    JoystickButton leftStickRight = new JoystickButton(leftStick, ControllerConstants.Thrustmaster.BUTTON_RIGHT);
+    JoystickButton extraL1 = new JoystickButton(leftStick, ControllerConstants.Thrustmaster.LEFT_BASE_1);
+    JoystickButton extraL2 = new JoystickButton(leftStick, ControllerConstants.Thrustmaster.LEFT_BASE_2);
+    JoystickButton extraL3 = new JoystickButton(leftStick, ControllerConstants.Thrustmaster.LEFT_BASE_3);
+    JoystickButton extraL4 = new JoystickButton(leftStick, ControllerConstants.Thrustmaster.LEFT_BASE_4);
+    JoystickButton extraL5 = new JoystickButton(leftStick, ControllerConstants.Thrustmaster.RIGHT_BASE_5);
+    JoystickButton extraL6 = new JoystickButton(leftStick, ControllerConstants.Thrustmaster.RIGHT_BASE_6);
+    JoystickButton extraL7 = new JoystickButton(leftStick, ControllerConstants.Thrustmaster.RIGHT_BASE_7);
+    JoystickButton extraL8 = new JoystickButton(leftStick, ControllerConstants.Thrustmaster.RIGHT_BASE_8);
+    
+    // *RIGHT STICK
+    JoystickButton rightTrigger = new JoystickButton(rightStick, ControllerConstants.Thrustmaster.TRIGGER); 
+    JoystickButton rightMiddle = new JoystickButton(rightStick, ControllerConstants.Thrustmaster.BUTTON_MIDDLE);
+    JoystickButton rightStickLeft = new JoystickButton(rightStick, ControllerConstants.Thrustmaster.BUTTON_LEFT);
+    JoystickButton rightStickRight = new JoystickButton(rightStick, ControllerConstants.Thrustmaster.BUTTON_RIGHT);
+    JoystickButton extraR1 = new JoystickButton(rightStick, ControllerConstants.Thrustmaster.LEFT_BASE_1);
+    JoystickButton extraR2 = new JoystickButton(rightStick, ControllerConstants.Thrustmaster.LEFT_BASE_2);
+    JoystickButton extraR3 = new JoystickButton(rightStick, ControllerConstants.Thrustmaster.LEFT_BASE_3);
+    JoystickButton extraR4 = new JoystickButton(rightStick, ControllerConstants.Thrustmaster.LEFT_BASE_4);
+    JoystickButton extraR5 = new JoystickButton(rightStick, ControllerConstants.Thrustmaster.RIGHT_BASE_5);
+    JoystickButton extraR6 = new JoystickButton(rightStick, ControllerConstants.Thrustmaster.RIGHT_BASE_6);
+    JoystickButton extraR7 = new JoystickButton(rightStick, ControllerConstants.Thrustmaster.RIGHT_BASE_7);
+    JoystickButton extraR8 = new JoystickButton(rightStick, ControllerConstants.Thrustmaster.RIGHT_BASE_8);
 
-    // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
-    // cancelling on release.
+    // ASSIGN BUTTONS TO COMMANDS
    
   }
 
