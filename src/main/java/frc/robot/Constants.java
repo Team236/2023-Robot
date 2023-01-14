@@ -63,10 +63,10 @@ public final class Constants {
   public static class MotorControllers {
 
     //placeholder numbers for beginning of season because we haven't built the thing yet
-    public static final int ID_LEFT_FRONT = 30;
-    public static final int ID_RIGHT_FRONT = 43;
-    public static final int ID_LEFT_REAR = 44;
-    public static final int ID_RIGHT_REAR = 45;
+    public static final int ID_LEFT_FRONT = 10; //30
+    public static final int ID_RIGHT_FRONT = 15; //43
+    public static final int ID_LEFT_REAR = 11; // 44
+    public static final int ID_RIGHT_REAR = 16;//45
 
     }
 
