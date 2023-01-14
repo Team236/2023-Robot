@@ -62,8 +62,8 @@ public final class Constants {
 }
   public static class MotorControllers {
 
-    //placeholder numbers for beginning of season because we haven't built the thing yet
-    public static final int ID_LEFT_FRONT = 10; //30
+    //placeholder numbers for beginning of season because we haven't built the thing yet, CURRENT #s = TESTBED
+    public static final int ID_LEFT_FRONT = 10; //30 - 2022 #s
     public static final int ID_RIGHT_FRONT = 15; //43
     public static final int ID_LEFT_REAR = 11; // 44
     public static final int ID_RIGHT_REAR = 16;//45
