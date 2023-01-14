@@ -61,7 +61,7 @@ public class Drive extends SubsystemBase {
     if(leftSpeed < DriveConstants.LEFT_DEADZONE && leftSpeed > -DriveConstants.LEFT_DEADZONE) {
       leftSpeed = 0;
     }
-    else setLeftSpeed(leftSpeed);
+     setLeftSpeed(leftSpeed);
   }
 
   public void setRightSpeedWithDeadzone(double speed) {
@@ -69,7 +69,7 @@ public class Drive extends SubsystemBase {
     if(rightSpeed < DriveConstants.RIGHT_DEADZONE && rightSpeed > -DriveConstants.RIGHT_DEADZONE) {
       rightSpeed = 0;
     }
-    else setRightSpeed(rightSpeed);
+   setRightSpeed(rightSpeed);
   }
 
   public void stop(double speed) {
@@ -77,7 +77,7 @@ public class Drive extends SubsystemBase {
     setRightSpeed(0);
   }
 
-  
+
 
   @Override
   public void periodic() {

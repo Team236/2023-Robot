@@ -63,10 +63,10 @@ public final class Constants {
   public static class MotorControllers {
 
     //placeholder numbers for beginning of season because we haven't built the thing yet
-    public static final int ID_LEFT_FRONT = 1;
-    public static final int ID_RIGHT_FRONT = 2;
-    public static final int ID_LEFT_REAR = 3;
-    public static final int ID_RIGHT_REAR = 4;
+    public static final int ID_LEFT_FRONT = 30;
+    public static final int ID_RIGHT_FRONT = 43;
+    public static final int ID_LEFT_REAR = 44;
+    public static final int ID_RIGHT_REAR = 45;
 
     }
 
@@ -76,6 +76,21 @@ public static class DriveConstants {
   public static final double LEFT_DEADZONE = 0.17; //0.15???
   public static final double RIGHT_DEADZONE = 0.17;
   public static final boolean IS_DEADZONE = true;
+
+  //robot-specific numbers
+  public static final double DIAMETER = 6; //THIS IS A GUESS, NOT BUILT YET
+  public static final double CIRCUMFERENCE = Math.PI * DIAMETER;
+  public static final double GEAR_RATIO = 27; //TEMPORARY!!!! - change once robot is more than a concept
+
+  public static final double REV_TO_IN_K = CIRCUMFERENCE / GEAR_RATIO;
+  public static final double IN_TO_REV_K = GEAR_RATIO / CIRCUMFERENCE;
+
+  //PID stuff
+
+  //auto distances
+  public static final double AUTO_MARGIN = 0;
+  public static final double GRID_TO_CHARGE = 0; //???? Game Manual???
+
 }
   }
 
