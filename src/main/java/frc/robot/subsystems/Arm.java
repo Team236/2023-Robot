@@ -76,7 +76,7 @@ public class Arm extends SubsystemBase {
   
   public boolean isAExtendLimit() {
     if (isAExtendUnplugged) {
-      return true;
+      return false;
     } else {
       return !armExtendLimit.get();
     }
@@ -121,9 +121,9 @@ public class Arm extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("mast encoder", getArmEncoder());
+    SmartDashboard.putNumber("arm encoder", getArmEncoder());
 
-    SmartDashboard.putBoolean("mast extend limit", isAExtendLimit());
-    SmartDashboard.putBoolean("mast return limit", isAReturnLimit());
+    SmartDashboard.putBoolean("arm extend limit", isAExtendLimit());
+    SmartDashboard.putBoolean("arm return limit", isAReturnLimit());
   }
 }
