@@ -34,7 +34,7 @@ public class ArmRetract extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    arm.setArmSpeed(-0.75);
+    arm.setArmSpeed(-1);
   }
 
   // Called once the command ends or is interrupted.
