@@ -76,7 +76,7 @@ public class Arm extends SubsystemBase {
   
   public boolean isAExtendLimit() {
     if (isAExtendUnplugged) {
-      return false;
+      return true;
     } else {
       return !armExtendLimit.get();
     }
