@@ -68,6 +68,8 @@ public final class Constants {
     public static final int ID_LEFT_REAR = 44; // 11
     public static final int ID_RIGHT_REAR = 45;//16
 
+    public static final int ID_ARM = 7;
+
     }
 
 
@@ -91,6 +93,27 @@ public static class DriveConstants {
   public static final double AUTO_MARGIN = 0;
   public static final double GRID_TO_CHARGE = 0; //???? Game Manual???
 
+}
+
+public static class ArmConstants { ///FOR TESTBOT: subject to change for final
+  public static double armREV_TO_IN = 0.5;
+  public static double armIN_TO_REV = 2;
+
+  public static final int DIO_ARM_RETURN = 3;
+  public static final int DIO_ARM_EXTEND = 4;
+
+  public static final double ARM_UP = 180;
+  public static final double CLIMB_UP = -180;
+
+  public static final double ARM_EX_SPEED = 0.6;
+  public static final double ARM_RE_SPEED = 0.6;
+
+  public static double kParm = 0.025;
+  public static double kIarm = 0;
+  public static double kDarm = 0;
+  public static double kFarm = 0; //mooooo
+
+  public static final double armMARGIN = 2;
 }
   }
 

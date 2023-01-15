@@ -8,6 +8,8 @@ import frc.robot.Constants;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.commands.DriveWithJoysticks;
 import frc.robot.subsystems.Drive;
+import frc.robot.subsystems.Arm;
+import frc.robot.commands.ArmWithAxis;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -28,13 +30,16 @@ public class RobotContainer {
 
   // SUBSYSTEMS****.
   private final Drive drive = new Drive();
+  private final Arm arm = new Arm();
 
   //COMMANDS****
   //AUTO
 
   //DRIVE
  private final DriveWithJoysticks driveWithJoysticks = new DriveWithJoysticks(drive, leftStick, rightStick);
-      
+
+ //ARM
+ private final ArmWithAxis armWithAxis = new ArmWithAxis(arm, controller); 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -97,7 +102,12 @@ public class RobotContainer {
     JoystickButton extraR8 = new JoystickButton(rightStick, ControllerConstants.Thrustmaster.RIGHT_BASE_8);
 
     // ASSIGN BUTTONS TO COMMANDS
-   
+   //LEFTSTICK*****
+
+   //RIGHTSTICK*****
+
+   //CONTROLLER******
+   start.whileTrue(armWithAxis);
   }
 
   /**
