@@ -107,7 +107,7 @@ public class RobotContainer {
    //RIGHTSTICK*****
 
    //CONTROLLER******
-   start.whileTrue(armWithAxis);
+   x.whileTrue(armWithAxis);
   }
 
   /**
