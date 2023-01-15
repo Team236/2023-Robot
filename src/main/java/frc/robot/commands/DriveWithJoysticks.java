@@ -6,34 +6,52 @@ package frc.robot.commands;
 
 import frc.robot.subsystems.Drive;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 
+import edu.wpi.first.wpilibj.Joystick;
 /** An example command that uses an example subsystem. */
 public class DriveWithJoysticks extends CommandBase {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final Drive m_subsystem;
+ 
+  private Drive drive;
+  private Joystick leftstick, rightStick;
+  private Boolean isDeadzone = Constants.DriveConstants.IS_DEADZONE;
 
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public DriveWithJoysticks(Drive subsystem) {
-    m_subsystem = subsystem;
+  public DriveWithJoysticks(Drive drive, Joystick leftStick, Joystick rightStick) {
+    this.drive = drive;
+    this.leftstick = leftStick;
+    this.rightStick = rightStick;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(subsystem);
+    addRequirements(this.drive);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+  this.isDeadzone = true;
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    if (this.isDeadzone) {
+      drive.setRightSpeedWithDeadzone(-rightStick.getY());
+      drive.setLeftSpeedWithDeadzone(-leftstick.getY());
+    } else {
+      drive.setLeftSpeed(-leftstick.getY());
+      drive.setRightSpeed(-rightStick.getY());
+    }
+  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    drive.stop(0);
+  }
 
   // Returns true when the command should end.
   @Override
