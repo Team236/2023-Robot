@@ -7,9 +7,11 @@ package frc.robot;
 import frc.robot.Constants;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.commands.DriveWithJoysticks;
+import frc.robot.commands.ArmCommands.ArmWithAxis;
+import frc.robot.commands.ArmCommands.ArmExtend;
+import frc.robot.commands.ArmCommands.ArmRetract;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Arm;
-import frc.robot.commands.ArmWithAxis;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -40,6 +42,8 @@ public class RobotContainer {
 
  //ARM
  private final ArmWithAxis armWithAxis = new ArmWithAxis(arm, controller); 
+ private final ArmExtend armExtend = new ArmExtend(arm, controller);
+ private final ArmRetract armRetract = new ArmRetract(arm, controller);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -107,7 +111,8 @@ public class RobotContainer {
    //RIGHTSTICK*****
 
    //CONTROLLER******
-   x.whileTrue(armWithAxis);
+  x.whileTrue(armExtend);
+  y.whileTrue(armRetract);
   }
 
   /**
