@@ -32,8 +32,8 @@ public class ArmWithAxis extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    arm.setArmSpeed(-controller.getRawAxis(1));
-    speed = -controller.getRawAxis(1);
+    arm.setArmSpeed(-controller.getRawAxis(ControllerConstants.LogitechF310.AxesController.LEFT_Y));
+    speed = -controller.getRawAxis(ControllerConstants.LogitechF310.AxesController.LEFT_Y);
 
   }
   // Called once the command ends or is interrupted.
