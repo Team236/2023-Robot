@@ -114,8 +114,8 @@ public static class ArmConstants { ///FOR TESTBOT: subject to change for final
   public static double kFarm = 0; //mooooo
 
   public static final double armMARGIN = 2;
-  public static final double armMIN_OUTPUT = 176;
-  public static final double armMAX_OUTPUT = 180;
+  public static final double armMIN_OUTPUT = 6;
+  public static final double armMAX_OUTPUT = 3;
 
 }
   }
