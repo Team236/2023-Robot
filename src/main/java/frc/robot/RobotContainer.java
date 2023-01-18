@@ -6,9 +6,10 @@ package frc.robot;
 
 import frc.robot.Constants;
 import frc.robot.Constants.ControllerConstants;
-import frc.robot.commands.DriveWithJoysticks;
 import frc.robot.commands.ArmCommands.ArmWithAxis;
+import frc.robot.commands.Drive.DriveWithJoysticks;
 import frc.robot.commands.ArmCommands.ArmExtend;
+import frc.robot.commands.ArmCommands.ArmPID;
 import frc.robot.commands.ArmCommands.ArmRetract;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Arm;
@@ -113,6 +114,8 @@ public class RobotContainer {
    //CONTROLLER******
   x.whileTrue(armExtend);
   y.whileTrue(armRetract);
+
+  a.whileTrue(new ArmPID(arm, 25, 2));
   }
 
   /**

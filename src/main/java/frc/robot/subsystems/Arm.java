@@ -91,6 +91,38 @@ public class Arm extends SubsystemBase {
      return armEncoder.getPosition();
   }
 
+  public void setArmSetPoint(double armDistance) {
+    armPID.setReference(armDistance, ControlType.kPosition);
+  }
+
+  public void setArmSetPointWLimit (double armDistance) {
+    if (armExtendLimit.get() || armReturnLimit.get()) {
+      armStop();
+    } else {
+      armPID.setReference((armDistance * ArmConstants.armIN_TO_REV), ControlType.kPosition);
+    }
+  }
+
+  public void setArmkP(double kParm){
+    armPID.setP(ArmConstants.kParm);
+  }
+
+  public void setArmkI (double kIarm) {
+    armPID.setI(kIarm);
+  }
+
+  public void setArmkD(double kDarm){
+    armPID.setD(kDarm);
+  }
+
+  public void setArmkF (double kFarm){
+    armPID.setFF(kFarm);
+  }
+
+  public void setArmOutputRange () {
+    armPID.setOutputRange(Constants.ArmConstants.armMIN_OUTPUT, Constants.ArmConstants.armMAX_OUTPUT);
+  }
+
   public double getArmDistance() {
     return getArmEncoder() * ArmConstants.armREV_TO_IN;
   } 
