@@ -38,15 +38,19 @@ public class ArmPID extends CommandBase {
     arm.setArmkI(Constants.ArmConstants.kIarm);
     arm.setArmkD(Constants.ArmConstants.kDarm);
     arm.setArmkF(Constants.ArmConstants.kFarm); ///moooooo pt 2
+
+    arm.resetArmEncoder();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     arm.setArmOutputRange();
-    arm.setArmSetPointWLimit(armDistance);
+    arm.setArmSetPoint(armDistance);
 
     armError = Math.abs(armDistance - arm.getArmEncoder());
+    
+    
   }
 
   // Called once the command ends or is interrupted.

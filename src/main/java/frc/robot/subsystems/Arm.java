@@ -87,7 +87,7 @@ public class Arm extends SubsystemBase {
   }
 
   //returns encoder position in REVOLUTIONS 
-  public double getArmEncoder() {
+    public double getArmEncoder() {
      return armEncoder.getPosition();
   }
 
@@ -124,7 +124,7 @@ public class Arm extends SubsystemBase {
   }
 
   public double getArmDistance() {
-    return getArmEncoder() * ArmConstants.armREV_TO_IN;
+    return  getArmEncoder() * ArmConstants.armREV_TO_IN;
   } 
   
   public void setArmSpeed(double speed) {
