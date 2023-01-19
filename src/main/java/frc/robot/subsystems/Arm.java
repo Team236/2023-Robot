@@ -157,5 +157,8 @@ public class Arm extends SubsystemBase {
 
     SmartDashboard.putBoolean("arm extend limit", isAExtendLimit());
     SmartDashboard.putBoolean("arm return limit", isAReturnLimit());
+    SmartDashboard.putNumber("P value", ArmConstants.kParm);
+    SmartDashboard.putNumber("I Value", ArmConstants.kIarm);
+    SmartDashboard.putNumber("D Value", ArmConstants.kDarm);
   }
 }
