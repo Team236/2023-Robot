@@ -38,8 +38,6 @@ public class ArmPID extends CommandBase {
     arm.setArmkI(Constants.ArmConstants.kIarm);
     arm.setArmkD(Constants.ArmConstants.kDarm);
     arm.setArmkF(Constants.ArmConstants.kFarm); ///moooooo pt 2
-
-    arm.resetArmEncoder();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
