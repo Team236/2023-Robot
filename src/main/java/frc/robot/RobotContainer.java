@@ -6,11 +6,11 @@ package frc.robot;
 
 import frc.robot.Constants;
 import frc.robot.Constants.ControllerConstants;
-import frc.robot.commands.ArmCommands.ArmWithAxis;
+import frc.robot.commands.Arm.ArmExtend;
+import frc.robot.commands.Arm.ArmPID;
+import frc.robot.commands.Arm.ArmRetract;
+import frc.robot.commands.Arm.ArmWithAxis;
 import frc.robot.commands.Drive.DriveWithJoysticks;
-import frc.robot.commands.ArmCommands.ArmExtend;
-import frc.robot.commands.ArmCommands.ArmPID;
-import frc.robot.commands.ArmCommands.ArmRetract;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Arm;
 import edu.wpi.first.wpilibj.Joystick;

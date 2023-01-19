@@ -42,6 +42,9 @@ public class Drive extends SubsystemBase {
 
     leftEncoder = leftFront.getEncoder();
     rightEncoder = rightFront.getEncoder();
+
+    leftPID = leftFront.getPIDController();
+    rightPID = rightFront.getPIDController();
   }
 
   public void setLeftSpeed(double speed) {
@@ -55,6 +58,10 @@ public class Drive extends SubsystemBase {
   public void setBothSpeeds(double speed) {
     rightFront.set(speed);
     leftFront.set(speed);
+  }
+  public void setTurnSpeeds(double speed) {
+    leftFront.set(speed);
+    rightFront.set(-speed);
   }
   public void setLeftSpeedWithDeadzone(double speed) {
     double leftSpeed = speed;
@@ -71,6 +78,29 @@ public class Drive extends SubsystemBase {
     }
    setRightSpeed(rightSpeed);
   }
+
+  public double getLeftSpeed() {
+   return leftEncoder.getVelocity();
+  }
+  public double getRightSpeed() {
+    return rightEncoder.getVelocity();
+  }
+  public double getLeftEncoder(){
+  return leftEncoder.getPosition();
+  }
+  public double getRightEncoder() {
+    return rightEncoder.getPosition();
+  }
+  public double getLeftDistance() {
+    return getLeftEncoder() * DriveConstants.REV_TO_IN_K;
+  }
+  public double getRightDistance() {
+    return getRightEncoder() * DriveConstants.REV_TO_IN_K;
+  }
+  public double getAvgDistance() {
+    return (getLeftDistance() + getRightDistance())/2 ;
+  }
+    
 
   public void stop(double speed) {
     setLeftSpeed(0);
