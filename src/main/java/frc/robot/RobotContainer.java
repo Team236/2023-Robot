@@ -114,8 +114,8 @@ public class RobotContainer {
    //CONTROLLER******
   x.whileTrue(armExtend);
   y.whileTrue(armRetract);
-
   a.onTrue(new ArmPID(arm, 6, 2));
+  start.whileTrue(armWithAxis);
   }
 
   /**
