@@ -7,6 +7,7 @@ package frc.robot.commands.Arm;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Arm;
 import frc.robot.Constants;
+import edu.wpi.first.math.controller.PIDController;
 import frc.robot.Constants.ArmConstants;
 
 import com.revrobotics.SparkMaxPIDController;
@@ -20,6 +21,7 @@ public class ArmPID extends CommandBase {
   private double armDistance;
   private double armMargin;
   private double armError;
+  private final PIDController armPidController;
 
   public ArmPID(Arm arm, double armDistance, double armMargin) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -28,26 +30,23 @@ public class ArmPID extends CommandBase {
 
     this.armDistance = armDistance;
     this.armMargin = armMargin;
-
+    this.armPidController = new PIDController(ArmConstants.kParm, ArmConstants.kIarm, ArmConstants.kDarm);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    arm.setArmkP(Constants.ArmConstants.kParm);
-    arm.setArmkI(Constants.ArmConstants.kIarm);
-    arm.setArmkD(Constants.ArmConstants.kDarm);
-    arm.setArmkF(Constants.ArmConstants.kFarm); ///moooooo pt 2
+    armPidController.reset();
+    arm.resetArmEncoder();
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    arm.setArmOutputRange();
-    arm.setArmSetPoint(armDistance);
-
-    armError = Math.abs(armDistance - arm.getArmEncoder());
-    
+    double armSpeed = armPidController.calculate(arm.getArmDistance());
+    arm.setArmSpeed(armSpeed);
+  
     
   }
 
