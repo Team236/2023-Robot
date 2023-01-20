@@ -59,14 +59,15 @@ public class ArmPID extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if ((armDistance > 0) && arm.isAExtendLimit()) {
+    return false;
+   /* if ((armDistance > 0) && arm.isAExtendLimit()) {
       return true;
     } else if ((armDistance < 0) && arm.isAReturnLimit()) {
       arm.resetArmEncoder();
       return true;
     } else {
       return false;
-    }
+    }*/
 
   }
 }
