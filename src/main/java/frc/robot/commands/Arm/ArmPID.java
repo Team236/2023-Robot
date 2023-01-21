@@ -26,11 +26,12 @@ public class ArmPID extends CommandBase {
   public ArmPID(Arm arm, double armDistance, double armMargin) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.arm = arm;
-    addRequirements(this.arm);
+    addRequirements(arm);
 
     this.armDistance = armDistance;
     this.armMargin = armMargin;
     this.armPidController = new PIDController(ArmConstants.kParm, ArmConstants.kIarm, ArmConstants.kDarm);
+    armPidController.setSetpoint(armDistance);
   }
 
   // Called when the command is initially scheduled.
