@@ -107,8 +107,8 @@ public static class ArmConstants { ///FOR TESTBOT: subject to change for final
   public static final double ARM_OUT = 6;
   public static final double CLIMB_UP = 6;
 
-  public static final double ARM_EX_SPEED = 0.6;
-  public static final double ARM_RE_SPEED = 0.6;
+  public static final double ARM_EX_SPEED = 0.4;
+  public static final double ARM_RE_SPEED = 0.4;
 
   public static double kParm = 0;
   public static double kIarm = 0;
