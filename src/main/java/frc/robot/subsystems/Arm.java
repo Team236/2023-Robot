@@ -36,7 +36,7 @@ public class Arm extends SubsystemBase {
     armMotor.restoreFactoryDefaults();
     armMotor.setInverted(false);
 
-    armPID = armMotor.getPIDController();
+    //armPID = armMotor.getPIDController();
     armEncoder = armMotor.getEncoder();
 
     
@@ -91,19 +91,19 @@ public class Arm extends SubsystemBase {
      return armEncoder.getPosition();
   }
 
-  public void setArmSetPoint(double armDistance) {
+ /*  public void setArmSetPoint(double armDistance) {
     armPID.setReference(armDistance, ControlType.kPosition);
-  }
+  }*/
 
-  public void setArmSetPointWLimit (double armDistance) {
-    if (armExtendLimit.get() || armReturnLimit.get()) {
-      armStop();
-    } else {
-      armPID.setReference((armDistance * ArmConstants.armIN_TO_REV), ControlType.kPosition);
-    }
-  }
+ // public void setArmSetPointWLimit (double armDistance) {
+ //   if (armExtendLimit.get() || armReturnLimit.get()) {
+  //    armStop();
+ //   } else {
+  //    armPID.setReference((armDistance * ArmConstants.armIN_TO_REV), ControlType.kPosition);
+  //  }
+  //}
 
-  public void setArmkP(double kParm){
+ /*  public void setArmkP(double kParm){
     armPID.setP(ArmConstants.kParm);
   }
 
@@ -121,7 +121,7 @@ public class Arm extends SubsystemBase {
 
   public void setArmOutputRange () {
     armPID.setOutputRange(Constants.ArmConstants.armMIN_OUTPUT, Constants.ArmConstants.armMAX_OUTPUT);
-  }
+  }*/
 
   public double getArmDistance() {
     return  getArmEncoder() * ArmConstants.armREV_TO_IN;

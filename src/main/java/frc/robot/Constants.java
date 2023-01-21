@@ -98,19 +98,18 @@ public static class DriveConstants {
 }
 
 public static class ArmConstants { ///FOR TESTBOT: subject to change for final
-  public static double armREV_TO_IN = 0.5;
-  public static double armIN_TO_REV = 2;
+  public static double armREV_TO_IN = 0.5; // 1/2 inch per revolution
+  public static double armIN_TO_REV = 2; //2 revolutions per inch
 
   public static final int DIO_ARM_RETURN = 3;
   public static final int DIO_ARM_EXTEND = 4;
 
-  public static final double ARM_OUT = 6;
-  public static final double CLIMB_UP = 6;
+  public static final double ARM_OUT = 12;
 
-  public static final double ARM_EX_SPEED = 0.2;
-  public static final double ARM_RE_SPEED = 0.2;
+  public static final double ARM_EX_SPEED = 0.7;
+  public static final double ARM_RE_SPEED = 0.85;
 
-  public static double kParm = 0;
+  public static double kParm = 0.02;
   public static double kIarm = 0;
   public static double kDarm = 0;
   public static double kFarm = 0; //mooooo
@@ -118,6 +117,18 @@ public static class ArmConstants { ///FOR TESTBOT: subject to change for final
   public static final double armMARGIN = 2;
   public static final double armMIN_OUTPUT = 10;
   public static final double armMAX_OUTPUT = 3;
+
+}
+public static class GripperConstants {
+  //Solenoid ports on the PCM
+  public static final int GRIPPER_SOL_FOR = 6;
+  public static final int GRIPPER_SOL_REV = 7;
+
+  public static final int PIVOT_SOL_FOR = 0;
+  public static final int PIVOT_SOL_REV = 1;
+
+  //Port used on the DIO
+  public static final int DIO_GRIPPER_EYE = 5;
 
 }
   }
