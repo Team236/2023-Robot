@@ -7,12 +7,14 @@ package frc.robot;
 import frc.robot.Constants;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.commands.Arm.ArmExtend;
-import frc.robot.commands.Arm.ArmPID;
 import frc.robot.commands.Arm.ArmRetract;
 import frc.robot.commands.Arm.ArmWithAxis;
 import frc.robot.commands.Drive.DriveWithJoysticks;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Arm;
+
+import org.photonvision.PhotonCamera;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -42,7 +44,7 @@ public class RobotContainer {
  private final DriveWithJoysticks driveWithJoysticks = new DriveWithJoysticks(drive, leftStick, rightStick);
 
  //ARM
- private final ArmWithAxis armWithAxis = new ArmWithAxis(arm, controller); 
+ private final frc.robot.commands.Arm.ArmWithAxis armWithAxis = new ArmWithAxis(arm, controller); 
  private final ArmExtend armExtend = new ArmExtend(arm, controller);
  private final ArmRetract armRetract = new ArmRetract(arm, controller);
 
@@ -108,14 +110,12 @@ public class RobotContainer {
 
     // ASSIGN BUTTONS TO COMMANDS
    //LEFTSTICK*****
-
+    
    //RIGHTSTICK*****
 
    //CONTROLLER******
   x.whileTrue(armExtend);
   y.whileTrue(armRetract);
-  a.onTrue(new ArmPID(arm, 6, 2));
-  start.whileTrue(armWithAxis);
   }
 
   /**
