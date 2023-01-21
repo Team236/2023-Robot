@@ -60,6 +60,13 @@ public final class Constants {
             public static final int RIGHT_X = 4;
             public static final int RIGHT_Y = 5;
         }
+
+        public class POVController {
+          public static final int UP_ANGLE = 0;
+          public static final int RIGHT_ANGLE = 90;
+          public static final int DOWN_ANGLE = 180;
+          public static final int LEFT_ANGLE = 270;
+        }
     }
 }
   public static class MotorControllers {
@@ -131,7 +138,7 @@ public static class GripperConstants {
   public static final int DIO_GRIPPER_EYE = 5;
 
 }
-  }
+}
 
   
 

@@ -91,8 +91,8 @@ private final PivotToggle pivotToggle = new PivotToggle(pivot);
     JoystickButton start = new JoystickButton(controller, ControllerConstants.LogitechF310.START);
     JoystickButton leftPress = new JoystickButton(controller, ControllerConstants.LogitechF310.LEFT_PRESS);
     JoystickButton rightPress = new JoystickButton(controller, ControllerConstants.LogitechF310.RIGHT_PRESS);
-    POVButton upPov = new POVButton(controller, 0);
-    POVButton downPov = new POVButton(controller, 180);
+    POVButton upPov = new POVButton(controller, Constants.ControllerConstants.LogitechF310.POVController.UP_ANGLE);
+    POVButton downPov = new POVButton(controller, Constants.ControllerConstants.LogitechF310.POVController.DOWN_ANGLE);
 
 
 
@@ -135,6 +135,7 @@ private final PivotToggle pivotToggle = new PivotToggle(pivot);
   a.whileTrue(new ArmPID(arm, Constants.ArmConstants.ARM_OUT, Constants.ArmConstants.armMARGIN));
   x.whileTrue(grabReleaseToggle);  
   b.whileTrue(pivotToggle);
+
   }
 
   /**
