@@ -72,10 +72,10 @@ public final class Constants {
   public static class MotorControllers {
 
     //placeholder numbers for beginning of season because we haven't built the thing yet, CURRENT #s = 2022
-    public static final int ID_LEFT_FRONT = 30; //10 - testbed #s
-    public static final int ID_RIGHT_FRONT = 43; //15
-    public static final int ID_LEFT_REAR = 44; // 11
-    public static final int ID_RIGHT_REAR = 45;//16
+    public static final int ID_LEFT_FRONT = 10; //30 - testbed #s
+    public static final int ID_RIGHT_FRONT = 15; //43
+    public static final int ID_LEFT_REAR = 11; // 44
+    public static final int ID_RIGHT_REAR = 16;//45
 
     public static final int ID_ARM = 38;
 
@@ -97,26 +97,30 @@ public static class DriveConstants {
   public static final double IN_TO_REV_K = GEAR_RATIO / CIRCUMFERENCE;
 
   //PID stuff
+  public static final double kPdrive = 0;
+  public static final double kIdrive = 0;
+  public static final double kDdrive = 0;
+  public static final double kFdrive = 0;
 
   //auto distances
   public static final double AUTO_MARGIN = 0;
-  public static final double GRID_TO_CHARGE = 0; //???? Game Manual???
+  public static final double GRID_TO_CHARGE = 224; //???? Game Manual???
 
 }
 
 public static class ArmConstants { ///FOR TESTBOT: subject to change for final
-  public static double armREV_TO_IN = 0.5; // 1/2 inch per revolution
-  public static double armIN_TO_REV = 2; //2 revolutions per inch
+  public static double armREV_TO_IN = 0.125; // 1/2 inch per revolution
+  public static double armIN_TO_REV = 8; //2 revolutions per inch
 
   public static final int DIO_ARM_RETURN = 3;
   public static final int DIO_ARM_EXTEND = 4;
 
-  public static final double ARM_OUT = 12;
+  public static final double ARM_OUT = 4;
 
   public static final double ARM_EX_SPEED = 0.7;
   public static final double ARM_RE_SPEED = 0.85;
 
-  public static double kParm = 0.02;
+  public static double kParm = 0.08;
   public static double kIarm = 0;
   public static double kDarm = 0;
   public static double kFarm = 0; //mooooo

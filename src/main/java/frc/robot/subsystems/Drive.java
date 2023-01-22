@@ -11,6 +11,7 @@ import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.SparkMaxRelativeEncoder.Type;
 
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -34,8 +35,8 @@ public class Drive extends SubsystemBase {
     leftFront.restoreFactoryDefaults();
     rightFront.restoreFactoryDefaults();
 
-    leftFront.setInverted(false);
-    rightFront.setInverted(true);
+    leftFront.setInverted(true);
+    rightFront.setInverted(false);
 
     leftRear.follow(leftFront);
     rightRear.follow(rightFront);
@@ -45,6 +46,7 @@ public class Drive extends SubsystemBase {
 
     leftPID = leftFront.getPIDController();
     rightPID = rightFront.getPIDController();
+
   }
 
   public void setLeftSpeed(double speed) {
@@ -67,16 +69,16 @@ public class Drive extends SubsystemBase {
     double leftSpeed = speed;
     if(leftSpeed < DriveConstants.LEFT_DEADZONE && leftSpeed > -DriveConstants.LEFT_DEADZONE) {
       leftSpeed = 0;
-    }
-     setLeftSpeed(leftSpeed);
+    } 
+    setLeftSpeed(leftSpeed);
   }
 
   public void setRightSpeedWithDeadzone(double speed) {
     double rightSpeed = speed;
     if(rightSpeed < DriveConstants.RIGHT_DEADZONE && rightSpeed > -DriveConstants.RIGHT_DEADZONE) {
       rightSpeed = 0;
-    }
-   setRightSpeed(rightSpeed);
+    } 
+    setRightSpeed(rightSpeed);
   }
 
   public double getLeftSpeed() {
@@ -107,7 +109,7 @@ public class Drive extends SubsystemBase {
     setRightSpeed(0);
   }
 
-
+ 
 
   @Override
   public void periodic() {
