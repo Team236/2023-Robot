@@ -6,6 +6,7 @@ package frc.robot.commands.Drive;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drive;
+import frc.robot.subsystems.Gripper;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.Joystick;
 
@@ -14,15 +15,19 @@ public class DoubleArcadeDrive extends CommandBase {
   private Joystick leftStick, rightStick;
   private double max, L, R;
   private Boolean isDeadzone = Constants.DriveConstants.IS_DEADZONE;
+  private Gripper gripper1;
 
 
   /** Creates a new DoubleArcadeDrive. */
-  public DoubleArcadeDrive(Drive drive, Joystick leftStick, Joystick rightStick) {
+  public DoubleArcadeDrive(Drive drive, Joystick leftStick, Joystick rightStick, Gripper gripper1) {
     this.drive = drive;
     this.leftStick = leftStick;
     this.rightStick = rightStick;
+
+    this.gripper1 = gripper1;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(drive);
+    addRequirements(gripper1);
   }
 
   // Called when the command is initially scheduled.
@@ -54,7 +59,7 @@ public class DoubleArcadeDrive extends CommandBase {
     if (max < Math.abs(R)) {max = Math.abs(R);}
     if (max > 1) {L /= max; R/= max;}
   
-  
+    if (gripper1.getGripperEyeCount() == 1) {gripper1.grab();}
   }
 
   // Called once the command ends or is interrupted.

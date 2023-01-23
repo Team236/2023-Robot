@@ -22,6 +22,7 @@ public class ReleasePiece extends CommandBase {
   @Override
   public void initialize() {
     gripper.release();
+    gripper.resetGripperEyeCount();
   }
 
   // Called every time the scheduler runs while the command is scheduled.

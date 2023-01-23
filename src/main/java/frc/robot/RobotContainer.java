@@ -51,7 +51,7 @@ public class RobotContainer {
   //DRIVE
  //private final DriveWithJoysticks driveWithJoysticks = new DriveWithJoysticks(drive, leftStick, rightStick);
  //private final DriveStraight driveStraight = new DriveStraight(drive);
- private final DoubleArcadeDrive doubleArcadeDrive = new DoubleArcadeDrive(drive, leftStick, rightStick);
+ private final DoubleArcadeDrive doubleArcadeDrive = new DoubleArcadeDrive(drive, leftStick, rightStick, gripper);
 
  //ARM
  private final ArmWithAxis armWithAxis = new ArmWithAxis(arm, controller); 

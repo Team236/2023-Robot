@@ -7,10 +7,10 @@ package frc.robot.commands.Drive;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drive;
 
-public class DriveStraight extends CommandBase {
+public class GridToCenterPiece extends CommandBase {
   private Drive drive;
   /** Creates a new DriveStraight. */
-  public DriveStraight(Drive drive) {
+  public GridToCenterPiece(Drive drive) {
     this.drive = drive;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(drive);
@@ -23,7 +23,7 @@ public class DriveStraight extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drive.setBothSpeeds(0.3);
+    
   }
 
   // Called once the command ends or is interrupted.

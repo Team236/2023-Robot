@@ -34,6 +34,7 @@ public class GrabReleaseToggle extends CommandBase{
 
    if (gripper.isGripping()) {
     gripper.release();
+    gripper.resetGripperEyeCount();
     toggle = true;
 
     } else if (!gripper.isGripping()) {
