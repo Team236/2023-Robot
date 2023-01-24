@@ -102,7 +102,12 @@ public class Drive extends SubsystemBase {
   public double getAvgDistance() {
     return (getLeftDistance() + getRightDistance())/2 ;
   }
-    
+  public void resetLeftEncoder() {
+    leftEncoder.setPosition(0);
+  }
+  public void resetRightEncoder() {
+    rightEncoder.setPosition(0);
+  }
 
   public void stop(double speed) {
     setLeftSpeed(0);
