@@ -142,13 +142,10 @@ private final PivotToggle pivotToggle = new PivotToggle(pivot);
   a.whileTrue(new ArmPID(arm, Constants.ArmConstants.ARM_OUT));
   x.whileTrue(grabReleaseToggle);  
   b.whileTrue(pivotToggle);
-  rb.whileTrue(armExtend);
-  lb.whileTrue(armRetract);
-
-
+  start.whileTrue(armWithAxis);
+  
 
   }
-
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *

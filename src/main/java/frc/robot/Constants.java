@@ -6,6 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.util.sendable.Sendable;
 
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -66,6 +67,8 @@ public final class Constants {
           public static final int RIGHT_ANGLE = 90;
           public static final int DOWN_ANGLE = 180;
           public static final int LEFT_ANGLE = 270;
+
+        
         }
     }
 }
@@ -129,6 +132,8 @@ public static class ArmConstants { ///FOR TESTBOT: subject to change for final
   public static final double armMARGIN = 2;
   public static final double armMIN_OUTPUT = 10;
   public static final double armMAX_OUTPUT = 3;
+
+  
 
 }
 public static class GripperConstants {
