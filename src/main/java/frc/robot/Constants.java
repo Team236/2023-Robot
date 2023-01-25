@@ -75,10 +75,10 @@ public final class Constants {
   public static class MotorControllers {
 
     //placeholder numbers for beginning of season because we haven't built the thing yet, CURRENT #s = testbed
-    public static final int ID_LEFT_FRONT = 10; //30 - 2022 #s
-    public static final int ID_RIGHT_FRONT = 15; //43
-    public static final int ID_LEFT_REAR = 11; // 44
-    public static final int ID_RIGHT_REAR = 16;//45
+    public static final int ID_LEFT_FRONT = 30; //10 - 2022 #s
+    public static final int ID_RIGHT_FRONT = 43; //15
+    public static final int ID_LEFT_REAR = 44; // 11
+    public static final int ID_RIGHT_REAR = 45;//16
 
     public static final int ID_ARM = 38;
 
@@ -92,15 +92,15 @@ public static class DriveConstants {
   public static final boolean IS_DEADZONE = true;
 
   //robot-specific numbers
-  public static final double DIAMETER = 6; //THIS IS A GUESS, NOT BUILT YET
+  public static final double DIAMETER = 4; //THIS IS A GUESS, NOT BUILT YET
   public static final double CIRCUMFERENCE = Math.PI * DIAMETER;
-  public static final double GEAR_RATIO = 18.75; //TEMPORARY!!!! - change once robot is more than a concept
+  public static final double GEAR_RATIO = 8.71 * 0.75; //TEMPORARY!!!! - change once robot is more than a concept
 
   public static final double REV_TO_IN_K = CIRCUMFERENCE / GEAR_RATIO;
   public static final double IN_TO_REV_K = GEAR_RATIO / CIRCUMFERENCE;
 
   //PID stuff
-  public static final double kPdrive = 0;
+  public static final double kPdrive = 0.0107;
   public static final double kIdrive = 0;
   public static final double kDdrive = 0;
   public static final double kFdrive = 0;
@@ -108,7 +108,7 @@ public static class DriveConstants {
   //auto distances
   public static final double AUTO_MARGIN = 0;
   public static final double GRID_TO_CHARGE = 42; //???? Game Manual???
-  public static final double GRID_TO_CENTER = 224;
+  public static final double GRID_TO_CENTER = 36;
 
 }
 
