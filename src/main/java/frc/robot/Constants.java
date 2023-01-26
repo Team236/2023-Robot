@@ -100,10 +100,15 @@ public static class DriveConstants {
   public static final double IN_TO_REV_K = GEAR_RATIO / CIRCUMFERENCE;
 
   //PID stuff
-  public static final double kPdrive = 0.0107;
-  public static final double kIdrive = 0;
-  public static final double kDdrive = 0;
-  public static final double kFdrive = 0;
+  public static final double leftkPdrive = 0.0107;
+  public static final double leftkIdrive = 0;
+  public static final double leftkDdrive = 0;
+  public static final double leftkFdrive = 0;
+
+  public static final double rightkPdrive = 0.0107;
+  public static final double rightkIdrive = 0;
+  public static final double rightkDdrive = 0;
+  public static final double rightkFdrive = 0;
 
   //auto distances
   public static final double AUTO_MARGIN = 0;

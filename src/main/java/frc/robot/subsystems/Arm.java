@@ -7,9 +7,6 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxLimitSwitch;
-import com.revrobotics.SparkMaxPIDController;
-
-import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.SparkMaxRelativeEncoder.Type;
 import edu.wpi.first.math.controller.PIDController;
@@ -25,7 +22,6 @@ public class Arm extends SubsystemBase {
   
   private CANSparkMax armMotor;
   private RelativeEncoder armEncoder;
-  private SparkMaxPIDController armPID;
   private DigitalInput armReturnLimit, armExtendLimit;
   private boolean isAReturnUnplugged = false;
   private boolean isAExtendUnplugged = false;
@@ -90,38 +86,6 @@ public class Arm extends SubsystemBase {
     public double getArmEncoder() {
      return armEncoder.getPosition();
   }
-
- /*  public void setArmSetPoint(double armDistance) {
-    armPID.setReference(armDistance, ControlType.kPosition);
-  }*/
-
- // public void setArmSetPointWLimit (double armDistance) {
- //   if (armExtendLimit.get() || armReturnLimit.get()) {
-  //    armStop();
- //   } else {
-  //    armPID.setReference((armDistance * ArmConstants.armIN_TO_REV), ControlType.kPosition);
-  //  }
-  //}
-
- /*  public void setArmkP(double kParm){
-    armPID.setP(ArmConstants.kParm);
-  }
-
-  public void setArmkI (double kIarm) {
-    armPID.setI(kIarm);
-  }
-
-  public void setArmkD(double kDarm){
-    armPID.setD(kDarm);
-  }
-
-  public void setArmkF (double kFarm){
-    armPID.setFF(kFarm);
-  }
-
-  public void setArmOutputRange () {
-    armPID.setOutputRange(Constants.ArmConstants.armMIN_OUTPUT, Constants.ArmConstants.armMAX_OUTPUT);
-  }*/
 
   public double getArmDistance() {
     return  getArmEncoder() * ArmConstants.armREV_TO_IN;

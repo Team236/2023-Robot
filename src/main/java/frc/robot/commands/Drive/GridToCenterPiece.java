@@ -18,8 +18,8 @@ public class GridToCenterPiece extends CommandBase {
   /** Creates a new DriveStraight. */
   public GridToCenterPiece(Drive drive, double driveDistance) {
     this.drive = drive;
-    this.leftPidController = new PIDController(DriveConstants.kPdrive, DriveConstants.kIdrive, DriveConstants.kDdrive);
-    this.rightPidController = new PIDController(DriveConstants.kPdrive, DriveConstants.kIdrive, DriveConstants.kDdrive);
+    this.leftPidController = new PIDController(DriveConstants.leftkPdrive, DriveConstants.leftkIdrive, DriveConstants.leftkDdrive);
+    this.rightPidController = new PIDController(DriveConstants.rightkPdrive, DriveConstants.rightkIdrive, DriveConstants.rightkDdrive);
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(drive);
     leftPidController.setSetpoint(driveDistance);

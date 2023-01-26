@@ -6,8 +6,6 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
-import com.revrobotics.SparkMaxPIDController;
-import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.SparkMaxRelativeEncoder.Type;
 
@@ -23,7 +21,6 @@ public class Drive extends SubsystemBase {
 
   public CANSparkMax leftFront, leftRear, rightFront, rightRear;
   private RelativeEncoder leftEncoder, rightEncoder;
-  private SparkMaxPIDController leftPID, rightPID; 
 
   /** Creates a new ExampleSubsystem. */
   public Drive() {
@@ -43,9 +40,6 @@ public class Drive extends SubsystemBase {
 
     leftEncoder = leftFront.getEncoder();
     rightEncoder = rightFront.getEncoder();
-
-    leftPID = leftFront.getPIDController();
-    rightPID = rightFront.getPIDController();
 
   }
 
