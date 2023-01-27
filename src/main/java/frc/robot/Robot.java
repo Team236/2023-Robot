@@ -4,11 +4,14 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.subsystems.Drive;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -92,12 +95,24 @@ public class Robot extends TimedRobot {
   @Override
   public void testInit() {
     // Cancels all running commands at the start of test mode.
-    CommandScheduler.getInstance().cancelAll();
+    //CommandScheduler.getInstance().cancelAll();
+    LiveWindow.setEnabled(false);
   }
 
   /** This function is called periodically during test mode. */
   @Override
-  public void testPeriodic() {}
+  public void testPeriodic() {
+    final Drive drive = new Drive();
+    final PIDController lPidController = new PIDController(Constants.DriveConstants.leftkPdrive, Constants.DriveConstants.leftkIdrive, Constants.DriveConstants.leftkDdrive);
+    final PIDController rPidController = new PIDController(Constants.DriveConstants.rightkPdrive, Constants.DriveConstants.rightkIdrive, Constants.DriveConstants.rightkDdrive);
+    lPidController.setSetpoint(60);
+    rPidController.setSetpoint(60);
+
+    double leftSpeed = lPidController.calculate(drive.getLeftDistance());
+    double rightSpeed = rPidController.calculate(drive.getRightDistance());
+    drive.setLeftSpeed(leftSpeed);
+    drive.setRightSpeed(rightSpeed);
+  } 
 
   /** This function is called once when the robot is first started up. */
   @Override
