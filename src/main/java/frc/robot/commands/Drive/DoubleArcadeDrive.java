@@ -45,11 +45,11 @@ public class DoubleArcadeDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (leftStick.getX() < 0.15) {
+    if (Math.abs(leftStick.getX()) < 0.15) {
       this.inXDeadzone = true;
     }
     while(inXDeadzone){
-      kP = 1;
+      kP = 0.000;
       error = navX.getrate();
     }
     while(!inXDeadzone){
@@ -65,11 +65,11 @@ public class DoubleArcadeDrive extends CommandBase {
     }
 
     if (rightStick.getY() <= 0) {
-      L = (-rightStick.getY() + kP*error) + leftStick.getX();
-      R = (-rightStick.getY() - kP*error) - leftStick.getX();
+      L = (-rightStick.getY() - kP*error) + leftStick.getX();
+      R = (-rightStick.getY() + kP*error) - leftStick.getX();
     } else {
-      L = (-rightStick.getY() - kP*error) - leftStick.getX();
-      R = (-rightStick.getY() + kP*error) + leftStick.getX();
+      L = (-rightStick.getY() + kP*error) - leftStick.getX();
+      R = (-rightStick.getY() - kP*error) + leftStick.getX();
     }
 
     max = Math.abs(L);
