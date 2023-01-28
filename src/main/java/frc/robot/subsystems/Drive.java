@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -21,6 +22,7 @@ public class Drive extends SubsystemBase {
 
   public CANSparkMax leftFront, leftRear, rightFront, rightRear;
   private RelativeEncoder leftEncoder, rightEncoder;
+  public AHRS navX;
 
   /** Creates a new ExampleSubsystem. */
   public Drive() {
@@ -40,6 +42,8 @@ public class Drive extends SubsystemBase {
 
     leftEncoder = leftFront.getEncoder();
     rightEncoder = rightFront.getEncoder();
+
+   navX = new AHRS();
 
   }
 
@@ -108,7 +112,9 @@ public class Drive extends SubsystemBase {
     setRightSpeed(0);
   }
 
- 
+ public double getGyroRate(){
+  return navX.getRate();
+  }
 
   @Override
   public void periodic() {

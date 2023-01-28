@@ -11,18 +11,17 @@ import frc.robot.commands.Arm.ArmPID;
 import frc.robot.commands.Arm.ArmRetract;
 import frc.robot.commands.Arm.ArmWithAxis;
 import frc.robot.commands.Drive.DoubleArcadeDrive;
+import frc.robot.commands.Drive.DriveWithJoysticks;
 import frc.robot.commands.Drive.GridToCenterPiece;
-//import frc.robot.commands.Drive.DriveWithJoysticks;
+import frc.robot.commands.Drive.DriveWithJoysticks;
 //import frc.robot.commands.Drive.DriveStraight;
 import frc.robot.commands.Gripper.Grab;
 import frc.robot.commands.Gripper.GrabReleaseToggle;
 import frc.robot.commands.Gripper.ReleasePiece;
-import frc.robot.commands.NavX.NavXValues;
 import frc.robot.commands.Pivot.PivotToggle;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Gripper;
-import frc.robot.subsystems.NavX;
 import frc.robot.subsystems.Pivot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -47,18 +46,14 @@ public class RobotContainer {
   private final Arm arm = new Arm();
   private final Gripper gripper = new Gripper();
   private final Pivot pivot = new Pivot();
-  private final NavX navx = new NavX();
 
   //COMMANDS****
   //AUTO
 
   //DRIVE
- //private final DriveWithJoysticks driveWithJoysticks = new DriveWithJoysticks(drive, leftStick, rightStick);
+ private final DriveWithJoysticks driveWithJoysticks = new DriveWithJoysticks(drive, leftStick, rightStick);
  //private final DriveStraight driveStraight = new DriveStraight(drive);
  private final DoubleArcadeDrive doubleArcadeDrive = new DoubleArcadeDrive(drive, leftStick, rightStick, gripper);
-
- //NAVX
- private final NavXValues navXValues = new NavXValues(navx);
 
  //ARM
  private final ArmWithAxis armWithAxis = new ArmWithAxis(arm, controller); 
@@ -75,6 +70,7 @@ private final PivotToggle pivotToggle = new PivotToggle(pivot);
   public RobotContainer() {
 
     drive.setDefaultCommand(doubleArcadeDrive);
+    //drive.setDefaultCommand(driveWithJoysticks);
 
     // Configure the trigger bindings
     configureBindings();
@@ -137,7 +133,6 @@ private final PivotToggle pivotToggle = new PivotToggle(pivot);
 
     // ASSIGN BUTTONS TO COMMANDS
    //LEFTSTICK*****
-   leftStickLeft.onTrue(navXValues);
 
    //RIGHTSTICK*****
 

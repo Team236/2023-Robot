@@ -75,10 +75,10 @@ public final class Constants {
   public static class MotorControllers {
 
     //placeholder numbers for beginning of season because we haven't built the thing yet, CURRENT #s = testbed
-    public static final int ID_LEFT_FRONT = 16; //10 - 30
-    public static final int ID_RIGHT_FRONT = 11; //15 - 43
-    public static final int ID_LEFT_REAR = 15; // 11 - 44
-    public static final int ID_RIGHT_REAR = 10;//16 - 45
+    public static final int ID_LEFT_FRONT = 10; //10 - 30 - 16
+    public static final int ID_RIGHT_FRONT = 15; //15 - 43 - 11
+    public static final int ID_LEFT_REAR = 11; // 11 - 44 - 15
+    public static final int ID_RIGHT_REAR = 16;//16 - 45 - 10
 
     public static final int ID_ARM = 38;
 

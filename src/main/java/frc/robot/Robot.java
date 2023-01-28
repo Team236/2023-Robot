@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import com.kauailabs.navx.frc.AHRS;
+
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.Joystick;
@@ -25,6 +27,8 @@ import frc.robot.subsystems.Drive;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private Compressor compressor;
+  //public AHRS navx = new AHRS();
+  //public UsbCamera usbCamera0;
 
   private RobotContainer m_robotContainer;
 
@@ -97,7 +101,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void testInit() {
-    final Drive drive = new Drive();
+   /*  final Drive drive = new Drive();
     final PIDController lPidController = new PIDController(Constants.DriveConstants.leftkPdrive, Constants.DriveConstants.leftkIdrive, Constants.DriveConstants.leftkDdrive);
     final PIDController rPidController = new PIDController(Constants.DriveConstants.rightkPdrive, Constants.DriveConstants.rightkIdrive, Constants.DriveConstants.rightkDdrive);
     // Cancels all running commands at the start of test mode.
@@ -108,13 +112,13 @@ public class Robot extends TimedRobot {
 
     lPidController.reset();
     rPidController.reset();
-
+*/
   }
 
   /** This function is called periodically during test mode. */
   @Override
   public void testPeriodic() {
-    final Drive drive = new Drive();
+    /*final Drive drive = new Drive();
     final GridToCenterPiece gridToCenterPiece = new GridToCenterPiece(drive, 60);
     /*final PIDController lPidController = new PIDController(Constants.DriveConstants.leftkPdrive, Constants.DriveConstants.leftkIdrive, Constants.DriveConstants.leftkDdrive);
     final PIDController rPidController = new PIDController(Constants.DriveConstants.rightkPdrive, Constants.DriveConstants.rightkIdrive, Constants.DriveConstants.rightkDdrive);
@@ -124,12 +128,12 @@ public class Robot extends TimedRobot {
     double leftSpeed = lPidController.calculate(drive.getLeftDistance());
     double rightSpeed = rPidController.calculate(drive.getRightDistance());
     drive.setLeftSpeed(leftSpeed);
-    drive.setRightSpeed(rightSpeed); */
+    drive.setRightSpeed(rightSpeed); 
     Joystick controller = new Joystick(Constants.ControllerConstants.USB_CONTROLLER);
     JoystickButton y = new JoystickButton(controller, Constants.ControllerConstants.LogitechF310.Y);
     y.whileTrue(gridToCenterPiece);
 
-
+    */
     
   } 
 
