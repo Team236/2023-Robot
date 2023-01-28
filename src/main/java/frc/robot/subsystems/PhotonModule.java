@@ -7,26 +7,31 @@ package frc.robot.subsystems;
 import java.util.List;
 
 import org.photonvision.PhotonCamera;
-// import org.photonvision.PhotonCamera;
-import org.photonvision.PhotonPoseEstimator;
-import org.photonvision.PhotonPoseEstimator.PoseStrategy;
 import org.photonvision.targeting.PhotonTrackedTarget;
-import org.photonvision.targeting.TargetCorner;
-
-import edu.wpi.first.apriltag.AprilTagFieldLayout;
-import edu.wpi.first.math.geometry.Rotation3d;
-import edu.wpi.first.math.geometry.Transform2d;
-import edu.wpi.first.math.geometry.Transform3d;
-import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class PhotonModule extends SubsystemBase {
   /** Creates a new PhotonModule. */
+
+  private static PhotonCamera camera;
+  PhotonTrackedTarget target;
+
   public PhotonModule() {
     // Change this to match the name of your camera
-    PhotonCamera camera = new PhotonCamera("photonvision");
+    camera = new PhotonCamera("photonvision");
 
+    double yaw = target.getYaw();
+      SmartDashboard.putNumber("targetYaw", yaw);
+
+      double pitch = target.getPitch();
+      SmartDashboard.putNumber("targetPitch", pitch);
+
+      double area = target.getArea();
+      SmartDashboard.putNumber("targetArea", area);
+
+      double skew = target.getSkew();
+      SmartDashboard.putNumber("targetSkew", skew);
   }
 
   @Override
@@ -35,7 +40,7 @@ public class PhotonModule extends SubsystemBase {
     var result = camera.getLatestResult();
 
     // Check if the latest result has any targets.
-    boolean hasTargets = result();
+    boolean hasTargets = result.hasTargets();
 
     if (hasTargets) {
       // Get a list of currently tracked targets.
@@ -47,28 +52,29 @@ public class PhotonModule extends SubsystemBase {
       SmartDashboard.putNumber("TargetCount", targets.size());
 
       // Get information from target.
-      int targetID = target.getFiducialId();
-      double poseAmbiguity = target.getPoseAmbiguity();
-      Transform3d bestCameraToTarget = target.getBestCameraToTarget();
-      Transform3d alternateCameraToTarget = target.getAlternateCameraToTarget();
+      //int targetID = target.getFiducialId();
+      //double poseAmbiguity = target.getPoseAmbiguity();
+      //Transform3d bestCameraToTarget = target.getBestCameraToTarget();
+      //Transform3d alternateCameraToTarget = target.getAlternateCameraToTarget();
 
-      double yaw = targets.getYaw();
+     double yaw = target.getYaw();
       SmartDashboard.putNumber("targetYaw", yaw);
 
-      double pitch = targets().getPitch();
+      double pitch = target.getPitch();
       SmartDashboard.putNumber("targetPitch", pitch);
 
-      double area = targets.getArea();
+      double area = target.getArea();
       SmartDashboard.putNumber("targetArea", area);
 
-      double skew = targets.getSkew();
+      double skew = target.getSkew();
       SmartDashboard.putNumber("targetSkew", skew);
 
-      Transform3d pose = targets.get();
+    /*   Transform2d pose = target.getPoseAmbiguity();
       SmartDashboard.putString("poseString", "x: " + pose.getX() + " y:" + pose.getY());
 
-      List<TargetCorner> corners = targets.getCorners();
+      List<TargetCorner> corners = target.getCorners();
+      */
     } // end-if
-
   }
+}
 // end periodic

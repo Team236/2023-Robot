@@ -154,6 +154,3 @@ public static class GripperConstants {
 
 }
 }
-
-  
-

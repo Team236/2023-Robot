@@ -4,9 +4,16 @@
 
 package frc.robot;
 
-import frc.robot.Constants;
+import org.photonvision.PhotonCamera;
+
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.commands.Arm.ArmExtend;
+import frc.robot.commands.Arm.ArmPID;
 import frc.robot.commands.Arm.ArmRetract;
 import frc.robot.commands.Arm.ArmWithAxis;
 import frc.robot.commands.Drive.DoubleArcadeDrive;
@@ -17,22 +24,11 @@ import frc.robot.commands.Gripper.Grab;
 import frc.robot.commands.Gripper.GrabReleaseToggle;
 import frc.robot.commands.Gripper.ReleasePiece;
 import frc.robot.commands.Pivot.PivotToggle;
-import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Arm;
-<<<<<<< HEAD
-
-import org.photonvision.PhotonCamera;
-
-=======
+import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Gripper;
+import frc.robot.subsystems.PhotonModule;
 import frc.robot.subsystems.Pivot;
->>>>>>> origin/master
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import edu.wpi.first.wpilibj2.command.button.POVButton;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -50,8 +46,13 @@ public class RobotContainer {
   private final Arm arm = new Arm();
   private final Gripper gripper = new Gripper();
   private final Pivot pivot = new Pivot();
-
+  private final PhotonModule photonModual = new PhotonModule();
+  
+  
+  
   //COMMANDS****
+  
+
   //AUTO
 
   //DRIVE
@@ -136,27 +137,24 @@ private final PivotToggle pivotToggle = new PivotToggle(pivot);
 
     // ASSIGN BUTTONS TO COMMANDS
    //LEFTSTICK*****
-    
+  //leftTrigger.whileTrue(photonDrive);
    //RIGHTSTICK*****
 
    //CONTROLLER******
-<<<<<<< HEAD
   x.whileTrue(armExtend);
   y.whileTrue(armRetract);
-  }
-=======
+  
   //upPov.whileTrue(armExtend);
   //downPov.whileTrue(armRetract);
->>>>>>> origin/master
 
   y.whileTrue(new GridToCenterPiece(drive, Constants.DriveConstants.GRID_TO_CENTER));
   a.whileTrue(new ArmPID(arm, Constants.ArmConstants.ARM_OUT));
   x.whileTrue(grabReleaseToggle);  
   b.whileTrue(pivotToggle);
   start.whileTrue(armWithAxis);
-  
-
   }
+
+  
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
