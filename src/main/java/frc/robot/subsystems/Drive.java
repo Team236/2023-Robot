@@ -35,8 +35,8 @@ public class Drive extends SubsystemBase {
     leftFront.setInverted(false);
     rightFront.setInverted(true);
 
-    leftRear.follow(leftFront);
-    rightRear.follow(rightFront);
+    leftRear.follow(leftFront, false);
+    rightRear.follow(rightFront, false);
 
     leftEncoder = leftFront.getEncoder();
     rightEncoder = rightFront.getEncoder();
