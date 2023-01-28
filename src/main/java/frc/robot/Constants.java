@@ -90,22 +90,25 @@ public static class DriveConstants {
   public static final double LEFT_DEADZONE = 0.17; //0.15???
   public static final double RIGHT_DEADZONE = 0.17;
   public static final boolean IS_DEADZONE = true;
+  public static final boolean IN_X_DEADZONE = true;
 
   //robot-specific numbers
   public static final double DIAMETER = 4; //THIS IS A GUESS, NOT BUILT YET
   public static final double CIRCUMFERENCE = Math.PI * DIAMETER;
   public static final double GEAR_RATIO = 8.71 * 0.75; //TEMPORARY!!!! - change once robot is more than a concept
+  //6.273 - low??
+  //8.364 - high???
 
   public static final double REV_TO_IN_K = CIRCUMFERENCE / GEAR_RATIO;
   public static final double IN_TO_REV_K = GEAR_RATIO / CIRCUMFERENCE;
 
   //PID stuff
-  public static final double leftkPdrive = 0.0107;
+  public static final double leftkPdrive = 0.018;
   public static final double leftkIdrive = 0;
   public static final double leftkDdrive = 0;
   public static final double leftkFdrive = 0;
 
-  public static final double rightkPdrive = 0.0107;
+  public static final double rightkPdrive = 0.02;
   public static final double rightkIdrive = 0;
   public static final double rightkDdrive = 0;
   public static final double rightkFdrive = 0;
@@ -113,7 +116,7 @@ public static class DriveConstants {
   //auto distances
   public static final double AUTO_MARGIN = 0;
   public static final double GRID_TO_CHARGE = 42; //???? Game Manual???
-  public static final double GRID_TO_CENTER = 36;
+  public static final double GRID_TO_CENTER = 80;
 
 }
 

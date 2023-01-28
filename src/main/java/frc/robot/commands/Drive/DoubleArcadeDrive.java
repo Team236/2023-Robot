@@ -7,24 +7,30 @@ package frc.robot.commands.Drive;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Gripper;
+import frc.robot.subsystems.NavX;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.Joystick;
 
 public class DoubleArcadeDrive extends CommandBase {
   private Drive drive;
+  private Gripper gripper1;
+  private NavX navX;
   private Joystick leftStick, rightStick;
   private double max, L, R;
   private Boolean isDeadzone = Constants.DriveConstants.IS_DEADZONE;
-  private Gripper gripper1;
+  private Boolean inXDeadzone = Constants.DriveConstants.IN_X_DEADZONE;
+  private double kP;
+  private double error;
+  
 
 
   /** Creates a new DoubleArcadeDrive. */
   public DoubleArcadeDrive(Drive drive, Joystick leftStick, Joystick rightStick, Gripper gripper1) {
     this.drive = drive;
+    this.gripper1 = gripper1;
+    this.navX = navX;
     this.leftStick = leftStick;
     this.rightStick = rightStick;
-
-    this.gripper1 = gripper1;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(drive);
     addRequirements(gripper1);
@@ -34,11 +40,20 @@ public class DoubleArcadeDrive extends CommandBase {
   @Override
   public void initialize() {
     this.isDeadzone = true;
+    this.inXDeadzone = true;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    while(inXDeadzone){
+      kP = 1;
+      error = navX.getrate();
+    }
+    while(!inXDeadzone){
+      error = 0;
+    }
+
     if (this.isDeadzone) {
       drive.setRightSpeedWithDeadzone(R);
       drive.setLeftSpeedWithDeadzone(L);
@@ -48,11 +63,11 @@ public class DoubleArcadeDrive extends CommandBase {
     }
 
     if (rightStick.getY() <= 0) {
-      L = -rightStick.getY() + leftStick.getX();
-      R = -rightStick.getY() - leftStick.getX();
+      L = (-rightStick.getY() + kP*error) + leftStick.getX();
+      R = (-rightStick.getY() - kP*error) - leftStick.getX();
     } else {
-      L = -rightStick.getY() - leftStick.getX();
-      R = -rightStick.getY() + leftStick.getX();
+      L = (-rightStick.getY() - kP*error) - leftStick.getX();
+      R = (-rightStick.getY() + kP*error) + leftStick.getX();
     }
 
     max = Math.abs(L);
