@@ -6,11 +6,10 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
-import com.revrobotics.SparkMaxPIDController;
-import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.SparkMaxRelativeEncoder.Type;
 
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -22,7 +21,6 @@ public class Drive extends SubsystemBase {
 
   public CANSparkMax leftFront, leftRear, rightFront, rightRear;
   private RelativeEncoder leftEncoder, rightEncoder;
-  private SparkMaxPIDController leftPID, rightPID; 
 
   /** Creates a new ExampleSubsystem. */
   public Drive() {
@@ -43,8 +41,6 @@ public class Drive extends SubsystemBase {
     leftEncoder = leftFront.getEncoder();
     rightEncoder = rightFront.getEncoder();
 
-    leftPID = leftFront.getPIDController();
-    rightPID = rightFront.getPIDController();
   }
 
   public void setLeftSpeed(double speed) {
@@ -67,16 +63,16 @@ public class Drive extends SubsystemBase {
     double leftSpeed = speed;
     if(leftSpeed < DriveConstants.LEFT_DEADZONE && leftSpeed > -DriveConstants.LEFT_DEADZONE) {
       leftSpeed = 0;
-    }
-     setLeftSpeed(leftSpeed);
+    } 
+    setLeftSpeed(leftSpeed);
   }
 
   public void setRightSpeedWithDeadzone(double speed) {
     double rightSpeed = speed;
     if(rightSpeed < DriveConstants.RIGHT_DEADZONE && rightSpeed > -DriveConstants.RIGHT_DEADZONE) {
       rightSpeed = 0;
-    }
-   setRightSpeed(rightSpeed);
+    } 
+    setRightSpeed(rightSpeed);
   }
 
   public double getLeftSpeed() {
@@ -100,14 +96,19 @@ public class Drive extends SubsystemBase {
   public double getAvgDistance() {
     return (getLeftDistance() + getRightDistance())/2 ;
   }
-    
+  public void resetLeftEncoder() {
+    leftEncoder.setPosition(0);
+  }
+  public void resetRightEncoder() {
+    rightEncoder.setPosition(0);
+  }
 
   public void stop(double speed) {
     setLeftSpeed(0);
     setRightSpeed(0);
   }
 
-
+ 
 
   @Override
   public void periodic() {

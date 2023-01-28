@@ -55,5 +55,6 @@ public class ArmWithAxis extends CommandBase {
     } else {
       return false;
     }
+    //return false;
   }
 }

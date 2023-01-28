@@ -4,6 +4,9 @@
 
 package frc.robot;
 
+import edu.wpi.first.util.sendable.Sendable;
+
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -58,12 +61,21 @@ public final class Constants {
             public static final int RIGHT_X = 4;
             public static final int RIGHT_Y = 5;
         }
+
+        public class POVController {
+          public static final int UP_ANGLE = 0;
+          public static final int RIGHT_ANGLE = 90;
+          public static final int DOWN_ANGLE = 180;
+          public static final int LEFT_ANGLE = 270;
+
+        
+        }
     }
 }
   public static class MotorControllers {
 
-    //placeholder numbers for beginning of season because we haven't built the thing yet, CURRENT #s = 2022
-    public static final int ID_LEFT_FRONT = 30; //10 - testbed #s
+    //placeholder numbers for beginning of season because we haven't built the thing yet, CURRENT #s = testbed
+    public static final int ID_LEFT_FRONT = 30; //10 - 2022 #s
     public static final int ID_RIGHT_FRONT = 43; //15
     public static final int ID_LEFT_REAR = 44; // 11
     public static final int ID_RIGHT_REAR = 45;//16
@@ -80,35 +92,44 @@ public static class DriveConstants {
   public static final boolean IS_DEADZONE = true;
 
   //robot-specific numbers
-  public static final double DIAMETER = 6; //THIS IS A GUESS, NOT BUILT YET
+  public static final double DIAMETER = 4; //THIS IS A GUESS, NOT BUILT YET
   public static final double CIRCUMFERENCE = Math.PI * DIAMETER;
-  public static final double GEAR_RATIO = 27; //TEMPORARY!!!! - change once robot is more than a concept
+  public static final double GEAR_RATIO = 8.71 * 0.75; //TEMPORARY!!!! - change once robot is more than a concept
 
   public static final double REV_TO_IN_K = CIRCUMFERENCE / GEAR_RATIO;
   public static final double IN_TO_REV_K = GEAR_RATIO / CIRCUMFERENCE;
 
   //PID stuff
+  public static final double leftkPdrive = 0.0107;
+  public static final double leftkIdrive = 0;
+  public static final double leftkDdrive = 0;
+  public static final double leftkFdrive = 0;
+
+  public static final double rightkPdrive = 0.0107;
+  public static final double rightkIdrive = 0;
+  public static final double rightkDdrive = 0;
+  public static final double rightkFdrive = 0;
 
   //auto distances
   public static final double AUTO_MARGIN = 0;
-  public static final double GRID_TO_CHARGE = 0; //???? Game Manual???
+  public static final double GRID_TO_CHARGE = 42; //???? Game Manual???
+  public static final double GRID_TO_CENTER = 36;
 
 }
 
 public static class ArmConstants { ///FOR TESTBOT: subject to change for final
-  public static double armREV_TO_IN = 0.5;
-  public static double armIN_TO_REV = 2;
+  public static double armREV_TO_IN = 0.125; // 1/2 inch per revolution
+  public static double armIN_TO_REV = 8; //2 revolutions per inch
 
   public static final int DIO_ARM_RETURN = 3;
   public static final int DIO_ARM_EXTEND = 4;
 
-  public static final double ARM_UP = 180;
-  public static final double CLIMB_UP = -180;
+  public static final double ARM_OUT = 4;
 
-  public static final double ARM_EX_SPEED = 0.6;
-  public static final double ARM_RE_SPEED = 0.6;
+  public static final double ARM_EX_SPEED = 0.7;
+  public static final double ARM_RE_SPEED = 0.85;
 
-  public static double kParm = 0;
+  public static double kParm = 0.08;
   public static double kIarm = 0;
   public static double kDarm = 0;
   public static double kFarm = 0; //mooooo
@@ -117,8 +138,22 @@ public static class ArmConstants { ///FOR TESTBOT: subject to change for final
   public static final double armMIN_OUTPUT = 10;
   public static final double armMAX_OUTPUT = 3;
 
+  
+
 }
-  }
+public static class GripperConstants {
+  //Solenoid ports on the PCM
+  public static final int GRIPPER_SOL_FOR = 6;
+  public static final int GRIPPER_SOL_REV = 7;
+
+  public static final int PIVOT_SOL_FOR = 0;
+  public static final int PIVOT_SOL_REV = 1;
+
+  //Port used on the DIO
+  public static final int DIO_GRIPPER_EYE = 5;
+
+}
+}
 
   
 

@@ -9,18 +9,30 @@ import frc.robot.Constants.ControllerConstants;
 import frc.robot.commands.Arm.ArmExtend;
 import frc.robot.commands.Arm.ArmRetract;
 import frc.robot.commands.Arm.ArmWithAxis;
-import frc.robot.commands.Drive.DriveWithJoysticks;
+import frc.robot.commands.Drive.DoubleArcadeDrive;
+import frc.robot.commands.Drive.GridToCenterPiece;
+//import frc.robot.commands.Drive.DriveWithJoysticks;
+//import frc.robot.commands.Drive.DriveStraight;
+import frc.robot.commands.Gripper.Grab;
+import frc.robot.commands.Gripper.GrabReleaseToggle;
+import frc.robot.commands.Gripper.ReleasePiece;
+import frc.robot.commands.Pivot.PivotToggle;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Arm;
+<<<<<<< HEAD
 
 import org.photonvision.PhotonCamera;
 
+=======
+import frc.robot.subsystems.Gripper;
+import frc.robot.subsystems.Pivot;
+>>>>>>> origin/master
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -36,22 +48,32 @@ public class RobotContainer {
   // SUBSYSTEMS****.
   private final Drive drive = new Drive();
   private final Arm arm = new Arm();
+  private final Gripper gripper = new Gripper();
+  private final Pivot pivot = new Pivot();
 
   //COMMANDS****
   //AUTO
 
   //DRIVE
- private final DriveWithJoysticks driveWithJoysticks = new DriveWithJoysticks(drive, leftStick, rightStick);
+ //private final DriveWithJoysticks driveWithJoysticks = new DriveWithJoysticks(drive, leftStick, rightStick);
+ //private final DriveStraight driveStraight = new DriveStraight(drive);
+ private final DoubleArcadeDrive doubleArcadeDrive = new DoubleArcadeDrive(drive, leftStick, rightStick, gripper);
 
  //ARM
  private final frc.robot.commands.Arm.ArmWithAxis armWithAxis = new ArmWithAxis(arm, controller); 
  private final ArmExtend armExtend = new ArmExtend(arm, controller);
  private final ArmRetract armRetract = new ArmRetract(arm, controller);
 
+ //GRIPPER
+private final Grab grab = new Grab(gripper);
+private final ReleasePiece releasePiece = new ReleasePiece(gripper);
+private final GrabReleaseToggle grabReleaseToggle = new GrabReleaseToggle(gripper);
+private final PivotToggle pivotToggle = new PivotToggle(pivot);
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
 
-    drive.setDefaultCommand(driveWithJoysticks);
+    drive.setDefaultCommand(doubleArcadeDrive);
 
     // Configure the trigger bindings
     configureBindings();
@@ -79,6 +101,10 @@ public class RobotContainer {
     JoystickButton start = new JoystickButton(controller, ControllerConstants.LogitechF310.START);
     JoystickButton leftPress = new JoystickButton(controller, ControllerConstants.LogitechF310.LEFT_PRESS);
     JoystickButton rightPress = new JoystickButton(controller, ControllerConstants.LogitechF310.RIGHT_PRESS);
+    POVButton upPov = new POVButton(controller, Constants.ControllerConstants.LogitechF310.POVController.UP_ANGLE);
+    POVButton downPov = new POVButton(controller, Constants.ControllerConstants.LogitechF310.POVController.DOWN_ANGLE);
+
+
 
     // *LEFT STICK
     JoystickButton leftTrigger = new JoystickButton(leftStick,ControllerConstants.Thrustmaster.TRIGGER);
@@ -114,10 +140,23 @@ public class RobotContainer {
    //RIGHTSTICK*****
 
    //CONTROLLER******
+<<<<<<< HEAD
   x.whileTrue(armExtend);
   y.whileTrue(armRetract);
   }
+=======
+  //upPov.whileTrue(armExtend);
+  //downPov.whileTrue(armRetract);
+>>>>>>> origin/master
 
+  y.whileTrue(new GridToCenterPiece(drive, Constants.DriveConstants.GRID_TO_CENTER));
+  a.whileTrue(new ArmPID(arm, Constants.ArmConstants.ARM_OUT));
+  x.whileTrue(grabReleaseToggle);  
+  b.whileTrue(pivotToggle);
+  start.whileTrue(armWithAxis);
+  
+
+  }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
