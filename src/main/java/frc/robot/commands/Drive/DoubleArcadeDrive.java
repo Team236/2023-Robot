@@ -40,12 +40,14 @@ public class DoubleArcadeDrive extends CommandBase {
   @Override
   public void initialize() {
     this.isDeadzone = true;
-    this.inXDeadzone = true;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    if (leftStick.getX() < 0.15) {
+      this.inXDeadzone = true;
+    }
     while(inXDeadzone){
       kP = 1;
       error = navX.getrate();
