@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class NavXValues extends CommandBase {
-  private NavX navx;
+  private NavX navx = new NavX();
   /** Creates a new NavXCMD. */
   public NavXValues(NavX navx) {
     this.navx = navx;
