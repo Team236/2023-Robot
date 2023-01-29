@@ -15,7 +15,6 @@ public class DoubleArcadeDrive extends CommandBase {
   private Drive drive;
   private Gripper gripper1;
   private Boolean isDeadzone = Constants.DriveConstants.IS_DEADZONE;
-
   /** Creates a new DoubleArcadeDrive. */
   public DoubleArcadeDrive(Drive drive, Gripper gripper1) {
     this.gripper1 = gripper1;
@@ -24,26 +23,22 @@ public class DoubleArcadeDrive extends CommandBase {
     addRequirements(gripper1);
     addRequirements(drive);
   }
-
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     this.isDeadzone = true;
   }
-
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (gripper1.getGripperEyeCount() == 1) {gripper1.grab();}
     drive.setArcadeSpeed();
+    if (gripper1.getGripperEyeCount() == 1) {gripper1.grab();}
   }
-
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     drive.stop(0);
   }
-
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
