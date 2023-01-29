@@ -9,9 +9,6 @@ import frc.robot.subsystems.Arm;
 import frc.robot.Constants;
 import edu.wpi.first.math.controller.PIDController;
 import frc.robot.Constants.ArmConstants;
-
-import com.revrobotics.SparkMaxPIDController;
-import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.WPILibVersion;
 
