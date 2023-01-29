@@ -75,10 +75,10 @@ public final class Constants {
   public static class MotorControllers {
 
     //placeholder numbers for beginning of season because we haven't built the thing yet, CURRENT #s = testbed
-    public static final int ID_LEFT_FRONT = 10; //10 - 30 - 16
-    public static final int ID_RIGHT_FRONT = 15; //15 - 43 - 11
-    public static final int ID_LEFT_REAR = 11; // 11 - 44 - 15
-    public static final int ID_RIGHT_REAR = 16;//16 - 45 - 10
+    public static final int ID_LEFT_FRONT = 11; //10 - 30 - 11
+    public static final int ID_RIGHT_FRONT = 16; //15 - 43 - 16
+    public static final int ID_LEFT_REAR = 10;// 11 - 44 - 10
+    public static final int ID_RIGHT_REAR = 15; //16 - 45 - 15
 
     public static final int ID_ARM = 38;
 
@@ -90,7 +90,6 @@ public static class DriveConstants {
   public static final double LEFT_DEADZONE = 0.17; //0.15???
   public static final double RIGHT_DEADZONE = 0.17;
   public static final boolean IS_DEADZONE = true;
-  public static final boolean IN_X_DEADZONE = true;
 
   //robot-specific numbers
   public static final double DIAMETER = 4; //THIS IS A GUESS, NOT BUILT YET
