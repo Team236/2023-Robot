@@ -10,7 +10,9 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.SparkMaxRelativeEncoder.Type;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -23,6 +25,9 @@ public class Drive extends SubsystemBase {
   public CANSparkMax leftFront, leftRear, rightFront, rightRear;
   private RelativeEncoder leftEncoder, rightEncoder;
   public AHRS navX;
+  private Joystick leftStick, rightStick;
+  private boolean isDeadzone;
+  private Gripper gripper1;
 
   /** Creates a new ExampleSubsystem. */
   public Drive() {
@@ -34,16 +39,19 @@ public class Drive extends SubsystemBase {
     leftFront.restoreFactoryDefaults();
     rightFront.restoreFactoryDefaults();
 
-    leftFront.setInverted(false);
-    rightFront.setInverted(true);
+    leftFront.setInverted(true);
+    rightFront.setInverted(false);
 
-    leftRear.follow(leftFront, false);
-    rightRear.follow(rightFront, false);
+    leftRear.follow(leftFront);
+    rightRear.follow(rightFront);
 
     leftEncoder = leftFront.getEncoder();
     rightEncoder = rightFront.getEncoder();
 
    navX = new AHRS();
+   leftStick = new Joystick(Constants.ControllerConstants.USB_LEFT_STICK);
+   rightStick = new Joystick(Constants.ControllerConstants.USB_RIGHT_STICK);
+  isDeadzone = Constants.DriveConstants.IS_DEADZONE;
 
   }
 
@@ -77,6 +85,33 @@ public class Drive extends SubsystemBase {
       rightSpeed = 0;
     } 
     setRightSpeed(rightSpeed);
+  }
+  public void setArcadeSpeed() {
+    double leftSpeed, rightSpeed, max, L, R, kPgyro, error;
+
+    if (Math.abs(leftStick.getX()) <= 0.15) {
+      kPgyro = 0.03;
+      error = navX.getRate();
+    } else {
+      kPgyro = 0;
+      error = 0;
+    }
+
+    if (rightStick.getY() <= 0) {
+      L = (-rightStick.getY() - (kPgyro*error)) + leftStick.getX();
+      R = (-rightStick.getY() + (kPgyro*error)) - leftStick.getX();
+    } else {
+      L = (-rightStick.getY() + (kPgyro*error)) - leftStick.getX();
+      R = (-rightStick.getY() - (kPgyro*error)) + leftStick.getX();
+    }
+
+    max = Math.abs(L);
+    if (max < Math.abs(R)) {max = Math.abs(R);}
+    if (max > 1) {L /= max; R/= max;}
+
+    setRightSpeedWithDeadzone(R);
+    setLeftSpeedWithDeadzone(L);
+
   }
 
   public double getLeftSpeed() {

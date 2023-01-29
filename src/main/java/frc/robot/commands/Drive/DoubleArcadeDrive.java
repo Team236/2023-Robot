@@ -14,24 +14,15 @@ import edu.wpi.first.wpilibj.Joystick;
 public class DoubleArcadeDrive extends CommandBase {
   private Drive drive;
   private Gripper gripper1;
-  private Joystick leftStick, rightStick;
-  private double max, L, R;
   private Boolean isDeadzone = Constants.DriveConstants.IS_DEADZONE;
-  private Boolean inXDeadzone = Constants.DriveConstants.IN_X_DEADZONE;
-  private double kP;
-  private double error;
-  
-
 
   /** Creates a new DoubleArcadeDrive. */
-  public DoubleArcadeDrive(Drive drive, Joystick leftStick, Joystick rightStick, Gripper gripper1) {
-    this.drive = drive;
+  public DoubleArcadeDrive(Drive drive, Gripper gripper1) {
     this.gripper1 = gripper1;
-    this.leftStick = leftStick;
-    this.rightStick = rightStick;
+    this.drive = drive;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(drive);
     addRequirements(gripper1);
+    addRequirements(drive);
   }
 
   // Called when the command is initially scheduled.
@@ -43,37 +34,8 @@ public class DoubleArcadeDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (Math.abs(leftStick.getX()) <= 0.15) {
-      this.inXDeadzone = true;
-    }
-    if(this.inXDeadzone){
-      kP = 0.05;
-      error = drive.getGyroRate();
-    } else {
-    error = 0;
-    }
-
-    if (this.isDeadzone) {
-      drive.setRightSpeedWithDeadzone(R);
-      drive.setLeftSpeedWithDeadzone(L);
-    } else {
-      drive.setLeftSpeed(L);
-      drive.setRightSpeed(R);
-    }
-
-    if (rightStick.getY() <= 0) {
-      L = (-rightStick.getY() - (kP*error)) + leftStick.getX();
-      R = (-rightStick.getY() + (kP*error)) - leftStick.getX();
-    } else {
-      L = (-rightStick.getY() + (kP*error)) - leftStick.getX();
-      R = (-rightStick.getY() - (kP*error)) + leftStick.getX();
-    }
-
-    max = Math.abs(L);
-    if (max < Math.abs(R)) {max = Math.abs(R);}
-    if (max > 1) {L /= max; R/= max;}
-  
     if (gripper1.getGripperEyeCount() == 1) {gripper1.grab();}
+    drive.setArcadeSpeed();
   }
 
   // Called once the command ends or is interrupted.
