@@ -6,6 +6,8 @@ package frc.robot.subsystems;
 
 import java.util.List;
 
+import javax.management.remote.TargetedNotification;
+
 import org.photonvision.PhotonCamera;
 import org.photonvision.targeting.PhotonTrackedTarget;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -20,6 +22,8 @@ public class PhotonModule extends SubsystemBase {
   public PhotonModule() {
     // Change this to match the name of your camera
     camera = new PhotonCamera("photonvision");
+    target = new PhotonTrackedTarget();
+    target.getBestCameraToTarget();
 
     double yaw = target.getYaw();
       SmartDashboard.putNumber("targetYaw", yaw);
@@ -46,7 +50,7 @@ public class PhotonModule extends SubsystemBase {
       // Get a list of currently tracked targets.
       List<PhotonTrackedTarget> targets = result.getTargets();
       // Get the current best target.
-      PhotonTrackedTarget target = result.getBestTarget();
+      target = result.getBestTarget();
 
       // Get information from target.
       SmartDashboard.putNumber("TargetCount", targets.size());
