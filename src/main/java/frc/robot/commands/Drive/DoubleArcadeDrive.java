@@ -32,8 +32,6 @@ public class DoubleArcadeDrive extends CommandBase {
   @Override
   public void execute() {
     drive.setArcadeSpeed();
-    gripper1.autoGrab();
-    //if (gripper1.getGripperEyeCount() == 1) {gripper1.grab();}
   }
   // Called once the command ends or is interrupted.
   @Override

@@ -111,7 +111,7 @@ public static class DriveConstants {
   //auto distances
   public static final double AUTO_MARGIN = 0;
   public static final double GRID_TO_CHARGE = 42; //???? Game Manual???
-  public static final double GRID_TO_CENTER = 40;
+  public static final double GRID_TO_CENTER = 70;
 
 }
 
