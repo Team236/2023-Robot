@@ -57,6 +57,11 @@ public class Gripper extends SubsystemBase {
   public void resetGripperEyeCount() {
     gripperEye.reset();
   }
+
+  public void autoGrab() {
+    if (getGripperEyeCount() >= 1) {grab();}
+    SmartDashboard.putNumber("Eye Count", getGripperEyeCount());
+  }
   
   //gets the gripper eye count
   public int getGripperEyeCount() {
@@ -67,11 +72,10 @@ public class Gripper extends SubsystemBase {
     return gripperEye.get();
    }
   
-  
+ 
   }
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("Gripper Count", getGripperEyeCount());
     // This method will be called once per scheduler run
   }
 }
