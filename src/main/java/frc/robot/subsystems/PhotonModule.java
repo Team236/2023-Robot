@@ -24,29 +24,32 @@ public class PhotonModule extends SubsystemBase {
     camera = new PhotonCamera("photonvision");
     target = new PhotonTrackedTarget();
     target.getBestCameraToTarget();
-
+    SmartDashboard.putNumber("targetID", target.getFiducialId());
     double yaw = target.getYaw();
-      SmartDashboard.putNumber("targetYaw", yaw);
+    SmartDashboard.putNumber("targetYaw", yaw);
 
-      double pitch = target.getPitch();
-      SmartDashboard.putNumber("targetPitch", pitch);
+    double pitch = target.getPitch();
+    SmartDashboard.putNumber("targetPitch", pitch);
 
-      double area = target.getArea();
-      SmartDashboard.putNumber("targetArea", area);
+    double area = target.getArea();
+    SmartDashboard.putNumber("targetArea", area);
 
-      double skew = target.getSkew();
-      SmartDashboard.putNumber("targetSkew", skew);
+    double skew = target.getSkew();
+    SmartDashboard.putNumber("targetSkew", skew);
+    SmartDashboard.putNumber("targetID", target.getFiducialId());
   }
 
   @Override
   public void periodic() {
     // Query the latest result from PhotonVision
     var result = camera.getLatestResult();
-
-    // Check if the latest result has any targets.
     boolean hasTargets = result.hasTargets();
 
-    if (hasTargets) {
+    // Check if the latest result has any targets.s
+    if (result.hasTargets()) {
+
+      SmartDashboard.putBoolean("getName()", hasTargets);
+
       // Get a list of currently tracked targets.
       List<PhotonTrackedTarget> targets = result.getTargets();
       // Get the current best target.
@@ -56,29 +59,21 @@ public class PhotonModule extends SubsystemBase {
       SmartDashboard.putNumber("TargetCount", targets.size());
 
       // Get information from target.
-      //int targetID = target.getFiducialId();
-      //double poseAmbiguity = target.getPoseAmbiguity();
-      //Transform3d bestCameraToTarget = target.getBestCameraToTarget();
-      //Transform3d alternateCameraToTarget = target.getAlternateCameraToTarget();
+      int targetId = target.getFiducialId();
+      // double poseAmbiguity = target.getPoseAmbiguity();
+      // Transform3d bestCameraToTarget = target.getBestCameraToTarget();
+      // Transform3d alternateCameraToTarget = target.getAlternateCameraToTarget();
 
-     double yaw = target.getYaw();
+      double yaw = target.getYaw();
       SmartDashboard.putNumber("targetYaw", yaw);
-
       double pitch = target.getPitch();
       SmartDashboard.putNumber("targetPitch", pitch);
-
       double area = target.getArea();
       SmartDashboard.putNumber("targetArea", area);
-
       double skew = target.getSkew();
       SmartDashboard.putNumber("targetSkew", skew);
-
-    /*   Transform2d pose = target.getPoseAmbiguity();
-      SmartDashboard.putString("poseString", "x: " + pose.getX() + " y:" + pose.getY());
-
-      List<TargetCorner> corners = target.getCorners();
-      */
-    } // end-if
+      SmartDashboard.putNumber("targetID", target.getFiducialId());
+    }
   }
 }
 // end periodic

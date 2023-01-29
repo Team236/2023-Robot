@@ -16,6 +16,7 @@ import frc.robot.commands.Arm.ArmExtend;
 import frc.robot.commands.Arm.ArmPID;
 import frc.robot.commands.Arm.ArmRetract;
 import frc.robot.commands.Arm.ArmWithAxis;
+import frc.robot.commands.Autos.AprilMove;
 import frc.robot.commands.Drive.DoubleArcadeDrive;
 import frc.robot.commands.Drive.GridToCenterPiece;
 //import frc.robot.commands.Drive.DriveWithJoysticks;
@@ -54,6 +55,7 @@ public class RobotContainer {
   
 
   //AUTO
+  private final AprilMove aprilMove = new AprilMove(drive, 0, photonModual);
 
   //DRIVE
  //private final DriveWithJoysticks driveWithJoysticks = new DriveWithJoysticks(drive, leftStick, rightStick);
@@ -137,7 +139,8 @@ private final PivotToggle pivotToggle = new PivotToggle(pivot);
 
     // ASSIGN BUTTONS TO COMMANDS
    //LEFTSTICK*****
-  //leftTrigger.whileTrue(photonDrive);
+  leftTrigger.whileFalse(aprilMove);
+
    //RIGHTSTICK*****
 
    //CONTROLLER******
@@ -147,9 +150,9 @@ private final PivotToggle pivotToggle = new PivotToggle(pivot);
   //upPov.whileTrue(armExtend);
   //downPov.whileTrue(armRetract);
 
-  y.whileTrue(new GridToCenterPiece(drive, Constants.DriveConstants.GRID_TO_CENTER));
+  // y.whileTrue(new GridToCenterPiece(drive, Constants.DriveConstants.GRID_TO_CENTER));
   a.whileTrue(new ArmPID(arm, Constants.ArmConstants.ARM_OUT));
-  x.whileTrue(grabReleaseToggle);  
+  // x.whileTrue(grabReleaseToggle);  
   b.whileTrue(pivotToggle);
   start.whileTrue(armWithAxis);
   }
