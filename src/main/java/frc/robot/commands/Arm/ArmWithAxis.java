@@ -28,33 +28,20 @@ public class ArmWithAxis extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {}
- 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     arm.setArmSpeed(-controller.getRawAxis(ControllerConstants.LogitechF310.AxesController.LEFT_Y));
     speed = -controller.getRawAxis(ControllerConstants.LogitechF310.AxesController.LEFT_Y);
-
   }
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     arm.armStop();
   }
-
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if ((speed > 0.008) && arm.isAExtendLimit()) {
-      // if mast is going up and top limit is triggered
-      // the 0.008 is because when the axis is at rest, it reads 0.0078125 so doing speed > 0.008 acts as a deadzone
-      return true;
-    } else if ((speed < 0) && arm.isAReturnLimit()) {
-      arm.resetArmEncoder();
-      return true;
-    } else {
-      return false;
-    }
-    //return false;
+    return false;
   }
 }
