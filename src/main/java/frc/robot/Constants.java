@@ -74,13 +74,15 @@ public final class Constants {
 }
   public static class MotorControllers {
 
-    //placeholder numbers for beginning of season because we haven't built the thing yet, CURRENT #s = testbed
+    //placeholder numbers for beginning of season //testbed OG - 2022 bot - testbed swapped 
     public static final int ID_LEFT_FRONT = 11; //10 - 30 - 11
     public static final int ID_RIGHT_FRONT = 16; //15 - 43 - 16
     public static final int ID_LEFT_REAR = 10;// 11 - 44 - 10
     public static final int ID_RIGHT_REAR = 15; //16 - 45 - 15
 
     public static final int ID_ARM = 38;
+    public static final int ID_TURRET = 38; //test value
+    //public static final int ID_PIVOT = 38; - currently pneumatic, getting redesigned
 
     }
 
