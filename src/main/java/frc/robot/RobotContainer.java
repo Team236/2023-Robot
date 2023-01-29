@@ -12,7 +12,7 @@ import frc.robot.commands.Arm.ArmRetract;
 import frc.robot.commands.Arm.ArmWithAxis;
 import frc.robot.commands.Drive.DoubleArcadeDrive;
 import frc.robot.commands.Drive.DriveWithJoysticks;
-import frc.robot.commands.Drive.GridToCenterPiece;
+import frc.robot.commands.Drive.AutoPIDDrive;
 import frc.robot.commands.Drive.DriveWithJoysticks;
 //import frc.robot.commands.Drive.DriveStraight;
 import frc.robot.commands.Gripper.Grab;
@@ -53,7 +53,7 @@ public class RobotContainer {
   //DRIVE
  private final DriveWithJoysticks driveWithJoysticks = new DriveWithJoysticks(drive, leftStick, rightStick);
  //private final DriveStraight driveStraight = new DriveStraight(drive);
- private final DoubleArcadeDrive doubleArcadeDrive = new DoubleArcadeDrive(drive, leftStick, rightStick, gripper);
+ private final DoubleArcadeDrive doubleArcadeDrive = new DoubleArcadeDrive(drive, gripper);
 
  //ARM
  private final ArmWithAxis armWithAxis = new ArmWithAxis(arm, controller); 
@@ -69,8 +69,8 @@ private final PivotToggle pivotToggle = new PivotToggle(pivot);
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
 
-    drive.setDefaultCommand(doubleArcadeDrive);
-    //drive.setDefaultCommand(driveWithJoysticks);
+  drive.setDefaultCommand(doubleArcadeDrive);
+  //drive.setDefaultCommand(driveWithJoysticks);
 
     // Configure the trigger bindings
     configureBindings();
@@ -139,7 +139,7 @@ private final PivotToggle pivotToggle = new PivotToggle(pivot);
    //CONTROLLER******
   //upPov.whileTrue(armExtend);
   //downPov.whileTrue(armRetract);
-  y.whileTrue(new GridToCenterPiece(drive, Constants.DriveConstants.GRID_TO_CENTER));
+  y.whileTrue(new AutoPIDDrive(drive, Constants.DriveConstants.GRID_TO_CENTER));
   a.whileTrue(new ArmPID(arm, Constants.ArmConstants.ARM_OUT));
   x.whileTrue(grabReleaseToggle);  
   b.whileTrue(pivotToggle);

@@ -10,13 +10,13 @@ import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.Drive;
 
-public class GridToCenterPiece extends CommandBase {
+public class AutoPIDDrive extends CommandBase {
   private Drive drive;
-  private double driveDistance;
+  private double driveDistance, gyrokP, spin;
   private final PIDController leftPidController, rightPidController;
 
   /** Creates a new DriveStraight. */
-  public GridToCenterPiece(Drive drive, double driveDistance) {
+  public AutoPIDDrive(Drive drive, double driveDistance) {
     this.drive = drive;
     this.leftPidController = new PIDController(DriveConstants.leftkPdrive, DriveConstants.leftkIdrive, DriveConstants.leftkDdrive);
     this.rightPidController = new PIDController(DriveConstants.rightkPdrive, DriveConstants.rightkIdrive, DriveConstants.rightkDdrive);
@@ -24,6 +24,9 @@ public class GridToCenterPiece extends CommandBase {
     addRequirements(drive);
     leftPidController.setSetpoint(driveDistance);
     rightPidController.setSetpoint(driveDistance);
+    //getRate returns rate of change of the gyro angle, hence it is "spin"
+    spin = drive.navX.getRate();
+    gyrokP = 0;
   }
 
   // Called when the command is initially scheduled.
@@ -39,8 +42,9 @@ public class GridToCenterPiece extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double leftSpeed = leftPidController.calculate(drive.getLeftDistance());
-    double rightSpeed = rightPidController.calculate(drive.getRightDistance());
+    //negative speed applicable????/
+    double leftSpeed = (((leftPidController.calculate(drive.getLeftDistance())) - (spin*gyrokP)));
+    double rightSpeed = ((rightPidController.calculate(drive.getRightDistance())) + (spin*gyrokP));
     drive.setLeftSpeed(leftSpeed);
     drive.setRightSpeed(rightSpeed);
 
