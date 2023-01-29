@@ -138,7 +138,7 @@ private final PivotToggle pivotToggle = new PivotToggle(pivot);
    //CONTROLLER******
   //upPov.whileTrue(armExtend);
   //downPov.whileTrue(armRetract);
-  y.whileTrue(new AutoPIDDrive(drive, Constants.DriveConstants.GRID_TO_CENTER));
+  leftStickLeft.whileTrue(new AutoPIDDrive(drive, Constants.DriveConstants.GRID_TO_CENTER));
   a.whileTrue(new ArmPID(arm, Constants.ArmConstants.ARM_OUT));
   x.whileTrue(grabReleaseToggle);  
   b.whileTrue(pivotToggle);

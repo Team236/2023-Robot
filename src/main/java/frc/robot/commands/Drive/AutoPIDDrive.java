@@ -18,6 +18,7 @@ public class AutoPIDDrive extends CommandBase {
   /** Creates a new DriveStraight. */
   public AutoPIDDrive(Drive drive, double driveDistance) {
     this.drive = drive;
+    this.driveDistance = driveDistance;
     this.leftPidController = new PIDController(DriveConstants.leftkPdrive, DriveConstants.leftkIdrive, DriveConstants.leftkDdrive);
     this.rightPidController = new PIDController(DriveConstants.rightkPdrive, DriveConstants.rightkIdrive, DriveConstants.rightkDdrive);
     // Use addRequirements() here to declare subsystem dependencies.
@@ -25,8 +26,8 @@ public class AutoPIDDrive extends CommandBase {
     leftPidController.setSetpoint(driveDistance);
     rightPidController.setSetpoint(driveDistance);
     //getRate returns rate of change of the gyro angle, hence it is "spin"
-    spin = drive.navX.getRate();
-    gyrokP = 0;
+   // spin = drive.navX.getRate();
+    //gyrokP = 0;
   }
 
   // Called when the command is initially scheduled.
@@ -43,8 +44,10 @@ public class AutoPIDDrive extends CommandBase {
   @Override
   public void execute() {
     //negative speed applicable????/
-    double leftSpeed = (((leftPidController.calculate(drive.getLeftDistance())) - (spin*gyrokP)));
-    double rightSpeed = ((rightPidController.calculate(drive.getRightDistance())) + (spin*gyrokP));
+    //double leftSpeed = (((leftPidController.calculate(drive.getLeftDistance())) - (spin*gyrokP)));
+    //double rightSpeed = ((rightPidController.calculate(drive.getRightDistance())) + (spin*gyrokP));
+    double leftSpeed = (leftPidController.calculate(drive.getLeftDistance()));
+    double rightSpeed = (rightPidController.calculate(drive.getRightDistance()));
     drive.setLeftSpeed(leftSpeed);
     drive.setRightSpeed(rightSpeed);
 

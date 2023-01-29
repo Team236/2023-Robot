@@ -5,8 +5,6 @@
 package frc.robot;
 
 import edu.wpi.first.util.sendable.Sendable;
-
-
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -67,8 +65,6 @@ public final class Constants {
           public static final int RIGHT_ANGLE = 90;
           public static final int DOWN_ANGLE = 180;
           public static final int LEFT_ANGLE = 270;
-
-        
         }
     }
 }
@@ -81,7 +77,7 @@ public final class Constants {
     public static final int ID_RIGHT_REAR = 15; //16 - 45 - 15
 
     public static final int ID_ARM = 38;
-    public static final int ID_TURRET = 38; //test value
+    //public static final int ID_TURRET = 38; //test value
     //public static final int ID_PIVOT = 38; - currently pneumatic, getting redesigned
 
     }
@@ -94,9 +90,9 @@ public static class DriveConstants {
   public static final boolean IS_DEADZONE = true;
 
   //robot-specific numbers
-  public static final double DIAMETER = 4; //THIS IS A GUESS, NOT BUILT YET
+  public static final double DIAMETER = 6; //THIS IS A GUESS, NOT BUILT YET
   public static final double CIRCUMFERENCE = Math.PI * DIAMETER;
-  public static final double GEAR_RATIO = 8.71 * 0.75; //TEMPORARY!!!! - change once robot is more than a concept
+  public static final double GEAR_RATIO = 8.364; //TEMPORARY!!!! - change once robot is more than a concept
   //6.273 - low??
   //8.364 - high???
 
@@ -104,20 +100,18 @@ public static class DriveConstants {
   public static final double IN_TO_REV_K = GEAR_RATIO / CIRCUMFERENCE;
 
   //PID stuff
-  public static final double leftkPdrive = 0.018;
+  public static final double leftkPdrive = 0.01;
   public static final double leftkIdrive = 0;
   public static final double leftkDdrive = 0;
-  public static final double leftkFdrive = 0;
 
-  public static final double rightkPdrive = 0.02;
+  public static final double rightkPdrive = 0.01;
   public static final double rightkIdrive = 0;
   public static final double rightkDdrive = 0;
-  public static final double rightkFdrive = 0;
 
   //auto distances
   public static final double AUTO_MARGIN = 0;
   public static final double GRID_TO_CHARGE = 42; //???? Game Manual???
-  public static final double GRID_TO_CENTER = 80;
+  public static final double GRID_TO_CENTER = 40;
 
 }
 

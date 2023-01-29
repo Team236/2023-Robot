@@ -61,10 +61,10 @@ public class Gripper extends SubsystemBase {
   public void autoGrab() {
     if (getGripperEyeCount() >= 1) {
       grab();
-    SmartDashboard.putNumber("Eye Count", getGripperEyeCount());
+      SmartDashboard.putNumber("Eye Count ABOVE ZER0 so should Grab", getGripperEyeCount());
     }
     else {
-      SmartDashboard.putNumber("Eye Count", getGripperEyeCount());
+      SmartDashboard.putNumber("Eye Count not above zero", getGripperEyeCount());
     }
   }
   
