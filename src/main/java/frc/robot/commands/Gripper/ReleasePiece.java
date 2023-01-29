@@ -14,7 +14,7 @@ public class ReleasePiece extends CommandBase {
   /** Creates a new ReleasePiece. */
   public ReleasePiece(Gripper gripper) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.gripper=gripper;
+    this.gripper = gripper;
     addRequirements(gripper);
   }
 

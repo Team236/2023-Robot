@@ -30,7 +30,6 @@ public class Gripper extends SubsystemBase {
     } catch (Exception e) {
       isGripperEyeUnplugged = true;
     }
-
     gripperEye.reset();
   }
 
@@ -72,6 +71,7 @@ public class Gripper extends SubsystemBase {
   }
   @Override
   public void periodic() {
+    SmartDashboard.putNumber("Gripper Count", getGripperEyeCount());
     // This method will be called once per scheduler run
   }
 }

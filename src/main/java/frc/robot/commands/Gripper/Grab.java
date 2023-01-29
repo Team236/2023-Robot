@@ -11,7 +11,7 @@ public class Grab extends CommandBase {
   private Gripper gripper;
   /** Creates a new Grab. */
   public Grab(Gripper gripper) {
-    this.gripper=gripper;
+    this.gripper = gripper;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(gripper);
   }
