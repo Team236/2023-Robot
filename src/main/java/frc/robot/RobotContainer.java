@@ -3,7 +3,6 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
-
 import frc.robot.Constants;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.commands.Arm.ArmExtend;
@@ -13,7 +12,7 @@ import frc.robot.commands.Arm.ArmWithAxis;
 import frc.robot.commands.Drive.DoubleArcadeDrive;
 import frc.robot.commands.Drive.DriveWithJoysticks;
 import frc.robot.commands.Drive.AutoPIDDrive;
-import frc.robot.commands.Drive.DriveWithJoysticks;
+//import frc.robot.commands.Drive.DriveWithJoysticks;
 //import frc.robot.commands.Drive.DriveStraight;
 import frc.robot.commands.Gripper.Grab;
 import frc.robot.commands.Gripper.GrabReleaseToggle;
@@ -40,18 +39,18 @@ public class RobotContainer {
   Joystick controller = new Joystick(Constants.ControllerConstants.USB_CONTROLLER);
   Joystick leftStick = new Joystick(Constants.ControllerConstants.USB_LEFT_STICK);
   Joystick rightStick = new Joystick(Constants.ControllerConstants.USB_RIGHT_STICK);
-
   // SUBSYSTEMS****.
   private final Drive drive = new Drive();
   private final Arm arm = new Arm();
   private final Gripper gripper = new Gripper();
   private final Pivot pivot = new Pivot();
+  
 
   //COMMANDS****
   //AUTO
 
   //DRIVE
- private final DriveWithJoysticks driveWithJoysticks = new DriveWithJoysticks(drive, leftStick, rightStick);
+ private final DriveWithJoysticks driveWithJoysticks = new DriveWithJoysticks(drive, gripper, leftStick, rightStick);
  //private final DriveStraight driveStraight = new DriveStraight(drive);
  private final DoubleArcadeDrive doubleArcadeDrive = new DoubleArcadeDrive(drive, gripper);
 
