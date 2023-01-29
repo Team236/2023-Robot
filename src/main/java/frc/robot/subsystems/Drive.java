@@ -27,7 +27,6 @@ public class Drive extends SubsystemBase {
   public AHRS navX;
   private Joystick leftStick, rightStick;
   private boolean isDeadzone;
-  private Gripper gripper1;
 
   /** Creates a new ExampleSubsystem. */
   public Drive() {
