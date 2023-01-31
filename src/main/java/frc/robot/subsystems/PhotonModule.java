@@ -5,9 +5,6 @@
 package frc.robot.subsystems;
 
 import java.util.List;
-
-import javax.management.remote.TargetedNotification;
-
 import org.photonvision.PhotonCamera;
 import org.photonvision.targeting.PhotonTrackedTarget;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -21,7 +18,7 @@ public class PhotonModule extends SubsystemBase {
 
   public PhotonModule() {
     // Change this to match the name of your camera
-    camera = new PhotonCamera("photonvision");
+    camera = new PhotonCamera("vision1");
     target = new PhotonTrackedTarget();
     target.getBestCameraToTarget();
     SmartDashboard.putNumber("targetID", target.getFiducialId());
@@ -64,13 +61,13 @@ public class PhotonModule extends SubsystemBase {
       // Transform3d bestCameraToTarget = target.getBestCameraToTarget();
       // Transform3d alternateCameraToTarget = target.getAlternateCameraToTarget();
 
-      double yaw = target.getYaw();
+      var yaw = target.getYaw();
       SmartDashboard.putNumber("targetYaw", yaw);
-      double pitch = target.getPitch();
+      var pitch = target.getPitch();
       SmartDashboard.putNumber("targetPitch", pitch);
-      double area = target.getArea();
+      var area = target.getArea();
       SmartDashboard.putNumber("targetArea", area);
-      double skew = target.getSkew();
+      var skew = target.getSkew();
       SmartDashboard.putNumber("targetSkew", skew);
       SmartDashboard.putNumber("targetID", target.getFiducialId());
     }
