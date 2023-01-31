@@ -5,9 +5,6 @@
 package frc.robot.subsystems;
 
 import java.util.List;
-
-import javax.management.remote.TargetedNotification;
-
 import org.photonvision.PhotonCamera;
 import org.photonvision.targeting.PhotonTrackedTarget;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -21,59 +18,72 @@ public class PhotonModule extends SubsystemBase {
 
   public PhotonModule() {
     // Change this to match the name of your camera
-    camera = new PhotonCamera("photonvision");
+    camera = new PhotonCamera("vision1");
     target = new PhotonTrackedTarget();
-    target.getBestCameraToTarget();
-    SmartDashboard.putNumber("targetID", target.getFiducialId());
-    double yaw = target.getYaw();
-    SmartDashboard.putNumber("targetYaw", yaw);
 
-    double pitch = target.getPitch();
-    SmartDashboard.putNumber("targetPitch", pitch);
+    // SmartDashboard.putNumber("targetID", target.getFiducialId());
+    // var yaw = target.getYaw();
+    // SmartDashboard.putNumber("targetYaw", yaw);
 
-    double area = target.getArea();
-    SmartDashboard.putNumber("targetArea", area);
+    // var pitch = target.getPitch();
+    // SmartDashboard.putNumber("targetPitch", pitch);
 
-    double skew = target.getSkew();
-    SmartDashboard.putNumber("targetSkew", skew);
-    SmartDashboard.putNumber("targetID", target.getFiducialId());
+    // var area = target.getArea();
+    // SmartDashboard.putNumber("targetArea", area);
+
+    // var skew = target.getSkew();
+    // SmartDashboard.putNumber("targetSkew", skew);
+    // SmartDashboard.putNumber("targetID", target.getFiducialId());
   }
 
   @Override
   public void periodic() {
     // Query the latest result from PhotonVision
-    var result = camera.getLatestResult();
-    boolean hasTargets = result.hasTargets();
+    var target = camera.getLatestResult();
+    // boolean hasTargets = target.hasTargets();
+    camera.setDriverMode(false);
+    camera.setPipelineIndex(1);
+    
+    SmartDashboard.putNumber("pipeline_index", camera.getPipelineIndex() );
 
-    // Check if the latest result has any targets.s
-    if (result.hasTargets()) {
+    SmartDashboard.putBoolean("getName()", target.hasTargets());
 
-      SmartDashboard.putBoolean("getName()", hasTargets);
+    // Check if the latest result has any targets
+    if (target.hasTargets()) {
 
-      // Get a list of currently tracked targets.
-      List<PhotonTrackedTarget> targets = result.getTargets();
-      // Get the current best target.
-      target = result.getBestTarget();
+      // Get a list of currently tracked targets
+      // List<PhotonTrackedTarget> targetList = target.getTargets();
 
-      // Get information from target.
-      SmartDashboard.putNumber("TargetCount", targets.size());
+      // Get the current best target
+      var result = target.getBestTarget();
 
-      // Get information from target.
-      int targetId = target.getFiducialId();
+      // Get information from target
+      // SmartDashboard.putNumber("TargetCount", targets.size());
+
+      // Get information from target
+      int targetId = result.getFiducialId();
+      SmartDashboard.putNumber("targetID", targetId);
+
+      var yaw = result.getYaw();
+      SmartDashboard.putNumber("targetYaw", yaw);
+
+      var pitch = result.getPitch();
+      SmartDashboard.putNumber("targetPitch", pitch);
+
+      var area = result.getArea();
+      SmartDashboard.putNumber("targetArea", area);
+
+      var skew = result.getSkew();
+      SmartDashboard.putNumber("targetSkew", skew);
+
       // double poseAmbiguity = target.getPoseAmbiguity();
       // Transform3d bestCameraToTarget = target.getBestCameraToTarget();
       // Transform3d alternateCameraToTarget = target.getAlternateCameraToTarget();
 
-      double yaw = target.getYaw();
-      SmartDashboard.putNumber("targetYaw", yaw);
-      double pitch = target.getPitch();
-      SmartDashboard.putNumber("targetPitch", pitch);
-      double area = target.getArea();
-      SmartDashboard.putNumber("targetArea", area);
-      double skew = target.getSkew();
-      SmartDashboard.putNumber("targetSkew", skew);
-      SmartDashboard.putNumber("targetID", target.getFiducialId());
-    }
-  }
+    }  
+    else {
+
+    }       
+  } // end periodic
 }
-// end periodic
+

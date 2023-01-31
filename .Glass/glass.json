@@ -1,0 +1,25 @@
+{
+  "NetworkTables": {
+    "transitory": {
+      "CameraPublisher": {
+        "open": true
+      },
+      "SmartDashboard": {
+        "open": true
+      },
+      "photonvision": {
+        "OV5647": {
+          "open": true
+        },
+        "open": true
+      }
+    },
+    "types": {
+      "/FMSInfo": "FMSInfo"
+    }
+  },
+  "NetworkTables Settings": {
+    "mode": "Client (NT3)",
+    "serverTeam": "236"
+  }
+}
