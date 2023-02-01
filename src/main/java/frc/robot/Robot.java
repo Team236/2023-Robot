@@ -6,12 +6,15 @@ package frc.robot;
 
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -28,7 +31,7 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private Compressor compressor;
   //public AHRS navx = new AHRS();
-  //public UsbCamera usbCamera0;
+  public UsbCamera usbCamera0;
 
   private RobotContainer m_robotContainer;
 
@@ -44,6 +47,13 @@ public class Robot extends TimedRobot {
 
     compressor = new Compressor(PneumaticsModuleType.CTREPCM);
     compressor.enableDigital();
+    //USB camera
+		try {
+      usbCamera0 = CameraServer.startAutomaticCapture(0);
+}  catch (Exception e)  {
+    SmartDashboard.putString("camera capture filed", "failed");
+}
+
   }
 
   /**
