@@ -20,8 +20,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Arm extends SubsystemBase {
   private CANSparkMax armMotor;
-  private Encoder armEncoder; //External
-  //private RelativeEncoder armEncoder; //SparkMax
+  //private Encoder armEncoder; //External
+  private RelativeEncoder armEncoder; //SparkMax
   private DigitalInput armReturnLimit, armExtendLimit;
   private boolean isAReturnUnplugged = false;
   private boolean isAExtendUnplugged = false;
@@ -33,8 +33,8 @@ public class Arm extends SubsystemBase {
     armMotor.setInverted(false);
 
     //armPID = armMotor.getPIDController();
-    //armEncoder = armMotor.getEncoder(); //SparkMax
-    armEncoder = new Encoder(ArmConstants.DIO_ARM_A, ArmConstants.DIO_ARM_B); //External
+    armEncoder = armMotor.getEncoder(); //SparkMax
+    //armEncoder = new Encoder(ArmConstants.DIO_ARM_A, ArmConstants.DIO_ARM_B); //External
 
     
     try {
@@ -80,14 +80,16 @@ public class Arm extends SubsystemBase {
   }
 
   public void resetArmEncoder() {
-    //armEncoder.setPosition(0); //SparkMax
-    armEncoder.reset(); //external
+    armEncoder.setPosition(0); //SparkMax
+    //armEncoder.reset(); //external
   }
 
   //returns encoder position in REVOLUTIONS 
     public double getArmEncoder() {
-    // return armEncoder.getPosition(); //SparkMax
-    return armEncoder.get(); //External
+    return armEncoder.getPosition(); //SparkMax
+    //return armEncoder.get(); //External 128 ticks per revolution
+
+
   }
 
   public double getArmDistance() {
