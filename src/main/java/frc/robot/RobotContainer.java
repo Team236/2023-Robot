@@ -11,6 +11,7 @@ import frc.robot.commands.Arm.ArmRetract;
 import frc.robot.commands.Arm.ArmWithAxis;
 import frc.robot.commands.Drive.DoubleArcadeDrive;
 import frc.robot.commands.Drive.DriveWithJoysticks;
+import frc.robot.commands.Drive.TankDriveWithGyro;
 import frc.robot.commands.Drive.AutoPIDDrive;
 //import frc.robot.commands.Drive.DriveWithJoysticks;
 //import frc.robot.commands.Drive.DriveStraight;
@@ -133,6 +134,7 @@ private final PivotToggle pivotToggle = new PivotToggle(pivot);
     // ASSIGN BUTTONS TO COMMANDS
    //LEFTSTICK*****
    leftStickLeft.whileTrue(new AutoPIDDrive(drive, -Constants.DriveConstants.GRID_TO_CENTER));
+   leftStickRight.whileTrue(new TankDriveWithGyro(drive, 0.1, 100,0.3));
    //RIGHTSTICK*****
 
    //CONTROLLER******

@@ -112,6 +112,7 @@ public static class DriveConstants {
   public static final double AUTO_MARGIN = 0;
   public static final double GRID_TO_CHARGE = 42; //???? Game Manual???
   public static final double GRID_TO_CENTER = 240;
+  public static final double MARGIN_GYRO_DRIVE = 3;
 
 }
 
