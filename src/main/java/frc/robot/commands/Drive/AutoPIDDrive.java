@@ -27,7 +27,7 @@ public class AutoPIDDrive extends CommandBase {
     rightPidController.setSetpoint(driveDistance);
     //getRate returns rate of change of the gyro angle, hence it is "spin"
    spin = drive.navX.getRate();
-    gyrokP = 0;
+    gyrokP = 0.03;
   }
 
   // Called when the command is initially scheduled.
@@ -47,7 +47,7 @@ public class AutoPIDDrive extends CommandBase {
     double leftSpeed = (((leftPidController.calculate(drive.getLeftDistance())) - (spin*gyrokP)));
     double rightSpeed = ((rightPidController.calculate(drive.getRightDistance())) + (spin*gyrokP));
     //double leftSpeed = (leftPidController.calculate(drive.getLeftDistance()));
-    //double rightSpeed = (rightPidController.calculate(drive.getRightDistance()));
+   // double rightSpeed = (rightPidController.calculate(drive.getRightDistance()));
     drive.setLeftSpeed(leftSpeed);
     drive.setRightSpeed(rightSpeed);
 

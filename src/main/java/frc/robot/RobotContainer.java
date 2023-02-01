@@ -132,7 +132,7 @@ private final PivotToggle pivotToggle = new PivotToggle(pivot);
 
     // ASSIGN BUTTONS TO COMMANDS
    //LEFTSTICK*****
-   leftStickLeft.whileTrue(new AutoPIDDrive(drive, Constants.DriveConstants.GRID_TO_CENTER));
+   leftStickLeft.whileTrue(new AutoPIDDrive(drive, -Constants.DriveConstants.GRID_TO_CENTER));
    //RIGHTSTICK*****
 
    //CONTROLLER******
@@ -141,7 +141,7 @@ private final PivotToggle pivotToggle = new PivotToggle(pivot);
   a.whileTrue(new ArmPID(arm, Constants.ArmConstants.ARM_OUT));
   x.whileTrue(grabReleaseToggle);  
   b.whileTrue(pivotToggle);
-  //start.whileTrue(armWithAxis);
+  start.whileTrue(armWithAxis);
   
 
   }

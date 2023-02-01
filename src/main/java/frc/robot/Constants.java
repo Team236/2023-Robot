@@ -77,7 +77,7 @@ public final class Constants {
     public static final int ID_RIGHT_REAR = 15; //16 - 45 - 15
 
     public static final int ID_ARM = 38;
-    //public static final int ID_TURRET = 38; //test value
+    public static final int ID_TURRET = 32; //test value
     //public static final int ID_PIVOT = 38; - currently pneumatic, getting redesigned
 
     }
@@ -90,17 +90,17 @@ public static class DriveConstants {
   public static final boolean IS_DEADZONE = true;
 
   //robot-specific numbers
-  public static final double DIAMETER = 6; //THIS IS A GUESS, NOT BUILT YET
+  public static final double DIAMETER = 6; 
   public static final double CIRCUMFERENCE = Math.PI * DIAMETER;
-  public static final double GEAR_RATIO = 8.364; //TEMPORARY!!!! - change once robot is more than a concept
-  //6.273 - low??
-  //8.364 - high???
+  public static final double GEAR_RATIO = 8.364; //TEMPORARY!!!
+  //6.273 - low?? - testbot
+  //8.364 - high??? - testbot
 
   public static final double REV_TO_IN_K = CIRCUMFERENCE / GEAR_RATIO;
   public static final double IN_TO_REV_K = GEAR_RATIO / CIRCUMFERENCE;
 
   //PID stuff
-  public static final double leftkPdrive = 0.01;
+  public static final double leftkPdrive = 0.01; 
   public static final double leftkIdrive = 0;
   public static final double leftkDdrive = 0;
 
@@ -111,7 +111,7 @@ public static class DriveConstants {
   //auto distances
   public static final double AUTO_MARGIN = 0;
   public static final double GRID_TO_CHARGE = 42; //???? Game Manual???
-  public static final double GRID_TO_CENTER = 70;
+  public static final double GRID_TO_CENTER = 240;
 
 }
 
@@ -121,6 +121,8 @@ public static class ArmConstants { ///FOR TESTBOT: subject to change for final
 
   public static final int DIO_ARM_RETURN = 3;
   public static final int DIO_ARM_EXTEND = 4;
+  public static final int DIO_ARM_A = 0;
+  public static final int DIO_ARM_B = 1;
 
   public static final double ARM_OUT = 4;
 
@@ -149,6 +151,25 @@ public static class GripperConstants {
 
   //Port used on the DIO
   public static final int DIO_GRIPPER_EYE = 5;
+
+}
+
+public static class TurretConstants {
+  public static final double turretREV_TO_DEG = 1;
+  public static final double turretDEG_TO_REV = 1;
+
+  public static final double kPturret = 0;
+  public static final double kIturret = 0;
+  public static final double kDturret = 0;
+
+  public static final int DIO_TURRET_1 = 0;
+  public static final int DIO_TURRET_2 = 0;
+
+  public static final double TURRET_RANGE = 360;
+  public static final double TURRET_SCORE = 250; //we might need more than 2 settings, so just in case
+
+  public static final double TURRET_SPEED = 0.75;
+
 
 }
 }
