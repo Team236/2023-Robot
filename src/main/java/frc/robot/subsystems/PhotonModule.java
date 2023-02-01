@@ -18,7 +18,7 @@ public class PhotonModule extends SubsystemBase {
 
   public PhotonModule() {
     // Change this to match the name of your camera
-    camera = new PhotonCamera("vision1");
+    camera = new PhotonCamera("OV5647");
     target = new PhotonTrackedTarget();
 
     // SmartDashboard.putNumber("targetID", target.getFiducialId());
