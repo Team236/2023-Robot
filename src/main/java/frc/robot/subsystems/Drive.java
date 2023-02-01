@@ -142,8 +142,8 @@ public class Drive extends SubsystemBase {
   }
 
   public void stop(double speed) {
-    setLeftSpeed(0);
-    setRightSpeed(0);
+    leftFront.stopMotor();
+    rightFront.stopMotor();
   }
 
  public double getGyroRate(){

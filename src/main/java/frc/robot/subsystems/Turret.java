@@ -28,12 +28,12 @@ public class Turret extends SubsystemBase {
     turretEncoder = turretMotor.getEncoder(); //WILL BE DIFFERENT
 
     try {
-      turretLimit1 = new DigitalInput(TurretConstants.DIO_TURRET_1);
+      turretLimit1 = new DigitalInput(TurretConstants.DIO_TURRET_CW_LIMIT);
     } catch (Exception e) {
       isT1Unplugged = true;
     }
     try {
-      turretLimit2 = new DigitalInput(TurretConstants.DIO_TURRET_2);
+      turretLimit2 = new DigitalInput(TurretConstants.DIO_TURRET_CCW_LIMIT);
     } catch (Exception e) {
       isT2Unplugged = true;
     }

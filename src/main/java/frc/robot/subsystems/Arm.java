@@ -34,7 +34,7 @@ public class Arm extends SubsystemBase {
 
     //armPID = armMotor.getPIDController();
     armEncoder = armMotor.getEncoder(); //SparkMax
-    //armEncoder = new Encoder(ArmConstants.DIO_ARM_A, ArmConstants.DIO_ARM_B); //External
+    //armEncoder = new Encoder(ArmConstants.DIO_ARM_ENC_A, ArmConstants.DIO_ARM_ENC_B); //External
 
     
     try {
@@ -87,7 +87,7 @@ public class Arm extends SubsystemBase {
   //returns encoder position in REVOLUTIONS 
     public double getArmEncoder() {
     return armEncoder.getPosition(); //SparkMax
-    //return armEncoder.get(); //External 128 ticks per revolution
+    //return armEncoder.get() / 128 ; //External 128 ticks per revolution
 
 
   }

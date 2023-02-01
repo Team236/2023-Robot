@@ -122,8 +122,8 @@ public static class ArmConstants { ///FOR TESTBOT: subject to change for final
 
   public static final int DIO_ARM_RETURN = 3;
   public static final int DIO_ARM_EXTEND = 4;
-  public static final int DIO_ARM_A = 0;
-  public static final int DIO_ARM_B = 1;
+  public static final int DIO_ARM_ENC_A = 0;
+  public static final int DIO_ARM_ENC_B = 1;
 
   public static final double ARM_OUT = 4;
 
@@ -134,13 +134,6 @@ public static class ArmConstants { ///FOR TESTBOT: subject to change for final
   public static double kIarm = 0;
   public static double kDarm = 0;
   public static double kFarm = 0; //mooooo
-
-  public static final double armMARGIN = 2;
-  public static final double armMIN_OUTPUT = 10;
-  public static final double armMAX_OUTPUT = 3;
-
-  
-
 }
 public static class GripperConstants {
   //Solenoid ports on the PCM
@@ -163,11 +156,15 @@ public static class TurretConstants {
   public static final double kIturret = 0;
   public static final double kDturret = 0;
 
-  public static final int DIO_TURRET_1 = 0;
-  public static final int DIO_TURRET_2 = 0;
+  public static final int DIO_TURRET_CW_LIMIT = 0;
+  public static final int DIO_TURRET_CCW_LIMIT = 0;
 
   public static final double TURRET_RANGE = 360;
-  public static final double TURRET_SCORE = 250; //we might need more than 2 settings, so just in case
+  public static final double TURRET_FRNTCENT = 0; 
+  public static final double TURRET_LFRNT = -45;
+  public static final double TURRET_RFRNT = 45;
+  public static final double TURRET_RIGHT = 90;
+  public static final double TURRET_LEFT = -90;
 
   public static final double TURRET_SPEED = 0.75;
 
