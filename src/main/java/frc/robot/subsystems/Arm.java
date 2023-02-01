@@ -11,6 +11,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.SparkMaxRelativeEncoder.Type;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.robot.Constants;
@@ -18,10 +19,9 @@ import frc.robot.Constants.ArmConstants;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Arm extends SubsystemBase {
-
-  
   private CANSparkMax armMotor;
-  private RelativeEncoder armEncoder;
+  private Encoder armEncoder; //External
+  //private RelativeEncoder armEncoder; //SparkMax
   private DigitalInput armReturnLimit, armExtendLimit;
   private boolean isAReturnUnplugged = false;
   private boolean isAExtendUnplugged = false;
@@ -33,7 +33,8 @@ public class Arm extends SubsystemBase {
     armMotor.setInverted(false);
 
     //armPID = armMotor.getPIDController();
-    armEncoder = armMotor.getEncoder();
+    //armEncoder = armMotor.getEncoder(); //SparkMax
+    armEncoder = new Encoder(ArmConstants.DIO_ARM_A, ArmConstants.DIO_ARM_B); //External
 
     
     try {
@@ -79,12 +80,14 @@ public class Arm extends SubsystemBase {
   }
 
   public void resetArmEncoder() {
-    armEncoder.setPosition(0);
+    //armEncoder.setPosition(0); //SparkMax
+    armEncoder.reset(); //external
   }
 
   //returns encoder position in REVOLUTIONS 
     public double getArmEncoder() {
-     return armEncoder.getPosition();
+    // return armEncoder.getPosition(); //SparkMax
+    return armEncoder.get(); //External
   }
 
   public double getArmDistance() {
