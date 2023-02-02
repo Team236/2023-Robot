@@ -55,7 +55,7 @@ public class RobotContainer {
   
 
   //AUTO
-  private final AprilMove aprilMove = new AprilMove(drive, 0, photonModual);
+  private final AprilMove aprilMove = new AprilMove(drive, photonModual);
 
   //DRIVE
  //private final DriveWithJoysticks driveWithJoysticks = new DriveWithJoysticks(drive, leftStick, rightStick);

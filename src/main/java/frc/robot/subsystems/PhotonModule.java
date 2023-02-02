@@ -61,6 +61,7 @@ public class PhotonModule extends SubsystemBase {
       // SmartDashboard.putNumber("TargetCount", targets.size());
 
       // Get information from target
+      
       int targetId = result.getFiducialId();
       SmartDashboard.putNumber("targetID", targetId);
 
@@ -85,5 +86,16 @@ public class PhotonModule extends SubsystemBase {
 
     }       
   } // end periodic
+
+  // method to get the best camera x distance
+  public double getX() {
+    return this.target.getBestCameraToTarget().getX();
+  }
+
+  // method to get the best camera Y distance
+  public double getY() {
+    return this.target.getBestCameraToTarget().getY();
+  }
+
 }
 
