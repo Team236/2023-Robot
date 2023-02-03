@@ -84,10 +84,11 @@ public final class Constants {
 
 
 public static class DriveConstants {
-
   public static final double LEFT_DEADZONE = 0.17; //0.15???
   public static final double RIGHT_DEADZONE = 0.17;
   public static final boolean IS_DEADZONE = true;
+  public static final int SOL_HI_GEAR = 2;
+  public static final int SOL_LOW_GEAR = 3;
 
   //robot-specific numbers
   public static final double DIAMETER = 6; 
@@ -114,14 +115,26 @@ public static class DriveConstants {
   public static final double GRID_TO_CENTER = 240;
   public static final double MARGIN_GYRO_DRIVE = 3;
 
+  //drive encoder channels
+  public static final int DIO_RDRIVE_ENC_A = 15;
+  public static final int DIO_RDRIVE_ENC_B = 16;
+  public static final int DIO_LDRIVE_ENC_A = 17;
+  public static final int DIO_LDIRVE_ENC_B = 18;
+
+  //auto selector switches
+ public static final int DIO_AUTO_1 = 1;
+  public static final int DIO_AUTO_2 = 2;
+  public static final int DIO_AUTO_3 = 3;
+  public static final int DIO_AUTO_4 = 4;
+
 }
 
 public static class ArmConstants { ///FOR TESTBOT: subject to change for final
   public static double armREV_TO_IN = 0.125; // 1/2 inch per revolution
   public static double armIN_TO_REV = 8; //2 revolutions per inch
 
-  public static final int DIO_ARM_RETURN = 3;
-  public static final int DIO_ARM_EXTEND = 4;
+  public static final int DIO_ARM_RETURN = 3; //7
+  public static final int DIO_ARM_EXTEND = 4; //8
   public static final int DIO_ARM_ENC_A = 0;
   public static final int DIO_ARM_ENC_B = 1;
 
@@ -137,14 +150,10 @@ public static class ArmConstants { ///FOR TESTBOT: subject to change for final
 }
 public static class GripperConstants {
   //Solenoid ports on the PCM
-  public static final int GRIPPER_SOL_FOR = 6;
-  public static final int GRIPPER_SOL_REV = 7;
-
-  public static final int PIVOT_SOL_FOR = 0;
-  public static final int PIVOT_SOL_REV = 1;
-
+  public static final int GRIPPER_SOL_FOR = 6; //0
+  public static final int GRIPPER_SOL_REV = 7; //1
   //Port used on the DIO
-  public static final int DIO_GRIPPER_EYE = 5;
+  public static final int DIO_GRIPPER_EYE = 5; //0
 
 }
 
@@ -156,8 +165,10 @@ public static class TurretConstants {
   public static final double kIturret = 0;
   public static final double kDturret = 0;
 
-  public static final int DIO_TURRET_CW_LIMIT = 0;
-  public static final int DIO_TURRET_CCW_LIMIT = 0;
+  public static final int DIO_TURRET_CW_LIMIT = 9;
+  public static final int DIO_TURRET_CCW_LIMIT = 10;
+  public static final int DIO_TRRT_ENC_A = 11;
+  public static final int DIO_TRRT_ENC_B = 12;
 
   public static final double TURRET_RANGE = 360;
   public static final double TURRET_FRNTCENT = 0; 
@@ -168,6 +179,18 @@ public static class TurretConstants {
 
   public static final double TURRET_SPEED = 0.75;
 
+
+}
+
+public static class PivotConstants {
+  public static final int PIVOT_SOL_FOR = 0;
+  public static final int PIVOT_SOL_REV = 1;
+
+  public static final int PVT_LOW = 5;
+  public static final int PVT_HIGH = 6;
+
+  public static final int DIO_PVT_ENC_A = 13;
+  public static final int DIO_PVT_ENC_B = 14;
 
 }
 }

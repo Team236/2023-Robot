@@ -18,7 +18,7 @@ public class Pivot extends SubsystemBase {
   public Pivot() {
 
     pivotSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 
-    Constants.GripperConstants.PIVOT_SOL_FOR, Constants.GripperConstants.PIVOT_SOL_REV);
+    Constants.PivotConstants.PIVOT_SOL_FOR, Constants.PivotConstants.PIVOT_SOL_REV);
 
   }
     public void extend() {

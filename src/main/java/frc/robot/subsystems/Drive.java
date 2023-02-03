@@ -10,6 +10,7 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.SparkMaxRelativeEncoder.Type;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -23,7 +24,8 @@ import frc.robot.Constants.DriveConstants;
 public class Drive extends SubsystemBase {
 
   public CANSparkMax leftFront, leftRear, rightFront, rightRear;
-  private RelativeEncoder leftEncoder, rightEncoder;
+  //private RelativeEncoder leftEncoder, rightEncoder;
+  private Encoder leftEncoder, rightEncoder;
   public AHRS navX;
   private Joystick leftStick, rightStick;
   private boolean isDeadzone;
@@ -44,8 +46,10 @@ public class Drive extends SubsystemBase {
     leftRear.follow(leftFront);
     rightRear.follow(rightFront);
 
-    leftEncoder = leftFront.getEncoder();
-    rightEncoder = rightFront.getEncoder();
+    //leftEncoder = leftFront.getEncoder();
+    //rightEncoder = rightFront.getEncoder();
+    leftEncoder = new Encoder(DriveConstants.DIO_LDRIVE_ENC_A, DriveConstants.DIO_LDIRVE_ENC_B);
+    rightEncoder = new Encoder(DriveConstants.DIO_RDRIVE_ENC_A, DriveConstants.DIO_RDRIVE_ENC_B);
 
    navX = new AHRS();
    leftStick = new Joystick(Constants.ControllerConstants.USB_LEFT_STICK);
@@ -86,7 +90,7 @@ public class Drive extends SubsystemBase {
     setRightSpeed(rightSpeed);
   }
   public void setArcadeSpeed() {
-    double leftSpeed, rightSpeed, max, L, R, kPgyro, error;
+    double max, L, R, kPgyro, error;
 
     if (Math.abs(leftStick.getX()) <= 0.15) {
       kPgyro = 0.03;
@@ -114,16 +118,20 @@ public class Drive extends SubsystemBase {
   }
 
   public double getLeftSpeed() {
-   return leftEncoder.getVelocity();
+   //return leftEncoder.getVelocity();
+   return leftEncoder.getRate();
   }
   public double getRightSpeed() {
-    return rightEncoder.getVelocity();
+    //return rightEncoder.getVelocity();
+    return leftEncoder.getRate();
   }
   public double getLeftEncoder(){
-  return leftEncoder.getPosition();
+ // return leftEncoder.getPosition();
+ return leftEncoder.get()/128; //revs from encoder ticks
   }
   public double getRightEncoder() {
-    return rightEncoder.getPosition();
+    //return rightEncoder.getPosition();
+    return rightEncoder.get()/128;
   }
   public double getLeftDistance() {
     return getLeftEncoder() * DriveConstants.REV_TO_IN_K;
@@ -135,13 +143,15 @@ public class Drive extends SubsystemBase {
     return (getLeftDistance() + getRightDistance())/2 ;
   }
   public void resetLeftEncoder() {
-    leftEncoder.setPosition(0);
+    //leftEncoder.setPosition(0);
+    leftEncoder.reset();
   }
   public void resetRightEncoder() {
-    rightEncoder.setPosition(0);
+    //rightEncoder.setPosition(0);
+    rightEncoder.reset();
   }
 
-  public void stop(double speed) {
+  public void stop() {
     leftFront.stopMotor();
     rightFront.stopMotor();
   }

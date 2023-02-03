@@ -51,14 +51,6 @@ public class Arm extends SubsystemBase {
 
   }
 
-  public void armOut() {
-    armMotor.set(ArmConstants.ARM_EX_SPEED);
-  }
-
-  public void armIn() {
-    armMotor.set(-ArmConstants.ARM_RE_SPEED);
-  }
-
   public void armStop() {
     armMotor.set(0);
   }
@@ -88,8 +80,6 @@ public class Arm extends SubsystemBase {
     public double getArmEncoder() {
     return armEncoder.getPosition(); //SparkMax
     //return armEncoder.get() / 128 ; //External 128 ticks per revolution
-
-
   }
 
   public double getArmDistance() {
@@ -118,12 +108,10 @@ public class Arm extends SubsystemBase {
   }
 
 
-
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("arm encoder", getArmEncoder());
-
     SmartDashboard.putBoolean("arm extend limit", isAExtendLimit());
     SmartDashboard.putBoolean("arm return limit", isAReturnLimit());
     SmartDashboard.putNumber("P value", ArmConstants.kParm);

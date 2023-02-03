@@ -43,10 +43,9 @@ private Drive drive;
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
-double L = speed;
-double R = speed;
-double ang = drive.navX.getRate();
+    double L;
+    double R; 
+    double ang = drive.navX.getRate();
 
 if (speed <= 0) {
   L = speed - kP*ang;
@@ -65,7 +64,7 @@ drive.setRightSpeed(R);
   @Override
   public void end(boolean interrupted) {
 
-    drive.stop(0);
+    drive.stop();
 
   }
 

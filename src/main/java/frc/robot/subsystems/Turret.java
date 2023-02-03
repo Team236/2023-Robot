@@ -12,10 +12,12 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Turret extends SubsystemBase {
   private CANSparkMax turretMotor;
-  private RelativeEncoder turretEncoder; //WILL BE DIFFERENT
+  //private RelativeEncoder turretEncoder; //WILL BE DIFFERENT
+  private Encoder turretEncoder;
   private DigitalInput turretLimit1, turretLimit2;
   private boolean isT1Unplugged = false;
   private boolean isT2Unplugged = false;
@@ -25,7 +27,8 @@ public class Turret extends SubsystemBase {
     turretMotor.restoreFactoryDefaults();
     turretMotor.setInverted(false);
 
-    turretEncoder = turretMotor.getEncoder(); //WILL BE DIFFERENT
+    //turretEncoder = turretMotor.getEncoder(); 
+    turretEncoder = new Encoder(TurretConstants.DIO_TRRT_ENC_A, TurretConstants.DIO_TRRT_ENC_B);
 
     try {
       turretLimit1 = new DigitalInput(TurretConstants.DIO_TURRET_CW_LIMIT);
@@ -40,14 +43,52 @@ public class Turret extends SubsystemBase {
 
   }
 
-  public void turretClockwise() { //maybe change to left/right? 
-    turretMotor.set(TurretConstants.TURRET_SPEED);
+  public boolean isTCWLimit() {
+    if (isT1Unplugged) {
+      return true;
+    } else {
+      return !turretLimit1.get();
+    }
+  }
+  
+  public boolean isTCCWLimit() {
+    if (isT2Unplugged) {
+      return true;
+    } else {
+      return !turretLimit2.get();
+    }
   }
 
-  public void turretCounterClockwise() {
-    turretMotor.set(-TurretConstants.TURRET_SPEED);
+  public void resetTurretEncoder() {
+    turretEncoder.reset();
   }
-
+  public double getTurretEncoder() {
+    return turretEncoder.get()/128;  //128 ticks per rev, returns REVS
+  }
+  public double getTurretAngle() {
+    return  getTurretEncoder() * TurretConstants.turretREV_TO_DEG;
+  } 
+  
+  public void setTurretSpeed(double speed) {
+    if (speed > 0) {
+      if (isTCWLimit()) {
+        // mast going up and top limit is tripped, stop
+        turretStop();
+      } else {
+        // mast going up but top limit is not tripped, go at commanded speed
+        turretMotor.set(speed);
+      }
+    } else {
+      if (isTCCWLimit()) {
+        // mast going down and bottom limit is tripped, stop and zero encoder
+        turretStop();
+        resetTurretEncoder();
+      } else {
+        // mast going down but bottom limit is not tripped, go at commanded speed
+        turretMotor.set(speed);
+      }
+    }
+  }
   public void turretStop() {
     turretMotor.set(0);
   }
@@ -55,5 +96,9 @@ public class Turret extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("turret encoder", getTurretEncoder());
+    SmartDashboard.putNumber("turret angle", getTurretAngle());
+    SmartDashboard.putBoolean("turret CW limit", isTCWLimit());
+    SmartDashboard.putBoolean("turret CCW limit", isTCCWLimit());
   }
 }
