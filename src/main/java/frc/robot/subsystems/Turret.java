@@ -16,8 +16,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Turret extends SubsystemBase {
   private CANSparkMax turretMotor;
-  //private RelativeEncoder turretEncoder; //WILL BE DIFFERENT
-  private Encoder turretEncoder;
+  private RelativeEncoder turretEncoder; //WILL BE DIFFERENT
+  //private Encoder turretEncoder;
   private DigitalInput turretLimit1, turretLimit2;
   private boolean isT1Unplugged = false;
   private boolean isT2Unplugged = false;
@@ -27,10 +27,10 @@ public class Turret extends SubsystemBase {
     turretMotor.restoreFactoryDefaults();
     turretMotor.setInverted(false);
 
-    //turretEncoder = turretMotor.getEncoder(); 
-    turretEncoder = new Encoder(TurretConstants.DIO_TRRT_ENC_A, TurretConstants.DIO_TRRT_ENC_B);
+    turretEncoder = turretMotor.getEncoder(); 
+    //turretEncoder = new Encoder(TurretConstants.DIO_TRRT_ENC_A, TurretConstants.DIO_TRRT_ENC_B);
 
-    try {
+   /*  try {
       turretLimit1 = new DigitalInput(TurretConstants.DIO_TURRET_CW_LIMIT);
     } catch (Exception e) {
       isT1Unplugged = true;
@@ -39,7 +39,7 @@ public class Turret extends SubsystemBase {
       turretLimit2 = new DigitalInput(TurretConstants.DIO_TURRET_CCW_LIMIT);
     } catch (Exception e) {
       isT2Unplugged = true;
-    }
+    } */
 
   }
 
@@ -60,10 +60,12 @@ public class Turret extends SubsystemBase {
   }
 
   public void resetTurretEncoder() {
-    turretEncoder.reset();
+    turretEncoder.setPosition(0);
+   // turretEncoder.reset();
   }
   public double getTurretEncoder() {
-    return turretEncoder.get()/128;  //128 ticks per rev, returns REVS
+    return turretEncoder.getPosition();
+   // return turretEncoder.get()/128;  //128 ticks per rev, returns REVS
   }
   public double getTurretAngle() {
     return  getTurretEncoder() * TurretConstants.turretREV_TO_DEG;

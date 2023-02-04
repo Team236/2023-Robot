@@ -27,7 +27,7 @@ public class PivotUp extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    arm.setPivotSpeed(Constants.PivotConstants.pvtSPEED);
+   // arm.setPivotSpeed(Constants.PivotConstants.pvtSPEED);
   }
 
   // Called once the command ends or is interrupted.
@@ -39,7 +39,7 @@ public class PivotUp extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if ((speed > 0.008) && arm.isPHighLimit()) {
+    /*if ((speed > 0.008) && arm.isPHighLimit()) {
       // if mast is going up and top limit is triggered
       // the 0.008 is because when the axis is at rest, it reads 0.0078125 so doing speed > 0.008 acts as a deadzone
       return true;
@@ -48,6 +48,7 @@ public class PivotUp extends CommandBase {
       return true;
     } else {
       return false;
-    }
+    }*/
+    return false;
   }
 }
