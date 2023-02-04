@@ -59,6 +59,12 @@ public final class Constants {
         public static final int RX = 4;
         public static final int RY = 5;
       }
+      public class POVXbox {
+        public static final int UP_ANGLE = 0;
+        public static final int RIGHT_ANGLE = 90;
+        public static final int DOWN_ANGLE = 180;
+        public static final int LEFT_ANGLE = 270;
+      }
     }
     public static class LogitechF310 {
         // ****when controller is in DirectInput mode (use slider on the back of the controller)

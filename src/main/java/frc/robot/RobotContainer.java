@@ -24,6 +24,7 @@ import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Gripper;
 import frc.robot.subsystems.Pivot;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -40,6 +41,7 @@ public class RobotContainer {
   Joystick controller = new Joystick(Constants.ControllerConstants.USB_CONTROLLER);
   Joystick leftStick = new Joystick(Constants.ControllerConstants.USB_LEFT_STICK);
   Joystick rightStick = new Joystick(Constants.ControllerConstants.USB_RIGHT_STICK);
+  XboxController xboxController = new XboxController(Constants.ControllerConstants.USB_CONTROLLER);
   // SUBSYSTEMS****.
   private final Drive drive = new Drive();
   private final Arm arm = new Arm();
@@ -87,19 +89,19 @@ private final PivotToggle pivotToggle = new PivotToggle(pivot);
    */
   private void configureBindings() {
       // CREATE BUTTONS
-    // *CONTROLLER
-    JoystickButton x = new JoystickButton(controller, ControllerConstants.LogitechF310.X);
-    JoystickButton a = new JoystickButton(controller, ControllerConstants.LogitechF310.A);
-    JoystickButton b = new JoystickButton(controller, ControllerConstants.LogitechF310.B);
-    JoystickButton y = new JoystickButton(controller, ControllerConstants.LogitechF310.Y);
-    JoystickButton lb = new JoystickButton(controller, ControllerConstants.LogitechF310.LB);
-    JoystickButton rb = new JoystickButton(controller, ControllerConstants.LogitechF310.RB);
-    JoystickButton back = new JoystickButton(controller, ControllerConstants.LogitechF310.BACK);
-    JoystickButton start = new JoystickButton(controller, ControllerConstants.LogitechF310.START);
-    JoystickButton leftPress = new JoystickButton(controller, ControllerConstants.LogitechF310.LEFT_PRESS);
-    JoystickButton rightPress = new JoystickButton(controller, ControllerConstants.LogitechF310.RIGHT_PRESS);
-    POVButton upPov = new POVButton(controller, Constants.ControllerConstants.LogitechF310.POVController.UP_ANGLE);
-    POVButton downPov = new POVButton(controller, Constants.ControllerConstants.LogitechF310.POVController.DOWN_ANGLE);
+    // *XBOXCONTROLLER
+    JoystickButton x = new JoystickButton(xboxController, ControllerConstants.XboxController.X);
+    JoystickButton a = new JoystickButton(xboxController, ControllerConstants.XboxController.A);
+    JoystickButton b = new JoystickButton(xboxController, ControllerConstants.XboxController.B);
+    JoystickButton y = new JoystickButton(xboxController, ControllerConstants.XboxController.Y);
+    JoystickButton lb = new JoystickButton(xboxController, ControllerConstants.XboxController.LB);
+    JoystickButton rb = new JoystickButton(xboxController, ControllerConstants.XboxController.RB);
+    JoystickButton lm = new JoystickButton(xboxController, ControllerConstants.XboxController.LM);
+    JoystickButton rm = new JoystickButton(xboxController, ControllerConstants.XboxController.RM);
+    JoystickButton view = new JoystickButton(xboxController, ControllerConstants.XboxController.VIEW);
+    JoystickButton menu = new JoystickButton(xboxController, ControllerConstants.XboxController.MENU);
+    POVButton upPov = new POVButton(xboxController, Constants.ControllerConstants.XboxController.POVXbox.UP_ANGLE);
+    POVButton downPov = new POVButton(xboxController, Constants.ControllerConstants.XboxController.POVXbox.DOWN_ANGLE); 
 
 
 
@@ -131,6 +133,7 @@ private final PivotToggle pivotToggle = new PivotToggle(pivot);
     JoystickButton extraR7 = new JoystickButton(rightStick, ControllerConstants.Thrustmaster.RIGHT_BASE_7);
     JoystickButton extraR8 = new JoystickButton(rightStick, ControllerConstants.Thrustmaster.RIGHT_BASE_8);
 
+
     // ASSIGN BUTTONS TO COMMANDS
    //LEFTSTICK*****
    leftStickLeft.whileTrue(new AutoPIDDrive(drive, -Constants.DriveConstants.GRID_TO_CENTER));
@@ -138,13 +141,12 @@ private final PivotToggle pivotToggle = new PivotToggle(pivot);
    //RIGHTSTICK*****
 
    //CONTROLLER******
-  //upPov.whileTrue(armExtend);
-  //downPov.whileTrue(armRetract);
+  upPov.whileTrue(armExtend);
+  downPov.whileTrue(armRetract);
   a.whileTrue(new ArmPID(arm, Constants.ArmConstants.ARM_OUT));
   x.whileTrue(grabReleaseToggle);  
   b.whileTrue(pivotToggle);
-  start.whileTrue(armWithAxis);
-  
+  menu.whileTrue(armWithAxis);
 
   }
   /**
