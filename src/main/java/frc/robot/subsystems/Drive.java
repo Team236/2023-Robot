@@ -53,9 +53,9 @@ public class Drive extends SubsystemBase {
     //rightEncoder = new Encoder(DriveConstants.DIO_RDRIVE_ENC_A, DriveConstants.DIO_RDRIVE_ENC_B);
 
    navX = new AHRS();
-   leftStick = new Joystick(Constants.ControllerConstants.USB_LEFT_STICK);
-   rightStick = new Joystick(Constants.ControllerConstants.USB_RIGHT_STICK);
-   xboxController = new XboxController(Constants.ControllerConstants.USB_CONTROLLER);
+   //leftStick = new Joystick(Constants.ControllerConstants.USB_LEFT_STICK);
+   //rightStick = new Joystick(Constants.ControllerConstants.USB_RIGHT_STICK);
+   xboxController = new XboxController(Constants.ControllerConstants.USB_DRIVECONTROLLER);
   isDeadzone = Constants.DriveConstants.IS_DEADZONE;
 
   }

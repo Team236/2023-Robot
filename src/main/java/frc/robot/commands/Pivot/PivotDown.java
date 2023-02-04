@@ -34,7 +34,7 @@ public class PivotDown extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    arm.pivotStop();
+   // arm.pivotStop();
   }
   // Returns true when the command should end.
   @Override

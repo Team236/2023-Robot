@@ -4,6 +4,7 @@
 
 package frc.robot.commands.Arm;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Arm;
 import frc.robot.Constants.ControllerConstants;
@@ -13,9 +14,8 @@ public class ArmWithAxis extends CommandBase {
   private Joystick controller;
   private double speed;
 
-  public ArmWithAxis(Arm arm, Joystick controller) {
+  public ArmWithAxis(Arm arm, XboxController controller) {
     this.arm = arm;
-    this.controller = controller;
     addRequirements(arm);
   }
 
@@ -25,8 +25,9 @@ public class ArmWithAxis extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    arm.setArmSpeed(-controller.getRawAxis(ControllerConstants.LogitechF310.AxesController.LEFT_Y));
-    speed = -controller.getRawAxis(ControllerConstants.LogitechF310.AxesController.LEFT_Y);
+    double speed = -controller.getRawAxis(ControllerConstants.XboxController.AxesXbox.LY);
+    arm.setArmSpeed(speed);
+    
   }
   // Called once the command ends or is interrupted.
   @Override

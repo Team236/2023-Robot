@@ -15,9 +15,10 @@ import edu.wpi.first.util.sendable.Sendable;
  */
 public final class Constants {
   public static class ControllerConstants {
-    public static final int USB_LEFT_STICK = 0;
-    public static final int USB_RIGHT_STICK = 1;
-    public static final int USB_CONTROLLER = 2;
+    //public static final int USB_LEFT_STICK = 0;
+    //public static final int USB_RIGHT_STICK = 1;
+    public static final int USB_AUXCONTROLLER = 0;
+    public static final int USB_DRIVECONTROLLER = 1;
     public static class Thrustmaster {
         public static final int TRIGGER = 1;
         public static final int BUTTON_MIDDLE = 2;
@@ -105,8 +106,7 @@ public final class Constants {
 
     public static final int ID_ARM = 38;
     public static final int ID_TURRET = 32; //test value
-    public static final int ID_PIVOT = 12;// - currently pneumatic, getting redesigned
-
+    //public static final int ID_PIVOT = 12;// - currently pneumatic, getting redesigned
     }
 
 

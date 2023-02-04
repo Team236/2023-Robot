@@ -4,6 +4,7 @@
 
 package frc.robot.commands.Drive;
 
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Gripper;
@@ -14,7 +15,7 @@ public class DoubleArcadeDrive extends CommandBase {
   private Gripper gripper1;
   private Boolean isDeadzone = Constants.DriveConstants.IS_DEADZONE;
   /** Creates a new DoubleArcadeDrive. */
-  public DoubleArcadeDrive(Drive drive, Gripper gripper1) {
+  public DoubleArcadeDrive(Drive drive, Gripper gripper1, XboxController controller) {
     this.gripper1 = gripper1;
     this.drive = drive;
     addRequirements(gripper1);

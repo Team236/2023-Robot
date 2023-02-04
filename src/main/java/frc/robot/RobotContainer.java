@@ -10,6 +10,7 @@ import frc.robot.commands.Arm.ArmPID;
 import frc.robot.commands.Arm.ArmRetract;
 import frc.robot.commands.Arm.ArmWithAxis;
 import frc.robot.commands.Autos.AutoPIDDrive;
+import frc.robot.commands.Autos.AutoTrapezoidalPID;
 import frc.robot.commands.Drive.DoubleArcadeDrive;
 import frc.robot.commands.Drive.DriveWithJoysticks;
 import frc.robot.commands.Drive.TankDriveWithGyro;
@@ -37,10 +38,10 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
   //**JOYSTICKS */
-  Joystick controller = new Joystick(Constants.ControllerConstants.USB_CONTROLLER);
-  Joystick leftStick = new Joystick(Constants.ControllerConstants.USB_LEFT_STICK);
-  Joystick rightStick = new Joystick(Constants.ControllerConstants.USB_RIGHT_STICK);
-  XboxController xboxController = new XboxController(Constants.ControllerConstants.USB_CONTROLLER);
+  XboxController controller = new XboxController(Constants.ControllerConstants.USB_AUXCONTROLLER);
+  //Joystick leftStick = new Joystick(Constants.ControllerConstants.USB_LEFT_STICK);
+  //Joystick rightStick = new Joystick(Constants.ControllerConstants.USB_RIGHT_STICK);
+  XboxController xboxController = new XboxController(Constants.ControllerConstants.USB_DRIVECONTROLLER);
   // SUBSYSTEMS****.
   private final Drive drive = new Drive();
   private final Arm arm = new Arm();
@@ -52,8 +53,8 @@ public class RobotContainer {
   //AUTO
 
   //DRIVE
- private final DriveWithJoysticks driveWithJoysticks = new DriveWithJoysticks(drive, gripper, leftStick, rightStick);
- private final DoubleArcadeDrive doubleArcadeDrive = new DoubleArcadeDrive(drive, gripper);
+ private final DriveWithJoysticks driveWithJoysticks = new DriveWithJoysticks(drive, gripper, xboxController);
+ private final DoubleArcadeDrive doubleArcadeDrive = new DoubleArcadeDrive(drive, gripper, xboxController);
 
  //ARM
  private final ArmWithAxis armWithAxis = new ArmWithAxis(arm, controller); 
@@ -101,10 +102,20 @@ private final PivotToggle pivotToggle = new PivotToggle(pivot);
     POVButton upPov = new POVButton(xboxController, Constants.ControllerConstants.XboxController.POVXbox.UP_ANGLE);
     POVButton downPov = new POVButton(xboxController, Constants.ControllerConstants.XboxController.POVXbox.DOWN_ANGLE); 
 
-
-
+    JoystickButton x1 = new JoystickButton(controller, ControllerConstants.XboxController.X);
+    JoystickButton a1 = new JoystickButton(controller, ControllerConstants.XboxController.A);
+    JoystickButton b1 = new JoystickButton(controller, ControllerConstants.XboxController.B);
+    JoystickButton y1 = new JoystickButton(controller, ControllerConstants.XboxController.Y);
+    JoystickButton lb1 = new JoystickButton(controller, ControllerConstants.XboxController.LB);
+    JoystickButton rb1 = new JoystickButton(controller, ControllerConstants.XboxController.RB);
+    JoystickButton lm1 = new JoystickButton(controller, ControllerConstants.XboxController.LM);
+    JoystickButton rm1 = new JoystickButton(controller, ControllerConstants.XboxController.RM);
+    JoystickButton view1 = new JoystickButton(controller, ControllerConstants.XboxController.VIEW);
+    JoystickButton menu1 = new JoystickButton(controller, ControllerConstants.XboxController.MENU);
+    POVButton upPov1 = new POVButton(controller, Constants.ControllerConstants.XboxController.POVXbox.UP_ANGLE);
+    POVButton downPov1 = new POVButton(controller, Constants.ControllerConstants.XboxController.POVXbox.DOWN_ANGLE); 
     // *LEFT STICK
-    JoystickButton leftTrigger = new JoystickButton(leftStick,ControllerConstants.Thrustmaster.TRIGGER);
+    /*JoystickButton leftTrigger = new JoystickButton(leftStick,ControllerConstants.Thrustmaster.TRIGGER);
     JoystickButton leftMiddle = new JoystickButton(leftStick, ControllerConstants.Thrustmaster.BUTTON_MIDDLE);
     JoystickButton leftStickLeft = new JoystickButton(leftStick, ControllerConstants.Thrustmaster.BUTTON_LEFT);
     JoystickButton leftStickRight = new JoystickButton(leftStick, ControllerConstants.Thrustmaster.BUTTON_RIGHT);
@@ -129,21 +140,19 @@ private final PivotToggle pivotToggle = new PivotToggle(pivot);
     JoystickButton extraR5 = new JoystickButton(rightStick, ControllerConstants.Thrustmaster.RIGHT_BASE_5);
     JoystickButton extraR6 = new JoystickButton(rightStick, ControllerConstants.Thrustmaster.RIGHT_BASE_6);
     JoystickButton extraR7 = new JoystickButton(rightStick, ControllerConstants.Thrustmaster.RIGHT_BASE_7);
-    JoystickButton extraR8 = new JoystickButton(rightStick, ControllerConstants.Thrustmaster.RIGHT_BASE_8);
+    JoystickButton extraR8 = new JoystickButton(rightStick, ControllerConstants.Thrustmaster.RIGHT_BASE_8);*/
 
 
     // ASSIGN BUTTONS TO COMMANDS
-   //LEFTSTICK*****
-   leftStickLeft.whileTrue(new AutoPIDDrive(drive, -Constants.DriveConstants.GRID_TO_CENTER));
-   leftStickRight.whileTrue(new TankDriveWithGyro(drive, 0.1, 100,0.3));
-   //RIGHTSTICK*****
-   //CONTROLLER******
+    //AUXController
+   a1.whileTrue(new AutoPIDDrive(drive, -Constants.DriveConstants.GRID_TO_CENTER));
+   //DRIVECONTROLLER******
   upPov.whileTrue(armExtend);
   downPov.whileTrue(armRetract);
   a.whileTrue(new ArmPID(arm, Constants.ArmConstants.ARM_OUT));
   x.whileTrue(grabReleaseToggle);  
   b.whileTrue(pivotToggle);
-  menu.whileTrue(armWithAxis);
+  y.whileTrue(new AutoTrapezoidalPID(drive, 105, 0.005, 0, 0));
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

@@ -27,14 +27,14 @@ public class Arm extends SubsystemBase {
   public Arm() {
 
     armMotor = new CANSparkMax(Constants.MotorControllers.ID_ARM, MotorType.kBrushless);
-    pivotMotor = new CANSparkMax(Constants.MotorControllers.ID_PIVOT, MotorType.kBrushless); //WILL BE BRUSHED
+    //pivotMotor = new CANSparkMax(Constants.MotorControllers.ID_PIVOT, MotorType.kBrushless); //WILL BE BRUSHED
 
     armMotor.restoreFactoryDefaults();
     armMotor.setInverted(false);
-    pivotMotor.restoreFactoryDefaults();
-    pivotMotor.setInverted(false);
+    //pivotMotor.restoreFactoryDefaults();
+    //pivotMotor.setInverted(false);
     armEncoder = armMotor.getEncoder(); //SparkMax
-    pivotEncoder = pivotMotor.getEncoder();
+    //pivotEncoder = pivotMotor.getEncoder();
     //armEncoder = new Encoder(ArmConstants.DIO_ARM_ENC_A, ArmConstants.DIO_ARM_ENC_B); //External
     //pivotEncoder = new Encoder(PivotConstants.DIO_PVT_ENC_A, PivotConstants.DIO_PVT_ENC_B);
 
@@ -64,9 +64,9 @@ public class Arm extends SubsystemBase {
     }*/
 
   }
-  public void pivotStop() {
+  /*public void pivotStop() {
     pivotMotor.stopMotor();
-  }
+  }*/
   public void armStop() {
     armMotor.stopMotor();
   }
@@ -105,26 +105,26 @@ public class Arm extends SubsystemBase {
     armEncoder.setPosition(0); //SparkMax
     //armEncoder.reset(); //external
   }
-  public void resetPivotEncoder() {
+  /*public void resetPivotEncoder() {
     pivotEncoder.setPosition(0);
     //pivotEncoder.reset();
-  }
+  }*/
 
   //returns encoder position in REVOLUTIONS 
     public double getArmEncoder() {
     return armEncoder.getPosition(); //SparkMax
     //return armEncoder.get() / 128 ; //External 128 ticks per revolution
   }
-  public double getPivotEncoder() {
+  /*public double getPivotEncoder() {
     return pivotEncoder.getPosition();
     //return pivotEncoder.get() /128;
-  }
+  }*/
   public double getArmDistance() {
     return  getArmEncoder() * ArmConstants.armREV_TO_IN;
   } 
-  public double getPivotAngle() {
+  /*public double getPivotAngle() {
     return getArmEncoder() * PivotConstants.pvtREV_TO_DEG;
-  }
+  }*/
   public void setArmSpeed(double speed) {
     if (speed > 0) {
       if (isAExtendLimit()) {
@@ -169,7 +169,7 @@ public class Arm extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("arm encoder", getArmEncoder());
-    SmartDashboard.putNumber("pvt encoder", getPivotEncoder());
+    //SmartDashboard.putNumber("pvt encoder", getPivotEncoder());
     //SmartDashboard.putBoolean("pvt High", isPHighLimit());
     //SmartDashboard.putBoolean("pvt low", isPLowLimit());
     SmartDashboard.putBoolean("arm extend limit", isAExtendLimit());

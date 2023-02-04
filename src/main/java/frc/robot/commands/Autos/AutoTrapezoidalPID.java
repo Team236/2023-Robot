@@ -15,6 +15,7 @@ public class AutoTrapezoidalPID extends CommandBase {
   private double trapDriveDistance, kPtrap, kItrap, kDtrap;
   private final TrapezoidProfile.Constraints constraints;
   private final ProfiledPIDController pidController;
+  public static double LL, RR, adjustL, adjustR, kPgyro, error;
   /** Creates a new AutoTrapezoidalPID. */
   public AutoTrapezoidalPID(Drive _drive, double _trapDriveDistance, double kPtrap, double kItrap, double kDtrap) {
     this.drive = _drive;
@@ -22,24 +23,48 @@ public class AutoTrapezoidalPID extends CommandBase {
     this.kPtrap = kPtrap;
     this.kItrap = kItrap;
     this.kDtrap = kDtrap;
+     //this is from AutoPID drive - may need to change here depending on how fast robot is going 0.03
+     kPgyro = 0.03; 
+
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(drive);
-    constraints = new TrapezoidProfile.Constraints(1.75, 0.75);
+     //17.8 ft/sec or 13.3 ft/sec hi/lo gear max  (5.42 m/s or 4.05 m/s)
+    constraints = new TrapezoidProfile.Constraints(1.5, 0.85);
     pidController = new ProfiledPIDController(kPtrap, kItrap, kDtrap, constraints);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    pidController.setGoal(trapDriveDistance);
-
-    drive.leftFront.set(pidController.calculate(drive.getLeftDistance()));
-    drive.rightFront.set(pidController.calculate(drive.getRightDistance()));
+    drive.resetRightEncoder();
+    drive.resetLeftEncoder();
+    pidController.reset(trapDriveDistance);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    pidController.setGoal(trapDriveDistance);
+
+    LL = pidController.calculate(drive.getLeftDistance());
+    RR = pidController.calculate(drive.getRightDistance());
+
+
+    error = drive.navX.getRate();
+
+    if (RR <= 0) {
+      adjustL = kPgyro*error;
+      adjustR = -kPgyro*error;
+   } else  {
+     adjustL = -kPgyro*error;
+     adjustR = kPgyro*error;
+   }
+   drive.leftFront.set(LL + adjustL);
+   drive.rightFront.set(RR + adjustR);
+
+    //drive.leftFront.set(pidController.calculate(drive.getLeftDistance()));
+   // drive.rightFront.set(pidController.calculate(drive.getRightDistance()));
+  }
 
   // Called once the command ends or is interrupted.
   @Override

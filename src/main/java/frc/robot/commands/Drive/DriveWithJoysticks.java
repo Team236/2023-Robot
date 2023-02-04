@@ -8,11 +8,12 @@ import frc.robot.subsystems.Gripper;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 /** An example command that uses an example subsystem. */
 public class DriveWithJoysticks extends CommandBase {
  private Gripper gripper2;
   private Drive drive;
-  private Joystick leftstick, rightStick;
+  private XboxController xboxController;
   private Boolean isDeadzone = Constants.DriveConstants.IS_DEADZONE;
 
   /**
@@ -20,11 +21,10 @@ public class DriveWithJoysticks extends CommandBase {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public DriveWithJoysticks(Drive drive, Gripper gripper2, Joystick leftStick, Joystick rightStick) {
+  public DriveWithJoysticks(Drive drive, Gripper gripper2, XboxController xboxController) {
     this.drive = drive;
     this.gripper2 = gripper2;
-    this.leftstick = leftStick;
-    this.rightStick = rightStick;
+    this.xboxController = xboxController;
     addRequirements(this.drive);
     addRequirements(this.gripper2);
   }
@@ -37,12 +37,12 @@ public class DriveWithJoysticks extends CommandBase {
   @Override
   public void execute() {
     if (this.isDeadzone) {
-      drive.setRightSpeedWithDeadzone(-rightStick.getY());
-      drive.setLeftSpeedWithDeadzone(-leftstick.getY());
+      drive.setRightSpeedWithDeadzone(-xboxController.getRightY());
+      drive.setLeftSpeedWithDeadzone(-xboxController.getLeftY());
       gripper2.autoGrab();
     } else {
-      drive.setLeftSpeed(-leftstick.getY());
-      drive.setRightSpeed(-rightStick.getY());
+      drive.setLeftSpeed(-xboxController.getLeftY());
+      drive.setRightSpeed(-xboxController.getRightY());
       gripper2.autoGrab();
     }
   }

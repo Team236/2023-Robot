@@ -5,6 +5,7 @@
 package frc.robot.commands.Arm;
 import frc.robot.subsystems.Arm;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 public class ArmExtend extends CommandBase {
   /** Creates a new ArmExtend. */
@@ -12,10 +13,9 @@ public class ArmExtend extends CommandBase {
   private Joystick controller;
   private double speed;
 
-  public ArmExtend(Arm arm, Joystick controller) {
+  public ArmExtend(Arm arm, XboxController controller) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.arm = arm;
-    this.controller = controller;
     addRequirements(arm);
   }
 
