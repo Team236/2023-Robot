@@ -10,12 +10,12 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-public class Pivot extends SubsystemBase {
+public class PPivot extends SubsystemBase {
 
   private DoubleSolenoid pivotSolenoid; 
 
   /** Creates a new Pivot. */
-  public Pivot() {
+  public PPivot() {
 
     pivotSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 
     Constants.PivotConstants.PIVOT_SOL_FOR, Constants.PivotConstants.PIVOT_SOL_REV);

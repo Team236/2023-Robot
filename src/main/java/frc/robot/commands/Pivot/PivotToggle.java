@@ -5,15 +5,15 @@
 package frc.robot.commands.Pivot;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Pivot;
+import frc.robot.subsystems.PPivot;
 
 public class PivotToggle extends CommandBase {
 
-  private Pivot pivot;
+  private PPivot pivot;
   private boolean toggle;
 
   /** Creates a new PivotToggle. */
-  public PivotToggle(Pivot pivot) {
+  public PivotToggle(PPivot pivot) {
 
     this.pivot=pivot;
 
