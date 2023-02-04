@@ -39,6 +39,27 @@ public final class Constants {
             public static final int THROTTLE = 3;
         }       
     }
+    public static class XboxController {
+      public static final int A = 1;
+      public static final int B = 2;
+      public static final int X = 3;
+      public static final int Y = 4;
+      public static final int LB = 5;
+      public static final int RB = 6;
+      public static final int VIEW = 7;
+      public static final int MENU = 8;
+      public static final int LM = 9;
+      public static final int RM = 10;
+
+      public static class AxesXbox {
+        public static final int LX = 0;
+        public static final int LY = 1;
+        public static final int LTrig = 2;
+        public static final int RTrig = 3;
+        public static final int RX = 4;
+        public static final int RY = 5;
+      }
+    }
     public static class LogitechF310 {
         // ****when controller is in DirectInput mode (use slider on the back of the controller)
         public static final int A = 2;
