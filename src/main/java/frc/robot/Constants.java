@@ -105,7 +105,7 @@ public final class Constants {
 
     public static final int ID_ARM = 38;
     public static final int ID_TURRET = 32; //test value
-    //public static final int ID_PIVOT = 38; - currently pneumatic, getting redesigned
+    public static final int ID_PIVOT = 12;// - currently pneumatic, getting redesigned
 
     }
 
@@ -218,6 +218,10 @@ public static class PivotConstants {
 
   public static final int DIO_PVT_ENC_A = 13;
   public static final int DIO_PVT_ENC_B = 14;
+
+public static final double pvtREV_TO_DEG = 360; //tester numbers
+public static final double pvtDEG_TO_REV = 1/360;
+public static final double pvtSPEED = 0.75;
 
 }
 }

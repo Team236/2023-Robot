@@ -16,25 +16,32 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.robot.Constants;
 import frc.robot.Constants.ArmConstants;
+import frc.robot.Constants.PivotConstants;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Arm extends SubsystemBase {
-  private CANSparkMax armMotor;
-  //private Encoder armEncoder; //External
-  private RelativeEncoder armEncoder; //SparkMax
-  private DigitalInput armReturnLimit, armExtendLimit;
+  private CANSparkMax armMotor, pivotMotor;
+  //private Encoder armEncoder, pivotEncoder; //External
+  private RelativeEncoder armEncoder, pivotEncoder; //SparkMax
+  private DigitalInput armReturnLimit, armExtendLimit, pvtLowLimit, pvtHighLimit;
   private boolean isAReturnUnplugged = false;
   private boolean isAExtendUnplugged = false;
+  private boolean isPHighUnplugged = false;
+  private boolean isPLowUnplugged = false;
   /** Creates a new ArmExtend. */
   public Arm() {
 
     armMotor = new CANSparkMax(Constants.MotorControllers.ID_ARM, MotorType.kBrushless);
+    pivotMotor = new CANSparkMax(Constants.MotorControllers.ID_PIVOT, MotorType.kBrushed);
+
     armMotor.restoreFactoryDefaults();
     armMotor.setInverted(false);
-
-    //armPID = armMotor.getPIDController();
+    pivotMotor.restoreFactoryDefaults();
+    pivotMotor.setInverted(false);
     armEncoder = armMotor.getEncoder(); //SparkMax
+    pivotEncoder = pivotMotor.getEncoder();
     //armEncoder = new Encoder(ArmConstants.DIO_ARM_ENC_A, ArmConstants.DIO_ARM_ENC_B); //External
+    //pivotEncoder = new Encoder(PivotConstants.DIO_PVT_ENC_A, PivotConstants.DIO_PVT_ENC_B);
 
     
     try {
@@ -49,10 +56,24 @@ public class Arm extends SubsystemBase {
       isAExtendUnplugged = true;
     }
 
-  }
+    try {
+      pvtHighLimit = new DigitalInput(PivotConstants.PVT_HIGH);
+    } catch (Exception e) {
+      isPHighUnplugged = true;
+    }
 
+    try {
+      pvtLowLimit = new DigitalInput(PivotConstants.PVT_LOW);
+    } catch (Exception e) {
+      isPLowUnplugged = true;
+    }
+
+  }
+  public void pivotStop() {
+    pivotMotor.stopMotor();
+  }
   public void armStop() {
-    armMotor.set(0);
+    armMotor.stopMotor();
   }
 
   public boolean isAReturnLimit() {
@@ -70,10 +91,28 @@ public class Arm extends SubsystemBase {
       return !armExtendLimit.get();
     }
   }
+  public boolean isPHighLimit() {
+    if (isPHighUnplugged) {
+      return true;
+    } else {
+      return !pvtHighLimit.get();
+    }
+  }
+  public boolean isPLowLimit() {
+    if (isPLowUnplugged) {
+      return true;
+    } else {
+      return !pvtLowLimit.get();
+    }
+  }
 
   public void resetArmEncoder() {
     armEncoder.setPosition(0); //SparkMax
     //armEncoder.reset(); //external
+  }
+  public void resetPivotEncoder() {
+    pivotEncoder.setPosition(0);
+    //pivotEncoder.reset();
   }
 
   //returns encoder position in REVOLUTIONS 
@@ -81,11 +120,16 @@ public class Arm extends SubsystemBase {
     return armEncoder.getPosition(); //SparkMax
     //return armEncoder.get() / 128 ; //External 128 ticks per revolution
   }
-
+  public double getPivotEncoder() {
+    return pivotEncoder.getPosition();
+    //return pivotEncoder.get() /128;
+  }
   public double getArmDistance() {
     return  getArmEncoder() * ArmConstants.armREV_TO_IN;
   } 
-  
+  public double getPivotAngle() {
+    return getArmEncoder() * PivotConstants.pvtREV_TO_DEG;
+  }
   public void setArmSpeed(double speed) {
     if (speed > 0) {
       if (isAExtendLimit()) {
@@ -106,16 +150,36 @@ public class Arm extends SubsystemBase {
       }
     }
   }
+  public void setPivotSpeed(double speed) {
+    if (speed > 0) {
+      if (isPHighLimit()) {
+        // mast going up and top limit is tripped, stop
+        pivotStop();
+      } else {
+        // mast going up but top limit is not tripped, go at commanded speed
+        pivotMotor.set(speed);
+      }
+    } else {
+      if (isPLowLimit()) {
+        // mast going down and bottom limit is tripped, stop and zero encoder
+        pivotStop();
+        resetPivotEncoder();
+      } else {
+        // mast going down but bottom limit is not tripped, go at commanded speed
+        pivotMotor.set(speed);
+      }
+    }
+  }
 
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("arm encoder", getArmEncoder());
+    SmartDashboard.putNumber("pvt encoder", getPivotEncoder());
+    SmartDashboard.putBoolean("pvt High", isPHighLimit());
+    SmartDashboard.putBoolean("pvt low", isPLowLimit());
     SmartDashboard.putBoolean("arm extend limit", isAExtendLimit());
     SmartDashboard.putBoolean("arm return limit", isAReturnLimit());
-    SmartDashboard.putNumber("P value", ArmConstants.kParm);
-    SmartDashboard.putNumber("I Value", ArmConstants.kIarm);
-    SmartDashboard.putNumber("D Value", ArmConstants.kDarm);
   }
 }
