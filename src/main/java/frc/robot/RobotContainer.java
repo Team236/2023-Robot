@@ -9,10 +9,10 @@ import frc.robot.commands.Arm.ArmExtend;
 import frc.robot.commands.Arm.ArmPID;
 import frc.robot.commands.Arm.ArmRetract;
 import frc.robot.commands.Arm.ArmWithAxis;
+import frc.robot.commands.Autos.AutoPIDDrive;
 import frc.robot.commands.Drive.DoubleArcadeDrive;
 import frc.robot.commands.Drive.DriveWithJoysticks;
 import frc.robot.commands.Drive.TankDriveWithGyro;
-import frc.robot.commands.Drive.AutoPIDDrive;
 //import frc.robot.commands.Drive.DriveWithJoysticks;
 //import frc.robot.commands.Drive.DriveStraight;
 import frc.robot.commands.Gripper.Grab;
@@ -22,7 +22,7 @@ import frc.robot.commands.Pivot.PivotToggle;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Gripper;
-import frc.robot.subsystems.Pivot;
+import frc.robot.subsystems.PPivot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -46,7 +46,7 @@ public class RobotContainer {
   private final Drive drive = new Drive();
   private final Arm arm = new Arm();
   private final Gripper gripper = new Gripper();
-  private final Pivot pivot = new Pivot();
+  private final PPivot pivot = new PPivot();
   
 
   //COMMANDS****
