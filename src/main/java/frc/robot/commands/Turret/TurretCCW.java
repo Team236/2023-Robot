@@ -6,10 +6,7 @@ package frc.robot.commands.Turret;
 import frc.robot.subsystems.Turret;
 import frc.robot.Constants.TurretConstants;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
-
 public class TurretCCW extends CommandBase {
   private Turret turret;
   private Joystick controller;

@@ -3,14 +3,11 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.commands.Drive;
-
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Gripper;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /** An example command that uses an example subsystem. */
 public class DriveWithJoysticks extends CommandBase {
  private Gripper gripper2;
@@ -28,17 +25,14 @@ public class DriveWithJoysticks extends CommandBase {
     this.gripper2 = gripper2;
     this.leftstick = leftStick;
     this.rightStick = rightStick;
-    // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.drive);
     addRequirements(this.gripper2);
   }
-
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
   this.isDeadzone = true;
   }
-
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
@@ -52,13 +46,11 @@ public class DriveWithJoysticks extends CommandBase {
       gripper2.autoGrab();
     }
   }
-
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     drive.stop();
   }
-
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {

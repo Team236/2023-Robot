@@ -14,7 +14,6 @@ import frc.robot.commands.Drive.DoubleArcadeDrive;
 import frc.robot.commands.Drive.DriveWithJoysticks;
 import frc.robot.commands.Drive.TankDriveWithGyro;
 //import frc.robot.commands.Drive.DriveWithJoysticks;
-//import frc.robot.commands.Drive.DriveStraight;
 import frc.robot.commands.Gripper.Grab;
 import frc.robot.commands.Gripper.GrabReleaseToggle;
 import frc.robot.commands.Gripper.ReleasePiece;
@@ -54,7 +53,6 @@ public class RobotContainer {
 
   //DRIVE
  private final DriveWithJoysticks driveWithJoysticks = new DriveWithJoysticks(drive, gripper, leftStick, rightStick);
- //private final DriveStraight driveStraight = new DriveStraight(drive);
  private final DoubleArcadeDrive doubleArcadeDrive = new DoubleArcadeDrive(drive, gripper);
 
  //ARM
@@ -139,7 +137,6 @@ private final PivotToggle pivotToggle = new PivotToggle(pivot);
    leftStickLeft.whileTrue(new AutoPIDDrive(drive, -Constants.DriveConstants.GRID_TO_CENTER));
    leftStickRight.whileTrue(new TankDriveWithGyro(drive, 0.1, 100,0.3));
    //RIGHTSTICK*****
-
    //CONTROLLER******
   upPov.whileTrue(armExtend);
   downPov.whileTrue(armRetract);
@@ -147,7 +144,6 @@ private final PivotToggle pivotToggle = new PivotToggle(pivot);
   x.whileTrue(grabReleaseToggle);  
   b.whileTrue(pivotToggle);
   menu.whileTrue(armWithAxis);
-
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

@@ -9,8 +9,6 @@ import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Gripper;
 import frc.robot.Constants;
 
-import edu.wpi.first.wpilibj.Joystick;
-
 public class DoubleArcadeDrive extends CommandBase {
   private Drive drive;
   private Gripper gripper1;
@@ -19,7 +17,6 @@ public class DoubleArcadeDrive extends CommandBase {
   public DoubleArcadeDrive(Drive drive, Gripper gripper1) {
     this.gripper1 = gripper1;
     this.drive = drive;
-    // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(gripper1);
     addRequirements(drive);
   }

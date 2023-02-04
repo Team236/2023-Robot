@@ -3,22 +3,15 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.commands.Gripper;
-
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Gripper;
 
 public class GrabReleaseToggle extends CommandBase{ 
-
   private Gripper gripper;
   private boolean toggle;
-
   /** Creates a new GrabReleaseToggle. */
   public GrabReleaseToggle(Gripper gripper) {
-
     this.gripper=gripper;
-    // Use addRequirements() here to declare subsystem dependencies.
-
     addRequirements(gripper);
   }
 

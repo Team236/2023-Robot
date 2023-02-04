@@ -9,7 +9,6 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.SparkMaxRelativeEncoder.Type;
-
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -95,13 +94,13 @@ public class Drive extends SubsystemBase {
   public void setArcadeSpeed() {
     double max, L, R, kPgyro, error;
 
-    if (Math.abs(leftStick.getX()) <= 0.15) {
+    /*if (Math.abs(leftStick.getX()) <= 0.15) {
       kPgyro = 0.03;
       error = navX.getRate();
     } else {
       kPgyro = 0;
       error = 0;
-    }
+    }*/
 
     /*if (rightStick.getY() <= 0) {
       L = (-rightStick.getY() - (kPgyro*error)) + leftStick.getX();
@@ -110,6 +109,14 @@ public class Drive extends SubsystemBase {
       L = (-rightStick.getY() + (kPgyro*error)) - leftStick.getX();
       R = (-rightStick.getY() - (kPgyro*error)) + leftStick.getX();
     }*/
+
+    if (Math.abs(xboxController.getLeftX()) <= 0.15) {
+      kPgyro = 0.03;
+      error = navX.getRate();
+    } else {
+      kPgyro = 0;
+      error = 0;
+    }
 
     if (xboxController.getRightY() <=0) {
       L = (-xboxController.getRightY() - (kPgyro*error)) - xboxController.getLeftX();

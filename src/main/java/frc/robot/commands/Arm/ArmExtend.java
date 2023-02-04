@@ -3,15 +3,9 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.commands.Arm;
-
 import frc.robot.subsystems.Arm;
-import frc.robot.Constants;
-import frc.robot.Constants.ControllerConstants;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
-
 public class ArmExtend extends CommandBase {
   /** Creates a new ArmExtend. */
   private Arm arm;

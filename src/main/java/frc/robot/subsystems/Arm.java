@@ -6,19 +6,14 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
-import com.revrobotics.SparkMaxLimitSwitch;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import com.revrobotics.SparkMaxRelativeEncoder.Type;
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 import frc.robot.Constants;
 import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.PivotConstants;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
 public class Arm extends SubsystemBase {
   private CANSparkMax armMotor, pivotMotor;
   //private Encoder armEncoder, pivotEncoder; //External
@@ -170,8 +165,6 @@ public class Arm extends SubsystemBase {
       }
     }*/
   
-
-
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

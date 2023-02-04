@@ -3,15 +3,10 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.commands.Arm;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Arm;
-import frc.robot.Constants;
 import edu.wpi.first.math.controller.PIDController;
 import frc.robot.Constants.ArmConstants;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.util.WPILibVersion;
-
 public class ArmPID extends CommandBase {
   /** Creates a new ArmPID. */
   private Arm arm;
@@ -19,10 +14,8 @@ public class ArmPID extends CommandBase {
   private final PIDController armPidController;
 
   public ArmPID(Arm arm, double armDistance) {
-    // Use addRequirements() here to declare subsystem dependencies.
     this.arm = arm;
     addRequirements(arm);
-
     this.armDistance = armDistance;
     this.armPidController = new PIDController(ArmConstants.kParm, ArmConstants.kIarm, ArmConstants.kDarm);
     armPidController.setSetpoint(armDistance);
@@ -33,7 +26,6 @@ public class ArmPID extends CommandBase {
   public void initialize() {
     armPidController.reset();
     arm.resetArmEncoder();
-
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -41,10 +33,7 @@ public class ArmPID extends CommandBase {
   public void execute() {
     double armSpeed = armPidController.calculate(arm.getArmDistance());
     arm.setArmSpeed(armSpeed);
-  
-    
   }
-
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
@@ -63,6 +52,5 @@ public class ArmPID extends CommandBase {
     } else {
       return false;
     }*/
-
   }
 }

@@ -3,15 +3,10 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.commands.Arm;
-
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Arm;
-import frc.robot.Constants;
 import frc.robot.Constants.ControllerConstants;
-
 public class ArmWithAxis extends CommandBase {
   /** Creates a new ArmWithAxis. */
   private Arm arm;
@@ -19,7 +14,6 @@ public class ArmWithAxis extends CommandBase {
   private double speed;
 
   public ArmWithAxis(Arm arm, Joystick controller) {
-    // Use addRequirements() here to declare subsystem dependencies.
     this.arm = arm;
     this.controller = controller;
     addRequirements(arm);
