@@ -221,7 +221,10 @@ public static class PivotConstants {
 
 public static final double pvtREV_TO_DEG = 360; //tester numbers
 public static final double pvtDEG_TO_REV = 1/360;
+<<<<<<< HEAD
 public static final double pvtSPEED = 0.75;
+=======
+>>>>>>> dfc591feb5355baaef44f6509940aec87a495597
 
 }
 }
