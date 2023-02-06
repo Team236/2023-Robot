@@ -4,17 +4,16 @@
 
 package frc.robot.commands.Turret;
 import frc.robot.subsystems.Turret;
-import frc.robot.Constants.TurretConstants;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 public class TurretCCW extends CommandBase {
   private Turret turret;
-  private Joystick controller;
+  private XboxController controller;
   private double speed;
   /** Creates a new TurretClockwise. */
-  public TurretCCW(Turret turret, Joystick controller) {
+  public TurretCCW(Turret turret, double speed, XboxController controller) {
     this.turret = turret;
-    this.controller = controller;
     addRequirements(turret);
   }
 
@@ -25,7 +24,7 @@ public class TurretCCW extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    turret.setTurretSpeed(-TurretConstants.TURRET_SPEED);
+    turret.setTurretSpeed(speed);
   }
 
   // Called once the command ends or is interrupted.

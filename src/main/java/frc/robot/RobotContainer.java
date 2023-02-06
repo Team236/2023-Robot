@@ -4,7 +4,9 @@
 
 package frc.robot;
 import frc.robot.Constants;
+import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.ControllerConstants;
+import frc.robot.Constants.TurretConstants;
 import frc.robot.commands.Arm.ArmExtend;
 import frc.robot.commands.Arm.ArmPID;
 import frc.robot.commands.Arm.ArmRetract;
@@ -19,10 +21,13 @@ import frc.robot.commands.Gripper.Grab;
 import frc.robot.commands.Gripper.GrabReleaseToggle;
 import frc.robot.commands.Gripper.ReleasePiece;
 import frc.robot.commands.Pivot.PivotToggle;
+import frc.robot.commands.Turret.TurretCCW;
+import frc.robot.commands.Turret.TurretCW;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Gripper;
 import frc.robot.subsystems.PPivot;
+import frc.robot.subsystems.Turret;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -46,8 +51,8 @@ public class RobotContainer {
   private final Drive drive = new Drive();
   private final Arm arm = new Arm();
   private final Gripper gripper = new Gripper();
+  private final Turret turret = new Turret();
   private final PPivot pivot = new PPivot();
-  
 
   //COMMANDS****
   //AUTO
@@ -57,15 +62,19 @@ public class RobotContainer {
  private final DoubleArcadeDrive doubleArcadeDrive = new DoubleArcadeDrive(drive, gripper, xboxController);
 
  //ARM
- private final ArmWithAxis armWithAxis = new ArmWithAxis(arm, controller); 
- private final ArmExtend armExtend = new ArmExtend(arm, controller);
- private final ArmRetract armRetract = new ArmRetract(arm, controller);
+ //private final ArmWithAxis armWithAxis = new ArmWithAxis(arm, controller); //OBSOLETE WITH POV
+ private final ArmExtend armExtend = new ArmExtend(arm, ArmConstants.ARM_EX_SPEED, xboxController);
+ private final ArmRetract armRetract = new ArmRetract(arm, ArmConstants.ARM_RE_SPEED, xboxController);
 
  //GRIPPER
 private final Grab grab = new Grab(gripper);
 private final ReleasePiece releasePiece = new ReleasePiece(gripper);
 private final GrabReleaseToggle grabReleaseToggle = new GrabReleaseToggle(gripper);
 private final PivotToggle pivotToggle = new PivotToggle(pivot);
+
+//TURRET
+private final TurretCW turretCW = new TurretCW(turret, TurretConstants.TURRET_SPEED, xboxController);
+private final TurretCCW turretCCW = new TurretCCW(turret, -TurretConstants.TURRET_SPEED, xboxController);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -88,7 +97,7 @@ private final PivotToggle pivotToggle = new PivotToggle(pivot);
    */
   private void configureBindings() {
       // CREATE BUTTONS
-    // *XBOXCONTROLLER
+    // *XBOXCONTROLLER - DRIVER
     JoystickButton x = new JoystickButton(xboxController, ControllerConstants.XboxController.X);
     JoystickButton a = new JoystickButton(xboxController, ControllerConstants.XboxController.A);
     JoystickButton b = new JoystickButton(xboxController, ControllerConstants.XboxController.B);
@@ -101,7 +110,9 @@ private final PivotToggle pivotToggle = new PivotToggle(pivot);
     JoystickButton menu = new JoystickButton(xboxController, ControllerConstants.XboxController.MENU);
     POVButton upPov = new POVButton(xboxController, Constants.ControllerConstants.XboxController.POVXbox.UP_ANGLE);
     POVButton downPov = new POVButton(xboxController, Constants.ControllerConstants.XboxController.POVXbox.DOWN_ANGLE); 
-
+    POVButton leftPov = new POVButton(xboxController, Constants.ControllerConstants.XboxController.POVXbox.LEFT_ANGLE);
+    POVButton rightPov = new POVButton(xboxController, Constants.ControllerConstants.XboxController.POVXbox.RIGHT_ANGLE);
+// XBOX CONTROLLER - CONTROLLER
     JoystickButton x1 = new JoystickButton(controller, ControllerConstants.XboxController.X);
     JoystickButton a1 = new JoystickButton(controller, ControllerConstants.XboxController.A);
     JoystickButton b1 = new JoystickButton(controller, ControllerConstants.XboxController.B);
@@ -149,6 +160,8 @@ private final PivotToggle pivotToggle = new PivotToggle(pivot);
    //DRIVECONTROLLER******
   upPov.whileTrue(armExtend);
   downPov.whileTrue(armRetract);
+  leftPov.whileTrue(turretCCW);
+  rightPov.whileTrue(turretCW);
   a.whileTrue(new ArmPID(arm, Constants.ArmConstants.ARM_OUT));
   x.whileTrue(grabReleaseToggle);  
   b.whileTrue(pivotToggle);

@@ -13,7 +13,7 @@ public class ArmExtend extends CommandBase {
   private Joystick controller;
   private double speed;
 
-  public ArmExtend(Arm arm, XboxController controller) {
+  public ArmExtend(Arm arm, double speed, XboxController controller) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.arm = arm;
     addRequirements(arm);
@@ -26,7 +26,7 @@ public class ArmExtend extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    arm.setArmSpeed(0.6);
+    arm.setArmSpeed(speed);
   }
 
   // Called once the command ends or is interrupted.

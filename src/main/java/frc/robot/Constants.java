@@ -136,6 +136,9 @@ public static class DriveConstants {
   public static final double rightkIdrive = 0;
   public static final double rightkDdrive = 0;
 
+  public static final double kPTurnL = 0;
+  public static final double kPTurnR = 0;
+
   //auto distances
   public static final double AUTO_MARGIN = 0;
   public static final double GRID_TO_CHARGE = 42; //???? Game Manual???
