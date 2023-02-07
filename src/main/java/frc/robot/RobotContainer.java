@@ -20,7 +20,7 @@ import frc.robot.commands.Drive.TankDriveWithGyro;
 import frc.robot.commands.Gripper.Grab;
 import frc.robot.commands.Gripper.GrabReleaseToggle;
 import frc.robot.commands.Gripper.ReleasePiece;
-import frc.robot.commands.Pivot.PivotToggle;
+import frc.robot.commands.PPivot.PivotToggle;
 import frc.robot.commands.Turret.TurretCCW;
 import frc.robot.commands.Turret.TurretCW;
 import frc.robot.subsystems.Drive;

@@ -5,20 +5,10 @@
 package frc.robot.commands.Pivot;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.PPivot;
 
-public class PivotToggle extends CommandBase {
-
-  private PPivot pivot;
-  private boolean toggle;
-
-  /** Creates a new PivotToggle. */
-  public PivotToggle(PPivot pivot) {
-
-    this.pivot=pivot;
-
-    addRequirements(pivot);
-
+public class PivotCW extends CommandBase {
+  /** Creates a new PivotCW. */
+  public PivotCW() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -28,19 +18,7 @@ public class PivotToggle extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-
-    if (pivot.isextended()) {
-      pivot.retract();
-      toggle = true;
-  
-      } else if (!pivot.isextended()) {
-      pivot.extend();
-      toggle = true;
-    }
-  
-
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
@@ -49,6 +27,6 @@ public class PivotToggle extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return toggle;
+    return false;
   }
 }
