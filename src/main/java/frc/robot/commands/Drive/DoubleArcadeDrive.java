@@ -19,7 +19,9 @@ public class DoubleArcadeDrive extends CommandBase {
 
 
   /** Creates a new DoubleArcadeDrive. */
-  public DoubleArcadeDrive(Drive drive, Joystick leftStick, Joystick rightStick, Gripper gripper1) {
+  public DoubleArcadeDrive(Drive drive, Joystick leftStick, 
+  Joystick rightStick, Gripper gripper1) {
+    
     this.drive = drive;
     this.leftStick = leftStick;
     this.rightStick = rightStick;

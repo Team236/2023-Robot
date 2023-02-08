@@ -14,12 +14,12 @@ public class GrabReleaseToggle extends CommandBase{
   private boolean toggle;
 
   /** Creates a new GrabReleaseToggle. */
-  public GrabReleaseToggle(Gripper gripper) {
+  public GrabReleaseToggle(Gripper passed_gripper) {
 
-    this.gripper=gripper;
+    this.gripper = passed_gripper;
     // Use addRequirements() here to declare subsystem dependencies.
 
-    addRequirements(gripper);
+    addRequirements(passed_gripper);
   }
 
   // Called when the command is initially scheduled.

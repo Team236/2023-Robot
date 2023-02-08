@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -18,6 +19,7 @@ public class Gripper extends SubsystemBase {
   private DoubleSolenoid gripperSolenoid; 
   private Counter gripperEye;
   private boolean isGripperEyeUnplugged = false;
+  private Ultrasonic sonicSensor;
 
   /** Creates a new Gripper. */
   public Gripper() {
@@ -32,6 +34,11 @@ public class Gripper extends SubsystemBase {
     }
 
     gripperEye.reset();
+
+    sonicSensor = new Ultrasonic(1, 2);
+    sonicSensor.setAutomaticMode(true);
+
+
   }
 
   //Makes the gripper grab
@@ -72,6 +79,9 @@ public class Gripper extends SubsystemBase {
   }
   @Override
   public void periodic() {
+
+    SmartDashboard.putNumber("Sensor Distance", sonicSensor.getRangeInches());
     // This method will be called once per scheduler run
+    
   }
 }

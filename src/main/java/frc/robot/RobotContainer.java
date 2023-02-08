@@ -12,6 +12,8 @@ import frc.robot.commands.Arm.ArmRetract;
 import frc.robot.commands.Arm.ArmWithAxis;
 import frc.robot.commands.Drive.DoubleArcadeDrive;
 import frc.robot.commands.Drive.GridToCenterPiece;
+import frc.robot.commands.Drive.TankDriveWithGyro;
+import frc.robot.commands.Gripper.ColorSensorGripper;
 //import frc.robot.commands.Drive.DriveWithJoysticks;
 //import frc.robot.commands.Drive.DriveStraight;
 import frc.robot.commands.Gripper.Grab;
@@ -139,10 +141,14 @@ private final PivotToggle pivotToggle = new PivotToggle(pivot);
   //downPov.whileTrue(armRetract);
 
   y.whileTrue(new GridToCenterPiece(drive, Constants.DriveConstants.GRID_TO_CENTER));
-  a.whileTrue(new ArmPID(arm, Constants.ArmConstants.ARM_OUT));
+  //a.whileTrue(new ArmPID(arm, Constants.ArmConstants.ARM_OUT));
   x.whileTrue(grabReleaseToggle);  
   b.whileTrue(pivotToggle);
   start.whileTrue(armWithAxis);
+  a.whileTrue(new TankDriveWithGyro(drive, 0.1, 100,0.3));
+  rightMiddle.whileTrue(new ColorSensorGripper(drive));
+ 
+
   
 
   }

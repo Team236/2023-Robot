@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
@@ -24,6 +25,7 @@ public class Drive extends SubsystemBase {
   public CANSparkMax leftFront, leftRear, rightFront, rightRear;
   private RelativeEncoder leftEncoder, rightEncoder;
   private SparkMaxPIDController leftPID, rightPID; 
+  public AHRS navX;
 
   /** Creates a new ExampleSubsystem. */
   public Drive() {
@@ -31,12 +33,15 @@ public class Drive extends SubsystemBase {
     leftRear = new CANSparkMax(Constants.MotorControllers.ID_LEFT_REAR, MotorType.kBrushless);
     rightFront = new CANSparkMax(Constants.MotorControllers.ID_RIGHT_FRONT, MotorType.kBrushless);
     rightRear = new CANSparkMax(Constants.MotorControllers.ID_RIGHT_REAR, MotorType.kBrushless);
+  
+    navX = new AHRS();
+
 
     leftFront.restoreFactoryDefaults();
     rightFront.restoreFactoryDefaults();
 
-    leftFront.setInverted(false);
-    rightFront.setInverted(true);
+    leftFront.setInverted(true);
+    rightFront.setInverted(false);
 
     leftRear.follow(leftFront);
     rightRear.follow(rightFront);

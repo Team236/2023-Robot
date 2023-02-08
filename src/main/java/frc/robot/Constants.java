@@ -75,10 +75,20 @@ public final class Constants {
   public static class MotorControllers {
 
     //placeholder numbers for beginning of season because we haven't built the thing yet, CURRENT #s = testbed
-    public static final int ID_LEFT_FRONT = 30; //10 - 2022 #s
-    public static final int ID_RIGHT_FRONT = 43; //15
-    public static final int ID_LEFT_REAR = 44; // 11
-    public static final int ID_RIGHT_REAR = 45;//16
+    public static final int ID_LEFT_FRONT = 30; //11 //10 - 2022 #s
+    public static final int ID_RIGHT_FRONT = 43; //16 //15
+    public static final int ID_LEFT_REAR = 44; //44; // 11
+    public static final int ID_RIGHT_REAR = 45; //15//16
+    
+    // public static final int ID_LEFT_FRONT = 30; //11 //10 - 2022 #s
+    // public static final int ID_RIGHT_FRONT = 43; //16 //15
+    // public static final int ID_LEFT_REAR = 10; //44; // 11
+    // public static final int ID_RIGHT_REAR = 45; //15//16
+// 
+    // public static final int ID_LEFT_FRONT = 11; //10 - 2022 #s
+    // public static final int ID_RIGHT_FRONT = 16; //15
+    // public static final int ID_LEFT_REAR = 44; // 11
+    // public static final int ID_RIGHT_REAR = 15;//16
 
     public static final int ID_ARM = 38;
 
@@ -109,6 +119,9 @@ public static class DriveConstants {
   public static final double AUTO_MARGIN = 0;
   public static final double GRID_TO_CHARGE = 42; //???? Game Manual???
   public static final double GRID_TO_CENTER = 36;
+
+  //GYRO
+  public static final double MARGIN_GYRO_DRIVE = 3; //Inches
 
 }
 
