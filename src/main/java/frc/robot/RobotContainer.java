@@ -48,8 +48,7 @@ public class RobotContainer {
   private final Gripper gripper = new Gripper();
   private final Pivot pivot = new Pivot();
   private final PhotonModule photonModual = new PhotonModule();
-  
-  
+   
   
   //COMMANDS****
   
@@ -139,13 +138,14 @@ private final PivotToggle pivotToggle = new PivotToggle(pivot);
 
     // ASSIGN BUTTONS TO COMMANDS
    //LEFTSTICK*****
-  leftTrigger.whileFalse(aprilMove);
+  
 
    //RIGHTSTICK*****
 
    //CONTROLLER******
   x.whileTrue(armExtend);
   y.whileTrue(armRetract);
+  lb.whileTrue(aprilMove);
   
   //upPov.whileTrue(armExtend);
   //downPov.whileTrue(armRetract);

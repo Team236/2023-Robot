@@ -1,22 +1,27 @@
 {
   "NetworkTables": {
+    "Persistent Values": {
+      "open": false
+    },
     "transitory": {
       "CameraPublisher": {
-        "open": true
-      },
-      "SmartDashboard": {
-        "open": true
+        "open": true,
+        "photonvision_Port_1181_MJPEG_Server": {
+          "open": true
+        },
+        "photonvision_Port_1182_MJPEG_Server": {
+          "open": true
+        }
       },
       "photonvision": {
+        "OV5647": {
+          "open": true
+        },
         "open": true
       }
     },
     "types": {
       "/FMSInfo": "FMSInfo"
     }
-  },
-  "NetworkTables Settings": {
-    "mode": "Client (NT3)",
-    "serverTeam": "236"
   }
 }

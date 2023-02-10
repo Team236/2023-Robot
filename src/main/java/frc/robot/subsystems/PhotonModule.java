@@ -6,7 +6,10 @@ package frc.robot.subsystems;
 
 import java.util.List;
 import org.photonvision.PhotonCamera;
+import org.photonvision.common.hardware.VisionLEDMode;
 import org.photonvision.targeting.PhotonTrackedTarget;
+
+import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -21,15 +24,10 @@ public class PhotonModule extends SubsystemBase {
     camera = new PhotonCamera("OV5647");
     target = new PhotonTrackedTarget();
 
-    // SmartDashboard.putNumber("targetID", target.getFiducialId());
-    // var yaw = target.getYaw();
-    // SmartDashboard.putNumber("targetYaw", yaw);
-
-    // var pitch = target.getPitch();
-    // SmartDashboard.putNumber("targetPitch", pitch);
-
-    // var area = target.getArea();
-    // SmartDashboard.putNumber("targetArea", area);
+    SmartDashboard.putNumber("targetID", target.getFiducialId());
+    SmartDashboard.putNumber("targetYaw", target.getYaw());
+    SmartDashboard.putNumber("targetPitch",  target.getPitch());
+    SmartDashboard.putNumber("targetArea", target.getArea());
 
     // var skew = target.getSkew();
     // SmartDashboard.putNumber("targetSkew", skew);
@@ -42,11 +40,11 @@ public class PhotonModule extends SubsystemBase {
     var target = camera.getLatestResult();
     // boolean hasTargets = target.hasTargets();
     camera.setDriverMode(false);
-    camera.setPipelineIndex(1);
+    camera.setPipelineIndex(0);
+    camera.setLED(VisionLEDMode.kOn);
+
     
     SmartDashboard.putNumber("pipeline_index", camera.getPipelineIndex() );
-
-    SmartDashboard.putBoolean("getName()", target.hasTargets());
 
     // Check if the latest result has any targets
     if (target.hasTargets()) {
@@ -78,7 +76,7 @@ public class PhotonModule extends SubsystemBase {
       SmartDashboard.putNumber("targetSkew", skew);
 
       // double poseAmbiguity = target.getPoseAmbiguity();
-      // Transform3d bestCameraToTarget = target.getBestCameraToTarget();
+      Transform3d bestCameraToTarget = result.getBestCameraToTarget();
       // Transform3d alternateCameraToTarget = target.getAlternateCameraToTarget();
 
     }  

@@ -5,8 +5,8 @@
 package frc.robot.commands.Autos;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.PhotonModule;
 
@@ -19,7 +19,7 @@ public class AprilMove extends CommandBase {
   private PhotonModule photonModule;
 
   public AprilMove(Drive m_drive, PhotonModule m_photonModule) {
-    drive = m_drive;
+    drive = m_drive; 
     photonModule = m_photonModule;
 
     distanceController = new PIDController(kPdistance, kIdistance, kDdistance);
@@ -48,9 +48,11 @@ public class AprilMove extends CommandBase {
   public void execute() {
     double leftSpeed = distanceController.calculate(photonModule.getX()); // + turnController.calculate(photonModule.getY());
     double rightSpeed = distanceController.calculate(photonModule.getX()); // - turnController.calculate(photonModule.getY());
-
-    drive.setLeftSpeed(leftSpeed);
-    drive.setRightSpeed(rightSpeed);
+    SmartDashboard.putNumber("left input",-leftSpeed);
+    SmartDashboard.putNumber("left input",-rightSpeed);
+    
+    drive.setLeftSpeed(-leftSpeed);
+    drive.setRightSpeed(-rightSpeed);
   }
 
   @Override
