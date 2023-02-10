@@ -3,7 +3,6 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.commands.Arm;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Arm;
@@ -11,7 +10,7 @@ import frc.robot.Constants.ControllerConstants;
 public class ArmWithAxis extends CommandBase {
   /** Creates a new ArmWithAxis. */
   private Arm arm;
-  private Joystick controller;
+  private XboxController controller;
   private double speed;
 
   public ArmWithAxis(Arm arm, XboxController controller) {

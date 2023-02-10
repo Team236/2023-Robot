@@ -28,7 +28,6 @@ import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Gripper;
 import frc.robot.subsystems.PPivot;
 import frc.robot.subsystems.Turret;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -44,9 +43,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
   //**JOYSTICKS */
   XboxController controller = new XboxController(Constants.ControllerConstants.USB_AUXCONTROLLER);
-  //Joystick leftStick = new Joystick(Constants.ControllerConstants.USB_LEFT_STICK);
-  //Joystick rightStick = new Joystick(Constants.ControllerConstants.USB_RIGHT_STICK);
-  XboxController xboxController = new XboxController(Constants.ControllerConstants.USB_DRIVECONTROLLER);
+  XboxController driveController = new XboxController(Constants.ControllerConstants.USB_DRIVECONTROLLER);
   // SUBSYSTEMS****.
   private final Drive drive = new Drive();
   private final Arm arm = new Arm();
@@ -58,13 +55,13 @@ public class RobotContainer {
   //AUTO
 
   //DRIVE
- private final DriveWithJoysticks driveWithJoysticks = new DriveWithJoysticks(drive, gripper, xboxController);
- private final DoubleArcadeDrive doubleArcadeDrive = new DoubleArcadeDrive(drive, gripper, xboxController);
+ private final DriveWithJoysticks driveWithJoysticks = new DriveWithJoysticks(drive, gripper, driveController);
+ private final DoubleArcadeDrive doubleArcadeDrive = new DoubleArcadeDrive(drive, gripper, driveController);
 
  //ARM
  //private final ArmWithAxis armWithAxis = new ArmWithAxis(arm, controller); //OBSOLETE WITH POV
- private final ArmExtend armExtend = new ArmExtend(arm, ArmConstants.ARM_EX_SPEED, xboxController);
- private final ArmRetract armRetract = new ArmRetract(arm, ArmConstants.ARM_RE_SPEED, xboxController);
+ private final ArmExtend armExtend = new ArmExtend(arm, ArmConstants.ARM_EX_SPEED, driveController);
+ private final ArmRetract armRetract = new ArmRetract(arm, ArmConstants.ARM_RE_SPEED, driveController);
 
  //GRIPPER
 private final Grab grab = new Grab(gripper);
@@ -73,15 +70,12 @@ private final GrabReleaseToggle grabReleaseToggle = new GrabReleaseToggle(grippe
 private final PivotToggle pivotToggle = new PivotToggle(pivot);
 
 //TURRET
-private final TurretCW turretCW = new TurretCW(turret, TurretConstants.TURRET_SPEED, xboxController);
-private final TurretCCW turretCCW = new TurretCCW(turret, -TurretConstants.TURRET_SPEED, xboxController);
+private final TurretCW turretCW = new TurretCW(turret, TurretConstants.TURRET_SPEED, driveController);
+private final TurretCCW turretCCW = new TurretCCW(turret, -TurretConstants.TURRET_SPEED, driveController);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-
   drive.setDefaultCommand(doubleArcadeDrive);
-  //drive.setDefaultCommand(driveWithJoysticks);
-
     // Configure the trigger bindings
     configureBindings();
   }
@@ -98,20 +92,20 @@ private final TurretCCW turretCCW = new TurretCCW(turret, -TurretConstants.TURRE
   private void configureBindings() {
       // CREATE BUTTONS
     // *XBOXCONTROLLER - DRIVER
-    JoystickButton x = new JoystickButton(xboxController, ControllerConstants.XboxController.X);
-    JoystickButton a = new JoystickButton(xboxController, ControllerConstants.XboxController.A);
-    JoystickButton b = new JoystickButton(xboxController, ControllerConstants.XboxController.B);
-    JoystickButton y = new JoystickButton(xboxController, ControllerConstants.XboxController.Y);
-    JoystickButton lb = new JoystickButton(xboxController, ControllerConstants.XboxController.LB);
-    JoystickButton rb = new JoystickButton(xboxController, ControllerConstants.XboxController.RB);
-    JoystickButton lm = new JoystickButton(xboxController, ControllerConstants.XboxController.LM);
-    JoystickButton rm = new JoystickButton(xboxController, ControllerConstants.XboxController.RM);
-    JoystickButton view = new JoystickButton(xboxController, ControllerConstants.XboxController.VIEW);
-    JoystickButton menu = new JoystickButton(xboxController, ControllerConstants.XboxController.MENU);
-    POVButton upPov = new POVButton(xboxController, Constants.ControllerConstants.XboxController.POVXbox.UP_ANGLE);
-    POVButton downPov = new POVButton(xboxController, Constants.ControllerConstants.XboxController.POVXbox.DOWN_ANGLE); 
-    POVButton leftPov = new POVButton(xboxController, Constants.ControllerConstants.XboxController.POVXbox.LEFT_ANGLE);
-    POVButton rightPov = new POVButton(xboxController, Constants.ControllerConstants.XboxController.POVXbox.RIGHT_ANGLE);
+    JoystickButton x = new JoystickButton(driveController, ControllerConstants.XboxController.X);
+    JoystickButton a = new JoystickButton(driveController, ControllerConstants.XboxController.A);
+    JoystickButton b = new JoystickButton(driveController, ControllerConstants.XboxController.B);
+    JoystickButton y = new JoystickButton(driveController, ControllerConstants.XboxController.Y);
+    JoystickButton lb = new JoystickButton(driveController, ControllerConstants.XboxController.LB);
+    JoystickButton rb = new JoystickButton(driveController, ControllerConstants.XboxController.RB);
+    JoystickButton lm = new JoystickButton(driveController, ControllerConstants.XboxController.LM);
+    JoystickButton rm = new JoystickButton(driveController, ControllerConstants.XboxController.RM);
+    JoystickButton view = new JoystickButton(driveController, ControllerConstants.XboxController.VIEW);
+    JoystickButton menu = new JoystickButton(driveController, ControllerConstants.XboxController.MENU);
+    POVButton upPov = new POVButton(driveController, Constants.ControllerConstants.XboxController.POVXbox.UP_ANGLE);
+    POVButton downPov = new POVButton(driveController, Constants.ControllerConstants.XboxController.POVXbox.DOWN_ANGLE); 
+    POVButton leftPov = new POVButton(driveController, Constants.ControllerConstants.XboxController.POVXbox.LEFT_ANGLE);
+    POVButton rightPov = new POVButton(driveController, Constants.ControllerConstants.XboxController.POVXbox.RIGHT_ANGLE);
 // XBOX CONTROLLER - CONTROLLER
     JoystickButton x1 = new JoystickButton(controller, ControllerConstants.XboxController.X);
     JoystickButton a1 = new JoystickButton(controller, ControllerConstants.XboxController.A);
@@ -124,36 +118,7 @@ private final TurretCCW turretCCW = new TurretCCW(turret, -TurretConstants.TURRE
     JoystickButton view1 = new JoystickButton(controller, ControllerConstants.XboxController.VIEW);
     JoystickButton menu1 = new JoystickButton(controller, ControllerConstants.XboxController.MENU);
     POVButton upPov1 = new POVButton(controller, Constants.ControllerConstants.XboxController.POVXbox.UP_ANGLE);
-    POVButton downPov1 = new POVButton(controller, Constants.ControllerConstants.XboxController.POVXbox.DOWN_ANGLE); 
-    // *LEFT STICK
-    /*JoystickButton leftTrigger = new JoystickButton(leftStick,ControllerConstants.Thrustmaster.TRIGGER);
-    JoystickButton leftMiddle = new JoystickButton(leftStick, ControllerConstants.Thrustmaster.BUTTON_MIDDLE);
-    JoystickButton leftStickLeft = new JoystickButton(leftStick, ControllerConstants.Thrustmaster.BUTTON_LEFT);
-    JoystickButton leftStickRight = new JoystickButton(leftStick, ControllerConstants.Thrustmaster.BUTTON_RIGHT);
-    JoystickButton extraL1 = new JoystickButton(leftStick, ControllerConstants.Thrustmaster.LEFT_BASE_1);
-    JoystickButton extraL2 = new JoystickButton(leftStick, ControllerConstants.Thrustmaster.LEFT_BASE_2);
-    JoystickButton extraL3 = new JoystickButton(leftStick, ControllerConstants.Thrustmaster.LEFT_BASE_3);
-    JoystickButton extraL4 = new JoystickButton(leftStick, ControllerConstants.Thrustmaster.LEFT_BASE_4);
-    JoystickButton extraL5 = new JoystickButton(leftStick, ControllerConstants.Thrustmaster.RIGHT_BASE_5);
-    JoystickButton extraL6 = new JoystickButton(leftStick, ControllerConstants.Thrustmaster.RIGHT_BASE_6);
-    JoystickButton extraL7 = new JoystickButton(leftStick, ControllerConstants.Thrustmaster.RIGHT_BASE_7);
-    JoystickButton extraL8 = new JoystickButton(leftStick, ControllerConstants.Thrustmaster.RIGHT_BASE_8);
-    
-    // *RIGHT STICK
-    JoystickButton rightTrigger = new JoystickButton(rightStick, ControllerConstants.Thrustmaster.TRIGGER); 
-    JoystickButton rightMiddle = new JoystickButton(rightStick, ControllerConstants.Thrustmaster.BUTTON_MIDDLE);
-    JoystickButton rightStickLeft = new JoystickButton(rightStick, ControllerConstants.Thrustmaster.BUTTON_LEFT);
-    JoystickButton rightStickRight = new JoystickButton(rightStick, ControllerConstants.Thrustmaster.BUTTON_RIGHT);
-    JoystickButton extraR1 = new JoystickButton(rightStick, ControllerConstants.Thrustmaster.LEFT_BASE_1);
-    JoystickButton extraR2 = new JoystickButton(rightStick, ControllerConstants.Thrustmaster.LEFT_BASE_2);
-    JoystickButton extraR3 = new JoystickButton(rightStick, ControllerConstants.Thrustmaster.LEFT_BASE_3);
-    JoystickButton extraR4 = new JoystickButton(rightStick, ControllerConstants.Thrustmaster.LEFT_BASE_4);
-    JoystickButton extraR5 = new JoystickButton(rightStick, ControllerConstants.Thrustmaster.RIGHT_BASE_5);
-    JoystickButton extraR6 = new JoystickButton(rightStick, ControllerConstants.Thrustmaster.RIGHT_BASE_6);
-    JoystickButton extraR7 = new JoystickButton(rightStick, ControllerConstants.Thrustmaster.RIGHT_BASE_7);
-    JoystickButton extraR8 = new JoystickButton(rightStick, ControllerConstants.Thrustmaster.RIGHT_BASE_8);*/
-
-
+    POVButton downPov1 = new POVButton(controller, Constants.ControllerConstants.XboxController.POVXbox.DOWN_ANGLE);
     // ASSIGN BUTTONS TO COMMANDS
     //AUXController
    a1.whileTrue(new AutoPIDDrive(drive, -Constants.DriveConstants.GRID_TO_CENTER));

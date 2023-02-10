@@ -4,7 +4,6 @@
 
 package frc.robot.commands.Turret;
 import frc.robot.subsystems.Turret;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 public class TurretCCW extends CommandBase {

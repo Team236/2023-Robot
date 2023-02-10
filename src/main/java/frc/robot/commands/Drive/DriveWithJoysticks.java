@@ -7,7 +7,6 @@ import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Gripper;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 /** An example command that uses an example subsystem. */
 public class DriveWithJoysticks extends CommandBase {

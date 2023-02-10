@@ -5,12 +5,11 @@
 package frc.robot.commands.Arm;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Arm;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 public class ArmRetract extends CommandBase {
   /** Creates a new ArmRetract. */
   private Arm arm;
-  private Joystick controller;
+  private XboxController controller;
   private double speed;
   public ArmRetract(Arm arm, double speed, XboxController controller) {
   this.arm = arm;
