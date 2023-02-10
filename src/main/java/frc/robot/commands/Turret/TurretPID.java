@@ -25,21 +25,21 @@ public class TurretPID extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    turret.resetTurretEncoder();
+    //turret.resetTurretEncoder();
     turretPidController.reset();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double turretSpeed = turretPidController.calculate(turret.getTurretAngle());
-    turret.setTurretSpeed(turretSpeed);
+    //double turretSpeed = turretPidController.calculate(turret.getTurretAngle());
+    //turret.setTurretSpeed(turretSpeed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    turret.turretStop();
+   // turret.turretStop();
   }
 
   // Returns true when the command should end.

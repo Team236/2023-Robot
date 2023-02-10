@@ -23,9 +23,9 @@ public class Turret extends SubsystemBase {
   private boolean isT2Unplugged = false;
   /** Creates a new Turret. */
   public Turret() {
-    turretMotor = new CANSparkMax(Constants.MotorControllers.ID_TURRET, MotorType.kBrushless);
-    turretMotor.restoreFactoryDefaults();
-    turretMotor.setInverted(false);
+    //turretMotor = new CANSparkMax(Constants.MotorControllers.ID_TURRET, MotorType.kBrushless);
+   // turretMotor.restoreFactoryDefaults();
+   // turretMotor.setInverted(false);
 
     turretEncoder = turretMotor.getEncoder(); 
     //turretEncoder = new Encoder(TurretConstants.DIO_TRRT_ENC_A, TurretConstants.DIO_TRRT_ENC_B);
@@ -42,7 +42,7 @@ public class Turret extends SubsystemBase {
     } */
 
   }
-
+/* 
   public boolean isTCWLimit() {
     if (isT1Unplugged) {
       return true;
@@ -93,14 +93,14 @@ public class Turret extends SubsystemBase {
   }
   public void turretStop() {
     turretMotor.set(0);
-  }
+  }*/
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("turret encoder", getTurretEncoder());
-    SmartDashboard.putNumber("turret angle", getTurretAngle());
-    SmartDashboard.putBoolean("turret CW limit", isTCWLimit());
-    SmartDashboard.putBoolean("turret CCW limit", isTCCWLimit());
+   // SmartDashboard.putNumber("turret encoder", getTurretEncoder());
+    //SmartDashboard.putNumber("turret angle", getTurretAngle());
+   // SmartDashboard.putBoolean("turret CW limit", isTCWLimit());
+   // SmartDashboard.putBoolean("turret CCW limit", isTCCWLimit());
   }
 }

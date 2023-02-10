@@ -105,7 +105,7 @@ public final class Constants {
     public static final int ID_RIGHT_REAR = 15; //16 - 45 - 15
 
     public static final int ID_ARM = 38;
-    public static final int ID_TURRET = 32; //test value
+    //public static final int ID_TURRET = 32; //test value
     //public static final int ID_PIVOT = 12;// - currently pneumatic, getting redesigned
     }
 

@@ -20,7 +20,7 @@ import frc.robot.commands.Drive.TankDriveWithGyro;
 import frc.robot.commands.Gripper.Grab;
 import frc.robot.commands.Gripper.GrabReleaseToggle;
 import frc.robot.commands.Gripper.ReleasePiece;
-import frc.robot.commands.PPivot.PivotToggle;
+import frc.robot.commands.Pivot.PPivotToggle;
 import frc.robot.commands.Turret.TurretCCW;
 import frc.robot.commands.Turret.TurretCW;
 import frc.robot.subsystems.Drive;
@@ -67,7 +67,7 @@ public class RobotContainer {
 private final Grab grab = new Grab(gripper);
 private final ReleasePiece releasePiece = new ReleasePiece(gripper);
 private final GrabReleaseToggle grabReleaseToggle = new GrabReleaseToggle(gripper);
-private final PivotToggle pivotToggle = new PivotToggle(pivot);
+private final PPivotToggle pivotToggle = new PPivotToggle(pivot);
 
 //TURRET
 private final TurretCW turretCW = new TurretCW(turret, TurretConstants.TURRET_SPEED, driveController);

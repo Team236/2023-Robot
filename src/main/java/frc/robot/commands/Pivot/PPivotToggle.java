@@ -2,18 +2,18 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.PPivot;
+package frc.robot.commands.Pivot;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.PPivot;
 
-public class PivotToggle extends CommandBase {
+public class PPivotToggle extends CommandBase {
 
   private PPivot pivot;
   private boolean toggle;
 
   /** Creates a new PivotToggle. */
-  public PivotToggle(PPivot pivot) {
+  public PPivotToggle(PPivot pivot) {
 
     this.pivot=pivot;
 
