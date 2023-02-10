@@ -27,7 +27,7 @@ public class Turret extends SubsystemBase {
    // turretMotor.restoreFactoryDefaults();
    // turretMotor.setInverted(false);
 
-    turretEncoder = turretMotor.getEncoder(); 
+    //turretEncoder = turretMotor.getEncoder(); 
     //turretEncoder = new Encoder(TurretConstants.DIO_TRRT_ENC_A, TurretConstants.DIO_TRRT_ENC_B);
 
    /*  try {
