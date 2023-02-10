@@ -18,7 +18,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  */
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
-  private Compressor compressor;
+  // private Compressor compressor;
 
   private RobotContainer m_robotContainer;
 
@@ -32,8 +32,8 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
 
-    compressor = new Compressor(PneumaticsModuleType.CTREPCM);
-    compressor.enableDigital();
+    // compressor = new Compressor(PneumaticsModuleType.CTREPCM);
+    // compressor.enableDigital();
   }
 
   /**
