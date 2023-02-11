@@ -18,6 +18,7 @@ import frc.robot.commands.Arm.ArmRetract;
 import frc.robot.commands.Arm.ArmWithAxis;
 import frc.robot.commands.Autos.AprilMove;
 import frc.robot.commands.Drive.DoubleArcadeDrive;
+import frc.robot.commands.Drive.DriveWithJoysticks;
 import frc.robot.commands.Drive.GridToCenterPiece;
 //import frc.robot.commands.Drive.DriveWithJoysticks;
 //import frc.robot.commands.Drive.DriveStraight;
@@ -57,7 +58,7 @@ public class RobotContainer {
   private final AprilMove aprilMove = new AprilMove(drive, photonModual);
 
   //DRIVE
- //private final DriveWithJoysticks driveWithJoysticks = new DriveWithJoysticks(drive, leftStick, rightStick);
+ private final DriveWithJoysticks driveWithJoysticks = new DriveWithJoysticks(drive, leftStick, rightStick);
  //private final DriveStraight driveStraight = new DriveStraight(drive);
  private final DoubleArcadeDrive doubleArcadeDrive = new DoubleArcadeDrive(drive, leftStick, rightStick, gripper);
 
@@ -75,7 +76,8 @@ private final PivotToggle pivotToggle = new PivotToggle(pivot);
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
 
-    drive.setDefaultCommand(doubleArcadeDrive);
+   // drive.setDefaultCommand(doubleArcadeDrive);
+   drive.setDefaultCommand(driveWithJoysticks);
 
     // Configure the trigger bindings
     configureBindings();

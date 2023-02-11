@@ -48,7 +48,7 @@ public class AprilMove extends CommandBase {
   public void execute() {
     double leftSpeed = distanceController.calculate(photonModule.getX()); // + turnController.calculate(photonModule.getY());
     double rightSpeed = distanceController.calculate(photonModule.getX()); // - turnController.calculate(photonModule.getY());
-    SmartDashboard.putNumber("left input",-leftSpeed);
+    SmartDashboard.putNumber("left input",-leftSpeed); // (-) For testing; Camera on back of Robot
     SmartDashboard.putNumber("left input",-rightSpeed);
     
     drive.setLeftSpeed(-leftSpeed);

@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import java.util.List;
 import org.photonvision.PhotonCamera;
 import org.photonvision.common.hardware.VisionLEDMode;
+import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;
 
 import edu.wpi.first.math.geometry.Transform3d;
@@ -18,16 +19,17 @@ public class PhotonModule extends SubsystemBase {
 
   private static PhotonCamera camera;
   PhotonTrackedTarget target;
+  private double lx, ly;
 
   public PhotonModule() {
     // Change this to match the name of your camera
     camera = new PhotonCamera("OV5647");
-    target = new PhotonTrackedTarget();
 
-    SmartDashboard.putNumber("targetID", target.getFiducialId());
-    SmartDashboard.putNumber("targetYaw", target.getYaw());
-    SmartDashboard.putNumber("targetPitch",  target.getPitch());
-    SmartDashboard.putNumber("targetArea", target.getArea());
+    // SmartDashboard.putNumber("getX", target.getBestCameraToTarget().getX());
+    // SmartDashboard.putNumber("targetID", target.getFiducialId());
+    // SmartDashboard.putNumber("targetYaw", target.getYaw());
+    // SmartDashboard.putNumber("targetPitch", target.getPitch());
+    // SmartDashboard.putNumber("targetArea", target.getArea());
 
     // var skew = target.getSkew();
     // SmartDashboard.putNumber("targetSkew", skew);
@@ -37,62 +39,54 @@ public class PhotonModule extends SubsystemBase {
   @Override
   public void periodic() {
     // Query the latest result from PhotonVision
-    var target = camera.getLatestResult();
+    // PhotonTrackedTarget target = camera.getLatestResult();
     // boolean hasTargets = target.hasTargets();
     camera.setDriverMode(false);
     camera.setPipelineIndex(0);
     camera.setLED(VisionLEDMode.kOn);
-
     
-    SmartDashboard.putNumber("pipeline_index", camera.getPipelineIndex() );
+    PhotonPipelineResult results = camera.getLatestResult();
+    SmartDashboard.putNumber("pipeline_index", camera.getPipelineIndex());
 
     // Check if the latest result has any targets
-    if (target.hasTargets()) {
+    if (camera.getLatestResult().hasTargets()) {
+      target = camera.getLatestResult().getBestTarget();
 
       // Get a list of currently tracked targets
       // List<PhotonTrackedTarget> targetList = target.getTargets();
-
+      var best = target.getBestCameraToTarget();
       // Get the current best target
-      var result = target.getBestTarget();
+      // var result = target.getBestTarget();
 
       // Get information from target
-      // SmartDashboard.putNumber("TargetCount", targets.size());
+      SmartDashboard.putNumber("getX", best.getX());
 
-      // Get information from target
-      
-      int targetId = result.getFiducialId();
-      SmartDashboard.putNumber("targetID", targetId);
+    } else {
 
-      var yaw = result.getYaw();
-      SmartDashboard.putNumber("targetYaw", yaw);
-
-      var pitch = result.getPitch();
-      SmartDashboard.putNumber("targetPitch", pitch);
-
-      var area = result.getArea();
-      SmartDashboard.putNumber("targetArea", area);
-
-      var skew = result.getSkew();
-      SmartDashboard.putNumber("targetSkew", skew);
-
-      // double poseAmbiguity = target.getPoseAmbiguity();
-      Transform3d bestCameraToTarget = result.getBestCameraToTarget();
-      // Transform3d alternateCameraToTarget = target.getAlternateCameraToTarget();
-
-    }  
-    else {
-
-    }       
+    }
   } // end periodic
 
   // method to get the best camera x distance
   public double getX() {
-    return this.target.getBestCameraToTarget().getX();
+    if (camera.getLatestResult().hasTargets()) {
+      target = camera.getLatestResult().getBestTarget();
+       lx =target.getBestCameraToTarget().getX();
+    } else {
+       lx = 0;
+    }
+    return lx;
+  
   }
 
   // method to get the best camera Y distance
   public double getY() {
-    return this.target.getBestCameraToTarget().getY();
+    if (camera.getLatestResult().hasTargets()) {
+      target = camera.getLatestResult().getBestTarget();
+       ly =target.getBestCameraToTarget().getY();
+    } else {
+       ly = 0;
+    }
+    return lx;
   }
 
 }
