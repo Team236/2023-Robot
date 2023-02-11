@@ -136,8 +136,8 @@ public static class DriveConstants {
   public static final double rightkIdrive = 0;
   public static final double rightkDdrive = 0;
 
-  public static final double kPTurnL = 0;
-  public static final double kPTurnR = 0;
+  public static final double kPTurnL = 0.01;
+  public static final double kPTurnR = 0.01;
 
   //auto distances
   public static final double AUTO_MARGIN = 0;

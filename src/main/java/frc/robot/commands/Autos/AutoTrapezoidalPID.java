@@ -29,7 +29,7 @@ public class AutoTrapezoidalPID extends CommandBase {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(drive);
      //17.8 ft/sec or 13.3 ft/sec hi/lo gear max  (5.42 m/s or 4.05 m/s)
-    constraints = new TrapezoidProfile.Constraints(1.5, 0.85);
+    constraints = new TrapezoidProfile.Constraints(1.5, 1.25);
     pidController = new ProfiledPIDController(kPtrap, kItrap, kDtrap, constraints);
   }
 

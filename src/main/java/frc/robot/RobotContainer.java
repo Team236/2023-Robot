@@ -13,6 +13,8 @@ import frc.robot.commands.Arm.ArmRetract;
 import frc.robot.commands.Arm.ArmWithAxis;
 import frc.robot.commands.Autos.AutoPIDDrive;
 import frc.robot.commands.Autos.AutoTrapezoidalPID;
+import frc.robot.commands.Autos.GrabScoreFlatGround;
+import frc.robot.commands.Autos.TurnPID;
 import frc.robot.commands.Drive.DoubleArcadeDrive;
 import frc.robot.commands.Drive.DriveWithJoysticks;
 import frc.robot.commands.Drive.TankDriveWithGyro;
@@ -124,6 +126,7 @@ private final TurretCCW turretCCW = new TurretCCW(turret, -TurretConstants.TURRE
     // ASSIGN BUTTONS TO COMMANDS
     //AUXController
    a1.whileTrue(new AutoPIDDrive(drive, -Constants.DriveConstants.GRID_TO_CENTER));
+   b1.whileTrue(new TankDriveWithGyro(drive, 0.001, 60, 0.3));
    //DRIVECONTROLLER******
   upPov.whileTrue(armExtend);
   downPov.whileTrue(armRetract);
@@ -132,8 +135,11 @@ private final TurretCCW turretCCW = new TurretCCW(turret, -TurretConstants.TURRE
   a.whileTrue(new ArmPID(arm, Constants.ArmConstants.ARM_OUT));
   x.whileTrue(grabReleaseToggle);  
   b.whileTrue(pivotToggle);
-  y.whileTrue(new AutoTrapezoidalPID(drive, 105, 0.005, 0, 0));
+  y.whileTrue(new AutoTrapezoidalPID(drive, -105, 0.005, 0, 0));
   rb.whileTrue(toggleTransmission);
+  lb.whileTrue(new TurnPID(drive, 90));
+
+  menu.whileTrue(new GrabScoreFlatGround(drive, gripper, arm, turret));
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

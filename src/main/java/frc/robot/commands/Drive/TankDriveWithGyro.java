@@ -58,7 +58,8 @@ drive.setRightSpeed(R);
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    boolean isLeftFinished = 
+    return false;
+   /* boolean isLeftFinished = 
     Math.abs(drive.getLeftDistance() - dist) 
     < Constants.DriveConstants.MARGIN_GYRO_DRIVE;
 
@@ -66,6 +67,6 @@ drive.setRightSpeed(R);
     Math.abs(drive.getRightDistance() - dist) 
     < Constants.DriveConstants.MARGIN_GYRO_DRIVE;
 
-    return (isLeftFinished && isRightFinished);
+    return (isLeftFinished && isRightFinished);*/
   }
 }

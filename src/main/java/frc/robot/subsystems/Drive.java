@@ -126,7 +126,7 @@ public class Drive extends SubsystemBase {
     }*/
 
     if (Math.abs(xboxController.getLeftX()) <= 0.15) {
-      kPgyro = 0.03;
+      kPgyro = 0.02;
       error = navX.getRate();
     } else {
       kPgyro = 0;

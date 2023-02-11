@@ -4,7 +4,8 @@
     "NetworkTables Settings": {
       "serverTeam": "10.2.36.2"
     },
+    "clientName": "SysID",
     "mode": "Client (NT4)",
-    "serverTeam": "236"
+    "serverTeam": "10.2.36.2"
   }
 }
