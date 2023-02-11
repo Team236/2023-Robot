@@ -3,6 +3,9 @@
     "Persistent Values": {
       "open": false
     },
+    "Retained Values": {
+      "open": false
+    },
     "transitory": {
       "CameraPublisher": {
         "open": true,
@@ -12,6 +15,9 @@
         "photonvision_Port_1182_MJPEG_Server": {
           "open": true
         }
+      },
+      "SmartDashboard": {
+        "open": true
       },
       "photonvision": {
         "OV5647": {
@@ -23,5 +29,9 @@
     "types": {
       "/FMSInfo": "FMSInfo"
     }
+  },
+  "NetworkTables Settings": {
+    "mode": "Client (NT3)",
+    "serverTeam": "236"
   }
 }
