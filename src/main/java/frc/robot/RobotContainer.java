@@ -16,6 +16,7 @@ import frc.robot.commands.Autos.AutoTrapezoidalPID;
 import frc.robot.commands.Drive.DoubleArcadeDrive;
 import frc.robot.commands.Drive.DriveWithJoysticks;
 import frc.robot.commands.Drive.TankDriveWithGyro;
+import frc.robot.commands.Drive.ToggleTransmission;
 //import frc.robot.commands.Drive.DriveWithJoysticks;
 import frc.robot.commands.Gripper.Grab;
 import frc.robot.commands.Gripper.GrabReleaseToggle;
@@ -57,6 +58,7 @@ public class RobotContainer {
   //DRIVE
  private final DriveWithJoysticks driveWithJoysticks = new DriveWithJoysticks(drive, gripper, driveController);
  private final DoubleArcadeDrive doubleArcadeDrive = new DoubleArcadeDrive(drive, gripper, driveController);
+ private final ToggleTransmission toggleTransmission = new ToggleTransmission(drive);
 
  //ARM
  //private final ArmWithAxis armWithAxis = new ArmWithAxis(arm, controller); //OBSOLETE WITH POV
@@ -131,6 +133,7 @@ private final TurretCCW turretCCW = new TurretCCW(turret, -TurretConstants.TURRE
   x.whileTrue(grabReleaseToggle);  
   b.whileTrue(pivotToggle);
   y.whileTrue(new AutoTrapezoidalPID(drive, 105, 0.005, 0, 0));
+  rb.whileTrue(toggleTransmission);
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

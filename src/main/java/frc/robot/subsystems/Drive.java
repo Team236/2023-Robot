@@ -9,9 +9,12 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.SparkMaxRelativeEncoder.Type;
+
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -22,14 +25,13 @@ import frc.robot.Constants.DriveConstants;
 
 
 public class Drive extends SubsystemBase {
-
   public CANSparkMax leftFront, leftRear, rightFront, rightRear;
   private RelativeEncoder leftEncoder, rightEncoder;
   //private Encoder leftEncoder, rightEncoder;
   public AHRS navX;
-  private Joystick leftStick, rightStick;
   private XboxController xboxController;
   private boolean isDeadzone;
+  private DoubleSolenoid transmission;
 
   /** Creates a new ExampleSubsystem. */
   public Drive() {
@@ -53,12 +55,25 @@ public class Drive extends SubsystemBase {
     //rightEncoder = new Encoder(DriveConstants.DIO_RDRIVE_ENC_A, DriveConstants.DIO_RDRIVE_ENC_B);
 
    navX = new AHRS();
-   //leftStick = new Joystick(Constants.ControllerConstants.USB_LEFT_STICK);
-   //rightStick = new Joystick(Constants.ControllerConstants.USB_RIGHT_STICK);
    xboxController = new XboxController(Constants.ControllerConstants.USB_DRIVECONTROLLER);
+   transmission = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, DriveConstants.SOL_LOW_GEAR, DriveConstants.SOL_HI_GEAR);
   isDeadzone = Constants.DriveConstants.IS_DEADZONE;
 
   }
+  public void highGear() {
+    transmission.set(Value.kReverse);
+  }
+  public void lowGear() {
+    transmission.set(Value.kForward);
+  }
+  public boolean inLowGear() {
+    if (transmission.get() == Value.kForward) {
+    return true;  
+    } else {
+      return false;
+    }
+  }
+
 
   public void setLeftSpeed(double speed) {
     leftFront.set(speed);
