@@ -81,10 +81,10 @@ public final class Constants {
     // public static final int ID_RIGHT_REAR = 16;//16
 
     // 6 inch chassie for  
-    public static final int ID_LEFT_FRONT = 10; //10 - 2022 #s
-    public static final int ID_RIGHT_FRONT = 15; //15
-    public static final int ID_LEFT_REAR = 11; // 11
-    public static final int ID_RIGHT_REAR = 16;//16
+    public static final int ID_LEFT_FRONT = 1; //10 - 2022 #s
+    public static final int ID_RIGHT_FRONT = 2; //15
+    public static final int ID_LEFT_REAR = 3; // 11
+    public static final int ID_RIGHT_REAR = 4;//16
 
     public static final int ID_ARM = 38;
 
