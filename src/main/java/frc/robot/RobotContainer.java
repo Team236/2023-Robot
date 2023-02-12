@@ -24,6 +24,9 @@ import frc.robot.commands.Gripper.Grab;
 import frc.robot.commands.Gripper.GrabReleaseToggle;
 import frc.robot.commands.Gripper.ReleasePiece;
 import frc.robot.commands.Pivot.PPivotToggle;
+import frc.robot.commands.Pivot.PivotDown;
+import frc.robot.commands.Pivot.PivotPID;
+import frc.robot.commands.Pivot.PivotUp;
 import frc.robot.commands.Turret.TurretCCW;
 import frc.robot.commands.Turret.TurretCW;
 import frc.robot.subsystems.Drive;
@@ -66,6 +69,8 @@ public class RobotContainer {
  //private final ArmWithAxis armWithAxis = new ArmWithAxis(arm, controller); //OBSOLETE WITH POV
  private final ArmExtend armExtend = new ArmExtend(arm, ArmConstants.ARM_EX_SPEED, driveController);
  private final ArmRetract armRetract = new ArmRetract(arm, ArmConstants.ARM_RE_SPEED, driveController);
+ private final PivotUp pivotUp = new PivotUp(arm, 0.5, controller);
+ private final PivotDown pivotDown = new PivotDown(arm, 0.5, controller);
 
  //GRIPPER
 private final Grab grab = new Grab(gripper);
@@ -126,7 +131,8 @@ private final TurretCCW turretCCW = new TurretCCW(turret, -TurretConstants.TURRE
     // ASSIGN BUTTONS TO COMMANDS
     //AUXController
    a1.whileTrue(new AutoPIDDrive(drive, -Constants.DriveConstants.GRID_TO_CENTER));
-   b1.whileTrue(new TankDriveWithGyro(drive, 0.001, 60, 0.3));
+   //b1.whileTrue(pivotUp);
+   //x1.whileTrue(pivotDown);
    //DRIVECONTROLLER******
   upPov.whileTrue(armExtend);
   downPov.whileTrue(armRetract);
@@ -139,7 +145,7 @@ private final TurretCCW turretCCW = new TurretCCW(turret, -TurretConstants.TURRE
   rb.whileTrue(toggleTransmission);
   lb.whileTrue(new TurnPID(drive, 90));
 
-  menu.whileTrue(new GrabScoreFlatGround(drive, gripper, arm, turret));
+  menu.whileTrue(new GrabScoreFlatGround(drive, gripper, arm, turret)); //pneumatics disconnected so??????
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

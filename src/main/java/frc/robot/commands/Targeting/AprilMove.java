@@ -21,11 +21,8 @@ public class AprilMove extends CommandBase {
   public AprilMove(Drive m_drive, PhotonModule m_photonModule) {
     drive = m_drive; 
     photonModule = m_photonModule;
-
     distanceController = new PIDController(kPdistance, kIdistance, kDdistance);
     turnController = new PIDController(kPangle, kIangle, kDangle);
-    
-    // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.drive);
   }
 
@@ -34,10 +31,9 @@ public class AprilMove extends CommandBase {
     distanceController.reset();
     // goal is to maintain a set distance between the Apriltag and camera
     distanceController.setSetpoint(driveDistance);
-
     // goal is to center the robot on target
-    turnController.setSetpoint(0);
     turnController.reset();
+    turnController.setSetpoint(0);
 
 //  dont think we need these 
     // drive.resetLeftEncoder();
@@ -46,11 +42,10 @@ public class AprilMove extends CommandBase {
 
   @Override
   public void execute() {
-    double leftSpeed = distanceController.calculate(photonModule.getX()); // + turnController.calculate(photonModule.getY());
-    double rightSpeed = distanceController.calculate(photonModule.getX()); // - turnController.calculate(photonModule.getY());
+    double leftSpeed = distanceController.calculate(photonModule.getX()) + turnController.calculate(photonModule.getY());
+    double rightSpeed = distanceController.calculate(photonModule.getX()) - turnController.calculate(photonModule.getY());
     SmartDashboard.putNumber("left input",-leftSpeed); // (-) For testing; Camera on back of Robot
-    SmartDashboard.putNumber("left input",-rightSpeed);
-    
+    SmartDashboard.putNumber("right input",-rightSpeed);
     drive.setLeftSpeed(-leftSpeed);
     drive.setRightSpeed(-rightSpeed);
   }
