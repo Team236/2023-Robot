@@ -195,6 +195,7 @@ public class Drive extends SubsystemBase {
 
   @Override
   public void periodic() {
+    SmartDashboard.getBoolean("Gear", inLowGear());
     // This method will be called once per scheduler run
   }
 

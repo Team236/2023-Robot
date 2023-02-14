@@ -27,6 +27,7 @@ import frc.robot.commands.Pivot.PPivotToggle;
 import frc.robot.commands.Pivot.PivotDown;
 import frc.robot.commands.Pivot.PivotPID;
 import frc.robot.commands.Pivot.PivotUp;
+import frc.robot.commands.Targeting.LLAngle;
 import frc.robot.commands.Turret.TurretCCW;
 import frc.robot.commands.Turret.TurretCW;
 import frc.robot.subsystems.Drive;
@@ -64,6 +65,7 @@ public class RobotContainer {
  private final DriveWithJoysticks driveWithJoysticks = new DriveWithJoysticks(drive, gripper, driveController);
  private final DoubleArcadeDrive doubleArcadeDrive = new DoubleArcadeDrive(drive, gripper, driveController);
  private final ToggleTransmission toggleTransmission = new ToggleTransmission(drive);
+ private final LLAngle llAngle = new LLAngle(drive);
 
  //ARM
  //private final ArmWithAxis armWithAxis = new ArmWithAxis(arm, controller); //OBSOLETE WITH POV
@@ -140,10 +142,11 @@ private final TurretCCW turretCCW = new TurretCCW(turret, -TurretConstants.TURRE
   rightPov.whileTrue(turretCW);
   a.whileTrue(new ArmPID(arm, Constants.ArmConstants.ARM_OUT));
   x.whileTrue(grabReleaseToggle);  
-  b.whileTrue(pivotToggle);
+  b.whileTrue(llAngle);
   y.whileTrue(new AutoTrapezoidalPID(drive, -105, 0.005, 0, 0));
   rb.whileTrue(toggleTransmission);
   lb.whileTrue(new TurnPID(drive, 90));
+
 
   menu.whileTrue(new GrabScoreFlatGround(drive, gripper, arm, turret)); //pneumatics disconnected so??????
   }
