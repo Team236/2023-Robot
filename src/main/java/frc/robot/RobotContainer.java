@@ -6,6 +6,7 @@ package frc.robot;
 
 import org.photonvision.PhotonCamera;
 
+import edu.wpi.first.apriltag.AprilTag;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -17,6 +18,8 @@ import frc.robot.commands.Arm.ArmPID;
 import frc.robot.commands.Arm.ArmRetract;
 import frc.robot.commands.Arm.ArmWithAxis;
 import frc.robot.commands.Autos.AprilMove;
+import frc.robot.commands.Autos.AprilTags;
+import frc.robot.commands.Autos.VisionsCommand;
 import frc.robot.commands.Drive.DoubleArcadeDrive;
 import frc.robot.commands.Drive.DriveWithJoysticks;
 import frc.robot.commands.Drive.GridToCenterPiece;
@@ -48,14 +51,22 @@ public class RobotContainer {
   private final Arm arm = new Arm();
   private final Gripper gripper = new Gripper();
   private final Pivot pivot = new Pivot();
-  private final PhotonModule photonModual = new PhotonModule();
+ // private final PhotonModule photonModual = new PhotonModule();
    
   
   //COMMANDS****
+ // private final VisionsCommand visionsCommand = new VisionsCommand(camera);
+  //private final AprilTags aprilTags = new AprilTags(drive, camera, 36);
   
+  //Cameras
+  private static PhotonCamera camera = new PhotonCamera("OV5647");
+
+
+
 
   //AUTO
-  private final AprilMove aprilMove = new AprilMove(drive, photonModual);
+  //private final AprilMove aprilMove = new AprilMove(drive, photonModual);
+ 
 
   //DRIVE
  private final DriveWithJoysticks driveWithJoysticks = new DriveWithJoysticks(drive, leftStick, rightStick);
@@ -145,9 +156,11 @@ private final PivotToggle pivotToggle = new PivotToggle(pivot);
    //RIGHTSTICK*****
 
    //CONTROLLER******
-  x.whileTrue(armExtend);
+  //lb.whileTrue(aprilTags); 
+  //last parameter passed to AprilTags command is desired distance in inches
+  lb.whileTrue(new AprilTags(drive, camera,20));
+ // x.whileTrue(armExtend);
   y.whileTrue(armRetract);
-  lb.whileTrue(aprilMove);
   
   //upPov.whileTrue(armExtend);
   //downPov.whileTrue(armRetract);

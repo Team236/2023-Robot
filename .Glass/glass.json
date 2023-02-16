@@ -16,9 +16,6 @@
           "open": true
         }
       },
-      "SmartDashboard": {
-        "open": true
-      },
       "photonvision": {
         "OV5647": {
           "open": true

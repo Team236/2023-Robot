@@ -86,7 +86,7 @@ public final class Constants {
     public static final int ID_LEFT_REAR = 3; // 11
     public static final int ID_RIGHT_REAR = 4;//16
 
-    public static final int ID_ARM = 38;
+    public static final int ID_ARM = 36;
 
     }
 
