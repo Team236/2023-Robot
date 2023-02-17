@@ -27,6 +27,7 @@ import frc.robot.commands.Pivot.PPivotToggle;
 import frc.robot.commands.Pivot.PivotDown;
 import frc.robot.commands.Pivot.PivotPID;
 import frc.robot.commands.Pivot.PivotUp;
+import frc.robot.commands.Targeting.AprilFollow;
 import frc.robot.commands.Targeting.LLAngle;
 import frc.robot.commands.Turret.TurretCCW;
 import frc.robot.commands.Turret.TurretCW;
@@ -35,6 +36,9 @@ import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Gripper;
 import frc.robot.subsystems.PPivot;
 import frc.robot.subsystems.Turret;
+
+import org.photonvision.PhotonCamera;
+
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -51,6 +55,7 @@ public class RobotContainer {
   //**JOYSTICKS */
   XboxController controller = new XboxController(Constants.ControllerConstants.USB_AUXCONTROLLER);
   XboxController driveController = new XboxController(Constants.ControllerConstants.USB_DRIVECONTROLLER);
+  private static PhotonCamera camera = new PhotonCamera("OV5647");
   // SUBSYSTEMS****.
   private final Drive drive = new Drive();
   private final Arm arm = new Arm();
@@ -133,6 +138,7 @@ private final TurretCCW turretCCW = new TurretCCW(turret, -TurretConstants.TURRE
     // ASSIGN BUTTONS TO COMMANDS
     //AUXController
    a1.whileTrue(new AutoPIDDrive(drive, -Constants.DriveConstants.GRID_TO_CENTER));
+   lb1.whileTrue(new AprilFollow(drive, camera, 30));
    //b1.whileTrue(pivotUp);
    //x1.whileTrue(pivotDown);
    //DRIVECONTROLLER******
@@ -143,9 +149,9 @@ private final TurretCCW turretCCW = new TurretCCW(turret, -TurretConstants.TURRE
   a.whileTrue(new ArmPID(arm, Constants.ArmConstants.ARM_OUT));
   x.whileTrue(grabReleaseToggle);  
   b.whileTrue(llAngle);
-  y.whileTrue(new AutoTrapezoidalPID(drive, -105, 0.005, 0, 0));
+  y.whileTrue(new AutoTrapezoidalPID(drive, 120, 0.005, 0, 0));
   rb.whileTrue(toggleTransmission);
-  lb.whileTrue(new TurnPID(drive, 90));
+  lb.whileTrue(new TurnPID(drive, -90));
 
 
   menu.whileTrue(new GrabScoreFlatGround(drive, gripper, arm, turret)); //pneumatics disconnected so??????
