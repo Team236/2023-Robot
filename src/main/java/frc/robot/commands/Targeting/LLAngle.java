@@ -41,7 +41,7 @@ public class LLAngle extends CommandBase {
     double errorX = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
 
     if(tv==1){
-      //double x = (errorX-160)/320;
+      //double x = (errorX-160)/320; ???
       //Establishes a minimum error in the x axis 
       if(Math.abs(errorX)>2){
         double steeringAdjust = kX * errorX;
