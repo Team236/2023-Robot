@@ -43,8 +43,8 @@ public class Drive extends SubsystemBase {
     leftFront.restoreFactoryDefaults();
     rightFront.restoreFactoryDefaults();
 
-    leftFront.setInverted(true);
-    rightFront.setInverted(false);
+    leftFront.setInverted(false); //testbed = true, 2022 = false
+    rightFront.setInverted(true); // testbed = false, 2022 = true
 
     leftRear.follow(leftFront);
     rightRear.follow(rightFront);
