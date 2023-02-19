@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import org.photonvision.PhotonCamera;
+
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
@@ -25,6 +27,7 @@ public class Robot extends TimedRobot {
   private Compressor compressor;
   public AHRS navx = new AHRS();
   public UsbCamera usbCamera0;
+  //public PhotonCamera camera;  Done in Container.
   private RobotContainer m_robotContainer;
 
   /**
@@ -44,9 +47,7 @@ public class Robot extends TimedRobot {
 }  catch (Exception e)  {
     SmartDashboard.putString("camera capture filed", "failed");
 }
-
   }
-
   /**
    * This function is called every 20 ms, no matter the mode. Use this for items like diagnostics
    * that you want ran during disabled, autonomous, teleoperated and test.
