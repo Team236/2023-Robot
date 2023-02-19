@@ -1,13 +1,13 @@
 {
   "NetworkTables": {
-    "Persistent Values": {
-      "open": false
-    },
     "transitory": {
       "Shuffleboard": {
         "open": true
       },
       "SmartDashboard": {
+        "open": true
+      },
+      "limelight-camera": {
         "open": true
       },
       "photonvision": {
@@ -22,7 +22,7 @@
     }
   },
   "NetworkTables Settings": {
-    "mode": "Client (NT4)",
+    "mode": "Client (NT3)",
     "serverTeam": "236"
   }
 }

@@ -91,7 +91,7 @@ private final TurretCCW turretCCW = new TurretCCW(turret, -TurretConstants.TURRE
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-  drive.setDefaultCommand(doubleArcadeDrive);
+  drive.setDefaultCommand(driveWithJoysticks);
     // Configure the trigger bindings
     configureBindings();
   }

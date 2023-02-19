@@ -38,10 +38,15 @@ public class DriveWithJoysticks extends CommandBase {
     if (this.isDeadzone) {
       drive.setRightSpeedWithDeadzone(-xboxController.getRightY());
       drive.setLeftSpeedWithDeadzone(-xboxController.getLeftY());
+     // drive.setRightSpeedWithDeadzone(-xboxController.getRightX());
+      //drive.setLeftSpeedWithDeadzone(-xboxController.getLeftX());
       gripper2.autoGrab();
-    } else {
+    } 
+    else {
       drive.setLeftSpeed(-xboxController.getLeftY());
       drive.setRightSpeed(-xboxController.getRightY());
+      //drive.setLeftSpeed(-xboxController.getLeftX());
+      //drive.setRightSpeed(-xboxController.getRightX());
       gripper2.autoGrab();
     }
   }
