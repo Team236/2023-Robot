@@ -4,98 +4,74 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.networktables.DoubleArraySubscriber;
+import edu.wpi.first.networktables.DoubleSubscriber;
+import edu.wpi.first.networktables.IntegerPublisher;
+import edu.wpi.first.networktables.IntegerSubscriber;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Limelight extends SubsystemBase {
   NetworkTable table;
+  DoubleSubscriber xSub,ySub,areaSub;
+  IntegerPublisher outPipeline,outLedMode;
+  DoubleArraySubscriber pose;
 
   /** Creates a new Limelight. */
   public Limelight() {
-    table = NetworkTableInstance.getDefault().getTable("limelight");
-    // NetworkTableInstance table = NetworkTableInstance.getDefault();
-  }
+  NetworkTableInstance inst = NetworkTableInstance.getDefault();
 
-  @Override
-  public void periodic() {
-    double number = table.getValue());
+  // get the subtable called "datatable"
+  NetworkTable datatable = inst.getTable("limelight");
 
-    // getDoubleTopic().getDefault().getTable("limelight").getNumber("tx", 0);
-    // This method will be called once per scheduler run
-  }
+  // subscribe to the topic in "datatable" called "Y"
+  // default value is 0
+  xSub = datatable.getDoubleTopic("tx").subscribe(0.0);
+  ySub = datatable.getDoubleTopic("ty").subscribe(0.0);
+  areaSub = datatable.getDoubleTopic("ta").subscribe(0.0);
+  areaSub = datatable.getDoubleTopic("ta").subscribe(0.0);
+  areaSub = datatable.getDoubleTopic("ta").subscribe(0.0);
+// pose = datatable.getDoubleArrayTopic("camtran").sub(0.0);
 
-  public void setPipeline(int){
-    table.putValue(getName("pipeline"), int);
-    return;
-  } 
+  // xxxxxSub = datatable.getDoubleTopic("xxxxx").subscribe(0.0);
+  
+  // publish to the topic in "datatable" called "Out"
+   outPipeline = datatable.getIntegerTopic("getPipe").publish();
+   outLedMode = datatable.getIntegerTopic("ledmode").publish();
+}
 
-  public double getX() {
-    var value  = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx"));
-    return value.getDouble(getArea());
-  }
+public void periodic() {
+  // read a double value from Y, and set Out to that value multiplied by 2
+  // set the pipiline value to change 
+  
+}
 
-  public double getY(){
-    // var targetOffsetAngle_Vertical = table.getNumber("ty", 0);
-    return = table.getEntry("ty");
-  }
+// often not required in robot code, unless this class doesn't exist for
+// the lifetime of the entire robot program, in which case close() needs to be
+// called to stop subscribing
+// public void close() {
+//   ySub.close();
+//   outPub.close();
+// }
 
-  public double[6] getTagData() {
-    // NetworkTableInstance.getDefault().getTable("limelight").getEntry("").getDoubleArray(new double[6]);
-  }
-
-  public double getArea(){
-    
-  }
-
-    public double getAdvanced_RotationToTarget(Advanced_Target raw) {
-        NetworkTableEntry txRaw = table.getEntry("tx" + Integer.toString(raw.getValue()));
-        double x = txRaw.getDouble(0.0);
-        return x;
-    }
-
-    // public double getAdvanced_degVerticalToTarget(Advanced_Target raw) {
-    //     NetworkTableEntry tyRaw = m_table.getEntry("ty" + Integer.toString(raw.getValue()));
-    //     double y = tyRaw.getDouble(0.0);
-    //     return y;
-    // }
-
-    // public double getAdvanced_TargetArea(Advanced_Target raw) {
-    //     NetworkTableEntry taRaw = m_table.getEntry("ta" + Integer.toString(raw.getValue()));
-    //     double a = taRaw.getDouble(0.0);
-    //     return a;
-    // }
-    
-    // public double getAdvanced_Skew_Rotation(Advanced_Target raw) {
-    //     NetworkTableEntry tsRaw = m_table.getEntry("ts" + Integer.toString(raw.getValue()));
-    //     double s = tsRaw.getDouble(0.0);
-    //     return s;
-    // }
-
-    // //Raw Crosshairs:
-    // //If you are using raw targeting data, you can still utilize your calibrated crosshairs:
-    
-    // public double[] getAdvanced_RawCrosshair(Advanced_Crosshair raw){
-    //     double[] crosshars = new double[2];
-    //     crosshars[0] = getAdvanced_RawCrosshair_X(raw);
-    //     crosshars[1] = getAdvanced_RawCrosshair_Y(raw);
-    //     return crosshars;
-    // }
-    // public double getAdvanced_RawCrosshair_X(Advanced_Crosshair raw) {
-    //     NetworkTableEntry cxRaw = m_table.getEntry("cx" + Integer.toString(raw.getValue()));
-    //     double x = cxRaw.getDouble(0.0);
-    //     return x;
-    // }
-
-    // public double getAdvanced_RawCrosshair_Y(Advanced_Crosshair raw) {
-    //     NetworkTableEntry cyRaw = m_table.getEntry("cy" + Integer.toString(raw.getValue()));
-    //     double y = cyRaw.getDouble(0.0);
-    //     return y;
-    // }
-
-
+public void setLedMode(limelight.ledmode mode){
+outLedMode.set(mode);
 }
 
 
 
+  public void setPipeline( ){
+    outPipeline.set(0);
+  }   
 
+  public double getX() {
+    return xSub.get();
+  }
+
+  public double getY(){
+    return ySub.get();
+  }
+
+  // public double[6] getTagData() {  }
+}
