@@ -8,6 +8,10 @@ import edu.wpi.first.networktables.DoubleArraySubscriber;
 import edu.wpi.first.networktables.DoubleSubscriber;
 import edu.wpi.first.networktables.IntegerPublisher;
 import edu.wpi.first.networktables.IntegerSubscriber;
+import edu.wpi.first.networktables.DoubleArraySubscriber;
+import edu.wpi.first.networktables.DoubleSubscriber;
+import edu.wpi.first.networktables.IntegerPublisher;
+import edu.wpi.first.networktables.IntegerSubscriber;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -17,9 +21,32 @@ public class Limelight extends SubsystemBase {
   DoubleSubscriber xSub,ySub,areaSub;
   IntegerPublisher outPipeline,outLedMode;
   DoubleArraySubscriber pose;
+  DoubleSubscriber xSub,ySub,areaSub;
+  IntegerPublisher outPipeline,outLedMode;
+  DoubleArraySubscriber pose;
 
   /** Creates a new Limelight. */
   public Limelight() {
+  NetworkTableInstance inst = NetworkTableInstance.getDefault();
+
+  // get the subtable called "datatable"
+  NetworkTable datatable = inst.getTable("limelight");
+
+  // subscribe to the topic in "datatable" called "Y"
+  // default value is 0
+  xSub = datatable.getDoubleTopic("tx").subscribe(0.0);
+  ySub = datatable.getDoubleTopic("ty").subscribe(0.0);
+  areaSub = datatable.getDoubleTopic("ta").subscribe(0.0);
+  areaSub = datatable.getDoubleTopic("ta").subscribe(0.0);
+  areaSub = datatable.getDoubleTopic("ta").subscribe(0.0);
+// pose = datatable.getDoubleArrayTopic("camtran").sub(0.0);
+
+  // xxxxxSub = datatable.getDoubleTopic("xxxxx").subscribe(0.0);
+  
+  // publish to the topic in "datatable" called "Out"
+   outPipeline = datatable.getIntegerTopic("getPipe").publish();
+   outLedMode = datatable.getIntegerTopic("ledmode").publish();
+}
   NetworkTableInstance inst = NetworkTableInstance.getDefault();
 
   // get the subtable called "datatable"
@@ -65,13 +92,24 @@ outLedMode.set(0);
     outPipeline.set(0);
   }   
 
+
+  public void setPipeline( ){
+    outPipeline.set(0);
+  }   
+
   public double getX() {
+    return xSub.get();
     return xSub.get();
   }
 
   public double getY(){
     return ySub.get();
+    return ySub.get();
   }
+
+  // public double[6] getTagData() {  }
+}
+
 
   // public double[6] getTagData() {  }
 }
