@@ -18,55 +18,34 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Limelight extends SubsystemBase {
   NetworkTable table;
-  DoubleSubscriber xSub,ySub,areaSub;
-  IntegerPublisher outPipeline,outLedMode;
+  DoubleSubscriber xSub, ySub, areaSub;
+  IntegerPublisher outPipeline, outLedMode;
   DoubleArraySubscriber pose;
-  DoubleSubscriber xSub,ySub,areaSub;
-  IntegerPublisher outPipeline,outLedMode;
-  DoubleArraySubscriber pose;
+
 
   /** Creates a new Limelight. */
   public Limelight() {
-  NetworkTableInstance inst = NetworkTableInstance.getDefault();
+    NetworkTableInstance inst = NetworkTableInstance.getDefault();
 
-  // get the subtable called "datatable"
-  NetworkTable datatable = inst.getTable("limelight");
+    // get the subtable called "datatable"
+    NetworkTable datatable = inst.getTable("limelight");
 
-  // subscribe to the topic in "datatable" called "Y"
-  // default value is 0
-  xSub = datatable.getDoubleTopic("tx").subscribe(0.0);
-  ySub = datatable.getDoubleTopic("ty").subscribe(0.0);
-  areaSub = datatable.getDoubleTopic("ta").subscribe(0.0);
-  areaSub = datatable.getDoubleTopic("ta").subscribe(0.0);
-  areaSub = datatable.getDoubleTopic("ta").subscribe(0.0);
-// pose = datatable.getDoubleArrayTopic("camtran").sub(0.0);
+    // subscribe to the topic in "datatable" called "Y"
+    // default value is 0
+    xSub = datatable.getDoubleTopic("tx").subscribe(0.0);
+    ySub = datatable.getDoubleTopic("ty").subscribe(0.0);
+    areaSub = datatable.getDoubleTopic("ta").subscribe(0.0);
+    areaSub = datatable.getDoubleTopic("ta").subscribe(0.0);
+    areaSub = datatable.getDoubleTopic("ta").subscribe(0.0);
+    pose = datatable.getDoubleArrayTopic("camtran").subscribe(new double[] {});
 
-  // xxxxxSub = datatable.getDoubleTopic("xxxxx").subscribe(0.0);
-  
-  // publish to the topic in "datatable" called "Out"
-   outPipeline = datatable.getIntegerTopic("getPipe").publish();
-   outLedMode = datatable.getIntegerTopic("ledmode").publish();
-}
-  NetworkTableInstance inst = NetworkTableInstance.getDefault();
+    // xxxxxSub = datatable.getDoubleTopic("xxxxx").subscribe(0.0);
 
-  // get the subtable called "datatable"
-  NetworkTable datatable = inst.getTable("limelight");
+    // publish to the topic in "datatable" called "Out"
+    outPipeline = datatable.getIntegerTopic("getPipe").publish();
+    outLedMode = datatable.getIntegerTopic("ledmode").publish();
+  }
 
-  // subscribe to the topic in "datatable" called "Y"
-  // default value is 0
-  xSub = datatable.getDoubleTopic("tx").subscribe(0.0);
-  ySub = datatable.getDoubleTopic("ty").subscribe(0.0);
-  areaSub = datatable.getDoubleTopic("ta").subscribe(0.0);
-  areaSub = datatable.getDoubleTopic("ta").subscribe(0.0);
-  areaSub = datatable.getDoubleTopic("ta").subscribe(0.0);
-// pose = datatable.getDoubleArrayTopic("camtran").sub(0.0);
-
-  // xxxxxSub = datatable.getDoubleTopic("xxxxx").subscribe(0.0);
-  
-  // publish to the topic in "datatable" called "Out"
-   outPipeline = datatable.getIntegerTopic("getPipe").publish();
-   outLedMode = datatable.getIntegerTopic("ledmode").publish();
-}
 
 public void periodic() {
   // read a double value from Y, and set Out to that value multiplied by 2
@@ -74,42 +53,33 @@ public void periodic() {
   
 }
 
-// often not required in robot code, unless this class doesn't exist for
-// the lifetime of the entire robot program, in which case close() needs to be
-// called to stop subscribing
-// public void close() {
-//   ySub.close();
-//   outPub.close();
-// }
+  // often not required in robot code, unless this class doesn't exist for
+  // the lifetime of the entire robot program, in which case close() needs to be
+  // called to stop subscribing
+  public void close() {
+  // ySub.close();
+  // outPub.close();
+  }
 
-public void setLedMode( ){
-outLedMode.set(0);
-}
+  public void setLedMode(Integer i) {
+    outLedMode.set(i);
+  }
 
-
-
-  public void setPipeline( ){
-    outPipeline.set(0);
-  }   
-
-
-  public void setPipeline( ){
-    outPipeline.set(0);
-  }   
+  public void setPipeline(Integer i) {
+    outPipeline.set(i);
+  }
 
   public double getX() {
     return xSub.get();
-    return xSub.get();
+    
   }
 
-  public double getY(){
+  public double getY() {
     return ySub.get();
-    return ySub.get();
+    
   }
 
-  // public double[6] getTagData() {  }
-}
-
-
-  // public double[6] getTagData() {  }
+  public double[] getTagData() {
+    return pose.get();
+   }
 }
