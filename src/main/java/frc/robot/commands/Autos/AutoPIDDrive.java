@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.util.WPILibVersion;
 
 public class AutoPIDDrive extends CommandBase {
   private Drive drive;
-  private double driveDistance, gyrokP, spin;
+  private double driveDistance, gyrokP, error, LL, RR, adjustL, adjustR;
   private final PIDController leftPidController, rightPidController;
 
   /** Creates a new DriveStraight. */
@@ -26,7 +26,7 @@ public class AutoPIDDrive extends CommandBase {
     leftPidController.setSetpoint(driveDistance);
     rightPidController.setSetpoint(driveDistance);
     //getRate returns rate of change of the gyro angle, hence it is "spin"
-   spin = drive.navX.getRate();
+   error = drive.navX.getRate();
     gyrokP = 0.03;
   }
 
@@ -43,13 +43,29 @@ public class AutoPIDDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //negative speed applicable????/
-    double leftSpeed = (((leftPidController.calculate(drive.getLeftDistance())) - (spin*gyrokP)));
-    double rightSpeed = ((rightPidController.calculate(drive.getRightDistance())) + (spin*gyrokP));
-    //double leftSpeed = (leftPidController.calculate(drive.getLeftDistance()));
-   // double rightSpeed = (rightPidController.calculate(drive.getRightDistance()));
-    drive.setLeftSpeed(leftSpeed);
-    drive.setRightSpeed(rightSpeed);
+    LL = leftPidController.calculate(drive.getLeftDistance());
+    RR = rightPidController.calculate(drive.getRightDistance());
+
+    /*
+    if (RR <= 0) {
+      adjustL = kPgyro*error;
+      adjustR = -kPgyro*error;
+   } else {
+      adjustL = -kPgyro*error;
+      adjustR = kPgyro*error;
+   }
+   */
+  adjustL = 0;
+  adjustR = 0;
+
+      drive.setLeftSpeed(LL + adjustL);
+      drive.setRightSpeed(RR + adjustR);  
+      
+     // SmartDashboard.putNumber("error is", error);
+     // SmartDashboard.putNumber("LL is", LL);
+     // SmartDashboard.putNumber("RR is", RR);
+     // SmartDashboard.putNumber("adjsut L is", adjustL);
+     // SmartDashboard.putNumber("adjust R is", adjustR);
 
   }
 

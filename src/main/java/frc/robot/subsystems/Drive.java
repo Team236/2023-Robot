@@ -74,6 +74,18 @@ public class Drive extends SubsystemBase {
     }
   }
 
+  public double getRoll() {
+    return (navX.getRoll());
+  }
+
+  public boolean isLevel(){
+    if (Math.abs(navX.getRoll()) < 5) {
+    return true;
+    } else {
+      return false;
+  }
+     }
+
 
   public void setLeftSpeed(double speed) {
     leftFront.set(speed);
@@ -106,7 +118,7 @@ public class Drive extends SubsystemBase {
     } 
     setRightSpeed(rightSpeed);
   }
-  public void setArcadeSpeed() {
+ /* public void setArcadeSpeed() {
     double max, L, R, kPgyro, error;
 
     /*if (Math.abs(leftStick.getX()) <= 0.15) {
@@ -115,15 +127,15 @@ public class Drive extends SubsystemBase {
     } else {
       kPgyro = 0;
       error = 0;
-    }*/
+    }
 
-    /*if (rightStick.getY() <= 0) {
+    if (rightStick.getY() <= 0) {
       L = (-rightStick.getY() - (kPgyro*error)) + leftStick.getX();
       R = (-rightStick.getY() + (kPgyro*error)) - leftStick.getX();
     } else {
       L = (-rightStick.getY() + (kPgyro*error)) - leftStick.getX();
       R = (-rightStick.getY() - (kPgyro*error)) + leftStick.getX();
-    }*/
+    }
 
 
     //Adjust the Y speed so the robot drives straight (no angle change) when X (turn) input is low 
@@ -132,7 +144,6 @@ public class Drive extends SubsystemBase {
       error = navX.getRate();
     } else {
       kPgyro = 0;
-      
       error = 0;
     }
 
@@ -153,7 +164,7 @@ public class Drive extends SubsystemBase {
     setRightSpeedWithDeadzone(R);
     setLeftSpeedWithDeadzone(L);
 
-  }
+  }*/
 
   public double getLeftSpeed() {
    return leftEncoder.getVelocity();
