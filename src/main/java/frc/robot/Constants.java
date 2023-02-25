@@ -15,8 +15,6 @@ import edu.wpi.first.util.sendable.Sendable;
  */
 public final class Constants {
   public static class ControllerConstants {
-    //public static final int USB_LEFT_STICK = 0;
-    //public static final int USB_RIGHT_STICK = 1;
     public static final int USB_AUXCONTROLLER = 0;
     public static final int USB_DRIVECONTROLLER = 1;
     public static class Thrustmaster {
@@ -156,7 +154,6 @@ public static class DriveConstants {
   public static final int DIO_AUTO_2 = 1;
   public static final int DIO_AUTO_3 = 2;
   public static final int DIO_AUTO_4 = 3;
-
 }
 
 public static class ArmConstants { ///FOR TESTBOT: subject to change for final
@@ -177,8 +174,8 @@ public static class ArmConstants { ///FOR TESTBOT: subject to change for final
   public static double kIarm = 0;
   public static double kDarm = 0;
   public static double kFarm = 0; //mooooo
-
-  public static class PivotConstants {
+  
+  public class PivotConstants{
     public static final int PVT_LOW = 8;  //Pivot Limit Switches
     public static final int PVT_HIGH = 9;
   
@@ -192,9 +189,9 @@ public static class ArmConstants { ///FOR TESTBOT: subject to change for final
   public static final double pvtDEG_TO_REV = 1/360;
   
   public static final double pvtSPEED = 0.75;
-  public static double kPpvt = 0;
-  public static double kIpvt = 0;
-  public static double kDpvt = 0;
+  public static final double kPpvt = 0;
+  public static final double kIpvt = 0;
+  public static final double kDpvt = 0;
   }
 }
 public static class GripperConstants {
@@ -227,8 +224,6 @@ public static class TurretConstants {
   public static final double TURRET_LEFT = -90;
 
   public static final double TURRET_SPEED = 0.75;
-
-
 }
 }
 

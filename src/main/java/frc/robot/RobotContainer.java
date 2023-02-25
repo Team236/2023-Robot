@@ -36,9 +36,7 @@ import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Gripper;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Turret;
-
 import org.photonvision.PhotonCamera;
-
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -138,25 +136,22 @@ private final TurretCCW turretCCW = new TurretCCW(turret, -TurretConstants.TURRE
     POVButton downPov1 = new POVButton(controller, Constants.ControllerConstants.XboxController.POVXbox.DOWN_ANGLE);
     // ASSIGN BUTTONS TO COMMANDS
     //AUXController
-   a.whileTrue(new AutoPIDDrive(drive, 220));
-   //rb.whileTrue(new AprilFollow(drive, camera, 26, 0));
-   rb.whileTrue(driveToCS);
-   //b1.whileTrue(pivotUp);
-
-   //x1.whileTrue(pivotDown);
+   a1.whileTrue(new AutoPIDDrive(drive, 220));
+   lb1.whileTrue(new AprilFollow(drive, camera, 26, 0));
+   rb1.whileTrue(driveToCS);
+   b1.whileTrue(pivotUp);
+   x1.whileTrue(pivotDown);
    //DRIVECONTROLLER******
   upPov.whileTrue(armExtend);
   downPov.whileTrue(armRetract);
   leftPov.whileTrue(turretCCW);
   rightPov.whileTrue(turretCW);
-  //a.whileTrue(new ArmPID(arm, Constants.ArmConstants.ARM_OUT));
+  a.whileTrue(new ArmPID(arm, Constants.ArmConstants.ARM_OUT));
   x.whileTrue(grabReleaseToggle);  
   b.whileTrue(llAngle);
   y.whileTrue(new AutoTrapezoidalPID(drive, 220, 0.005, 0, 0));
- // rb.whileTrue(toggleTransmission);
+ rb.whileTrue(toggleTransmission);
   lb.whileTrue(new TurnPID(drive, 90));
-
-
   menu.whileTrue(new GrabScoreFlatGround(drive, gripper, arm, turret)); //pneumatics disconnected so??????
   }
   /**
