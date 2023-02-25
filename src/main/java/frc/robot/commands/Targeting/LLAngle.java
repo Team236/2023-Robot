@@ -30,18 +30,19 @@ public class LLAngle extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(0);
+
+   // NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
+    //NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
     double tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
     double errorX = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
 
     if(tv==1){
-      //double x = (errorX-160)/320; ???
+      //double x = (errorX-160)/320;
       //Establishes a minimum error in the x axis 
       if(Math.abs(errorX)>2){
         double steeringAdjust = kX * errorX;
@@ -59,7 +60,7 @@ public class LLAngle extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     drive.stop();
-    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(0);
+   // NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(0);
   }
 
   // Returns true when the command should end.

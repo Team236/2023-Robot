@@ -9,6 +9,7 @@ import org.photonvision.PhotonCamera;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
+import edu.wpi.first.net.PortForwarder;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -47,6 +48,10 @@ public class Robot extends TimedRobot {
 }  catch (Exception e)  {
     SmartDashboard.putString("camera capture filed", "failed");
 }
+  //Need to do this once only in order to have Limelight communication while tethered
+  //for (int port = 5800; port <= 5805; port++){
+  //  PortForwarder.add(port, "limeelight.local", port);
+  //}
   }
   /**
    * This function is called every 20 ms, no matter the mode. Use this for items like diagnostics
