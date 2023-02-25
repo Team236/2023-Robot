@@ -106,7 +106,7 @@ public final class Constants {
 
     public static final int ID_ARM = 10; //36 on 2022 robot, 38 on testbed
     public static final int ID_TURRET = 15; //test value
-    public static final int ID_PIVOT =  14;// - currently pneumatic, getting redesigned to TalonSRX
+    public static final int ID_PIVOT =  24;// - currently pneumatic, getting redesigned to TalonSRX
     }
 
 
