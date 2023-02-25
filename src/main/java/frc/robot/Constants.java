@@ -99,12 +99,12 @@ public final class Constants {
   public static class MotorControllers {
 
     //placeholder numbers for beginning of season //testbed OG - 2022 old - testbed swapped - 2022 new
-    public static final int ID_LEFT_FRONT = 1; //10 - 30 - 11 - 1
-    public static final int ID_RIGHT_FRONT = 2; //15 - 43 - 16 - 2
-    public static final int ID_LEFT_REAR = 3;// 11 - 44 - 10 - 3
-    public static final int ID_RIGHT_REAR = 4; //16 - 45 - 15 - 4
+    public static final int ID_LEFT_FRONT = 11; //10 - 30 - 11 - 1
+    public static final int ID_RIGHT_FRONT = 16; //15 - 43 - 16 - 2
+    public static final int ID_LEFT_REAR = 10;// 11 - 44 - 10 - 3
+    public static final int ID_RIGHT_REAR = 15; //16 - 45 - 15 - 4
 
-    public static final int ID_ARM = 38;
+    public static final int ID_ARM = 38; //36 on 2022 robot, 38 on testbed
     //public static final int ID_TURRET = 32; //test value
     //public static final int ID_PIVOT = 12;// - currently pneumatic, getting redesigned
     }

@@ -125,20 +125,25 @@ public class Drive extends SubsystemBase {
       R = (-rightStick.getY() - (kPgyro*error)) + leftStick.getX();
     }*/
 
+
+    //Adjust the Y speed so the robot drives straight (no angle change) when X (turn) input is low 
     if (Math.abs(xboxController.getLeftX()) <= 0.15) {
-      kPgyro = 0.02;
+      kPgyro = 0.02;  //need to tune this for each robot  
       error = navX.getRate();
     } else {
       kPgyro = 0;
+      
       error = 0;
     }
 
-    if (xboxController.getRightY() <=0) {
-      L = (-xboxController.getRightY() - (kPgyro*error)) - xboxController.getLeftX();
-      R = (-xboxController.getRightY() + (kPgyro*error)) + xboxController.getLeftX();
+    if (xboxController.getRightY() <=0) {            
+
+      //change all signs before getLeftX for 2022 robot 
+      L = (xboxController.getRightY() + (kPgyro*error)) + xboxController.getLeftX();
+      R = (xboxController.getRightY() - (kPgyro*error)) - xboxController.getLeftX();
     } else {
-      L = (-xboxController.getRightY() + (kPgyro*error)) + xboxController.getLeftX();
-      R = (-xboxController.getRightY() - (kPgyro*error)) - xboxController.getLeftX();
+      L = (xboxController.getRightY() - (kPgyro*error)) - xboxController.getLeftX();
+      R = (xboxController.getRightY() + (kPgyro*error)) + xboxController.getLeftX();
     }
 
     max = Math.abs(L);
@@ -195,7 +200,7 @@ public class Drive extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.getBoolean("Gear", inLowGear());
+    SmartDashboard.getBoolean("In Low Gear?", inLowGear());
     // This method will be called once per scheduler run
   }
 

@@ -17,18 +17,20 @@ import frc.robot.subsystems.Drive;
 public class AprilFollow extends CommandBase {
    //*Causes the robot to drive to a set distance ("driveDistance") from a targeted AprilTag
    private Drive drive;
-   private double driveDistance;  //inches
-   private double kPdistance = 0.005, kIdistance = 0, kDdistance = 0; 
-   private double kPangle = 0.002, kIangle = 0, kDangle = 0; 
+   private double driveDistance;  //inches - desired x distance from PV camera to AprilTag center
+   private double yOffset; // inches - desired y distance from PV camera to AprilTag center
+   private double kPdistance = 0.006, kIdistance = 0, kDdistance = 0;  //kpdistance 0.008 teleop?
+   private double kPangle = 0.003, kIangle = 0, kDangle = 0; //kpangle 0.004 teleop?
    private final PIDController distanceController, turnController;
    private PhotonPipelineResult result;
    private PhotonCamera camera;
    private double xPos, yPos, zPos, skew;
 
-  public AprilFollow(Drive m_drive, PhotonCamera m_camera, double m_driveDistance) {
+  public AprilFollow(Drive m_drive, PhotonCamera m_camera, double m_driveDistance, double m_yOffset) {
     this.camera = m_camera;
     this.drive = m_drive;
     this.driveDistance = m_driveDistance;
+    this.yOffset = m_yOffset;
     addRequirements(drive);
 
     distanceController = new PIDController(kPdistance, kIdistance, kDdistance);
@@ -42,10 +44,10 @@ public class AprilFollow extends CommandBase {
     turnController.reset();
     // goal is to maintain a set distance (called driveDistance) between the Apriltag and the camera
     distanceController.setSetpoint(driveDistance);
-    turnController.setSetpoint(0);
-    camera.setDriverMode(false);
-    camera.setPipelineIndex(0);
-    camera.setLED(VisionLEDMode.kOff);
+    turnController.setSetpoint(yOffset); //this is the setpoint for the Y, may need an offset rather than 0
+    //camera.setDriverMode(false);
+    //camera.setPipelineIndex(0);
+    //camera.setLED(VisionLEDMode.kOff);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -54,7 +56,6 @@ public class AprilFollow extends CommandBase {
     camera.setPipelineIndex(0);
     camera.setLED(VisionLEDMode.kOff);
     result = camera.getLatestResult();
-
 
     if (result.hasTargets()){
          //Meters to inches (0.0254)
@@ -70,16 +71,22 @@ public class AprilFollow extends CommandBase {
      
      double dC = distanceController.calculate(xPos);
      double tC = turnController.calculate(yPos);
-    
 
-     double leftSpeed = dC + tC;
+    double LS = dC + tC ; // - tc for 2022 robot
+    double RS = dC - tC;  // + tc for 2022 robot
+    
+//double max = Math.abs(LS);
+ //  if (max < Math.abs(RS)) {max = Math.abs(RS);}
+ //   if (max > 1) {LS /= max; RS/= max;}
+
+     double leftSpeed = LS;
      //double rightSpeed = leftSpeed;
-     double rightSpeed = dC - tC;
+     double rightSpeed = RS;
     // SmartDashboard.putNumber("left input",leftSpeed); // (-) For testing; Camera on back of Robot
     // SmartDashboard.putNumber("left input",right Speed);
      
-     drive.setLeftSpeed(leftSpeed);
-     drive.setRightSpeed(rightSpeed);
+     drive.setLeftSpeed(leftSpeed/2);
+     drive.setRightSpeed(rightSpeed/2);
       
     }
     else{
