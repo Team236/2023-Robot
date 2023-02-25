@@ -13,7 +13,7 @@ import frc.robot.commands.Arm.ArmRetract;
 import frc.robot.commands.Arm.ArmWithAxis;
 import frc.robot.commands.Autos.AutoPIDDrive;
 import frc.robot.commands.Autos.AutoTrapezoidalPID;
-import frc.robot.commands.Autos.DriveToCS;
+import frc.robot.commands.Autos.DriveAtSetSpeed;
 import frc.robot.commands.Autos.GrabScoreFlatGround;
 import frc.robot.commands.Autos.TurnPID;
 import frc.robot.commands.Drive.DoubleArcadeDrive;
@@ -72,7 +72,7 @@ public class RobotContainer {
  private final ToggleTransmission toggleTransmission = new ToggleTransmission(drive);
  private final LLAngle llAngle = new LLAngle(drive);
   /** Creates a new DriveToCS. */
- private final  DriveToCS driveToCS = new DriveToCS(drive, 130, 0.5);
+ private final  DriveAtSetSpeed driveToCS = new DriveAtSetSpeed(drive, 130, 0.5);
 
  //ARM
  //private final ArmWithAxis armWithAxis = new ArmWithAxis(arm, controller); //OBSOLETE WITH POV

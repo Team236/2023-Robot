@@ -8,13 +8,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drive;
 
-public class DriveToCS extends CommandBase {
+public class DriveAtSetSpeed extends CommandBase {
 
   private Drive drive;
   private double distance, speed;  
 
   /** Creates a new DriveToCS. */
-  public DriveToCS(Drive m_drive, double m_distance, double m_speed) {
+  public DriveAtSetSpeed(Drive m_drive, double m_distance, double m_speed) {
     this.drive = m_drive;
     this.distance = m_distance;
     this.speed = m_speed;
