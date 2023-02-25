@@ -6,14 +6,14 @@ package frc.robot.commands.Drive;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.Drive;
-public class TankDriveWithGyro extends CommandBase {
+public class TDWG_No extends CommandBase {
   /** Creates a new TankDriveWithGyro. */
 private double kP;
 private double dist;
 private double speed;
 private Drive drive;
 
-  public TankDriveWithGyro(Drive _drive, double _kP, 
+  public TDWG_No(Drive _drive, double _kP, 
   double _dist, double _speed) {
     this.kP = _kP;
     this.dist = _dist;

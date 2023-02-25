@@ -13,17 +13,17 @@ import frc.robot.commands.Arm.ArmRetract;
 import frc.robot.commands.Arm.ArmWithAxis;
 import frc.robot.commands.Autos.AutoPIDDrive;
 import frc.robot.commands.Autos.AutoTrapezoidalPID;
+import frc.robot.commands.Autos.DriveToCS;
 import frc.robot.commands.Autos.GrabScoreFlatGround;
 import frc.robot.commands.Autos.TurnPID;
 import frc.robot.commands.Drive.DoubleArcadeDrive;
 import frc.robot.commands.Drive.DriveWithJoysticks;
-import frc.robot.commands.Drive.TankDriveWithGyro;
+import frc.robot.commands.Drive.TDWG_No;
 import frc.robot.commands.Drive.ToggleTransmission;
 //import frc.robot.commands.Drive.DriveWithJoysticks;
 import frc.robot.commands.Gripper.Grab;
 import frc.robot.commands.Gripper.GrabReleaseToggle;
 import frc.robot.commands.Gripper.ReleasePiece;
-import frc.robot.commands.Pivot.PPivotToggle;
 import frc.robot.commands.Pivot.PivotDown;
 import frc.robot.commands.Pivot.PivotPID;
 import frc.robot.commands.Pivot.PivotUp;
@@ -34,7 +34,7 @@ import frc.robot.commands.Turret.TurretCW;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Gripper;
-import frc.robot.subsystems.PPivot;
+import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Turret;
 
 import org.photonvision.PhotonCamera;
@@ -61,7 +61,7 @@ public class RobotContainer {
   private final Arm arm = new Arm();
   private final Gripper gripper = new Gripper();
   private final Turret turret = new Turret();
-  private final PPivot pivot = new PPivot();
+  private final Limelight limelight = new Limelight();
 
   //COMMANDS****
   //AUTO
@@ -71,6 +71,8 @@ public class RobotContainer {
  private final DoubleArcadeDrive doubleArcadeDrive = new DoubleArcadeDrive(drive, gripper, driveController);
  private final ToggleTransmission toggleTransmission = new ToggleTransmission(drive);
  private final LLAngle llAngle = new LLAngle(drive);
+  /** Creates a new DriveToCS. */
+ private final  DriveToCS driveToCS = new DriveToCS(drive, 130, 0.5);
 
  //ARM
  //private final ArmWithAxis armWithAxis = new ArmWithAxis(arm, controller); //OBSOLETE WITH POV
@@ -83,7 +85,6 @@ public class RobotContainer {
 private final Grab grab = new Grab(gripper);
 private final ReleasePiece releasePiece = new ReleasePiece(gripper);
 private final GrabReleaseToggle grabReleaseToggle = new GrabReleaseToggle(gripper);
-private final PPivotToggle pivotToggle = new PPivotToggle(pivot);
 
 //TURRET
 private final TurretCW turretCW = new TurretCW(turret, TurretConstants.TURRET_SPEED, driveController);
@@ -137,19 +138,21 @@ private final TurretCCW turretCCW = new TurretCCW(turret, -TurretConstants.TURRE
     POVButton downPov1 = new POVButton(controller, Constants.ControllerConstants.XboxController.POVXbox.DOWN_ANGLE);
     // ASSIGN BUTTONS TO COMMANDS
     //AUXController
-   a1.whileTrue(new AutoPIDDrive(drive, -Constants.DriveConstants.GRID_TO_CENTER));
-   rb.whileTrue(new AprilFollow(drive, camera, 26, 0));
+   a.whileTrue(new AutoPIDDrive(drive, 220));
+   //rb.whileTrue(new AprilFollow(drive, camera, 26, 0));
+   rb.whileTrue(driveToCS);
    //b1.whileTrue(pivotUp);
+
    //x1.whileTrue(pivotDown);
    //DRIVECONTROLLER******
   upPov.whileTrue(armExtend);
   downPov.whileTrue(armRetract);
   leftPov.whileTrue(turretCCW);
   rightPov.whileTrue(turretCW);
-  a.whileTrue(new ArmPID(arm, Constants.ArmConstants.ARM_OUT));
+  //a.whileTrue(new ArmPID(arm, Constants.ArmConstants.ARM_OUT));
   x.whileTrue(grabReleaseToggle);  
   b.whileTrue(llAngle);
-  y.whileTrue(new AutoTrapezoidalPID(drive, 217, 0.005, 0, 0));
+  y.whileTrue(new AutoTrapezoidalPID(drive, 220, 0.005, 0, 0));
  // rb.whileTrue(toggleTransmission);
   lb.whileTrue(new TurnPID(drive, 90));
 
