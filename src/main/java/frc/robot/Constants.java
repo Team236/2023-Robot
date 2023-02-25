@@ -99,14 +99,14 @@ public final class Constants {
   public static class MotorControllers {
 
     //placeholder numbers for beginning of season //testbed OG - 2022 old - testbed swapped - 2022 new
-    public static final int ID_LEFT_FRONT = 11; //10 - 30 - 11 - 1
-    public static final int ID_RIGHT_FRONT = 16; //15 - 43 - 16 - 2
-    public static final int ID_LEFT_REAR = 10;// 11 - 44 - 10 - 3
-    public static final int ID_RIGHT_REAR = 15; //16 - 45 - 15 - 4
+    public static final int ID_LEFT_FRONT = 1; //10 - 30 - 11 - 1
+    public static final int ID_RIGHT_FRONT = 2; //15 - 43 - 16 - 2
+    public static final int ID_LEFT_REAR = 3;// 11 - 44 - 10 - 3
+    public static final int ID_RIGHT_REAR = 4; //16 - 45 - 15 - 4
 
-    public static final int ID_ARM = 38; //36 on 2022 robot, 38 on testbed
-    //public static final int ID_TURRET = 32; //test value
-    //public static final int ID_PIVOT = 12;// - currently pneumatic, getting redesigned
+    public static final int ID_ARM = 10; //36 on 2022 robot, 38 on testbed
+    //public static final int ID_TURRET = 15; //test value
+    //public static final int ID_PIVOT = 24;// - currently pneumatic, getting redesigned to TalonSRX
     }
 
 
@@ -120,7 +120,7 @@ public static class DriveConstants {
   //robot-specific numbers
   public static final double DIAMETER = 6; 
   public static final double CIRCUMFERENCE = Math.PI * DIAMETER;
-  public static final double GEAR_RATIO = 8.364; //TEMPORARY!!!
+  public static final double GEAR_RATIO = 8.8; //TEMPORARY!!!  USE 1 for external encoders
   //6.273 - low?? - testbot
   //8.364 - high??? - testbot
 
@@ -138,7 +138,7 @@ public static class DriveConstants {
 
   public static final double kPTurnL = 0.01;
   public static final double kPTurnR = 0.01;
-
+  public static final double kPgyro = 0.02;
   //auto distances
   public static final double AUTO_MARGIN = 0;
   public static final double GRID_TO_CHARGE = 42; //???? Game Manual???
@@ -146,27 +146,30 @@ public static class DriveConstants {
   public static final double MARGIN_GYRO_DRIVE = 3;
 
   //drive encoder channels
-  public static final int DIO_RDRIVE_ENC_A = 15;
-  public static final int DIO_RDRIVE_ENC_B = 16;
-  public static final int DIO_LDRIVE_ENC_A = 17;
-  public static final int DIO_LDIRVE_ENC_B = 18;
+  public static final int DIO_RDRIVE_ENC_A = 14;
+  public static final int DIO_RDRIVE_ENC_B = 15;
+  public static final int DIO_LDRIVE_ENC_A = 12;
+  public static final int DIO_LDIRVE_ENC_B = 13;
 
   //auto selector switches
- public static final int DIO_AUTO_1 = 1;
-  public static final int DIO_AUTO_2 = 2;
-  public static final int DIO_AUTO_3 = 3;
-  public static final int DIO_AUTO_4 = 4;
+ public static final int DIO_AUTO_1 = 0;
+  public static final int DIO_AUTO_2 = 1;
+  public static final int DIO_AUTO_3 = 2;
+  public static final int DIO_AUTO_4 = 3;
 
 }
 
 public static class ArmConstants { ///FOR TESTBOT: subject to change for final
-  public static double armREV_TO_IN = 0.125; // 1/2 inch per revolution
-  public static double armIN_TO_REV = 8; //2 revolutions per inch
+  public static double armREV_TO_IN = 0.125; // 1/2 inch per revolution - get new value for 2023 bot
+  public static double armIN_TO_REV = 8; //2 revolutions per inch - update for 2023 bot
 
-  public static final int DIO_ARM_RETURN = 3; //7
-  public static final int DIO_ARM_EXTEND = 4; //8
-  public static final int DIO_ARM_ENC_A = 0;
-  public static final int DIO_ARM_ENC_B = 1;
+  public static double MAST_HEIGHT = 0; // intsert here the height frpm floor to top of mast, in inches
+  public static double RETRACTED_ARM_LENGTH = 0; // insert here length of arm when fully retracted, in inches
+  public static double ARM_FLOOR_STANDOFF = 0; // insert here desired minnimum distance from arm to floor, in inches
+
+  public static final int DIO_ARM_EXT_RET = 11; //7
+ // public static final int DIO_ARM_ENC_A = ;  USING SPARKMAX ENCODER FOR ARM _ NO DIO
+ // public static final int DIO_ARM_ENC_B = ;
 
   public static final double ARM_OUT = 4;
 
@@ -180,10 +183,10 @@ public static class ArmConstants { ///FOR TESTBOT: subject to change for final
 }
 public static class GripperConstants {
   //Solenoid ports on the PCM
-  public static final int GRIPPER_SOL_FOR = 6; //0
-  public static final int GRIPPER_SOL_REV = 7; //1
+  public static final int GRIPPER_SOL_FOR = 0; //0
+  public static final int GRIPPER_SOL_REV = 1; //1
   //Port used on the DIO
-  public static final int DIO_GRIPPER_EYE = 5; //0
+  public static final int DIO_GRIPPER_EYE = 10; //0
 
 }
 
@@ -195,12 +198,12 @@ public static class TurretConstants {
   public static final double kIturret = 0;
   public static final double kDturret = 0;
 
-  public static final int DIO_TURRET_CW_LIMIT = 9;
-  public static final int DIO_TURRET_CCW_LIMIT = 10;
-  public static final int DIO_TRRT_ENC_A = 11;
-  public static final int DIO_TRRT_ENC_B = 12;
+  public static final int DIO_TURRET_CW_LIMIT = 16;
+  public static final int DIO_TURRET_CCW_LIMIT = 17;
+  public static final int DIO_TRRT_ENC_A = 4;
+  public static final int DIO_TRRT_ENC_B = 5;
 
-  public static final double TURRET_RANGE = 360;
+  public static final double TURRET_RANGE = 360;  // -180 to +180 
   public static final double TURRET_FRNTCENT = 0; 
   public static final double TURRET_LFRNT = -45;
   public static final double TURRET_RFRNT = 45;
@@ -213,14 +216,16 @@ public static class TurretConstants {
 }
 
 public static class PivotConstants {
-  public static final int PIVOT_SOL_FOR = 0;
-  public static final int PIVOT_SOL_REV = 1;
+  //public static final int PIVOT_SOL_FOR = 0;
+  //public static final int PIVOT_SOL_REV = 1;
 
-  public static final int PVT_LOW = 5;
-  public static final int PVT_HIGH = 6;
+  public static final int PVT_LOW = 8;  //Pivot Limit Switches
+  public static final int PVT_HIGH = 9;
 
-  public static final int DIO_PVT_ENC_A = 13;
-  public static final int DIO_PVT_ENC_B = 14;
+  public static final int DIO_PVT_ENC_A = 6;
+  public static final int DIO_PVT_ENC_B = 7;
+
+  public static final double PIVOT_OFFSET_ANGLE = 0; //Insert here angle (degrees) when pivot hits low limit switch
 
 public static final double pvtREV_TO_DEG = 360; //tester numbers
 public static final double pvtDEG_TO_REV = 1/360;
