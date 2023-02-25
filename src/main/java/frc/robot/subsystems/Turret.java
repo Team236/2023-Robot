@@ -5,32 +5,26 @@
 package frc.robot.subsystems;
 import frc.robot.Constants;
 import frc.robot.Constants.TurretConstants;
-
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Turret extends SubsystemBase {
   private CANSparkMax turretMotor;
-  //private RelativeEncoder turretEncoder; //WILL BE DIFFERENT
   private Encoder turretEncoder;
   private DigitalInput turretLimit1, turretLimit2;
   private boolean isT1Unplugged = false;
   private boolean isT2Unplugged = false;
   /** Creates a new Turret. */
   public Turret() {
-    //turretMotor = new CANSparkMax(Constants.MotorControllers.ID_TURRET, MotorType.kBrushless);
-    //turretMotor.restoreFactoryDefaults();
-    //turretMotor.setInverted(false);
+    turretMotor = new CANSparkMax(Constants.MotorControllers.ID_TURRET, MotorType.kBrushless);
+    turretMotor.restoreFactoryDefaults();
+    turretMotor.setInverted(false);
+    turretEncoder = new Encoder(TurretConstants.DIO_TRRT_ENC_A, TurretConstants.DIO_TRRT_ENC_B); //external encoder
 
-    ////turretEncoder = turretMotor.getEncoder(); // DON'T USE THIS - it's for SparkMax encoder
-    //turretEncoder = new Encoder(TurretConstants.DIO_TRRT_ENC_A, TurretConstants.DIO_TRRT_ENC_B);
-
-   /*  try {
+    try {
       turretLimit1 = new DigitalInput(TurretConstants.DIO_TURRET_CW_LIMIT);
     } catch (Exception e) {
       isT1Unplugged = true;
@@ -39,10 +33,10 @@ public class Turret extends SubsystemBase {
       turretLimit2 = new DigitalInput(TurretConstants.DIO_TURRET_CCW_LIMIT);
     } catch (Exception e) {
       isT2Unplugged = true;
-    } */
+    } 
 
   }
-/* 
+
   public boolean isTCWLimit() {
     if (isT1Unplugged) {
       return true;
@@ -60,11 +54,9 @@ public class Turret extends SubsystemBase {
   }
 
   public void resetTurretEncoder() {
-    //turretEncoder.setPosition(0);
     turretEncoder.reset();
   }
   public double getTurretEncoder() {
-    //return turretEncoder.getPosition();
    return turretEncoder.get()/128;  //128 ticks per rev, returns REVS
   }
   public double getTurretAngle() {
@@ -93,14 +85,14 @@ public class Turret extends SubsystemBase {
   }
   public void turretStop() {
     turretMotor.set(0);
-  }*/
+  }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-   // SmartDashboard.putNumber("turret encoder", getTurretEncoder());
-    //SmartDashboard.putNumber("turret angle", getTurretAngle());
-   // SmartDashboard.putBoolean("turret CW limit", isTCWLimit());
-   // SmartDashboard.putBoolean("turret CCW limit", isTCCWLimit());
+   SmartDashboard.putNumber("turret encoder", getTurretEncoder());
+    SmartDashboard.putNumber("turret angle", getTurretAngle());
+    SmartDashboard.putBoolean("turret CW limit", isTCWLimit());
+   SmartDashboard.putBoolean("turret CCW limit", isTCCWLimit());
   }
 }

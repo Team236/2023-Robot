@@ -105,8 +105,8 @@ public final class Constants {
     public static final int ID_RIGHT_REAR = 4; //16 - 45 - 15 - 4
 
     public static final int ID_ARM = 10; //36 on 2022 robot, 38 on testbed
-    //public static final int ID_TURRET = 15; //test value
-    //public static final int ID_PIVOT = 24;// - currently pneumatic, getting redesigned to TalonSRX
+    public static final int ID_TURRET = 15; //test value
+    public static final int ID_PIVOT =  14;// - currently pneumatic, getting redesigned to TalonSRX
     }
 
 
@@ -165,13 +165,10 @@ public static class ArmConstants { ///FOR TESTBOT: subject to change for final
 
   public static double MAST_HEIGHT = 0; // intsert here the height frpm floor to top of mast, in inches
   public static double RETRACTED_ARM_LENGTH = 0; // insert here length of arm when fully retracted, in inches
-  public static double ARM_FLOOR_STANDOFF = 0; // insert here desired minnimum distance from arm to floor, in inches
+  public static double ARM_FLOOR_STANDOFF = 12; // insert here desired minnimum distance from arm to floor, in inches
 
   public static final int DIO_ARM_EXT_RET = 11; //7
- // public static final int DIO_ARM_ENC_A = ;  USING SPARKMAX ENCODER FOR ARM _ NO DIO
- // public static final int DIO_ARM_ENC_B = ;
-
-  public static final double ARM_OUT = 4;
+  public static final double ARM_OUT = 4; //PID setpoint
 
   public static final double ARM_EX_SPEED = 0.7;
   public static final double ARM_RE_SPEED = 0.85;
@@ -180,6 +177,25 @@ public static class ArmConstants { ///FOR TESTBOT: subject to change for final
   public static double kIarm = 0;
   public static double kDarm = 0;
   public static double kFarm = 0; //mooooo
+
+  public static class PivotConstants {
+    public static final int PVT_LOW = 8;  //Pivot Limit Switches
+    public static final int PVT_HIGH = 9;
+  
+    public static final int DIO_PVT_ENC_A = 6;
+    public static final int DIO_PVT_ENC_B = 7;
+  
+    public static final double PIVOT_OFFSET_ANGLE = 10; //Insert here angle (degrees) when pivot hits low limit switch 
+    //TEST VALUES!!!!!!!!!!
+  
+  public static final double pvtREV_TO_DEG = 360; //tester numbers
+  public static final double pvtDEG_TO_REV = 1/360;
+  
+  public static final double pvtSPEED = 0.75;
+  public static double kPpvt = 0;
+  public static double kIpvt = 0;
+  public static double kDpvt = 0;
+  }
 }
 public static class GripperConstants {
   //Solenoid ports on the PCM
@@ -213,27 +229,6 @@ public static class TurretConstants {
   public static final double TURRET_SPEED = 0.75;
 
 
-}
-
-public static class PivotConstants {
-  //public static final int PIVOT_SOL_FOR = 0;
-  //public static final int PIVOT_SOL_REV = 1;
-
-  public static final int PVT_LOW = 8;  //Pivot Limit Switches
-  public static final int PVT_HIGH = 9;
-
-  public static final int DIO_PVT_ENC_A = 6;
-  public static final int DIO_PVT_ENC_B = 7;
-
-  public static final double PIVOT_OFFSET_ANGLE = 0; //Insert here angle (degrees) when pivot hits low limit switch
-
-public static final double pvtREV_TO_DEG = 360; //tester numbers
-public static final double pvtDEG_TO_REV = 1/360;
-
-public static final double pvtSPEED = 0.75;
-public static double kPpvt = 0;
-public static double kIpvt = 0;
-public static double kDpvt = 0;
 }
 }
 

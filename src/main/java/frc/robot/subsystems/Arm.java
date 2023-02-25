@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
@@ -13,11 +14,11 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.Constants.ArmConstants;
-import frc.robot.Constants.PivotConstants;
+import frc.robot.Constants.ArmConstants.PivotConstants;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Arm extends SubsystemBase {
   private CANSparkMax armMotor;
-  TalonSRX pivotMotor;
+  private TalonSRX pivotMotor;
   //private Encoder armEncoder, pivotEncoder; //External
 
   private RelativeEncoder armEncoder; //SparkMax encoder
@@ -30,15 +31,14 @@ public class Arm extends SubsystemBase {
   public Arm() {
 
     armMotor = new CANSparkMax(Constants.MotorControllers.ID_ARM, MotorType.kBrushless);
-    //pivotMotor = new TalonSRX(14); //check ID number, brushed 
+    pivotMotor = new TalonSRX(Constants.MotorControllers.ID_PIVOT); //check ID number, brushed 
 
     armMotor.restoreFactoryDefaults();
     armMotor.setInverted(false);
     ////pivotMotor.restoreFactoryDefaults(); //I don't think we should use this - n/a for Talon ??
-    //pivotMotor.setInverted(false);
+    pivotMotor.setInverted(false);
     armEncoder = armMotor.getEncoder(); //will use SparkMax encoder for arm extend/retract
-    //pivotEncoder = new Encoder(PivotConstants.DIO_PVT_ENC_A, PivotConstants.DIO_PVT_ENC_B);  //using external encoder
-
+    pivotEncoder = new Encoder(PivotConstants.DIO_PVT_ENC_A, PivotConstants.DIO_PVT_ENC_B);  //using external encoder
     
     try {
       armExtendReturnLimit = new DigitalInput(ArmConstants.DIO_ARM_EXT_RET);
@@ -46,7 +46,7 @@ public class Arm extends SubsystemBase {
       isArmExtRetLimitUnplugged = true;
     }
 
-   /*  try {
+     try {
       pvtHighLimit = new DigitalInput(PivotConstants.PVT_HIGH);
     } catch (Exception e) {
       isPHighUnplugged = true;
@@ -56,13 +56,12 @@ public class Arm extends SubsystemBase {
       pvtLowLimit = new DigitalInput(PivotConstants.PVT_LOW);
     } catch (Exception e) {
       isPLowUnplugged = true;
-    }*/
-
+    }
   }
 
-  /*public void pivotStop() {
-    pivotMotor.stopMotor();
-  }*/
+  public void pivotStop() {
+    pivotMotor.set(ControlMode.PercentOutput, 0);
+  }
   public void armStop() {
     armMotor.stopMotor();
   }
@@ -75,7 +74,7 @@ public class Arm extends SubsystemBase {
     }
   }
   
-  /*public boolean isPHighLimit() {
+  public boolean isPHighLimit() {
     if (isPHighUnplugged) {
       return true;
     } else {
@@ -88,16 +87,16 @@ public class Arm extends SubsystemBase {
     } else {
       return !pvtLowLimit.get();
     }
-  } */
+  } 
 
   public void resetArmEncoder() {
     armEncoder.setPosition(0); //SparkMax encoder
   }
-  /*
+  
   public void resetPivotEncoder() {
     pivotEncoder.reset();  //external encoder
   }
- */
+ 
   //returns encoder position in REVOLUTIONS 
     public double getArmEncoder() {
     return armEncoder.getPosition(); //SparkMax encoder
@@ -107,17 +106,17 @@ public class Arm extends SubsystemBase {
     return  getArmEncoder() * ArmConstants.armREV_TO_IN;
   } 
 
-  /*public double getPivotEncoder() {
+  public double getPivotEncoder() {
     //returns value of encoder in Revs
      return pivotEncoder.get()/128;  //external encoder
-  }*/
+  }
 
-  /*public double getPivotAngle() {
-    return ((getPivotEncoder() * PivotConstants.pvtREV_TO_DEG)  + Constants.armConstants.PIVOT_OFFSET_ANGLE);
-  }*/
+  public double getPivotAngle() {
+    return ((getPivotEncoder() * PivotConstants.pvtREV_TO_DEG)  + PivotConstants.PIVOT_OFFSET_ANGLE);
+  } //was told this is sketch, need to fix revtodeg constant (becoming unusable w talon) during bench testing
 
   public double getTotalArmLength(){
-    return (getArmEncoder() * ArmConstants.armREV_TO_IN + Constants.ArmConstants.RETRACTED_ARM_LENGTH);
+    return (getArmEncoder() * ArmConstants.armREV_TO_IN + ArmConstants.RETRACTED_ARM_LENGTH);
   }
 
   public void setArmSpeed(double speed) {
@@ -126,7 +125,7 @@ public class Arm extends SubsystemBase {
         // arm ext/ret limit is tripped going forward, stop 
         // there is 1 magnetic switch and 2 magnets, tripped forward means fully extended
         armStop();
-    // ADD AND TEST THE 3 LINES BELOW AFTER INTIAL TESTS OF MANUAL ARM / LIMIT SWITCHES
+    // ADD AND TEST THE 3 LINES BELOW AFTER INTIAL TESTS OF MANUAL ARM / LIMIT SWITCHES!!!!!!!!!!
     // } else if (arm.getTotalArmLength() > 
     //   (Constants.ArmConstants.MAST_HEIGHT - Constants.ArmConstants.ARM_FLOOR_STANDOFF) / Math.cos(arm.getPivotAngle)){
     //     armStop(); 
@@ -147,18 +146,18 @@ public class Arm extends SubsystemBase {
      }
   }
 
-  /*public void setPivotSpeed(double speed) {
+  public void setPivotSpeed(double speed) {
     if (speed > 0) {
       if (isPHighLimit()) {
         // mast going up and top limit is tripped, stop
         pivotStop();
-    // ADD AND TEST THE 3 LINES BELOW AFTER INTIAL TESTS OF MANUAL PIVOT / LIMIT SWITCHES
+    // ADD AND TEST THE 3 LINES BELOW AFTER INTIAL TESTS OF MANUAL PIVOT / LIMIT SWITCHES!!!!!!!!!!!! (pt 2)
     //} else if ((Math.cos(arm.getPivotAngle) < 
     //   (Constants.ArmConstants.ARM_FLOOR_STANDOFF / arm.getTotalArmLenght))){
     //    pivotStop(); 
       } else {
         // mast going up but top limit is not tripped, go at commanded speed
-        pivotMotor.set(speed);
+        pivotMotor.set(ControlMode.PercentOutput, speed);
       }
     } else {
       if (isPLowLimit()) {
@@ -167,17 +166,18 @@ public class Arm extends SubsystemBase {
         resetPivotEncoder();
       } else {
         // mast going down but bottom limit is not tripped, go at commanded speed
-        pivotMotor.set(speed);
+        pivotMotor.set(ControlMode.PercentOutput, speed);
       }
-    }*/
+    }
+    }
   
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("arm encoder", getArmEncoder());
-    //SmartDashboard.putNumber("pvt encoder", getPivotEncoder());
-    //SmartDashboard.putBoolean("pvt High", isPHighLimit());
-    //SmartDashboard.putBoolean("pvt low", isPLowLimit());
-    SmartDashboard.putBoolean("arm extend limit", isAExtRetLimit());
+    SmartDashboard.putNumber("pvt encoder", getPivotEncoder());
+    SmartDashboard.putBoolean("pvt High", isPHighLimit());
+    SmartDashboard.putBoolean("pvt low", isPLowLimit());
+    SmartDashboard.putBoolean("arm limit????", isAExtRetLimit());
   }
 }

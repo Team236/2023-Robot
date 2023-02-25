@@ -6,7 +6,7 @@ package frc.robot.commands.Pivot;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Arm;
 import edu.wpi.first.math.controller.PIDController;
-import frc.robot.Constants.PivotConstants;
+import frc.robot.Constants.ArmConstants.PivotConstants;
 
 public class PivotPID extends CommandBase {
   private Arm pivot;
@@ -25,20 +25,20 @@ public class PivotPID extends CommandBase {
   @Override
   public void initialize() {
     pvtPidController.reset();
-   // pivot.resetPivotEncoder();
+   pivot.resetPivotEncoder();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-   // double pvtSpeed = pvtPidController.calculate(pivot.getPivotAngle());
-    //pivot.setArmSpeed(pvtSpeed);
+   double pvtSpeed = pvtPidController.calculate(pivot.getPivotAngle());
+  pivot.setArmSpeed(pvtSpeed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-   // pivot.pivotStop();
+   pivot.pivotStop();
   }
 
   // Returns true when the command should end.

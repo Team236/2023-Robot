@@ -23,20 +23,20 @@ public class TurretCW extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //turret.setTurretSpeed(speed);
+    turret.setTurretSpeed(speed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    //turret.turretStop();
+    turret.turretStop();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
-    /*if ((speed > 0.008) && turret.isTCWLimit()) {
+    //return false;
+    if ((speed > 0.008) && turret.isTCWLimit()) {
       // if mast is going up and top limit is triggered
       // the 0.008 is because when the axis is at rest, it reads 0.0078125 so doing speed > 0.008 acts as a deadzone
       return true;
@@ -46,5 +46,5 @@ public class TurretCW extends CommandBase {
     } else {
       return false;
     }
-  }*/
-  }}
+  }
+  }
