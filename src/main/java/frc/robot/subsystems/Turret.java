@@ -16,18 +16,18 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Turret extends SubsystemBase {
   private CANSparkMax turretMotor;
-  private RelativeEncoder turretEncoder; //WILL BE DIFFERENT
-  //private Encoder turretEncoder;
+  //private RelativeEncoder turretEncoder; //WILL BE DIFFERENT
+  private Encoder turretEncoder;
   private DigitalInput turretLimit1, turretLimit2;
   private boolean isT1Unplugged = false;
   private boolean isT2Unplugged = false;
   /** Creates a new Turret. */
   public Turret() {
     //turretMotor = new CANSparkMax(Constants.MotorControllers.ID_TURRET, MotorType.kBrushless);
-   // turretMotor.restoreFactoryDefaults();
-   // turretMotor.setInverted(false);
+    //turretMotor.restoreFactoryDefaults();
+    //turretMotor.setInverted(false);
 
-    //turretEncoder = turretMotor.getEncoder(); 
+    ////turretEncoder = turretMotor.getEncoder(); // DON'T USE THIS - it's for SparkMax encoder
     //turretEncoder = new Encoder(TurretConstants.DIO_TRRT_ENC_A, TurretConstants.DIO_TRRT_ENC_B);
 
    /*  try {
@@ -60,15 +60,15 @@ public class Turret extends SubsystemBase {
   }
 
   public void resetTurretEncoder() {
-    turretEncoder.setPosition(0);
-   // turretEncoder.reset();
+    //turretEncoder.setPosition(0);
+    turretEncoder.reset();
   }
   public double getTurretEncoder() {
-    return turretEncoder.getPosition();
-   // return turretEncoder.get()/128;  //128 ticks per rev, returns REVS
+    //return turretEncoder.getPosition();
+   return turretEncoder.get()/128;  //128 ticks per rev, returns REVS
   }
   public double getTurretAngle() {
-    return  getTurretEncoder() * TurretConstants.turretREV_TO_DEG;
+    return getTurretEncoder() * TurretConstants.turretREV_TO_DEG;
   } 
   
   public void setTurretSpeed(double speed) {
