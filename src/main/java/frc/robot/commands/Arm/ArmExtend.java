@@ -3,6 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.commands.Arm;
+import frc.robot.Constants;
 import frc.robot.subsystems.Arm;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -37,15 +38,21 @@ public class ArmExtend extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if ((speed > 0.008) && arm.isAExtendLimit()) {
-      // if mast is going up and top limit is triggered
+    if ((speed > 0.008) && arm.isAExtRetLimit()) {
+      // if arm is extending and fully extended limit is triggered
       // the 0.008 is because when the axis is at rest, it reads 0.0078125 so doing speed > 0.008 acts as a deadzone
+
       return true;
-    } else if ((speed < 0) && arm.isAReturnLimit()) {
+    } else if ((speed < 0) && arm.isAExtRetLimit()) {
       arm.resetArmEncoder();
       return true;
-    } else {
-      return false;
+    
+    // } else if (arm.getTotalArmLength() > 
+      // (Constants.ArmConstants.MAST_HEIGHT - Constants.ArmConstants.ARM_FLOOR_STANDOFF) / Math.cos(arm.getPivotAngle)){
+       //  return true; 
+    
+      } else {
+        return false;
     }
   }
 }
