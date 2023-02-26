@@ -28,7 +28,6 @@ public final class Constants {
       public static final int MENU = 8;
       public static final int LM = 9;
       public static final int RM = 10;
-
       public static class AxesXbox {
         public static final int LX = 0;
         public static final int LY = 1;
