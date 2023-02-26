@@ -38,6 +38,7 @@ public class Limelight extends SubsystemBase {
     // set default value in subscribe at zero
     tvSub = datatable.getBooleanTopic("tv").subscribe(false);
     tid = datatable.getIntegerTopic("tid").subscribe(0);
+
     txSub = datatable.getDoubleTopic("tx").subscribe(0.0);
     tySub = datatable.getDoubleTopic("ty").subscribe(0.0);
     areaSub = datatable.getDoubleTopic("ta").subscribe(0.0);
@@ -48,32 +49,30 @@ public class Limelight extends SubsystemBase {
 
     // Robot transform in field-space. Translation (X,Y,Z) Rotation(Roll,Pitch,Yaw), total latency (cl+tl)
     // DoubleArraySubscriber fieldRobotPose = datatable.getDoubleArrayTopic("botpose").subscribe(new double[] {});
-
-   
+ 
     // Robot transform in field-space (blue driverstation WPILIB origin). Translation (X,Y,Z) Rotation(Roll,Pitch,Yaw), total latency (cl+tl)
      blueStationToRobotPose = datatable.getDoubleArrayTopic("botpose_wpiblue").subscribe(new double[] {});
-
+ 
     // Robot transform in field-space (red driverstation WPILIB origin). Translation (X,Y,Z) Rotation(Roll,Pitch,Yaw), total latency (cl+tl)
      redStationToRobotPose = datatable.getDoubleArrayTopic("botpose_wpired").subscribe(new double[] {});
-
+ 
     //	3D transform of the camera in the coordinate system of the primary in-view AprilTag (array (6))
      targetToCameraPose = datatable.getDoubleArrayTopic("camerapose_targetspace").subscribe(new double[] {});
 
     //	3D transform of the primary in-view AprilTag in the coordinate system of the Camera (array (6))
      cameraToTargetPose = datatable.getDoubleArrayTopic("targetpose_cameraspace").subscribe(new double[] {});
-
+ 
     // 3D transform of the primary in-view AprilTag in the coordinate system of the Robot (array (6))
      robotSpaceToTargetPose = datatable.getDoubleArrayTopic("targetpose_robotspace").subscribe(new double[] {});
-
+    
     // 3D transform of the robot in the coordinate system of the primary in-view AprilTag (array (6))
      targetToRobotPose = datatable.getDoubleArrayTopic("botpose_targetspace").subscribe(new double[] {});
-
+    
     // 3D transform of the camera in the coordinate system of the robot (array (6))
     //  robotCameraPosition = datatable.getDoubleArrayTopic("camerapose_robotspace").subscribe(new double[] {});             
-
+    
     // ID of the primary in-view AprilTag
      tid = datatable.getIntegerTopic("tid").subscribe(0);
-  
     }
 
 
@@ -83,7 +82,7 @@ public void periodic() {
   tag = (int) tid.get();
   SmartDashboard.putBoolean("HasTarget", tvSub.get());
   SmartDashboard.putNumber("TargetNumber", tag);
-}
+  }
 
   // often not required in robot code, unless this class doesn't exist for
   // the lifetime of the entire robot program, in which case close() needs to be
@@ -92,9 +91,6 @@ public void periodic() {
   // pipeline.close();
   // outLedMode.close();
   }
-
-  // public void setLedMode(Integer i) { outLedMode.set(i);  
-  // }
 
   public void setPipeline(Integer i) { 
     pipeline.set((long)i);  
@@ -118,7 +114,7 @@ public void periodic() {
 
 // Robot transform in field-space (blue driverstation)
 public double[] blueStationToRobotPose() {
-  return blueStationToRobotPose.get(); 
+  return blueStationToRobotPose.get(); 	 
 } 
 
   // Robot transform in field-space (blue driverstation)
@@ -156,6 +152,7 @@ public double[] blueStationToRobotPose() {
       return red[2]; 
     } 	
 
+
 //	3D transform of the camera in the coordinate system of the primary in-view AprilTag (array (6))
 public double getTargetToCameraPoseX() {
   var  tcamera = targetToCameraPose.get();
@@ -173,6 +170,10 @@ public double getTargetToCameraPoseZ() {
   var  tcamera = targetToCameraPose.get();
   return tcamera[2];
 }
+
+public double[] getCameraToTargetPose() {
+	return cameraToTargetPose.get();
+	}
 
 public double getCameraToTargetPoseX() {
 	double[] ctarget = cameraToTargetPose.get();
@@ -204,4 +205,5 @@ public double getCameraToTargetPoseX() {
       double[] rcamera = robotCameraPosition.get();
     return rcamera[0];
     }
+
 }
