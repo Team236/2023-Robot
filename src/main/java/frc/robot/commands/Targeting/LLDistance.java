@@ -51,7 +51,6 @@ public class LLDistance extends CommandBase {
     double tv = limelight.getTv();
     double disY= limelight.getTy();
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
-
     if(tv==1){
          double a2 = disY*Math.PI/180;
          double dx = (h2-h1) / Math.tan(a1+a2);
