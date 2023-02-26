@@ -21,6 +21,12 @@
       "/FMSInfo": "FMSInfo"
     }
   },
+  "NetworkTables Info": {
+    "Connections": {
+      "open": true
+    },
+    "visible": true
+  },
   "NetworkTables Settings": {
     "mode": "Client (NT3)",
     "serverTeam": "236"

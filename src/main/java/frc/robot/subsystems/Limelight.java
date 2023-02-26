@@ -47,6 +47,7 @@ public class Limelight extends SubsystemBase {
     pipeline = datatable.getIntegerTopic("/Limelight/getPipe").publish();
     outLedMode = datatable.getIntegerTopic("/Limelight/ledmode").publish();
 
+
     // Robot transform in field-space. Translation (X,Y,Z) Rotation(Roll,Pitch,Yaw), total latency (cl+tl)
     // DoubleArraySubscriber fieldRobotPose = datatable.getDoubleArrayTopic("botpose").subscribe(new double[] {});
  
@@ -92,6 +93,23 @@ public void periodic() {
   // outLedMode.close();
   }
 
+  public void setDriveModeOff() {
+    // outLedMode.set(0);
+  }
+
+  public void setDriveModeOn() {
+    // outLedMode.set(1);
+  }
+
+  public void setOutLedModeOff() {
+    outLedMode.set(1);
+  }
+  
+  public void setOutLedModeOn() {
+    outLedMode.set(1);
+  }
+
+  
   public void setPipeline(Integer i) { 
     pipeline.set((long)i);  
   }
@@ -100,11 +118,11 @@ public void periodic() {
      return tvSub.get() ;  
     }
 
-  public double getX() { 
+  public double getTx() { 
     return txSub.get();  
   }
 
-  public double getY() { 
+  public double getTy() { 
     return tySub.get();  
   }
 
@@ -117,20 +135,20 @@ public double[] blueStationToRobotPose() {
   return blueStationToRobotPose.get(); 	 
 } 
 
-  // Robot transform in field-space (blue driverstation)
-  public double blueStationToRobotPoseX() {
-    double[] blue = blueStationToRobotPose.get(); 
-    return blue[0];
-  } 
+    // Robot transform in field-space (blue driverstation)
+    public double blueStationToRobotPoseX() {
+      double[] blue = blueStationToRobotPose.get(); 
+      return blue[0];
+    } 
 
-  public double getBlueBotPoseY() { 
-    double[] blue = blueStationToRobotPose.get();
-    return blue[1];
-  } 
-  public double getBlueBotPoseZ() { 
-    double[] blue  = blueStationToRobotPose.get();
-    return blue[2];
-  } 
+    public double getBlueBotPoseY() { 
+      double[] blue = blueStationToRobotPose.get();
+      return blue[1];
+    } 
+    public double getBlueBotPoseZ() { 
+      double[] blue  = blueStationToRobotPose.get();
+      return blue[2];
+    } 
 
  public double[] getRedBotPose(){ 
   return redStationToRobotPose.get();
