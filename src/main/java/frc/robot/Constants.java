@@ -15,29 +15,8 @@ import edu.wpi.first.util.sendable.Sendable;
  */
 public final class Constants {
   public static class ControllerConstants {
-    public static final int USB_AUXCONTROLLER = 0;
-    public static final int USB_DRIVECONTROLLER = 1;
-    public static class Thrustmaster {
-        public static final int TRIGGER = 1;
-        public static final int BUTTON_MIDDLE = 2;
-        public static final int BUTTON_LEFT = 3;
-        public static final int BUTTON_RIGHT = 4;
-        public static final int LEFT_BASE_1 = 11;
-        public static final int LEFT_BASE_2 = 16;
-        public static final int LEFT_BASE_3 = 13;
-        public static final int LEFT_BASE_4 = 14;
-        public static final int RIGHT_BASE_5 = 7;
-        public static final int RIGHT_BASE_6 = 8;
-        public static final int RIGHT_BASE_7 = 5;
-        public static final int RIGHT_BASE_8 = 10;
-
-        public static class AxesThrustmaster {
-            public static final int X = 0;
-            public static final int Y = 1;
-            public static final int Z = 2;
-            public static final int THROTTLE = 3;
-        }       
-    }
+    public static final int USB_AUXCONTROLLER = 0; //right side of laptop, furthest of 2 ports
+    public static final int USB_DRIVECONTROLLER = 1; //left side of laptop, single port
     public static class XboxController {
       public static final int A = 1;
       public static final int B = 2;
@@ -65,37 +44,8 @@ public final class Constants {
         public static final int LEFT_ANGLE = 270;
       }
     }
-    public static class LogitechF310 {
-        // ****when controller is in DirectInput mode (use slider on the back of the controller)
-        public static final int A = 2;
-        public static final int B = 3;
-        public static final int X = 1;
-        public static final int Y = 4;
-        public static final int LB = 5;
-        public static final int RB = 6;
-        public static final int BACK = 9;
-        public static final int START = 10;
-        public static final int LEFT_PRESS = 7;
-        public static final int RIGHT_PRESS = 8;
-        public class AxesController {
-            public static final int LEFT_X = 0;
-            public static final int LEFT_Y = 1;
-            public static final int LT = 2;
-            public static final int RT = 3;
-            public static final int RIGHT_X = 4;
-            public static final int RIGHT_Y = 5;
-        }
-
-        public class POVController {
-          public static final int UP_ANGLE = 0;
-          public static final int RIGHT_ANGLE = 90;
-          public static final int DOWN_ANGLE = 180;
-          public static final int LEFT_ANGLE = 270;
-        }
-    }
-}
+  }
   public static class MotorControllers {
-
     //placeholder numbers for beginning of season //testbed OG - 2022 old - testbed swapped - 2022 new
     public static final int ID_LEFT_FRONT = 1; //10 - 30 - 11 - 1
     public static final int ID_RIGHT_FRONT = 2; //15 - 43 - 16 - 2
@@ -106,8 +56,6 @@ public final class Constants {
     public static final int ID_TURRET = 15; //test value
     public static final int ID_PIVOT =  24;// - currently pneumatic, getting redesigned to TalonSRX
     }
-
-
 public static class DriveConstants {
   public static final double LEFT_DEADZONE = 0.17; //0.15???
   public static final double RIGHT_DEADZONE = 0.17;
@@ -156,12 +104,13 @@ public static class DriveConstants {
   public static final int DIO_AUTO_4 = 3;
 }
 
-public static class ArmConstants { ///FOR TESTBOT: subject to change for final
-  public static double armREV_TO_IN = 0.125; // 1/2 inch per revolution - get new value for 2023 bot
-  public static double armIN_TO_REV = 8; //2 revolutions per inch - update for 2023 bot
+public static class ArmConstants { 
+  public static double armREV_TO_IN = 0.5; // 1/2 inch per revolution  - guess based on mental math, probably wrong
+  public static double armIN_TO_REV = 2; //2 revolutions per inch 
+  //0.125 and 8 for testbot
 
-  public static double MAST_HEIGHT = 0; // intsert here the height frpm floor to top of mast, in inches
-  public static double RETRACTED_ARM_LENGTH = 0; // insert here length of arm when fully retracted, in inches
+  public static double MAST_HEIGHT = 41.5; // intsert here the height frpm floor to top of mast, in inches
+  public static double RETRACTED_ARM_LENGTH = 26; // insert here length of arm when fully retracted, in inches
   public static double ARM_FLOOR_STANDOFF = 12; // insert here desired minnimum distance from arm to floor, in inches
 
   public static final int DIO_ARM_EXT_RET = 11; //7
@@ -183,7 +132,7 @@ public static class ArmConstants { ///FOR TESTBOT: subject to change for final
     public static final int DIO_PVT_ENC_B = 7;
   
     public static final double PIVOT_OFFSET_ANGLE = 10; //Insert here angle (degrees) when pivot hits low limit switch 
-    //TEST VALUES!!!!!!!!!!
+    //TEST VALUE
   
   public static final double pvtREV_TO_DEG = 360; //tester numbers
   public static final double pvtDEG_TO_REV = 1/360;
