@@ -28,13 +28,13 @@ public class DriveAtSetSpeed extends CommandBase {
   public void initialize() {
     drive.resetLeftEncoder();
     drive.resetRightEncoder();
-    SmartDashboard.putNumber("Initial Roll in degrees", drive.getRoll());
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     drive.setBothSpeeds(speed);
+    SmartDashboard.putNumber("Roll in degrees", drive.getRoll());
     SmartDashboard.putBoolean("isLevel", drive.isLevel());
   }
   // Called once the command ends or is interrupted.

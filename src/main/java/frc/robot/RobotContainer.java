@@ -59,7 +59,6 @@ public class RobotContainer {
   private final Arm arm = new Arm();
   private final Gripper gripper = new Gripper();
   private final Turret turret = new Turret();
-  private final Limelight limelight = new Limelight();
 
   //COMMANDS****
   //AUTO
@@ -70,7 +69,7 @@ public class RobotContainer {
  private final ToggleTransmission toggleTransmission = new ToggleTransmission(drive);
  private final LLAngle llAngle = new LLAngle(drive);
   /** Creates a new DriveToCS. */
- private final  DriveAtSetSpeed driveToCS = new DriveAtSetSpeed(drive, 130, 0.5);
+ private final  DriveAtSetSpeed driveAtSetSpeed = new DriveAtSetSpeed(drive, 130, 0.5);
 
  //ARM
  //private final ArmWithAxis armWithAxis = new ArmWithAxis(arm, controller); //OBSOLETE WITH POV
@@ -138,21 +137,11 @@ private final TurretCCW turretCCW = new TurretCCW(turret, -TurretConstants.TURRE
     //AUXController
    a1.whileTrue(new AutoPIDDrive(drive, 220));
    lb1.whileTrue(new AprilFollow(drive, camera, 26, 0));
-   rb1.whileTrue(driveToCS);
-   b1.whileTrue(pivotUp);
-   x1.whileTrue(pivotDown);
    //DRIVECONTROLLER******
-  upPov.whileTrue(armExtend);
-  downPov.whileTrue(armRetract);
-  leftPov.whileTrue(turretCCW);
-  rightPov.whileTrue(turretCW);
-  a.whileTrue(new ArmPID(arm, Constants.ArmConstants.ARM_OUT));
-  x.whileTrue(grabReleaseToggle);  
   b.whileTrue(llAngle);
   y.whileTrue(new AutoTrapezoidalPID(drive, 220, 0.005, 0, 0));
- rb.whileTrue(toggleTransmission);
   lb.whileTrue(new TurnPID(drive, 90));
-  menu.whileTrue(new GrabScoreFlatGround(drive, gripper, arm, turret)); //pneumatics disconnected so??????
+  rb.whileTrue(driveAtSetSpeed);
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
