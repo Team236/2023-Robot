@@ -51,7 +51,7 @@ public final class Constants {
     public static final int ID_LEFT_REAR = 3;// 11 - 44 - 10 - 3
     public static final int ID_RIGHT_REAR = 4; //16 - 45 - 15 - 4
 
-    public static final int ID_ARM = 10; //36 on 2022 robot, 38 on testbed
+    public static final int ID_ARM = 10; //36 on 2022 robot, 38 on testbed - 10 on 2023
     public static final int ID_TURRET = 15; //test value
     public static final int ID_PIVOT =  24;// - currently pneumatic, getting redesigned to TalonSRX
     }
