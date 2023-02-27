@@ -23,8 +23,9 @@ public class Arm extends SubsystemBase {
 
   private RelativeEncoder armEncoder; //SparkMax encoder
   private Encoder pivotEncoder; //external encoder
-  private DigitalInput armExtendReturnLimit, pvtLowLimit, pvtHighLimit;
-  private boolean isArmExtRetLimitUnplugged = false;
+  private DigitalInput armExtendLimit, armReturnLimit, pvtLowLimit, pvtHighLimit;
+  private boolean isArmExtLimitUnplugged = false;
+  private boolean isArmRetLimitUnplugged = false;
   private boolean isPHighUnplugged = false;
   private boolean isPLowUnplugged = false;
   /** Creates a new ArmExtend. */
@@ -41,9 +42,14 @@ public class Arm extends SubsystemBase {
     pivotEncoder = new Encoder(PivotConstants.DIO_PVT_ENC_A, PivotConstants.DIO_PVT_ENC_B);  //using external encoder
     
     try {
-      armExtendReturnLimit = new DigitalInput(ArmConstants.DIO_ARM_EXT_RET);
+      armExtendLimit = new DigitalInput(ArmConstants.DIO_ARM_EXT);
     } catch (Exception e) {
-      isArmExtRetLimitUnplugged = true;
+      isArmExtLimitUnplugged = true;
+    }
+    try {
+      armReturnLimit = new DigitalInput(ArmConstants.DIO_ARM_RET);
+    } catch (Exception e) {
+      isArmRetLimitUnplugged = true;
     }
 
      try {
@@ -66,11 +72,18 @@ public class Arm extends SubsystemBase {
     armMotor.stopMotor();
   }
 
-  public boolean isAExtRetLimit() {
-    if (isArmExtRetLimitUnplugged) {
+  public boolean isAExtLimit() {
+    if (isArmExtLimitUnplugged) {
       return true;
     } else {
-      return !armExtendReturnLimit.get();
+      return !armExtendLimit.get();
+    }
+  }
+  public boolean isARetLimit() {
+    if (isArmRetLimitUnplugged) {
+      return true;
+    } else {
+      return !armReturnLimit.get();
     }
   }
   
@@ -121,7 +134,7 @@ public class Arm extends SubsystemBase {
 
   public void setArmSpeed(double speed) {
   if (speed > 0) {
-    if (isAExtRetLimit()) {
+    if (isAExtLimit()) {
         // arm ext/ret limit is tripped going forward, stop 
         // there is 1 magnetic switch and 2 magnets, tripped forward means fully extended
         armStop();
@@ -134,7 +147,7 @@ public class Arm extends SubsystemBase {
         armMotor.set(speed);
       }
     } else {
-      if (isAExtRetLimit()) {
+      if (isARetLimit()) {
         // arm retracting and limit is tripped, stop and zero encoder
         //this means fully retracted
         armStop();
@@ -178,6 +191,7 @@ public class Arm extends SubsystemBase {
     SmartDashboard.putNumber("pvt encoder", getPivotEncoder());
     SmartDashboard.putBoolean("pvt High", isPHighLimit());
     SmartDashboard.putBoolean("pvt low", isPLowLimit());
-    SmartDashboard.putBoolean("arm limit????", isAExtRetLimit());
+    SmartDashboard.putBoolean("arm extend limit", isAExtLimit());
+    SmartDashboard.putBoolean("arm ret lim", isARetLimit());
   }
 }

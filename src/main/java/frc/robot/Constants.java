@@ -112,7 +112,8 @@ public static class ArmConstants {
   public static double RETRACTED_ARM_LENGTH = 26; // insert here length of arm when fully retracted, in inches
   public static double ARM_FLOOR_STANDOFF = 12; // insert here desired minnimum distance from arm to floor, in inches
 
-  public static final int DIO_ARM_EXT_RET = 11; //7
+  public static final int DIO_ARM_EXT = 11;
+  public static final int DIO_ARM_RET = 18; //7
   public static final double ARM_OUT = 4; //PID setpoint
 
   public static final double ARM_EX_SPEED = 0.7;
