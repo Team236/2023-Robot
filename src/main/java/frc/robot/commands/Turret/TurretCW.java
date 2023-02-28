@@ -36,11 +36,11 @@ public class TurretCW extends CommandBase {
   @Override
   public boolean isFinished() {
     //return false;
-    if ((speed > 0.008) && turret.isTCWLimit()) {
+    if ((speed > 0.008) && turret.isTLimit()) {
       // if mast is going up and top limit is triggered
       // the 0.008 is because when the axis is at rest, it reads 0.0078125 so doing speed > 0.008 acts as a deadzone
       return true;
-    } else if ((speed < 0) && turret.isTCCWLimit()) {
+    } else if ((speed < 0) && turret.isTLimit()) {
       turret.resetTurretEncoder();
       return true;
     } else {
