@@ -44,7 +44,7 @@ public class Limelight extends SubsystemBase {
     areaSub = datatable.getDoubleTopic("ta").subscribe(0.0);
 
     // publish to the topic in "datatable" called "Out"
-    pipeline = datatable.getIntegerTopic("getPipe").publish();
+    pipeline = datatable.getIntegerTopic("getpipe").publish();
     outLedMode = datatable.getIntegerTopic("ledmode").publish();
 
 
@@ -86,8 +86,9 @@ public void periodic() {
   SmartDashboard.putNumber("TargetNumber", tag);
 
   SmartDashboard.putNumber("cam-to-targetZ", getCameraToTargetPoseZ());
-  pipeline.set((long)0);
-  outLedMode.set((long)1 );
+
+  pipeline.set(0);
+  outLedMode.set(1);
   }
 
   // often not required in robot code, unless this class doesn't exist for
@@ -107,7 +108,7 @@ public void periodic() {
   }
 
   public void setOutLedModeOff() {
-    outLedMode.set(1);
+    outLedMode.set((long)1);
   }
 
   public void setOutLedModeOn() {

@@ -4,10 +4,16 @@
       "open": false
     },
     "transitory": {
+      "CameraPublisher": {
+        "open": true
+      },
       "Shuffleboard": {
         "open": true
       },
       "limelight": {
+        "Limelight": {
+          "open": true
+        },
         "open": true
       },
       "limelight-camera": {
