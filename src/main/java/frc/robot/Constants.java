@@ -46,10 +46,11 @@ public final class Constants {
   }
   public static class MotorControllers {
     //placeholder numbers for beginning of season //testbed OG - 2022 old - testbed swapped - 2022 new
-    public static final int ID_LEFT_FRONT = 1; //10 - 30 - 11 - 1
-    public static final int ID_RIGHT_FRONT = 2; //15 - 43 - 16 - 2
-    public static final int ID_LEFT_REAR = 3;// 11 - 44 - 10 - 3
-    public static final int ID_RIGHT_REAR = 4; //16 - 45 - 15 - 4
+    public static final int ID_LEFT_FRONT = 2; //10 - 30 - 11 - 1
+    public static final int ID_RIGHT_FRONT = 1; //15 - 43 - 16 - 2
+    public static final int ID_LEFT_REAR = 4;// 11 - 44 - 10 - 3
+    public static final int ID_RIGHT_REAR = 3; //16 - 45 - 15 - 4
+    // current numbers = 2023 bot
 
     public static final int ID_ARM = 10; //36 on 2022 robot, 38 on testbed - 10 on 2023
     public static final int ID_TURRET = 15; //test value
@@ -65,9 +66,10 @@ public static class DriveConstants {
   //robot-specific numbers
   public static final double DIAMETER = 6; 
   public static final double CIRCUMFERENCE = Math.PI * DIAMETER;
-  public static final double GEAR_RATIO = 8.8; //TEMPORARY!!!  USE 1 for external encoders
+  public static final double GEAR_RATIO = 1; //TEMPORARY!!!  USE 1 for external encoders
   //6.273 - low?? - testbot
   //8.364 - high??? - testbot
+  //8.8 for high testbot
 
   public static final double REV_TO_IN_K = CIRCUMFERENCE / GEAR_RATIO;
   public static final double IN_TO_REV_K = GEAR_RATIO / CIRCUMFERENCE;
@@ -134,8 +136,8 @@ public static class ArmConstants {
     public static final double PIVOT_OFFSET_ANGLE = 10; //Insert here angle (degrees) when pivot hits low limit switch 
     //TEST VALUE
   
-  public static final double pvtREV_TO_DEG = 360; //tester numbers
-  public static final double pvtDEG_TO_REV = 1/360;
+  public static final double pvtREV_TO_IN = 2; //tester numbers
+  public static final double pvtIN_TO_REV = 0.5;
   
   public static final double pvtSPEED = 0.75;
   public static final double kPpvt = 0;
@@ -160,8 +162,8 @@ public static class TurretConstants {
   public static final double kIturret = 0;
   public static final double kDturret = 0;
 
-  public static final int DIO_TURRET_CW_LIMIT = 16;
-  public static final int DIO_TURRET_CCW_LIMIT = 17;
+  public static final int DIO_TURRET_LIMIT = 16;
+  //public static final int DIO_TURRET_CCW_LIMIT = 17;
   public static final int DIO_TRRT_ENC_A = 4;
   public static final int DIO_TRRT_ENC_B = 5;
 
