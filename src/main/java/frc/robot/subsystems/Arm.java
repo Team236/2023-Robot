@@ -125,7 +125,7 @@ public class Arm extends SubsystemBase {
   }
 
   public double getPivotAngle() {
-    return ((getPivotEncoder() * PivotConstants.pvtREV_TO_DEG)  + PivotConstants.PIVOT_OFFSET_ANGLE);
+    return ((getPivotEncoder() * PivotConstants.pvtREV_TO_IN)  + PivotConstants.PIVOT_OFFSET_ANGLE);
   } //was told this is sketch, need to fix revtodeg constant (becoming unusable w talon) during bench testing
 
   public double getTotalArmLength(){
