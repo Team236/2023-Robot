@@ -39,11 +39,11 @@ public class Robot extends TimedRobot {
     compressor = new Compressor(PneumaticsModuleType.CTREPCM);
     compressor.enableDigital();
     //USB camera
-		try {
+		/*try {
       usbCamera0 = CameraServer.startAutomaticCapture(0);
 }  catch (Exception e)  {
     SmartDashboard.putString("camera capture filed", "failed");
-}
+}*/
   //Need to do this once only in order to have Limelight communication while tethered
   //for (int port = 5800; port <= 5805; port++){
   //  PortForwarder.add(port, "limeelight.local", port);
