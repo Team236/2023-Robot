@@ -32,7 +32,7 @@ public class Limelight extends SubsystemBase {
     NetworkTableInstance inst = NetworkTableInstance.getDefault();
 
     // get the subtable called "datatable"
-    var datatable = inst.getTable("limelight");
+    var datatable = inst.getTable("/limelight");
 
     // subscribe to the Topics in "datatable"    
     // set default value in subscribe at zero
@@ -44,8 +44,8 @@ public class Limelight extends SubsystemBase {
     areaSub = datatable.getDoubleTopic("ta").subscribe(0.0);
 
     // publish to the topic in "datatable" called "Out"
-    pipeline = datatable.getIntegerTopic("/Limelight/getPipe").publish();
-    outLedMode = datatable.getIntegerTopic("/Limelight/ledmode").publish();
+    pipeline = datatable.getIntegerTopic("getPipe").publish();
+    outLedMode = datatable.getIntegerTopic("ledmode").publish();
 
 
     // Robot transform in field-space. Translation (X,Y,Z) Rotation(Roll,Pitch,Yaw), total latency (cl+tl)
@@ -62,7 +62,7 @@ public class Limelight extends SubsystemBase {
 
     //	3D transform of the primary in-view AprilTag in the coordinate system of the Camera (array (6))
      cameraToTargetPose = datatable.getDoubleArrayTopic("targetpose_cameraspace").subscribe(new double[] {});
- 
+      
     // 3D transform of the primary in-view AprilTag in the coordinate system of the Robot (array (6))
      robotSpaceToTargetPose = datatable.getDoubleArrayTopic("targetpose_robotspace").subscribe(new double[] {});
     
@@ -80,9 +80,14 @@ public class Limelight extends SubsystemBase {
 public void periodic() {
   // read a double value from Y, and set Out to that value multiplied by 2
   // set the pipiline value to change 
+
   tag = (int) tid.get();
   SmartDashboard.putBoolean("HasTarget", tvSub.get());
   SmartDashboard.putNumber("TargetNumber", tag);
+
+  SmartDashboard.putNumber("cam-to-targetZ", getCameraToTargetPoseZ());
+  pipeline.set((long)0);
+  outLedMode.set((long)1 );
   }
 
   // often not required in robot code, unless this class doesn't exist for
@@ -104,11 +109,10 @@ public void periodic() {
   public void setOutLedModeOff() {
     outLedMode.set(1);
   }
-  
+
   public void setOutLedModeOn() {
     outLedMode.set(1);
   }
-
   
   public void setPipeline(Integer i) { 
     pipeline.set((long)i);  

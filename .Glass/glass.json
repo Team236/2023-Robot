@@ -1,10 +1,13 @@
 {
   "NetworkTables": {
+    "Persistent Values": {
+      "open": false
+    },
     "transitory": {
       "Shuffleboard": {
         "open": true
       },
-      "SmartDashboard": {
+      "limelight": {
         "open": true
       },
       "limelight-camera": {

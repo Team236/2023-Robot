@@ -48,14 +48,14 @@ public class LimeFollow extends CommandBase {
     // goal is to maintain a set distance (called driveDistance) between the Apriltag and the camera
     distanceController.setSetpoint(driveDistance);
     turnController.setSetpoint(yOffset); //this is the setpoint for the Y, may need an offset rather than 0
-    camera.setPipeline(1); 
+    
     // camera.setDriverMode(false);
     // camera.setLED(VisionLEDMode.kOff);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
+  public void execute() { 
     SmartDashboard.putBoolean("has TArget", camera.getTv() );
     // camera.setLED(VisionLEDMode.kOff);
     double[] result = camera.getCameraToTargetPose();
@@ -71,8 +71,8 @@ public class LimeFollow extends CommandBase {
      //skew = result.getBestTarget().getSkew() / 0.0254;
     
      
-     double dC = distanceController.calculate(xPos);
-     double tC = turnController.calculate(yPos);
+     double dC = distanceController.calculate(-xPos);
+     double tC = turnController.calculate(-yPos);
 
     double LS = dC + tC ; // - tc for 2022 robot
     double RS = dC - tC;  // + tc for 2022 robot
