@@ -10,12 +10,12 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class ArmExtend extends CommandBase {
   /** Creates a new ArmExtend. */
   private Arm arm;
-  private XboxController controller;
   private double speed;
-
+  private XboxController controller;
   public ArmExtend(Arm arm, double speed, XboxController controller) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.arm = arm;
+    this.controller = controller;
     addRequirements(arm);
   }
 

@@ -7,7 +7,7 @@ package frc.robot.commands.Pivot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Arm;
-import frc.robot.Constants.ArmConstants.PivotConstants;
+import frc.robot.Constants.PivotConstants;
 public class PivotDown extends CommandBase {
   private Arm pivot;
   private double speed;

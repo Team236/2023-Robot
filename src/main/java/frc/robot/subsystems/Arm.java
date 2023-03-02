@@ -14,12 +14,11 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.Constants.ArmConstants;
-import frc.robot.Constants.ArmConstants.PivotConstants;
+import frc.robot.Constants.PivotConstants;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Arm extends SubsystemBase {
   private CANSparkMax armMotor;
   private TalonSRX pivotMotor;
-  //private Encoder armEncoder, pivotEncoder; //External
 
   private RelativeEncoder armEncoder; //SparkMax encoder
   private Encoder pivotEncoder; //external encoder
@@ -125,7 +124,7 @@ public class Arm extends SubsystemBase {
   }
 
   public double getPivotAngle() {
-    return ((getPivotEncoder() * PivotConstants.pvtREV_TO_IN)  + PivotConstants.PIVOT_OFFSET_ANGLE);
+    return ((getPivotEncoder() * PivotConstants.pvtREV_TO_DEG)  + PivotConstants.PIVOT_OFFSET_ANGLE);
   } //was told this is sketch, need to fix revtodeg constant (becoming unusable w talon) during bench testing
 
   public double getTotalArmLength(){

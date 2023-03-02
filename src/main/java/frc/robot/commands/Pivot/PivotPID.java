@@ -6,7 +6,7 @@ package frc.robot.commands.Pivot;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Arm;
 import edu.wpi.first.math.controller.PIDController;
-import frc.robot.Constants.ArmConstants.PivotConstants;
+import frc.robot.Constants.PivotConstants;
 
 public class PivotPID extends CommandBase {
   private Arm pivot;

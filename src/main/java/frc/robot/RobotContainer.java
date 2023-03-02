@@ -17,7 +17,7 @@ import frc.robot.commands.Autos.DriveAtSetSpeed;
 import frc.robot.commands.Autos.GrabScoreFlatGround;
 import frc.robot.commands.Autos.TurnPID;
 import frc.robot.commands.Drive.DoubleArcadeDrive;
-import frc.robot.commands.Drive.DriveWithJoysticks;
+//import frc.robot.commands.Drive.DriveWithJoysticks;
 import frc.robot.commands.Drive.TDWG_No;
 import frc.robot.commands.Drive.ToggleTransmission;
 import frc.robot.commands.Drive.DriveWithJoysticks;
@@ -63,7 +63,6 @@ public class RobotContainer {
   //AUTO
 
   //DRIVE
- private final DriveWithJoysticks driveWithJoysticks = new DriveWithJoysticks(drive, gripper, driveController);
  private final DoubleArcadeDrive doubleArcadeDrive = new DoubleArcadeDrive(drive, gripper, driveController);
  private final ToggleTransmission toggleTransmission = new ToggleTransmission(drive);
  private final LLAngle llAngle = new LLAngle(drive);
@@ -72,8 +71,7 @@ public class RobotContainer {
 
  //ARM
  //private final ArmWithAxis armWithAxis = new ArmWithAxis(arm, controller); //OBSOLETE WITH POV
- private final ArmExtend armExtend = new ArmExtend(arm, ArmConstants.ARM_EX_SPEED, driveController);
- private final ArmRetract armRetract = new ArmRetract(arm, ArmConstants.ARM_RE_SPEED, driveController);
+ private final ArmRetract armRetract = new ArmRetract(arm, ArmConstants.ARM_RE_SPEED);
  private final PivotUp pivotUp = new PivotUp(arm, 0.5, controller);
  private final PivotDown pivotDown = new PivotDown(arm, 0.5, controller);
 
@@ -89,7 +87,6 @@ private final TurretCCW turretCCW = new TurretCCW(turret, -TurretConstants.TURRE
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
   drive.setDefaultCommand(doubleArcadeDrive);
-  //drive.setDefaultCommand(driveWithJoysticks);
     // Configure the trigger bindings
     configureBindings();
   }
@@ -135,15 +132,11 @@ private final TurretCCW turretCCW = new TurretCCW(turret, -TurretConstants.TURRE
     POVButton downPov1 = new POVButton(controller, Constants.ControllerConstants.XboxController.POVXbox.DOWN_ANGLE);
     // ASSIGN BUTTONS TO COMMANDS
     //AUXController
-   a1.whileTrue(new AutoPIDDrive(drive, 220));
-   //lb1.whileTrue(new AprilFollow(drive, camera, 26, 0));
+   a1.whileTrue(new ArmPID(arm, -5)); // IT WORKS
    //DRIVECONTROLLER******
-   rb.whileTrue(armExtend);
    lb.whileTrue(armRetract);
   b.whileTrue(llAngle);
   y.whileTrue(new AutoTrapezoidalPID(drive, 220, 0.005, 0, 0));
- // lb.whileTrue(new TurnPID(drive, 90));
-  //rb.whileTrue(driveAtSetSpeed);
   rightPov.whileTrue(turretCW);
   leftPov.whileTrue(turretCCW);
   }
