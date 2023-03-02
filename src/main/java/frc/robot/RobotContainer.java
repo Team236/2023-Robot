@@ -20,7 +20,7 @@ import frc.robot.commands.Drive.DoubleArcadeDrive;
 import frc.robot.commands.Drive.DriveWithJoysticks;
 import frc.robot.commands.Drive.TDWG_No;
 import frc.robot.commands.Drive.ToggleTransmission;
-//import frc.robot.commands.Drive.DriveWithJoysticks;
+import frc.robot.commands.Drive.DriveWithJoysticks;
 import frc.robot.commands.Gripper.Grab;
 import frc.robot.commands.Gripper.GrabReleaseToggle;
 import frc.robot.commands.Gripper.ReleasePiece;
@@ -90,6 +90,7 @@ private final TurretCCW turretCCW = new TurretCCW(turret, -TurretConstants.TURRE
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
   drive.setDefaultCommand(doubleArcadeDrive);
+  //drive.setDefaultCommand(driveWithJoysticks);
     // Configure the trigger bindings
     configureBindings();
   }
@@ -138,10 +139,14 @@ private final TurretCCW turretCCW = new TurretCCW(turret, -TurretConstants.TURRE
    a1.whileTrue(new AutoPIDDrive(drive, 220));
    lb1.whileTrue(new AprilFollow(drive, camera, 26, 0));
    //DRIVECONTROLLER******
+   rb.whileTrue(pivotUp);
+   lb.whileTrue(pivotDown);
   b.whileTrue(llAngle);
   y.whileTrue(new AutoTrapezoidalPID(drive, 220, 0.005, 0, 0));
-  lb.whileTrue(new TurnPID(drive, 90));
-  rb.whileTrue(driveAtSetSpeed);
+ // lb.whileTrue(new TurnPID(drive, 90));
+  //rb.whileTrue(driveAtSetSpeed);
+  rightPov.whileTrue(turretCW);
+  leftPov.whileTrue(turretCCW);
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
