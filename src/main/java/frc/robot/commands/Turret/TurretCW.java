@@ -35,8 +35,8 @@ public class TurretCW extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    //return false;
-    if ((speed > 0.008) && turret.isTLimit()) {
+    return false;
+    /*if ((speed > 0.008) && turret.isTLimit()) {
       // if mast is going up and top limit is triggered
       // the 0.008 is because when the axis is at rest, it reads 0.0078125 so doing speed > 0.008 acts as a deadzone
       return true;
@@ -45,6 +45,6 @@ public class TurretCW extends CommandBase {
       return true;
     } else {
       return false;
-    }
+    }*/
   }
   }

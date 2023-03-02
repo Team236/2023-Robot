@@ -33,13 +33,14 @@ public class ArmRetract extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if ((speed > 0.008) && arm.isAExtLimit()) {
+   /*  if ((speed > 0.008) && arm.isAExtLimit()) {
       return true;
     } else if ((speed < 0) && arm.isARetLimit()) {
       arm.resetArmEncoder();
       return true;
     } else {
       return false;
-    }
+    }*/
+    return false;
   }
   }
