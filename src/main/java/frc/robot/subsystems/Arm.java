@@ -187,8 +187,8 @@ public class Arm extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("arm encoder", getArmEncoder());
-    SmartDashboard.putNumber("pvt encoder", getPivotEncoder());
+   // SmartDashboard.putNumber("arm encoder", getArmEncoder());
+    //SmartDashboard.putNumber("pvt encoder", getPivotEncoder());
     SmartDashboard.putBoolean("pvt High", isPHighLimit());
     SmartDashboard.putBoolean("pvt low", isPLowLimit());
     SmartDashboard.putBoolean("arm extend limit", isAExtLimit());

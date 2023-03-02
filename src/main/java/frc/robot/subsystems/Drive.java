@@ -26,8 +26,10 @@ import frc.robot.Constants.DriveConstants;
 
 public class Drive extends SubsystemBase {
   public CANSparkMax leftFront, leftRear, rightFront, rightRear;
-  private RelativeEncoder leftEncoder, rightEncoder;
+  //private RelativeEncoder leftEncoder, rightEncoder;
   //private Encoder leftEncoder, rightEncoder;
+  private RelativeEncoder leftEncoder;
+  private Encoder rightEncoder;
   public AHRS navX;
   private XboxController xboxController;
   private boolean isDeadzone;
@@ -50,9 +52,9 @@ public class Drive extends SubsystemBase {
     rightRear.follow(rightFront);
 
     leftEncoder = leftFront.getEncoder();
-    rightEncoder = rightFront.getEncoder();
-    //leftEncoder = new Encoder(DriveConstants.DIO_LDRIVE_ENC_A, DriveConstants.DIO_LDIRVE_ENC_B);
-    //rightEncoder = new Encoder(DriveConstants.DIO_RDRIVE_ENC_A, DriveConstants.DIO_RDRIVE_ENC_B);
+   //rightEncoder = rightFront.getEncoder();
+   //leftEncoder = new Encoder(DriveConstants.DIO_LDRIVE_ENC_A, DriveConstants.DIO_LDRIVE_ENC_B);
+    rightEncoder = new Encoder(DriveConstants.DIO_RDRIVE_ENC_A, DriveConstants.DIO_RDIRVE_ENC_B);
 
    navX = new AHRS();
    xboxController = new XboxController(Constants.ControllerConstants.USB_DRIVECONTROLLER);
@@ -171,16 +173,16 @@ public class Drive extends SubsystemBase {
    //return leftEncoder.getRate();
   }
   public double getRightSpeed() {
-    return rightEncoder.getVelocity();
-    //return leftEncoder.getRate();
+    //return rightEncoder.getVelocity();
+    return rightEncoder.getRate();
   }
   public double getLeftEncoder(){
  return leftEncoder.getPosition();
- //return leftEncoder.get()/128; //revs from encoder ticks
+// return leftEncoder.get()/128; //revs from encoder ticks
   }
   public double getRightEncoder() {
-    return rightEncoder.getPosition();
-   // return rightEncoder.get()/128;
+    //return rightEncoder.getPosition();
+    return rightEncoder.get()/128;
   }
   public double getLeftDistance() {
     return getLeftEncoder() * DriveConstants.REV_TO_IN_K;
@@ -192,12 +194,12 @@ public class Drive extends SubsystemBase {
     return (getLeftDistance() + getRightDistance())/2 ;
   }
   public void resetLeftEncoder() {
-    leftEncoder.setPosition(0);
-   // leftEncoder.reset();
+  leftEncoder.setPosition(0);
+    //leftEncoder.reset();
   }
   public void resetRightEncoder() {
-    rightEncoder.setPosition(0);
-    //rightEncoder.reset();
+    //rightEncoder.setPosition(0);
+    rightEncoder.reset();
   }
 
   public void stop() {
@@ -211,7 +213,10 @@ public class Drive extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.getBoolean("In Low Gear?", inLowGear());
+    //SmartDashboard.getBoolean("In Low Gear?", inLowGear());
+    SmartDashboard.putNumber("left enc", getLeftEncoder());
+    SmartDashboard.putNumber("right enc", getRightEncoder());
+    SmartDashboard.putNumber("rightDis", getRightDistance());
     // This method will be called once per scheduler run
   }
 
