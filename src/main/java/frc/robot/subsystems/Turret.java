@@ -23,21 +23,21 @@ public class Turret extends SubsystemBase {
     turretMotor.setInverted(false);
     turretEncoder = new Encoder(TurretConstants.DIO_TRRT_ENC_A, TurretConstants.DIO_TRRT_ENC_B); //external encoder
 
-    try {
+    /*try {
       turretLimit = new DigitalInput(TurretConstants.DIO_TURRET_LIMIT);
     } catch (Exception e) {
       isTUnplugged = true;
-    }
+    }*/
 
   }
 
-  public boolean isTLimit() {
+  /*public boolean isTLimit() {
     if (isTUnplugged) {
       return true;
     } else {
       return !turretLimit.get();
     }
-  }
+  }*/
 
   public void resetTurretEncoder() {
     turretEncoder.reset();
@@ -49,7 +49,7 @@ public class Turret extends SubsystemBase {
     return getTurretEncoder() * TurretConstants.turretREV_TO_DEG;
   } 
   
-  public void setTurretSpeed(double speed) {
+  /*public void setTurretSpeed(double speed) {
     if (speed > 0 && isTLimit()) {
      turretStop();
     } else if (speed < 0 && isTLimit()) {
@@ -60,6 +60,9 @@ public class Turret extends SubsystemBase {
         // mast going down but bottom limit is not tripped, go at commanded speed
         turretMotor.set(speed);
       }
+    }*/
+    public void setTurretSpeed(double speed) {
+      turretMotor.set(speed);
     }
   public void turretStop() {
     turretMotor.set(0);
@@ -70,7 +73,7 @@ public class Turret extends SubsystemBase {
     // This method will be called once per scheduler run
    SmartDashboard.putNumber("turret encoder", getTurretEncoder());
     SmartDashboard.putNumber("turret angle", getTurretAngle());
-    SmartDashboard.putBoolean("turret limit", isTLimit());
+    //SmartDashboard.putBoolean("turret limit", isTLimit());
   
   }
 }

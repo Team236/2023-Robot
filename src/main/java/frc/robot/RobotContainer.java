@@ -53,7 +53,6 @@ public class RobotContainer {
   //**JOYSTICKS */
   XboxController controller = new XboxController(Constants.ControllerConstants.USB_AUXCONTROLLER);
   XboxController driveController = new XboxController(Constants.ControllerConstants.USB_DRIVECONTROLLER);
- private static PhotonCamera camera = new PhotonCamera("OV5647"); 
   // SUBSYSTEMS****.
   private final Drive drive = new Drive();
   private final Arm arm = new Arm();
@@ -137,10 +136,10 @@ private final TurretCCW turretCCW = new TurretCCW(turret, -TurretConstants.TURRE
     // ASSIGN BUTTONS TO COMMANDS
     //AUXController
    a1.whileTrue(new AutoPIDDrive(drive, 220));
-   lb1.whileTrue(new AprilFollow(drive, camera, 26, 0));
+   //lb1.whileTrue(new AprilFollow(drive, camera, 26, 0));
    //DRIVECONTROLLER******
-   rb.whileTrue(pivotUp);
-   lb.whileTrue(pivotDown);
+   rb.whileTrue(armExtend);
+   lb.whileTrue(armRetract);
   b.whileTrue(llAngle);
   y.whileTrue(new AutoTrapezoidalPID(drive, 220, 0.005, 0, 0));
  // lb.whileTrue(new TurnPID(drive, 90));

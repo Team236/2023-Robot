@@ -41,7 +41,7 @@ public class Arm extends SubsystemBase {
     armEncoder = armMotor.getEncoder(); //will use SparkMax encoder for arm extend/retract
     pivotEncoder = new Encoder(PivotConstants.DIO_PVT_ENC_A, PivotConstants.DIO_PVT_ENC_B);  //using external encoder
     
-    try {
+   /*  try {
       armExtendLimit = new DigitalInput(ArmConstants.DIO_ARM_EXT);
     } catch (Exception e) {
       isArmExtLimitUnplugged = true;
@@ -62,7 +62,7 @@ public class Arm extends SubsystemBase {
       pvtLowLimit = new DigitalInput(PivotConstants.PVT_LOW);
     } catch (Exception e) {
       isPLowUnplugged = true;
-    }
+    }*/
   }
 
   public void pivotStop() {
@@ -133,7 +133,8 @@ public class Arm extends SubsystemBase {
   }
 
   public void setArmSpeed(double speed) {
-  if (speed > 0) {
+    armMotor.set(speed);
+  /*if (speed > 0) {
     if (isAExtLimit()) {
         // arm ext/ret limit is tripped going forward, stop 
         // there is 1 magnetic switch and 2 magnets, tripped forward means fully extended
@@ -156,7 +157,7 @@ public class Arm extends SubsystemBase {
         // arm retracting but fully retracted limit is not tripped, go at commanded speed
         armMotor.set(speed);
       }
-     }
+     }*/
   }
 
   public void setPivotSpeed(double speed) {
