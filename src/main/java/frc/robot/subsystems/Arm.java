@@ -72,7 +72,7 @@ public class Arm extends SubsystemBase {
     armMotor.stopMotor();
   }
 
-  public boolean isAExtLimit() {
+  /*public boolean isAExtLimit() {
     if (isArmExtLimitUnplugged) {
       return true;
     } else {
@@ -100,7 +100,7 @@ public class Arm extends SubsystemBase {
     } else {
       return !pvtLowLimit.get();
     }
-  } 
+  } */
 
   public void resetArmEncoder() {
     armEncoder.setPosition(0); //SparkMax encoder
@@ -161,7 +161,8 @@ public class Arm extends SubsystemBase {
   }
 
   public void setPivotSpeed(double speed) {
-    if (speed > 0) {
+    pivotMotor.set(ControlMode.PercentOutput, speed);
+    /*if (speed > 0) {
       if (isPHighLimit()) {
         // mast going up and top limit is tripped, stop
         pivotStop();
@@ -182,17 +183,17 @@ public class Arm extends SubsystemBase {
         // mast going down but bottom limit is not tripped, go at commanded speed
         pivotMotor.set(ControlMode.PercentOutput, speed);
       }
-    }
+    }*/
     }
   
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-   // SmartDashboard.putNumber("arm encoder", getArmEncoder());
-    //SmartDashboard.putNumber("pvt encoder", getPivotEncoder());
-    SmartDashboard.putBoolean("pvt High", isPHighLimit());
-    SmartDashboard.putBoolean("pvt low", isPLowLimit());
-    SmartDashboard.putBoolean("arm extend limit", isAExtLimit());
-    SmartDashboard.putBoolean("arm ret lim", isARetLimit());
+   SmartDashboard.putNumber("arm encoder", getArmEncoder());
+  SmartDashboard.putNumber("pvt encoder", getPivotEncoder());
+   // SmartDashboard.putBoolean("pvt High", isPHighLimit());
+   // SmartDashboard.putBoolean("pvt low", isPLowLimit());
+    //SmartDashboard.putBoolean("arm extend limit", isAExtLimit());
+    //SmartDashboard.putBoolean("arm ret lim", isARetLimit());
   }
 }
