@@ -68,7 +68,7 @@ public class Arm extends SubsystemBase {
     pivotMotor.set(ControlMode.PercentOutput, 0);
   }
   public void armStop() {
-    armMotor.stopMotor();
+    armMotor.set(0);;
   }
 
   /*public boolean isAExtLimit() {
