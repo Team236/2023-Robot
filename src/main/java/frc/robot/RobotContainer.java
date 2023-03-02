@@ -31,6 +31,7 @@ import frc.robot.commands.Targeting.AprilFollow;
 import frc.robot.commands.Targeting.LLAngle;
 import frc.robot.commands.Turret.TurretCCW;
 import frc.robot.commands.Turret.TurretCW;
+import frc.robot.commands.Turret.TurretPID;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Gripper;
@@ -70,10 +71,8 @@ public class RobotContainer {
  private final  DriveAtSetSpeed driveAtSetSpeed = new DriveAtSetSpeed(drive, 130, 0.5);
 
  //ARM
- //private final ArmWithAxis armWithAxis = new ArmWithAxis(arm, controller); //OBSOLETE WITH POV
- private final ArmRetract armRetract = new ArmRetract(arm, ArmConstants.ARM_RE_SPEED);
- private final PivotUp pivotUp = new PivotUp(arm, 0.5, controller);
- private final PivotDown pivotDown = new PivotDown(arm, 0.5, controller);
+ private final PivotUp pivotUp = new PivotUp(arm, 0.5);
+ private final PivotDown pivotDown = new PivotDown(arm, 0.5);
 
  //GRIPPER
 private final Grab grab = new Grab(gripper);
@@ -81,8 +80,8 @@ private final ReleasePiece releasePiece = new ReleasePiece(gripper);
 private final GrabReleaseToggle grabReleaseToggle = new GrabReleaseToggle(gripper);
 
 //TURRET
-private final TurretCW turretCW = new TurretCW(turret, TurretConstants.TURRET_SPEED, driveController);
-private final TurretCCW turretCCW = new TurretCCW(turret, -TurretConstants.TURRET_SPEED, driveController);
+private final TurretCW turretCW = new TurretCW(turret, TurretConstants.TURRET_SPEED);
+private final TurretCCW turretCCW = new TurretCCW(turret, -TurretConstants.TURRET_SPEED);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -133,8 +132,10 @@ private final TurretCCW turretCCW = new TurretCCW(turret, -TurretConstants.TURRE
     // ASSIGN BUTTONS TO COMMANDS
     //AUXController
    a1.whileTrue(new ArmPID(arm, -5)); // IT WORKS
+   b1.whileTrue(new PivotPID(arm, 5));
+   y1.whileTrue(new TurretPID(turret, 3));
    //DRIVECONTROLLER******
-   lb.whileTrue(armRetract);
+   //lb.whileTrue(armRetract);
   b.whileTrue(llAngle);
   y.whileTrue(new AutoTrapezoidalPID(drive, 220, 0.005, 0, 0));
   rightPov.whileTrue(turretCW);
