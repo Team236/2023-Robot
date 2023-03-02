@@ -46,10 +46,10 @@ public final class Constants {
   }
   public static class MotorControllers {
     //placeholder numbers for beginning of season //testbed OG - 2022 old - testbed swapped - 2022 new
-    public static final int ID_LEFT_FRONT = 2; //10 - 30 - 11 - 1
-    public static final int ID_RIGHT_FRONT = 1; //15 - 43 - 16 - 2
-    public static final int ID_LEFT_REAR = 4;// 11 - 44 - 10 - 3
-    public static final int ID_RIGHT_REAR = 3; //16 - 45 - 15 - 4
+    public static final int ID_LEFT_FRONT = 1; //10 - 30 - 11 - 1
+    public static final int ID_RIGHT_FRONT = 2; //15 - 43 - 16 - 2
+    public static final int ID_LEFT_REAR = 3;// 11 - 44 - 10 - 3
+    public static final int ID_RIGHT_REAR = 4; //16 - 45 - 15 - 4
     // current numbers = 2023 bot
 
     public static final int ID_ARM = 10; //36 on 2022 robot, 38 on testbed - 10 on 2023
@@ -93,10 +93,10 @@ public static class DriveConstants {
   public static final double MARGIN_GYRO_DRIVE = 3;
 
   //drive encoder channels
-  public static final int DIO_RDRIVE_ENC_A = 14;
-  public static final int DIO_RDRIVE_ENC_B = 15;
-  public static final int DIO_LDRIVE_ENC_A = 12;
-  public static final int DIO_LDIRVE_ENC_B = 13;
+  public static final int DIO_LDRIVE_ENC_A = 14;
+  public static final int DIO_LDRIVE_ENC_B = 15;
+  public static final int DIO_RDRIVE_ENC_A = 13;
+  public static final int DIO_RDIRVE_ENC_B = 12;
 
   //auto selector switches
  public static final int DIO_AUTO_1 = 0;
@@ -118,8 +118,8 @@ public static class ArmConstants {
   public static final int DIO_ARM_RET = 18; //7
   public static final double ARM_OUT = 4; //PID setpoint
 
-  public static final double ARM_EX_SPEED = 0.7;
-  public static final double ARM_RE_SPEED = 0.85;
+  public static final double ARM_EX_SPEED = 0.6;
+  public static final double ARM_RE_SPEED = 0.6;
 
   public static double kParm = 0.08;
   public static double kIarm = 0;
@@ -174,7 +174,7 @@ public static class TurretConstants {
   public static final double TURRET_RIGHT = 90;
   public static final double TURRET_LEFT = -90;
 
-  public static final double TURRET_SPEED = 0.75;
+  public static final double TURRET_SPEED = 0.45;
 }
 }
 
