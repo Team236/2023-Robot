@@ -9,13 +9,13 @@ import edu.wpi.first.math.controller.PIDController;
 import frc.robot.Constants.PivotConstants;
 
 public class PivotPID extends CommandBase {
-  private Arm pivot;
+  private Arm pivot2;
   private double pvtAngle;
   private final PIDController pvtPidController;
   /** Creates a new PivotPID. */
-  public PivotPID(Arm pivot, double pvtAngle) {
-    this.pivot = pivot;
-    addRequirements(pivot);
+  public PivotPID(Arm pivotpid, double pvtAngle) {
+    this.pivot2 = pivotpid;
+    addRequirements(pivot2);
     this.pvtAngle = pvtAngle;
     this.pvtPidController = new PIDController(PivotConstants.kPpvt, PivotConstants.kIpvt, PivotConstants.kDpvt);
     pvtPidController.setSetpoint(pvtAngle);
@@ -25,20 +25,20 @@ public class PivotPID extends CommandBase {
   @Override
   public void initialize() {
     pvtPidController.reset();
-   pivot.resetPivotEncoder();
+   pivot2.resetPivotEncoder();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-   double pvtSpeed = pvtPidController.calculate(pivot.getPivotAngle());
-  pivot.setArmSpeed(pvtSpeed);
+   double pvtSpeed = pvtPidController.calculate(pivot2.getPivotAngle());
+  pivot2.setPivotSpeed(pvtSpeed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-   pivot.pivotStop();
+   pivot2.pivotStop();
   }
 
   // Returns true when the command should end.

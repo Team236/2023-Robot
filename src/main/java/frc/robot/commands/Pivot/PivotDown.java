@@ -3,19 +3,16 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.commands.Pivot;
-
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Arm;
 import frc.robot.Constants.PivotConstants;
 public class PivotDown extends CommandBase {
-  private Arm pivot;
+  private Arm pivot1;
   private double speed;
-  private XboxController controller;
   /** Creates a new PivotCCW. */
-  public PivotDown(Arm pivot, double speed, XboxController controller) {
-    this.pivot = pivot;
-    addRequirements(pivot);
+  public PivotDown(Arm pivotdown, double speed) {
+    this.pivot1 = pivotdown;
+    addRequirements(pivot1);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -26,22 +23,22 @@ public class PivotDown extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    pivot.setPivotSpeed(-speed);
+    pivot1.setPivotSpeed(-speed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-   pivot.pivotStop();
+   pivot1.pivotStop();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    /*  if ((speed > 0.008) && pivot.isPHighLimit()) {
+    /*  if ((speed > 0.008) && pivot1.isPHighLimit()) {
       return true;
-    } else if ((speed < 0) && turret.isPLowLimit()()) {
-      turret.resetTurretEncoder();
+    } else if ((speed < 0) && pivot1.isPLowLimit()()) {
+      pivot1.resetPivotEncoder();
       return true;
     } else {
       return false;

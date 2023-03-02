@@ -11,13 +11,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.WPILibVersion;
 public class ArmPID extends CommandBase {
   /** Creates a new ArmPID. */
-  private Arm arm;
+  private Arm arm3;
   private double armDistance;
   private final PIDController armPidController;
 
-  public ArmPID(Arm arm, double armDistance) {
-    this.arm = arm;
-    addRequirements(arm);
+  public ArmPID(Arm armpid, double armDistance) {
+    this.arm3 = armpid;
+    addRequirements(arm3);
     this.armDistance = armDistance;
     this.armPidController = new PIDController(ArmConstants.kParm, ArmConstants.kIarm, ArmConstants.kDarm);
     armPidController.setSetpoint(armDistance);
@@ -27,29 +27,29 @@ public class ArmPID extends CommandBase {
   @Override
   public void initialize() {
     armPidController.reset();
-    arm.resetArmEncoder();
+    arm3.resetArmEncoder();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double armSpeed = armPidController.calculate(arm.getArmDistance());
-    arm.setArmSpeed(armSpeed);
+    double armSpeed = armPidController.calculate(arm3.getArmDistance());
+    arm3.setArmSpeed(armSpeed);
   }
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    arm.armStop();
+    arm3.armStop();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     return false;
-   /* if ((armDistance > 0) && arm.isAExtendLimit()) {
+   /* if ((armDistance > 0) && arm3.isAExtendLimit()) {
       return true;
-    } else if ((armDistance < 0) && arm.isAReturnLimit()) {
-      arm.resetArmEncoder();
+    } else if ((armDistance < 0) && arm3.isAReturnLimit()) {
+      arm3.resetArmEncoder();
       return true;
     } else {
       return false;
