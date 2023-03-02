@@ -49,18 +49,18 @@ public class DoubleArcadeDrive extends CommandBase {
     kPgyro = 0.03;
     error = navX.getRate();
     if ((Math.abs(driveController.getLeftX()) <= -0.17) && (driveController.getRightY() > 0.17)) {
-      L = (driveController.getRightY()- (kPgyro*error));
-      R = (driveController.getRightY() + (kPgyro*error));
+      L = (-driveController.getRightY()- (kPgyro*error));
+      R = (-driveController.getRightY() + (kPgyro*error));
     } else if ((Math.abs(driveController.getLeftX()) <= -0.17) && (driveController.getRightY() <=-0.17)) {
-      L = (driveController.getRightY() + (kPgyro*error));
-      R = (driveController.getRightY() - (kPgyro*error));
+      L = (-driveController.getRightY() + (kPgyro*error));
+      R = (-driveController.getRightY() - (kPgyro*error));
     } else if ((Math.abs(driveController.getLeftX()) > 0.17) && (driveController.getRightY() > 0.17)) {
       L = driveController.getRightY() - driveController.getLeftX();
       R = driveController.getRightY() + driveController.getLeftX();
     } else 
     //The only condition left is: Math.abs(driveController.getLeftX()) > 0.17) && (driveController.getRightY() <= -0.17
-        L = driveController.getRightY() + driveController.getLeftX();
-        R = driveController.getRightY() - driveController.getLeftX();
+        L = -driveController.getRightY() + driveController.getLeftX();
+        R = -driveController.getRightY() - driveController.getLeftX();
     
     max = Math.abs(L);
     if (max < Math.abs(R)) {
