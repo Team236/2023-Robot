@@ -192,7 +192,7 @@ public static class TurretConstants {
   public static final double turretREV_TO_DEG = 1;
   public static final double turretDEG_TO_REV = 1;
 
-  public static final double kPturret = 0;
+  public static final double kPturret = 0.02;
   public static final double kIturret = 0;
   public static final double kDturret = 0;
 
@@ -226,7 +226,7 @@ public static final double pvtDEG_TO_REV = 1/360;
 public static final double pvtSPEED = 0.75;
 public static final double PIVOT_OFFSET_ANGLE = 0;
 
-public static double kPpvt = 0;
+public static double kPpvt = 0.1;
 public static double kIpvt = 0;
 public static double kDpvt = 0;
 }
