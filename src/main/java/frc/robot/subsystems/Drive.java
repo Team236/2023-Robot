@@ -27,9 +27,9 @@ import frc.robot.Constants.DriveConstants;
 public class Drive extends SubsystemBase {
   public CANSparkMax leftFront, leftRear, rightFront, rightRear;
   //private RelativeEncoder leftEncoder, rightEncoder;
-  //private Encoder leftEncoder, rightEncoder;
+  // Encoder leftEncoder, rightEncoder;
   private RelativeEncoder leftEncoder;
-  private Encoder rightEncoder;
+ private Encoder rightEncoder;
   public AHRS navX;
   private XboxController xboxController;
   private boolean isDeadzone;
@@ -178,7 +178,7 @@ public class Drive extends SubsystemBase {
   }
   public double getLeftEncoder(){
  return leftEncoder.getPosition();
-// return leftEncoder.get()/128; //revs from encoder ticks
+ //return leftEncoder.get()/128; //revs from encoder ticks
   }
   public double getRightEncoder() {
     //return rightEncoder.getPosition();

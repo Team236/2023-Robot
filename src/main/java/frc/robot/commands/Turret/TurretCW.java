@@ -9,8 +9,9 @@ public class TurretCW extends CommandBase {
   private Turret turret2;
   private double speed;
   /** Creates a new TurretClockwise. */
-  public TurretCW(Turret turretcw, double speed) {
+  public TurretCW(Turret turretcw, double speed7) {
     this.turret2 = turretcw;
+    this.speed = speed7;
     addRequirements(turret2);
   }
 

@@ -20,7 +20,7 @@ public class Turret extends SubsystemBase {
   public Turret() {
     turretMotor = new CANSparkMax(Constants.MotorControllers.ID_TURRET, MotorType.kBrushless);
     turretMotor.restoreFactoryDefaults();
-    turretMotor.setInverted(false);
+    turretMotor.setInverted(true);
     turretEncoder = new Encoder(TurretConstants.DIO_TRRT_ENC_A, TurretConstants.DIO_TRRT_ENC_B); //external encoder
 
     /*try {

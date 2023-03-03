@@ -131,15 +131,20 @@ private final TurretCCW turretCCW = new TurretCCW(turret, -TurretConstants.TURRE
     POVButton downPov1 = new POVButton(controller, Constants.ControllerConstants.XboxController.POVXbox.DOWN_ANGLE);
     // ASSIGN BUTTONS TO COMMANDS
     //AUXController
-   a1.whileTrue(new ArmPID(arm, -5)); // IT WORKS
-   b1.whileTrue(new PivotPID(arm, 5));
-   y1.whileTrue(new TurretPID(turret, 3));
+   //a1.whileTrue(new ArmPID(arm, 5)); // IT WORKS
+  //b1.whileTrue(new PivotPID(arm, 5));
+  // y1.whileTrue(new TurretPID(turret, 3));
    //DRIVECONTROLLER******
    //lb.whileTrue(armRetract);
-  b.whileTrue(llAngle);
+   a.whileTrue(driveAtSetSpeed);
+  b1.whileTrue(new ArmExtend(arm, 0.5));
+ x1.whileTrue(new ArmRetract(arm, 0.5));
   y.whileTrue(new AutoTrapezoidalPID(drive, 220, 0.005, 0, 0));
   rightPov.whileTrue(turretCW);
   leftPov.whileTrue(turretCCW);
+  b.whileTrue(pivotUp);
+
+
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

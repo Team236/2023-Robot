@@ -5,31 +5,37 @@
 package frc.robot.commands.Arm;
 import frc.robot.Constants;
 import frc.robot.subsystems.Arm;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 public class ArmExtend extends CommandBase {
   /** Creates a new ArmExtend. */
-  private Arm arm1;
+  private Arm arm;
   private double speed;
-  public ArmExtend(Arm armextend, double speed) {
+  public ArmExtend(Arm arm1, double speed1) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.arm1 = armextend;
-    addRequirements(arm1);
+    this.arm = arm1;
+    this.speed = speed1;
+    addRequirements(arm);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    SmartDashboard.putNumber("initializing", speed);
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    arm1.setArmSpeed(speed);
+    arm.setArmSpeed(speed);
+    SmartDashboard.putNumber("Executing", speed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    arm1.armStop();
+    arm.armStop();
+    SmartDashboard.putNumber("InTeRrUpTeD", speed);
   }
 
   // Returns true when the command should end.

@@ -208,7 +208,7 @@ public static class TurretConstants {
   public static final double TURRET_RIGHT = 90;
   public static final double TURRET_LEFT = -90;
 
-  public static final double TURRET_SPEED = 0.55;
+  public static final double TURRET_SPEED = 0.2;
 
 
 }
