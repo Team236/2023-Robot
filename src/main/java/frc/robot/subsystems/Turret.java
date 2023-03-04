@@ -23,20 +23,20 @@ public class Turret extends SubsystemBase {
     turretMotor.setInverted(true);
     turretEncoder = new Encoder(TurretConstants.DIO_TRRT_ENC_A, TurretConstants.DIO_TRRT_ENC_B); //external encoder
     turretEncoder.setDistancePerPulse(TurretConstants.turretDISTANCE_PER_PULSE);
-    try {
+    /*try {
       turretLimit = new DigitalInput(TurretConstants.DIO_TURRET_LIMIT);
     } catch (Exception e) {
      isTUnplugged = true;
-    }
+    }*/
   }
 
- public boolean isTLimit() {
+ /*public boolean isTLimit() {
     if (isTUnplugged) {
       return true;
     } else {
       return !turretLimit.get();
     }
-  }
+  }*/
 
  
 
@@ -56,7 +56,7 @@ public class Turret extends SubsystemBase {
     //DO NOT REACH LIMIT GOING CW, SO DON'T CHECK LIMIT HERE:
     if (speed > 0 && getTurretAngle() > 320) {
      turretStop();
-    } else if (speed < 0 && (isTLimit() == true)) {
+    } else if (speed < 0 /*&& isTLimit()*/) {
         // mast going down and bottom limit is tripped, stop and zero encoder
         turretStop();
         resetTurretEncoder();

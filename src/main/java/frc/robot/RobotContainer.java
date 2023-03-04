@@ -71,8 +71,8 @@ public class RobotContainer {
  private final  DriveAtSetSpeed driveAtSetSpeed = new DriveAtSetSpeed(drive, 130, 0.5);
 
  //ARM
- private final PivotUp pivotUp = new PivotUp(arm, 0.5);
- private final PivotDown pivotDown = new PivotDown(arm, 0.5);
+ private final PivotUp pivotUp = new PivotUp(arm, 0.1);
+ private final PivotDown pivotDown = new PivotDown(arm, 0.1);
 
  //GRIPPER
 private final Grab grab = new Grab(gripper);

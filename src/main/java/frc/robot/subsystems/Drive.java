@@ -10,6 +10,7 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.SparkMaxRelativeEncoder.Type;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
@@ -27,17 +28,19 @@ import frc.robot.Constants.DriveConstants;
 public class Drive extends SubsystemBase {
   public CANSparkMax leftFront, leftRear, rightFront, rightRear;
   //private RelativeEncoder leftEncoder, rightEncoder;
-  Encoder leftEncoder, rightEncoder;
-  //private RelativeEncoder leftEncoder;
- //private Encoder rightEncoder;
+  //Encoder leftEncoder, rightEncoder;
+  private RelativeEncoder leftEncoder;
+ private Encoder rightEncoder;
   public AHRS navX;
   private XboxController xboxController;
-  private boolean isDeadzone, encoderNotInitialized;
+  private boolean isDeadzone, encoderNotInitialized, isTestUnplugged;
   private DoubleSolenoid transmission;
+  private DigitalInput testLimit;
 
 
   /** Creates a new ExampleSubsystem. */
   public Drive() {
+    isTestUnplugged = false;
     encoderNotInitialized = false;
     leftFront = new CANSparkMax(Constants.MotorControllers.ID_LEFT_FRONT, MotorType.kBrushless);
     leftRear = new CANSparkMax(Constants.MotorControllers.ID_LEFT_REAR, MotorType.kBrushless);
@@ -53,12 +56,17 @@ public class Drive extends SubsystemBase {
     leftRear.follow(leftFront);
     rightRear.follow(rightFront);
 
-    //eftEncoder = leftFront.getEncoder();
+    leftEncoder = leftFront.getEncoder();
    //rightEncoder = rightFront.getEncoder();
-    try {leftEncoder = new Encoder(DriveConstants.DIO_LDRIVE_ENC_A, DriveConstants.DIO_LDRIVE_ENC_B);}
+    /*try {leftEncoder = new Encoder(DriveConstants.DIO_LDRIVE_ENC_A, DriveConstants.DIO_LDRIVE_ENC_B);}
     catch (Exception e) {
       encoderNotInitialized = true;
+    }*/
+    try { testLimit = new DigitalInput(0);}
+    catch (Exception e) {
+        isTestUnplugged = true;
     }
+
     rightEncoder = new Encoder(DriveConstants.DIO_RDRIVE_ENC_A, DriveConstants.DIO_RDIRVE_ENC_B);
 
    navX = new AHRS();
@@ -83,6 +91,14 @@ public class Drive extends SubsystemBase {
 
   public double getRoll() {
     return (navX.getRoll());
+  }
+
+  public boolean isTestLimit() {
+   if (isTestUnplugged) {
+    return true;
+   } else {
+    return !testLimit.get();
+   }
   }
 
   public boolean isLevel(){
@@ -174,16 +190,16 @@ public class Drive extends SubsystemBase {
   }*/
 
   public double getLeftSpeed() {
-   //return leftEncoder.getVelocity();
-   return leftEncoder.getRate();
+   return leftEncoder.getVelocity();
+   //return leftEncoder.getRate();
   }
   public double getRightSpeed() {
     //return rightEncoder.getVelocity();
     return rightEncoder.getRate();
   }
   public double getLeftEncoder(){
- //return leftEncoder.getPosition();
- return leftEncoder.get()/128; //revs from encoder ticks
+ return leftEncoder.getPosition();
+// return leftEncoder.get()/128; //revs from encoder ticks
   }
   public double getRightEncoder() {
     //return rightEncoder.getPosition();
@@ -199,8 +215,8 @@ public class Drive extends SubsystemBase {
     return (getLeftDistance() + getRightDistance())/2 ;
   }
   public void resetLeftEncoder() {
-  //leftEncoder.setPosition(0);
-    leftEncoder.reset();
+  leftEncoder.setPosition(0);
+    //leftEncoder.reset();
   }
   public void resetRightEncoder() {
     //rightEncoder.setPosition(0);
@@ -223,6 +239,7 @@ public class Drive extends SubsystemBase {
     //SmartDashboard.putNumber("right enc", getRightEncoder());
     //SmartDashboard.putNumber("rightDis", getRightDistance());
     SmartDashboard.putBoolean("leftEncoderInit", encoderNotInitialized);
+    SmartDashboard.putBoolean("isTestLimit", isTestLimit());
     // This method will be called once per scheduler run
   }
 
