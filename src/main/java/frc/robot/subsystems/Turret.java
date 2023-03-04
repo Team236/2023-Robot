@@ -23,13 +23,11 @@ public class Turret extends SubsystemBase {
     turretMotor.setInverted(true);
     turretEncoder = new Encoder(TurretConstants.DIO_TRRT_ENC_A, TurretConstants.DIO_TRRT_ENC_B); //external encoder
     turretEncoder.setDistancePerPulse(TurretConstants.turretDISTANCE_PER_PULSE);
-     try {
+    try {
       turretLimit = new DigitalInput(TurretConstants.DIO_TURRET_LIMIT);
     } catch (Exception e) {
-      isTUnplugged = true;
+     isTUnplugged = true;
     }
-
-    
   }
 
  public boolean isTLimit() {
@@ -80,7 +78,7 @@ public class Turret extends SubsystemBase {
     // This method will be called once per scheduler run
    SmartDashboard.putNumber("turret encoder", getTurretEncoder());
     SmartDashboard.putNumber("turret angle", getTurretAngle());
-    SmartDashboard.putBoolean("turret limit", isTLimit());
+    //SmartDashboard.putBoolean("turret limit", turretLimit.get());
   
   }
 }
