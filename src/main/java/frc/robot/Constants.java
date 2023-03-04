@@ -126,7 +126,8 @@ public static class DriveConstants {
 
   public static final double REV_TO_IN_K = CIRCUMFERENCE / GEAR_RATIO;
   public static final double IN_TO_REV_K = GEAR_RATIO / CIRCUMFERENCE;
-
+  public static final double DISTANCE_PER_PULSE_K =  REV_TO_IN_K/128;
+    
   //PID stuff
   public static final double leftkPdrive = 0.01; 
   public static final double leftkIdrive = 0;
@@ -179,6 +180,7 @@ public static class ArmConstants { ///FOR TESTBOT: subject to change for final
   public static double kDarm = 0;
   public static double kFarm = 0; //mooooo
 }
+
 public static class GripperConstants {
   //Solenoid ports on the PCM
   public static final int GRIPPER_SOL_FOR = 0; //0
@@ -189,8 +191,14 @@ public static class GripperConstants {
 }
 
 public static class TurretConstants {
-  public static final double turretREV_TO_DEG = 1;
-  public static final double turretDEG_TO_REV = 1;
+  //public static final double turretREV_TO_DEG = 1;
+  //public static final double turretDEG_TO_REV = 1;
+  //DIST PER PULSE BELOW REPRESENTS DEGREES PER PULSE 
+  //DETERMINE DIST PER PULSE BY READING ENCODER VALUES AT VARIOUS ANGLES
+  //THE GET TURRET ENCODER METHOD NOW READS PULSES, NOT REVOLUTIONS
+  //IF WE NEED REV_TO_DEG, IT CAN BE CALCULATED BY MULTIPLYING DIST_PER_PULSE times 128
+  public static final double turretDISTANCE_PER_PULSE = 1;  //TBD
+  public static final double turretANGLE_OFFSET = 0;//Encoder pulses reading when arm in front center
 
   public static final double kPturret = 0.02;
   public static final double kIturret = 0;
@@ -208,8 +216,7 @@ public static class TurretConstants {
   public static final double TURRET_RIGHT = 90;
   public static final double TURRET_LEFT = -90;
 
-  public static final double TURRET_SPEED = 0.2;
-
+  public static final double TURRET_SPEED = 0.1;
 
 }
 
@@ -220,8 +227,12 @@ public static class PivotConstants {
   public static final int DIO_PVT_ENC_A = 6;
   public static final int DIO_PVT_ENC_B = 7;
 
-public static final double pvtREV_TO_DEG = 360; //tester numbers
-public static final double pvtDEG_TO_REV = 1/360;
+//public static final double pvtREV_TO_DEG = 360; //tester numbers
+//public static final double pvtDEG_TO_REV = 1/360;
+  //NO LINEAR RELATIONSHIP BETWEEN ANGLE AND ENCODER READING FOR PIVOT
+  //NEED TO RECORD VALUE OF ENCODER AT VARIOUS ANGLES AND USE THAT IN THE CODE
+
+public static final double pvtENCODER_PULSES_AT_45 = 1; //TBD, to pass into Pivot45PID command
 
 public static final double pvtSPEED = 0.75;
 public static final double PIVOT_OFFSET_ANGLE = 0;
@@ -230,7 +241,7 @@ public static double kPpvt = 0.1;
 public static double kIpvt = 0;
 public static double kDpvt = 0;
 }
+
 }
 
   
-

@@ -81,7 +81,7 @@ private final GrabReleaseToggle grabReleaseToggle = new GrabReleaseToggle(grippe
 
 //TURRET
 private final TurretCW turretCW = new TurretCW(turret, TurretConstants.TURRET_SPEED);
-private final TurretCCW turretCCW = new TurretCCW(turret, -TurretConstants.TURRET_SPEED);
+private final TurretCCW turretCCW = new TurretCCW(turret, TurretConstants.TURRET_SPEED);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -143,6 +143,7 @@ private final TurretCCW turretCCW = new TurretCCW(turret, -TurretConstants.TURRE
   rightPov.whileTrue(turretCW);
   leftPov.whileTrue(turretCCW);
   b.whileTrue(pivotUp);
+  x.whileTrue(pivotDown);
 
 
   }

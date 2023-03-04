@@ -39,14 +39,15 @@ public class Arm extends SubsystemBase {
     pivotMotor.setInverted(false);
     armEncoder = armMotor.getEncoder(); //will use SparkMax encoder for arm extend/retract
     pivotEncoder = new Encoder(PivotConstants.DIO_PVT_ENC_A, PivotConstants.DIO_PVT_ENC_B);  //using external encoder
-    
-   /*  try {
-      armExtendLimit = new DigitalInput(ArmConstants.DIO_ARM_EXT);
+   
+
+    try {
+      armExtendLimit = new DigitalInput(ArmConstants.DIO_ARM_EXTEND);
     } catch (Exception e) {
       isArmExtLimitUnplugged = true;
     }
     try {
-      armReturnLimit = new DigitalInput(ArmConstants.DIO_ARM_RET);
+      armReturnLimit = new DigitalInput(ArmConstants.DIO_ARM_RETURN);
     } catch (Exception e) {
       isArmRetLimitUnplugged = true;
     }
@@ -61,7 +62,7 @@ public class Arm extends SubsystemBase {
       pvtLowLimit = new DigitalInput(PivotConstants.PVT_LOW);
     } catch (Exception e) {
       isPLowUnplugged = true;
-    }*/
+    }
   }
 
   public void pivotStop() {
@@ -71,7 +72,7 @@ public class Arm extends SubsystemBase {
     armMotor.set(0);;
   }
 
-  /*public boolean isAExtLimit() {
+  public boolean isAExtLimit() {
     if (isArmExtLimitUnplugged) {
       return true;
     } else {
@@ -99,7 +100,7 @@ public class Arm extends SubsystemBase {
     } else {
       return !pvtLowLimit.get();
     }
-  } */
+  } 
 
   public void resetArmEncoder() {
     armEncoder.setPosition(0); //SparkMax encoder
@@ -120,20 +121,25 @@ public class Arm extends SubsystemBase {
 
   public double getPivotEncoder() {
     //returns value of encoder in Revs
-     return pivotEncoder.get()/128;  //external encoder
+    // return pivotEncoder.get()/128;  //external encoder
+    //returns value of encoder in pulses (multiply by 128 to get Revolutions)
+    return pivotEncoder.getRaw();
   }
 
+ /*NO LINEAR RELATION BETWEEN PIVOT ANGLE AND ENCODER _ CANNOT USE THIS METHOD
+ NEED TO RECORD PIVOT ENCODER VALUES AT VARIOUS ANGLES AND USE PID COMMANDS WITH THE DESIRED VALUES PASSED IN
   public double getPivotAngle() {
-    return ((getPivotEncoder() * PivotConstants.pvtREV_TO_DEG)  + PivotConstants.PIVOT_OFFSET_ANGLE);
+     //could also use turretEncoder.getDistance() here, since dist per pulse is provided at top of this subystem
+    return (getPivotEncoder() + PivotConstants.PIVOT_OFFSET_ANGLE)* PivotConstants.pvtDISTANCE_PER_PULSE;
   } //was told this is sketch, need to fix revtodeg constant (becoming unusable w talon) during bench testing
-
+*/
   public double getTotalArmLength(){
     return (getArmEncoder() * ArmConstants.armREV_TO_IN + ArmConstants.RETRACTED_ARM_LENGTH);
   }
 
   public void setArmSpeed(double speed) {
     armMotor.set(speed);
-  /*if (speed > 0) {
+  if (speed > 0) {
     if (isAExtLimit()) {
         // arm ext/ret limit is tripped going forward, stop 
         // there is 1 magnetic switch and 2 magnets, tripped forward means fully extended
@@ -156,12 +162,12 @@ public class Arm extends SubsystemBase {
         // arm retracting but fully retracted limit is not tripped, go at commanded speed
         armMotor.set(speed);
       }
-     }*/
+     }
   }
 
   public void setPivotSpeed(double speed) {
-    pivotMotor.set(ControlMode.PercentOutput, speed);
-    /*if (speed > 0) {
+   // pivotMotor.set(ControlMode.PercentOutput, speed);
+    if (speed > 0) {
       if (isPHighLimit()) {
         // mast going up and top limit is tripped, stop
         pivotStop();
@@ -182,7 +188,7 @@ public class Arm extends SubsystemBase {
         // mast going down but bottom limit is not tripped, go at commanded speed
         pivotMotor.set(ControlMode.PercentOutput, speed);
       }
-    }*/
+    }
     }
   
   @Override
@@ -190,9 +196,9 @@ public class Arm extends SubsystemBase {
     // This method will be called once per scheduler run
    SmartDashboard.putNumber("arm encoder", getArmEncoder());
   SmartDashboard.putNumber("pvt encoder", getPivotEncoder());
-   // SmartDashboard.putBoolean("pvt High", isPHighLimit());
-   // SmartDashboard.putBoolean("pvt low", isPLowLimit());
-    //SmartDashboard.putBoolean("arm extend limit", isAExtLimit());
-    //SmartDashboard.putBoolean("arm ret lim", isARetLimit());
+    SmartDashboard.putBoolean("pvt High", isPHighLimit());
+   SmartDashboard.putBoolean("pvt low", isPLowLimit());
+    SmartDashboard.putBoolean("arm extend limit", isAExtLimit());
+    SmartDashboard.putBoolean("arm ret lim", isARetLimit());
   }
 }
