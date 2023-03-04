@@ -71,7 +71,7 @@ public class RobotContainer {
  private final  DriveAtSetSpeed driveAtSetSpeed = new DriveAtSetSpeed(drive, 130, 0.5);
 
  //ARM
- private final PivotUp pivotUp = new PivotUp(arm, 0.1);
+ private final PivotUp pivotUp = new PivotUp(arm, 0.2);
  private final PivotDown pivotDown = new PivotDown(arm, 0.1);
 
  //GRIPPER
@@ -137,13 +137,15 @@ private final TurretCCW turretCCW = new TurretCCW(turret, TurretConstants.TURRET
    //DRIVECONTROLLER******
    //lb.whileTrue(armRetract);
    a.whileTrue(driveAtSetSpeed);
-  b1.whileTrue(new ArmExtend(arm, 0.5));
- x1.whileTrue(new ArmRetract(arm, 0.5));
+  b1.whileTrue(new ArmExtend(arm, 0.1));
+ x1.whileTrue(new ArmRetract(arm, 0.1));
   y.whileTrue(new AutoTrapezoidalPID(drive, 220, 0.005, 0, 0));
   rightPov.whileTrue(turretCW);
   leftPov.whileTrue(turretCCW);
   b.whileTrue(pivotUp);
   x.whileTrue(pivotDown);
+
+  rb.whileTrue(new TurretPID(turret, 0));
 
 
   }
