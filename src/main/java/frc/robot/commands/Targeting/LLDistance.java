@@ -4,14 +4,9 @@
 
 package frc.robot.commands.Targeting;
 import frc.robot.subsystems.Drive;
-//import frc.robot.subsystems.Limelight;
+import frc.robot.subsystems.Limelight;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import java.lang.Math;
-
-//import org.apache.commons.io.comparator.SizeFileComparator;
-
-//import com.fasterxml.jackson.databind.deser.ValueInstantiator.Gettable;
-
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -25,59 +20,67 @@ public class LLDistance extends CommandBase {
     //a2 = getTy (angle between camera's centerline and line extending from center of camera to center of target)
     //d = Distance to target (want 14" or 16" distance in order to be in front of Grid)
     //tan(a1 +a2)  = (h2-h1)/dx;
+
   private double kY = 0.00785; //0.00725;
-  private Drive drive1;
-  private double h1 = 21.5; //inches, same unit as d  9.5 for testbot; 21.5 for 2023 bot
-  private double h2 = 18; // inches, same unit as d
-  private double a1 = 0.436; //25 degrees  //0.261799 15 degrees for testbot - 0.29667 or 17 deg for 2022 bot
-  private double d = 40; // 12 inches away? idk how far we want to be
-  private double errorY = 0;
- // private Limelight limelight;
+  
+  private double h1 = 36; //inches, from ground to center of camera lens
+  private double h2 = 18; // inches, same unit as d, to center of target
+  private double a1 = Math.toRadians(20); //20 degrees, camera tilt
+  private double d; // desired distance from camera to target; pass into command
+  //private Limelight limelight;
+  private Drive drive;
+  private double pipeline2;
   
   /** Creates a new LLAngle. */
-  public LLDistance(Drive passed_drive1) {
-    this.drive1 = passed_drive1;
-    addRequirements(this.drive1);
-    // Use addRequirements() here to declare subsystem dependencies.
+  public LLDistance(Drive m_drive, double m_pipeline, double m_standoff) {
+  //public LLDistance(Drive passed_drive, Limelight lime, double m_pipeline) {
+    this.drive = m_drive;
+    this.pipeline2 = m_pipeline;
+    this.d = m_standoff;
+   // this.limelight = lime;
+    addRequirements(drive);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(0);
-    NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(0);
-
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(pipeline2);
 
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
-    double tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
-    double disY= NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
-   
+   NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
+   double tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
+  //double tv = limelight.getTv();
+ 
+    // TO make sure dx is positive, use abs value for disY and (h1-h2)
+   double disY = Math.abs (NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0));
+  // double disY= Math.abs(limelight.getTy());  
+  NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
+
     if(tv==1){
-         double a2 = disY*Math.PI/180;
-         double dx = -(h2-h1) / Math.tan(a1+a2);
-         errorY = d - dx;
-         double distanceAdjust = kY * errorY;
-       drive1.setLeftSpeed(distanceAdjust);
-       drive1.setRightSpeed(distanceAdjust);
-      SmartDashboard.putNumber("dx", dx);  
-      SmartDashboard.putNumber("ErrorY", errorY);
-      SmartDashboard.putNumber("distanceAdjust", distanceAdjust);
+        double a2 = disY*Math.PI/180;
+        double dx = Math.abs(h2 - h1) / Math.tan(a1+a2);  
+        double errorY = d - dx;  
+    //NOTE:  CAN TRY TO USE THE Z VALUE OF THE POSE FOR errorY (use [2] or [0] for other directions)
+    // double errorY = NetworkTableInstance.getDefault().getTable("limelight").
+    // getIntegerTopic("targetpose_cameraspace").subscribe(new double[]{}).get()[3];
+      double distanceAdjust = kY * errorY;
+       drive.setLeftSpeed(distanceAdjust);
+       drive.setRightSpeed(distanceAdjust);
+      SmartDashboard.putNumber("dx", dx);
    } else{
-   SmartDashboard.putNumber("No Target", tv);
+      SmartDashboard.putNumber("No Target", tv);
    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    drive1.stop();
-    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(0);
-   // NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(0);
+    drive.stop();
   }
 
   // Returns true when the command should end.
