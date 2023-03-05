@@ -14,8 +14,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Turret extends SubsystemBase {
   private CANSparkMax turretMotor;
   private Encoder turretEncoder;
-  private DigitalInput turretLimit;
-  private boolean isTUnplugged = false;
+  private DigitalInput cwLimit, ccwLimit;
+  private boolean isCWUnplugged = false;
+  private boolean isCCWUnplugged = false;
   /** Creates a new Turret. */
   public Turret() {
     turretMotor = new CANSparkMax(Constants.MotorControllers.ID_TURRET, MotorType.kBrushless);
@@ -25,24 +26,36 @@ public class Turret extends SubsystemBase {
     turretEncoder.setDistancePerPulse(TurretConstants.turretDISTANCE_PER_PULSE);
 
     try {
-      turretLimit = new DigitalInput(TurretConstants.DIO_TURRET_LIMIT);
+      cwLimit = new DigitalInput(TurretConstants.DIO_TCW_LIMIT);
     } catch (Exception e) {
-      isTUnplugged = true;
+      isCWUnplugged = true;
+    }
+    try {
+      ccwLimit = new DigitalInput(TurretConstants.DIO_TCCW_LIMIT);
+    } catch (Exception e) {
+      isCCWUnplugged = true;
     }
 
   }
 
-  public boolean isTLimit() {
-    if (isTUnplugged) {
+  public boolean isCWLimit() {
+    if (isCWUnplugged) {
       return true;
     } else {
-      return !turretLimit.get();
+      return !cwLimit.get();
+    }
+  }
+
+  public boolean isCCWLimit() {
+    if (isCCWUnplugged) {
+      return true;
+    } else {
+      return !ccwLimit.get();
     }
   }
   public void turretStop() {
     turretMotor.set(0);
   }
-
   public void resetTurretEncoder() {
     turretEncoder.reset();
   }
@@ -57,9 +70,9 @@ public class Turret extends SubsystemBase {
   
    public void setTurretSpeed(double speed) {
     //DO NOT REACH LIMIT GOING CW, SO DON'T CHECK LIMIT HERE:
-    if (speed > 0 && getTurretAngle() > 320) {
+    if (speed > 0 && isCWLimit()) {
      turretStop();
-    } else if (speed < 0 && isTLimit()) {
+    } else if (speed < 0 && isCCWLimit()) {
         // mast going down and bottom limit is tripped, stop and zero encoder
         turretStop();
         resetTurretEncoder();
@@ -78,7 +91,6 @@ public class Turret extends SubsystemBase {
     // This method will be called once per scheduler run
    SmartDashboard.putNumber("turret encoder", getTurretEncoder());
     SmartDashboard.putNumber("turret angle", getTurretAngle());
-    //SmartDashboard.putBoolean("turret limit", isTLimit());
   
   }
 }
