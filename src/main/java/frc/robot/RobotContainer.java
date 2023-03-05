@@ -25,10 +25,11 @@ import frc.robot.commands.Gripper.Grab;
 import frc.robot.commands.Gripper.GrabReleaseToggle;
 import frc.robot.commands.Gripper.ReleasePiece;
 import frc.robot.commands.Pivot.PivotDown;
-import frc.robot.commands.Pivot.PivotPID;
+import frc.robot.commands.Pivot.Pivot45PID;
 import frc.robot.commands.Pivot.PivotUp;
 import frc.robot.commands.Targeting.AprilFollow;
 import frc.robot.commands.Targeting.LLAngle;
+import frc.robot.commands.Targeting.LLDistance;
 import frc.robot.commands.Turret.TurretCCW;
 import frc.robot.commands.Turret.TurretCW;
 import frc.robot.commands.Turret.TurretPID;
@@ -66,7 +67,7 @@ public class RobotContainer {
   //DRIVE
  private final DoubleArcadeDrive doubleArcadeDrive = new DoubleArcadeDrive(drive, gripper, driveController);
  private final ToggleTransmission toggleTransmission = new ToggleTransmission(drive);
- private final LLAngle llAngle = new LLAngle(drive);
+ private final LLAngle llAngle = new LLAngle(drive, 0);  //must pass in the pipeline
   /** Creates a new DriveToCS. */
  private final  DriveAtSetSpeed driveAtSetSpeed = new DriveAtSetSpeed(drive, 130, 0.5);
 
@@ -132,13 +133,14 @@ private final TurretCCW turretCCW = new TurretCCW(turret, -TurretConstants.TURRE
     // ASSIGN BUTTONS TO COMMANDS
     //AUXController
    //a1.whileTrue(new ArmPID(arm, 5)); // IT WORKS
-  //b1.whileTrue(new PivotPID(arm, 5));
+  //b1.whileTrue(new Pivot45PID(arm, 350));//pass in the encoder value that equates to 45 degrees
   // y1.whileTrue(new TurretPID(turret, 3));
    //DRIVECONTROLLER******
    //lb.whileTrue(armRetract);
-   a.whileTrue(driveAtSetSpeed);
+   //x.whileTrue(new LLDistance(drive, 0, 35)); //pass in pipeline# and desired distance offset in inches
+  a.whileTrue(driveAtSetSpeed);
   b1.whileTrue(new ArmExtend(arm, 0.5));
- x1.whileTrue(new ArmRetract(arm, 0.5));
+  x1.whileTrue(new ArmRetract(arm, 0.5));
   y.whileTrue(new AutoTrapezoidalPID(drive, 220, 0.005, 0, 0));
   rightPov.whileTrue(turretCW);
   leftPov.whileTrue(turretCCW);

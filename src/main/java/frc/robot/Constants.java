@@ -204,8 +204,8 @@ public static class TurretConstants {
   public static final double kIturret = 0;
   public static final double kDturret = 0;
 
-  public static final int DIO_TURRET_LIMIT = 20; //was 16
-  //public static final int DIO_TURRET_CCW_LIMIT = 17;
+  public static final int DIO_TCW_LIMIT = 20; //was 16
+  public static final int DIO_TCCW_LIMIT = 21;
   public static final int DIO_TRRT_ENC_A = 4;
   public static final int DIO_TRRT_ENC_B = 5;
 
