@@ -10,7 +10,6 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.SparkMaxRelativeEncoder.Type;
 
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
@@ -28,20 +27,16 @@ import frc.robot.Constants.DriveConstants;
 public class Drive extends SubsystemBase {
   public CANSparkMax leftFront, leftRear, rightFront, rightRear;
   //private RelativeEncoder leftEncoder, rightEncoder;
-   private Encoder leftEncoder, rightEncoder;
+  private Encoder leftEncoder, rightEncoder;
   //private RelativeEncoder leftEncoder;
  //private Encoder rightEncoder;
   public AHRS navX;
   private XboxController xboxController;
-  private boolean isDeadzone, encoderNotInitialized, isTestUnplugged;
+  private boolean isDeadzone;
   private DoubleSolenoid transmission;
-  private DigitalInput testLimit;
-
 
   /** Creates a new ExampleSubsystem. */
   public Drive() {
-    isTestUnplugged = false;
-    encoderNotInitialized = false;
     leftFront = new CANSparkMax(Constants.MotorControllers.ID_LEFT_FRONT, MotorType.kBrushless);
     leftRear = new CANSparkMax(Constants.MotorControllers.ID_LEFT_REAR, MotorType.kBrushless);
     rightFront = new CANSparkMax(Constants.MotorControllers.ID_RIGHT_FRONT, MotorType.kBrushless);
@@ -58,8 +53,14 @@ public class Drive extends SubsystemBase {
 
     //leftEncoder = leftFront.getEncoder();
    //rightEncoder = rightFront.getEncoder();
-    leftEncoder = new Encoder(DriveConstants.DIO_LDRIVE_ENC_A, DriveConstants.DIO_LDRIVE_ENC_B);
+   leftEncoder = new Encoder(DriveConstants.DIO_LDRIVE_ENC_A, DriveConstants.DIO_LDRIVE_ENC_B);
     rightEncoder = new Encoder(DriveConstants.DIO_RDRIVE_ENC_A, DriveConstants.DIO_RDIRVE_ENC_B);
+    
+    rightEncoder.setDistancePerPulse(DriveConstants.DISTANCE_PER_PULSE_K);
+    leftEncoder.setDistancePerPulse(DriveConstants.DISTANCE_PER_PULSE_K);
+
+    
+
 
    navX = new AHRS();
    xboxController = new XboxController(Constants.ControllerConstants.USB_DRIVECONTROLLER);
@@ -125,53 +126,6 @@ public class Drive extends SubsystemBase {
     } 
     setRightSpeed(rightSpeed);
   }
- /* public void setArcadeSpeed() {
-    double max, L, R, kPgyro, error;
-
-    /*if (Math.abs(leftStick.getX()) <= 0.15) {
-      kPgyro = 0.03;
-      error = navX.getRate();
-    } else {
-      kPgyro = 0;
-      error = 0;
-    }
-
-    if (rightStick.getY() <= 0) {
-      L = (-rightStick.getY() - (kPgyro*error)) + leftStick.getX();
-      R = (-rightStick.getY() + (kPgyro*error)) - leftStick.getX();
-    } else {
-      L = (-rightStick.getY() + (kPgyro*error)) - leftStick.getX();
-      R = (-rightStick.getY() - (kPgyro*error)) + leftStick.getX();
-    }
-
-
-    //Adjust the Y speed so the robot drives straight (no angle change) when X (turn) input is low 
-    if (Math.abs(xboxController.getLeftX()) <= 0.15) {
-      kPgyro = 0.02;  //need to tune this for each robot  
-      error = navX.getRate();
-    } else {
-      kPgyro = 0;
-      error = 0;
-    }
-
-    if (xboxController.getRightY() <=0) {            
-
-      //change all signs before getLeftX for 2022 robot 
-      L = (xboxController.getRightY() + (kPgyro*error)) + xboxController.getLeftX();
-      R = (xboxController.getRightY() - (kPgyro*error)) - xboxController.getLeftX();
-    } else {
-      L = (xboxController.getRightY() - (kPgyro*error)) - xboxController.getLeftX();
-      R = (xboxController.getRightY() + (kPgyro*error)) + xboxController.getLeftX();
-    }
-
-    max = Math.abs(L);
-    if (max < Math.abs(R)) {max = Math.abs(R);}
-    if (max > 1) {L /= max; R/= max;}
-
-    setRightSpeedWithDeadzone(R);
-    setLeftSpeedWithDeadzone(L);
-
-  }*/
 
   public double getLeftSpeed() {
    //return leftEncoder.getVelocity();
@@ -182,18 +136,22 @@ public class Drive extends SubsystemBase {
     return rightEncoder.getRate();
   }
   public double getLeftEncoder(){
+    return leftEncoder.getRaw();  // USE THIS IF WE GET EXTERNAL ENCODER WORKING
  //return leftEncoder.getPosition();
-  return leftEncoder.get()/128; //revs from encoder ticks
+ //return leftEncoder.get()/128; //revs from encoder ticks
   }
   public double getRightEncoder() {
+    return rightEncoder.getRaw();
     //return rightEncoder.getPosition();
-    return rightEncoder.get()/128;
+    //return rightEncoder.get()/128;
   }
   public double getLeftDistance() {
+    //return leftEncoder.getDistance;  USE THIS IF WE GET EXTERNAL ENCODER WORKING
     return getLeftEncoder() * DriveConstants.REV_TO_IN_K;
   }
   public double getRightDistance() {
-    return getRightEncoder() * DriveConstants.REV_TO_IN_K;
+    return rightEncoder.getDistance();
+    //return getRightEncoder() * DriveConstants.REV_TO_IN_K;
   }
   public double getAvgDistance() {
     return (getLeftDistance() + getRightDistance())/2 ;
@@ -218,10 +176,10 @@ public class Drive extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.getBoolean("In Low Gear?", inLowGear());
+    //SmartDashboard.getBoolean("In Low Gear?", inLowGear());
     SmartDashboard.putNumber("left enc", getLeftEncoder());
     SmartDashboard.putNumber("right enc", getRightEncoder());
-    //SmartDashboard.putNumber("rightDis", getRightDistance());
+    SmartDashboard.putNumber("rightDis", getRightDistance());
     // This method will be called once per scheduler run
   }
 
