@@ -128,10 +128,10 @@ public class Arm extends SubsystemBase {
 
  //NO LINEAR RELATION BETWEEN PIVOT ANGLE AND ENCODER _ CANNOT USE THIS METHOD
  //NEED TO RECORD PIVOT ENCODER VALUES AT VARIOUS ANGLES AND USE PID COMMANDS WITH THE DESIRED VALUES PASSED IN
-  public double getPivotAngle() {
+ /*  public double getPivotAngle() {
      //could also use turretEncoder.getDistance() here, since dist per pulse is provided at top of this subystem
     return (getPivotEncoder() + PivotConstants.PIVOT_OFFSET_ANGLE)* PivotConstants.pvtDISTANCE_PER_PULSE;
-  } //was told this is sketch, need to fix revtodeg constant (becoming unusable w talon) during bench testing
+  } //was told this is sketch, need to fix revtodeg constant (becoming unusable w talon) during bench testing*/
 
   public double getTotalArmLength(){
     return (getArmEncoder() * ArmConstants.armREV_TO_IN + ArmConstants.RETRACTED_ARM_LENGTH);
@@ -165,6 +165,8 @@ public class Arm extends SubsystemBase {
      }
   }
 
+  
+
   public void setPivotSpeed(double speed) {
     pivotMotor.set(ControlMode.PercentOutput, speed);
     if (speed > 0) {
@@ -194,11 +196,12 @@ public class Arm extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-   SmartDashboard.putNumber("arm encoder", getArmEncoder());
+   //SmartDashboard.putNumber("arm encoder", getArmEncoder());
   SmartDashboard.putNumber("pvt encoder", getPivotEncoder());
-   // SmartDashboard.putBoolean("pvt High", isPHighLimit());
-   // SmartDashboard.putBoolean("pvt low", isPLowLimit());
-    //SmartDashboard.putBoolean("arm extend limit", isAExtLimit());
+   SmartDashboard.putBoolean("pvt High", isPHighLimit());
+   SmartDashboard.putBoolean("pvt low", isPLowLimit());
+   // SmartDashboard.putBoolean("arm extend limit", isAExtLimit());
     //SmartDashboard.putBoolean("arm ret lim", isARetLimit());
+   //SmartDashboard.putNumber("armDist", getArmDistance());
   }
 }

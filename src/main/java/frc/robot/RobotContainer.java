@@ -20,7 +20,7 @@ import frc.robot.commands.Drive.DoubleArcadeDrive;
 //import frc.robot.commands.Drive.DriveWithJoysticks;
 import frc.robot.commands.Drive.TDWG_No;
 import frc.robot.commands.Drive.ToggleTransmission;
-import frc.robot.commands.Drive.DriveWithJoysticks;
+//import frc.robot.commands.Drive.DriveWithJoysticks;
 import frc.robot.commands.Gripper.Grab;
 import frc.robot.commands.Gripper.GrabReleaseToggle;
 import frc.robot.commands.Gripper.ReleasePiece;
@@ -72,8 +72,8 @@ public class RobotContainer {
  private final  DriveAtSetSpeed driveAtSetSpeed = new DriveAtSetSpeed(drive, 130, 0.5);
 
  //ARM
- private final PivotUp pivotUp = new PivotUp(arm, 0.5);
- private final PivotDown pivotDown = new PivotDown(arm, 0.5);
+ private final PivotUp pivotUp = new PivotUp(arm, 0.4);
+ private final PivotDown pivotDown = new PivotDown(arm, 0.3);
 
  //GRIPPER
 private final Grab grab = new Grab(gripper);
@@ -138,13 +138,15 @@ private final TurretCCW turretCCW = new TurretCCW(turret, -TurretConstants.TURRE
    //DRIVECONTROLLER******
    //lb.whileTrue(armRetract);
    //x.whileTrue(new LLDistance(drive, 0, 35)); //pass in pipeline# and desired distance offset in inches
-  a.whileTrue(driveAtSetSpeed);
-  b1.whileTrue(new ArmExtend(arm, 0.5));
-  x1.whileTrue(new ArmRetract(arm, 0.5));
-  y.whileTrue(new AutoTrapezoidalPID(drive, 220, 0.005, 0, 0));
-  rightPov.whileTrue(turretCW);
-  leftPov.whileTrue(turretCCW);
-  b.whileTrue(pivotUp);
+  a.whileTrue(toggleTransmission);
+  b.whileTrue(grabReleaseToggle);
+  b1.whileTrue(new ArmExtend(arm, 0.3));
+  x1.whileTrue(new ArmRetract(arm, 0.3));
+ // y.whileTrue(new AutoTrapezoidalPID(drive, 220, 0.005, 0, 0));
+  //rightPov.whileTrue(turretCW);
+  //leftPov.whileTrue(turretCCW);
+ x.whileTrue(pivotUp);
+ y.whileTrue(pivotDown);
 
 
   }

@@ -136,6 +136,7 @@ public class Drive extends SubsystemBase {
     return rightEncoder.getRate();
   }
   public double getLeftEncoder(){
+    SmartDashboard.getNumber("getting raw", leftEncoder.getRaw());
     return leftEncoder.getRaw();  // USE THIS IF WE GET EXTERNAL ENCODER WORKING
  //return leftEncoder.getPosition();
  //return leftEncoder.get()/128; //revs from encoder ticks
@@ -146,12 +147,12 @@ public class Drive extends SubsystemBase {
     //return rightEncoder.get()/128;
   }
   public double getLeftDistance() {
-    //return leftEncoder.getDistance;  USE THIS IF WE GET EXTERNAL ENCODER WORKING
-    return getLeftEncoder() * DriveConstants.REV_TO_IN_K;
+    return getLeftEncoder() * DriveConstants.DISTANCE_PER_PULSE_K;
+    // distance per pulse * encoder reading
   }
   public double getRightDistance() {
-    return rightEncoder.getDistance();
-    //return getRightEncoder() * DriveConstants.REV_TO_IN_K;
+    //return rightEncoder.getDistance();
+    return getRightEncoder() * DriveConstants.DISTANCE_PER_PULSE_K;
   }
   public double getAvgDistance() {
     return (getLeftDistance() + getRightDistance())/2 ;
@@ -176,10 +177,11 @@ public class Drive extends SubsystemBase {
 
   @Override
   public void periodic() {
-    //SmartDashboard.getBoolean("In Low Gear?", inLowGear());
-    SmartDashboard.putNumber("left enc", getLeftEncoder());
-    SmartDashboard.putNumber("right enc", getRightEncoder());
-    SmartDashboard.putNumber("rightDis", getRightDistance());
+    SmartDashboard.getBoolean("In Low Gear?", inLowGear());
+    //SmartDashboard.putNumber("left enc", getLeftEncoder());
+    //SmartDashboard.putNumber("right enc", getRightEncoder());
+    //SmartDashboard.putNumber("rightDis", getRightDistance());
+    //SmartDashboard.putNumber("left dis", getLeftDistance());
     // This method will be called once per scheduler run
   }
 

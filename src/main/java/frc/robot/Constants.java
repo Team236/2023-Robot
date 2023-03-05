@@ -120,13 +120,13 @@ public static class DriveConstants {
   //robot-specific numbers
   public static final double DIAMETER = 6; 
   public static final double CIRCUMFERENCE = Math.PI * DIAMETER;
-  public static final double GEAR_RATIO = 8.364; //TEMPORARY!!!
+  public static final double GEAR_RATIO = 1; //TEMPORARY!!!
   //6.273 - low?? - testbot
   //8.364 - high??? - testbot
 
   public static final double REV_TO_IN_K = CIRCUMFERENCE / GEAR_RATIO;
   public static final double IN_TO_REV_K = GEAR_RATIO / CIRCUMFERENCE;
-  public static final double DISTANCE_PER_PULSE_K =  REV_TO_IN_K/128;
+  public static final double DISTANCE_PER_PULSE_K =  REV_TO_IN_K/512;
     
   //PID stuff
   public static final double leftkPdrive = 0.01; 
@@ -161,14 +161,14 @@ public static class DriveConstants {
 }
 
 public static class ArmConstants { ///FOR TESTBOT: subject to change for final
-  public static double armREV_TO_IN = 0.5; // 1/2 inch per revolution
-  public static double armIN_TO_REV = 2; //2 revolutions per inch
+  public static double armREV_TO_IN = 0.4875; // 1/2 inch per revolution
+  public static double armIN_TO_REV = 2.051; //2 revolutions per inch
   public static double MAST_HEIGHT = 41.5; // intsert here the height frpm floor to top of mast, in inches
   public static double RETRACTED_ARM_LENGTH = 26; // insert here length of arm when fully retracted, in inches
   public static double ARM_FLOOR_STANDOFF = 12; // insert here desired minnimum distance from arm to floor, in inches
 
-  public static final int DIO_ARM_RETURN = 11; //7
-  public static final int DIO_ARM_EXTEND = 22; //8  was18
+  public static final int DIO_ARM_RETURN = 22; //7
+  public static final int DIO_ARM_EXTEND = 11; //8  was18
 
   public static final double ARM_OUT = 4;
 
@@ -224,8 +224,8 @@ public static class PivotConstants {
   public static final int PVT_LOW = 8;
   public static final int PVT_HIGH = 9;
 
-  public static final int DIO_PVT_ENC_A = 6;
-  public static final int DIO_PVT_ENC_B = 7;
+  public static final int DIO_PVT_ENC_A = 7;
+  public static final int DIO_PVT_ENC_B = 6;
 
 //public static final double pvtREV_TO_DEG = 360; //tester numbers
 //public static final double pvtDEG_TO_REV = 1/360;
@@ -235,7 +235,7 @@ public static class PivotConstants {
 public static final double pvtENCODER_PULSES_AT_45 = 1; //TBD, to pass into Pivot45PID command
 
 public static final double pvtSPEED = 0.75;
-public static final double PIVOT_OFFSET_ANGLE = 0;
+public static final double PIVOT_OFFSET_ANGLE = 20;
 public static final double pvtDISTANCE_PER_PULSE = 0;
 
 public static double kPpvt = 0.1;
