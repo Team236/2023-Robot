@@ -11,7 +11,6 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.Constants.ArmConstants;
@@ -65,8 +64,6 @@ public class Arm extends SubsystemBase {
       isPLowUnplugged = true;
     }
   }
-
-
 
   public void pivotStop() {
     pivotMotor.set(ControlMode.PercentOutput, 0);
@@ -129,13 +126,13 @@ public class Arm extends SubsystemBase {
     return pivotEncoder.getRaw();
   }
 
- /*NO LINEAR RELATION BETWEEN PIVOT ANGLE AND ENCODER _ CANNOT USE THIS METHOD
- NEED TO RECORD PIVOT ENCODER VALUES AT VARIOUS ANGLES AND USE PID COMMANDS WITH THE DESIRED VALUES PASSED IN
+ //NO LINEAR RELATION BETWEEN PIVOT ANGLE AND ENCODER _ CANNOT USE THIS METHOD
+ //NEED TO RECORD PIVOT ENCODER VALUES AT VARIOUS ANGLES AND USE PID COMMANDS WITH THE DESIRED VALUES PASSED IN
   public double getPivotAngle() {
      //could also use turretEncoder.getDistance() here, since dist per pulse is provided at top of this subystem
     return (getPivotEncoder() + PivotConstants.PIVOT_OFFSET_ANGLE)* PivotConstants.pvtDISTANCE_PER_PULSE;
   } //was told this is sketch, need to fix revtodeg constant (becoming unusable w talon) during bench testing
-*/
+
   public double getTotalArmLength(){
     return (getArmEncoder() * ArmConstants.armREV_TO_IN + ArmConstants.RETRACTED_ARM_LENGTH);
   }
@@ -169,7 +166,7 @@ public class Arm extends SubsystemBase {
   }
 
   public void setPivotSpeed(double speed) {
-   // pivotMotor.set(ControlMode.PercentOutput, speed);
+    pivotMotor.set(ControlMode.PercentOutput, speed);
     if (speed > 0) {
       if (isPHighLimit()) {
         // mast going up and top limit is tripped, stop
@@ -196,12 +193,12 @@ public class Arm extends SubsystemBase {
   
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run  
-    SmartDashboard.putNumber("arm encoder", getArmEncoder());
-    SmartDashboard.putNumber("pvt encoder", getPivotEncoder());
-    SmartDashboard.putBoolean("pvt High", isPHighLimit());
-    SmartDashboard.putBoolean("pvt low", isPLowLimit());
-    SmartDashboard.putBoolean("arm extend limit", isAExtLimit());
-    SmartDashboard.putBoolean("arm ret lim", isARetLimit());
+    // This method will be called once per scheduler run
+   SmartDashboard.putNumber("arm encoder", getArmEncoder());
+  SmartDashboard.putNumber("pvt encoder", getPivotEncoder());
+   // SmartDashboard.putBoolean("pvt High", isPHighLimit());
+   // SmartDashboard.putBoolean("pvt low", isPLowLimit());
+    //SmartDashboard.putBoolean("arm extend limit", isAExtLimit());
+    //SmartDashboard.putBoolean("arm ret lim", isARetLimit());
   }
 }
