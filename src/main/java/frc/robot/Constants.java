@@ -167,8 +167,8 @@ public static class ArmConstants { ///FOR TESTBOT: subject to change for final
   public static double RETRACTED_ARM_LENGTH = 26; // insert here length of arm when fully retracted, in inches
   public static double ARM_FLOOR_STANDOFF = 12; // insert here desired minnimum distance from arm to floor, in inches
 
-  public static final int DIO_ARM_RETURN = 2; //22
-  public static final int DIO_ARM_EXTEND = 1; //11
+  public static final int DIO_ARM_RETURN = 22; //22
+  public static final int DIO_ARM_EXTEND = 11; //11
 
   public static final double ARM_OUT = 4;
 

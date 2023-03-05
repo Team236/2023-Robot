@@ -43,6 +43,7 @@ public class Turret extends SubsystemBase {
   public void resetTurretEncoder() {
     turretEncoder.reset();
   }
+  
   public double getTurretEncoder() {
     return turretEncoder.getRaw();  //returns encoder reading in pulses, not Rev
    //return turretEncoder.get()/128;  //128 ticks per rev, returns REVS
@@ -59,7 +60,7 @@ public class Turret extends SubsystemBase {
     } else if (speed < 0 && isTLimit()) {
         // mast going down and bottom limit is tripped, stop and zero encoder
         turretStop();
-        resetTurretEncoder();
+        
       } else {
         // mast going down but bottom limit is not tripped, go at commanded speed
         turretMotor.set(speed);
