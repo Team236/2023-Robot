@@ -7,13 +7,13 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Arm;
 
 public class PivotUp extends CommandBase {
-  private Arm arm;
-  private double speed;
+  private Arm pivot3;
+  private double speed3;
   /** Creates a new PivotCW. */
-  public PivotUp(Arm pivotup, double speed5) {
-    this.arm = pivotup;
-    this.speed = speed5;
-    addRequirements(arm);
+  public PivotUp(Arm pivotup, double speedup) {
+    this.pivot3 = pivotup;
+    this.speed3 = speedup;
+    addRequirements(pivot3);
   }
 
   // Called when the command is initially scheduled.
@@ -23,22 +23,22 @@ public class PivotUp extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    arm.setPivotSpeed(speed);
+    pivot3.setPivotSpeed(speed3);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    arm.pivotStop();
+    pivot3.pivotStop();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-      /*  if ((speed > 0.008) && pivot3.isPHighLimit()) {
+      /* if ((speed3 > 0.008) && pivot3.isPHighLimit()) {
       return true;
-    } else if ((speed < 0) && turret.isPLowLimit()()) {
-      turret.resetTurretEncoder();
+    } else if ((speed3 < 0) && pivot3.isPLowLimit()()) {
+      pivot3.resetPivotEncoder();
       return true;
     } else {
       return false;

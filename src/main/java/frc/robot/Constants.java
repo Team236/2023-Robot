@@ -236,6 +236,7 @@ public static final double pvtENCODER_PULSES_AT_45 = 1; //TBD, to pass into Pivo
 
 public static final double pvtSPEED = 0.75;
 public static final double PIVOT_OFFSET_ANGLE = 0;
+public static final double pvtDISTANCE_PER_PULSE = 0;
 
 public static double kPpvt = 0.1;
 public static double kIpvt = 0;

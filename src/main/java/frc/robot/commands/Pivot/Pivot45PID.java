@@ -8,17 +8,17 @@ import frc.robot.subsystems.Arm;
 import edu.wpi.first.math.controller.PIDController;
 import frc.robot.Constants.PivotConstants;
 
-public class PivotPID extends CommandBase {
+public class Pivot45PID extends CommandBase {
   private Arm pivot2;
-  private double pvtAngle;
+  private double pvtTarget;
   private final PIDController pvtPidController;
   /** Creates a new PivotPID. */
-  public PivotPID(Arm pivotpid, double pvtAngle) {
-    this.pivot2 = pivotpid;
+  public Pivot45PID(Arm m_pivotpid2, double m_pvtTarget) {
+    this.pivot2 = m_pivotpid2;
     addRequirements(pivot2);
-    this.pvtAngle = pvtAngle;
+    this.pvtTarget = m_pvtTarget;
     this.pvtPidController = new PIDController(PivotConstants.kPpvt, PivotConstants.kIpvt, PivotConstants.kDpvt);
-    pvtPidController.setSetpoint(pvtAngle);
+    pvtPidController.setSetpoint(pvtTarget);
   }
 
   // Called when the command is initially scheduled.
@@ -31,8 +31,8 @@ public class PivotPID extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-   //double pvtSpeed = pvtPidController.calculate(pivot2.getPivotAngle());
-  //pivot2.setPivotSpeed(pvtSpeed);
+   double pvtSpeed = pvtPidController.calculate(pivot2.getPivotEncoder());
+  pivot2.setPivotSpeed(pvtSpeed);
   }
 
   // Called once the command ends or is interrupted.
