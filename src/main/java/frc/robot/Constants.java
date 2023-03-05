@@ -147,16 +147,16 @@ public static class DriveConstants {
   public static final double MARGIN_GYRO_DRIVE = 3;
 
   //drive encoder channels
-  public static final int DIO_LDRIVE_ENC_A = 18;
-  public static final int DIO_LDRIVE_ENC_B = 19;
+  public static final int DIO_LDRIVE_ENC_A = 18; //was 14
+  public static final int DIO_LDRIVE_ENC_B = 19; //was 15
   public static final int DIO_RDRIVE_ENC_A = 13;
   public static final int DIO_RDIRVE_ENC_B = 12;
 
   //auto selector switches
- //public static final int DIO_AUTO_1 = 0;
-  //public static final int DIO_AUTO_2 = 1;
-  //public static final int DIO_AUTO_3 = 2;
-  //public static final int DIO_AUTO_4 = 3;
+ public static final int DIO_AUTO_1 = 0;
+  public static final int DIO_AUTO_2 = 1;
+  public static final int DIO_AUTO_3 = 2;
+  public static final int DIO_AUTO_4 = 3;
 
 }
 
@@ -167,8 +167,8 @@ public static class ArmConstants { ///FOR TESTBOT: subject to change for final
   public static double RETRACTED_ARM_LENGTH = 26; // insert here length of arm when fully retracted, in inches
   public static double ARM_FLOOR_STANDOFF = 12; // insert here desired minnimum distance from arm to floor, in inches
 
-  public static final int DIO_ARM_RETURN = 22; //22
-  public static final int DIO_ARM_EXTEND = 11; //11
+  public static final int DIO_ARM_RETURN = 11; //7
+  public static final int DIO_ARM_EXTEND = 22; //8  was18
 
   public static final double ARM_OUT = 4;
 
@@ -186,7 +186,7 @@ public static class GripperConstants {
   public static final int GRIPPER_SOL_FOR = 0; //0
   public static final int GRIPPER_SOL_REV = 1; //1
   //Port used on the DIO
-  public static final int DIO_GRIPPER_EYE = 0; //10
+  public static final int DIO_GRIPPER_EYE = 10; //0
 
 }
 
@@ -204,7 +204,8 @@ public static class TurretConstants {
   public static final double kIturret = 0;
   public static final double kDturret = 0;
 
-  public static final int DIO_TURRET_LIMIT = 20;
+  public static final int DIO_TURRET_LIMIT = 20; //was 16
+  //public static final int DIO_TURRET_CCW_LIMIT = 17;
   public static final int DIO_TRRT_ENC_A = 4;
   public static final int DIO_TRRT_ENC_B = 5;
 

@@ -23,27 +23,29 @@ public class Turret extends SubsystemBase {
     turretMotor.setInverted(true);
     turretEncoder = new Encoder(TurretConstants.DIO_TRRT_ENC_A, TurretConstants.DIO_TRRT_ENC_B); //external encoder
     turretEncoder.setDistancePerPulse(TurretConstants.turretDISTANCE_PER_PULSE);
+
     try {
       turretLimit = new DigitalInput(TurretConstants.DIO_TURRET_LIMIT);
     } catch (Exception e) {
-     isTUnplugged = true;
+      isTUnplugged = true;
     }
+
   }
 
- public boolean isTLimit() {
+  public boolean isTLimit() {
     if (isTUnplugged) {
       return true;
     } else {
       return !turretLimit.get();
     }
   }
-
- 
+  public void turretStop() {
+    turretMotor.set(0);
+  }
 
   public void resetTurretEncoder() {
     turretEncoder.reset();
   }
-  
   public double getTurretEncoder() {
     return turretEncoder.getRaw();  //returns encoder reading in pulses, not Rev
    //return turretEncoder.get()/128;  //128 ticks per rev, returns REVS
@@ -55,31 +57,28 @@ public class Turret extends SubsystemBase {
   
    public void setTurretSpeed(double speed) {
     //DO NOT REACH LIMIT GOING CW, SO DON'T CHECK LIMIT HERE:
-    if (speed > 0 && isTLimit()) {
+    if (speed > 0 && getTurretAngle() > 320) {
      turretStop();
     } else if (speed < 0 && isTLimit()) {
         // mast going down and bottom limit is tripped, stop and zero encoder
         turretStop();
-        
+        resetTurretEncoder();
       } else {
         // mast going down but bottom limit is not tripped, go at commanded speed
         turretMotor.set(speed);
       }
     } 
     
-  /*   public void setTurretSpeed(double speed) {
+    /*public void setTurretSpeed(double speed) {
       turretMotor.set(speed);
     }*/
-  public void turretStop() {
-    turretMotor.set(0);
-  }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
    SmartDashboard.putNumber("turret encoder", getTurretEncoder());
     SmartDashboard.putNumber("turret angle", getTurretAngle());
-    SmartDashboard.putBoolean("turret limit", isTLimit());
+    //SmartDashboard.putBoolean("turret limit", isTLimit());
   
   }
 }
