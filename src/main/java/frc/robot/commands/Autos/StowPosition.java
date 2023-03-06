@@ -5,25 +5,19 @@
 package frc.robot.commands.Autos;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.Arm.ArmPID;
-import frc.robot.commands.Gripper.GrabReleaseToggle;
+import frc.robot.commands.Arm.ArmRetract;
 import frc.robot.commands.Pivot.Pivot45PID;
 import frc.robot.subsystems.Arm;
-import frc.robot.subsystems.Gripper;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class ScoreMiddleLevel extends SequentialCommandGroup {
-
-  
-  /** Creates a new ScoreMiddleLevel. */
-  public ScoreMiddleLevel(Arm apScore1, Gripper gripScore1) {
+public class StowPosition extends SequentialCommandGroup {
+  /** Creates a new StowPosition. */
+  public StowPosition(Arm armStow) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new GrabReleaseToggle(gripScore1),
-      new Pivot45PID(apScore1, 10065).withTimeout(2),
-      new ArmPID(apScore1, 7).withTimeout(4));
-      
+    addCommands(new ArmRetract(armStow, 0.3).withTimeout(2),
+    new Pivot45PID(armStow, 20));
   }
 }
