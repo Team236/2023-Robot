@@ -15,6 +15,7 @@ import frc.robot.commands.Autos.AutoPIDDrive;
 import frc.robot.commands.Autos.AutoTrapezoidalPID;
 import frc.robot.commands.Autos.DriveAtSetSpeed;
 import frc.robot.commands.Autos.GrabScoreFlatGround;
+import frc.robot.commands.Autos.ScoreMiddleLevel;
 import frc.robot.commands.Autos.TurnPID;
 import frc.robot.commands.Drive.DoubleArcadeDrive;
 //import frc.robot.commands.Drive.DriveWithJoysticks;
@@ -39,7 +40,10 @@ import frc.robot.subsystems.Gripper;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Turret;
 import org.photonvision.PhotonCamera;
+
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -60,10 +64,16 @@ public class RobotContainer {
   private final Arm arm = new Arm();
   private final Gripper gripper = new Gripper();
   private final Turret turret = new Turret();
+  private static DigitalInput autoSwitch1 = new DigitalInput(Constants.DriveConstants.DIO_AUTO_1);
+  private static DigitalInput autoSwitch2 = new DigitalInput(Constants.DriveConstants.DIO_AUTO_2);
+  private static DigitalInput autoSwitch3 = new DigitalInput(Constants.DriveConstants.DIO_AUTO_3);
+  private static DigitalInput autoSwitch4 = new DigitalInput(Constants.DriveConstants.DIO_AUTO_4);
+  // *DRIVE
+
 
   //COMMANDS****
   //AUTO
-
+  private final ScoreMiddleLevel scoreMiddleLevel = new ScoreMiddleLevel(arm, gripper);
   //DRIVE
  private final DoubleArcadeDrive doubleArcadeDrive = new DoubleArcadeDrive(drive, gripper, driveController);
  private final ToggleTransmission toggleTransmission = new ToggleTransmission(drive);
@@ -147,16 +157,35 @@ private final TurretCCW turretCCW = new TurretCCW(turret, -TurretConstants.TURRE
   //leftPov.whileTrue(turretCCW);
  x.whileTrue(pivotUp);
  y.whileTrue(pivotDown);
+ lb.whileTrue(scoreMiddleLevel);
+ rb.whileTrue( new Pivot45PID(arm, 10065));
 
 
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
-   *
-   * @return the command to run in autonomous
    */
-  public boolean getAutonomousCommand() {
-    // An example command will be run in autonomous
-    return(false);
+  public Command getAutonomousCommand() {
+    if (autoSwitch1.get() && !autoSwitch2.get() && !autoSwitch3.get() && !autoSwitch4.get()) {
+      return scoreMiddleLevel;
+    } else {
+      return releasePiece;
+    }
+     /*else if (!autoSwitch1.get() && !autoSwitch3.get()) {
+      return quadruplePosition1;
+    } else if (!autoSwitch1.get() && !autoSwitch4.get()) {
+      return extendedTriple1;
+    } else if (!autoSwitch1.get()) {
+      return doubleTarmac1;
+    } else if (!autoSwitch2.get()) {
+      return doubleTarmac2;
+    } else if (!autoSwitch3.get()) {
+      return triplePosition1;
+    } else if (!autoSwitch4.get()) {
+      return triplePosition2;
+    } else {
+      return doubleTarmac1;
+    }*/
+    //return doubleArcadeDrive;
   }
 }

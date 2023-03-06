@@ -235,10 +235,10 @@ public static class PivotConstants {
 public static final double pvtENCODER_PULSES_AT_45 = 1; //TBD, to pass into Pivot45PID command
 
 public static final double pvtSPEED = 0.75;
-public static final double PIVOT_OFFSET_ANGLE = 20;
+public static final double PIVOT_OFFSET_ANGLE = 19;
 public static final double pvtDISTANCE_PER_PULSE = 0;
 
-public static double kPpvt = 0.1;
+public static double kPpvt = 0.0005;
 public static double kIpvt = 0;
 public static double kDpvt = 0;
 }

@@ -75,7 +75,7 @@ public class AutoBalanceGyro extends CommandBase {
           yAxisRate = Math.sin(rollAngleRadians) * -1;
       }
 
-      drive.setBothSpeeds(yAxisRate);
+      drive.setBothSpeeds(xAxisRate);
       Timer.delay(0.005);
     }
 
