@@ -6,6 +6,7 @@ package frc.robot.commands.Pivot;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Arm;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.PivotConstants;
 
 public class Pivot45PID extends CommandBase {
@@ -44,7 +45,14 @@ public class Pivot45PID extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
-    
+    double pvtSpeed = pvtPidController.calculate(pivot2.getPivotEncoder());
+    //stop when near target and commanded speed close to 0
+if ((pivot2.getPivotEncoder() > 0.9*pvtTarget)&& (Math.abs(pvtSpeed) < 0.02)) {
+  SmartDashboard.putBoolean("PvtPID Finished?", true);
+  return true;
+} else {
+  SmartDashboard.putBoolean("PvtPID Finished?", false);
+  return false;
+}
   }
 }

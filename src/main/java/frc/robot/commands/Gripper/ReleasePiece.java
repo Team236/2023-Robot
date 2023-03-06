@@ -29,6 +29,12 @@ public class ReleasePiece extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    if (gripper.isGripping() && (gripper.getGripperEyeCount() == 0)) {
+      return false;
+    } else {
+      return true;
+    }
+    
+    
   }
 }

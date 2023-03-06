@@ -78,6 +78,13 @@ public class AutoPIDDrive extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+  //stop when near target and commanded speed close to 0
+  if ((drive.getLeftDistance() > 0.9*driveDistance)&& (Math.abs(LL + adjustL) < 0.02)) {
+    SmartDashboard.putBoolean("AutoPIDDRive Finished?", true);
+    return true;
+  } else {
+    SmartDashboard.putBoolean("AUTOPIDDRive Finished?", false);
     return false;
+  }
   }
 }

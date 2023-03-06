@@ -45,14 +45,14 @@ public class ArmPID extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    double armSpeed = armPidController.calculate(arm3.getArmDistance());
+      //stop when near target and commanded speed close to 0
+  if ((arm3.getArmDistance() > 0.9*armDistance)&& (Math.abs(armSpeed) < 0.02)) {
+    SmartDashboard.putBoolean("ArmPID Finished?", true);
+    return true;
+  } else {
+    SmartDashboard.putBoolean("ArmPID Finished?", false);
     return false;
-   /* if ((armDistance > 0) && arm3.isAExtendLimit()) {
-      return true;
-    } else if ((armDistance < 0) && arm3.isAReturnLimit()) {
-      arm3.resetArmEncoder();
-      return true;
-    } else {
-      return false;
-    }*/
+  }
   }
 }
