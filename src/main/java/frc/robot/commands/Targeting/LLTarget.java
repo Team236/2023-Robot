@@ -20,9 +20,9 @@ public class LLTarget extends CommandBase {
   private double kX = 0.02;//ADJUST!!!  0.005??
   private double kY = 0.00785; //0.00725;
   private Drive drive;
-  private double h1 = 36; //inches, distance from floor to center of camera lens
+  private double h1 = 33; //inches, distance from floor to center of camera lens
   private double h2 = 18; // inches, same unit as d, to center of target
-  private double a1 = Math.toRadians(20); //20 degrees - camera angle
+  private double a1 = Math.toRadians(28); //20 degrees - camera angle
   private double d; //desired distance from camera to target - pass into command
   private double steeringAdjust;
   //private Limelight limelight;
@@ -54,7 +54,7 @@ public class LLTarget extends CommandBase {
    // TO make sure dx is positive, use abs value for disY and (h1-h2)
     double disY= Math.abs(NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0));
     double disX = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
-    double errorX = disX - Units.inchesToMeters(-4); //camera offset is 4, negative works?
+    double errorX = disX - Units.inchesToMeters(-4.25); //camera offset is 4, negative works?
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
 
     if(tv==1){

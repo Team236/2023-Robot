@@ -18,7 +18,7 @@ import java.lang.Math;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class LLAngle extends CommandBase {
-  private double kX = 0.02;  //0.005??
+  private double kX = 0.05;  //0.005??
   private Drive drive;
   private double pipeline1;
 
@@ -36,6 +36,7 @@ public class LLAngle extends CommandBase {
   public void initialize() {
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(0);
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(pipeline1);
+    SmartDashboard.putNumber("llangle init", pipeline1);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -44,17 +45,16 @@ public class LLAngle extends CommandBase {
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
     double tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
     double disX = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
-    double errorX = disX - Units.inchesToMeters(-4); //camera offset is approx 4 inches? Negative works?
+    double errorX = disX - Units.inchesToMeters(4.25); //camera offset is approx 4 inches? Negative works?
  
 //TRY FOR errorX
      // double errorY = NetworkTableInstance.getDefault().getTable("limelight").
        // getIntegerTopic("targetpose_cameraspace").subscribe(new double[]{}).get()[2];  //or 0?
 
 
-    if(tv==1){
+    if(tv==1 && Math.abs(errorX)>2){
       //double x = (errorX-160)/320;
       //Establishes a minimum error in the x axis 
-      if(Math.abs(errorX)>2){
         double steeringAdjust = kX * errorX;
         drive.setLeftSpeed(steeringAdjust);
         drive.setRightSpeed(-steeringAdjust); 
@@ -63,7 +63,6 @@ public class LLAngle extends CommandBase {
       SmartDashboard.putNumber("No Shoot Target", tv);
       }
   }
-}
 
   // Called once the command ends or is interrupted.
   @Override

@@ -16,6 +16,7 @@ import frc.robot.commands.Autos.AutoTrapezoidalPID;
 import frc.robot.commands.Autos.DriveAtSetSpeed;
 import frc.robot.commands.Autos.GrabScoreFlatGround;
 import frc.robot.commands.Autos.ScoreMiddleLevel;
+import frc.robot.commands.Autos.StowPosition;
 import frc.robot.commands.Autos.TurnPID;
 import frc.robot.commands.Drive.DoubleArcadeDrive;
 //import frc.robot.commands.Drive.DriveWithJoysticks;
@@ -31,6 +32,7 @@ import frc.robot.commands.Pivot.PivotUp;
 import frc.robot.commands.Targeting.AprilFollow;
 import frc.robot.commands.Targeting.LLAngle;
 import frc.robot.commands.Targeting.LLDistance;
+import frc.robot.commands.Targeting.LLTarget;
 import frc.robot.commands.Turret.TurretCCW;
 import frc.robot.commands.Turret.TurretCW;
 import frc.robot.commands.Turret.TurretPID;
@@ -74,10 +76,13 @@ public class RobotContainer {
   //COMMANDS****
   //AUTO
   private final ScoreMiddleLevel scoreMiddleLevel = new ScoreMiddleLevel(arm, gripper);
+  private final StowPosition stowPosition = new StowPosition(arm);
   //DRIVE
  private final DoubleArcadeDrive doubleArcadeDrive = new DoubleArcadeDrive(drive, gripper, driveController);
  private final ToggleTransmission toggleTransmission = new ToggleTransmission(drive);
- private final LLAngle llAngle = new LLAngle(drive, 0);  //must pass in the pipeline
+ private final LLAngle llAngle = new LLAngle(drive, 0); 
+ private final LLDistance llDistance = new LLDistance(drive, 0, 40);
+ private final LLTarget llTarget = new LLTarget(drive, 0, 40); //must pass in the pipeline
   /** Creates a new DriveToCS. */
  private final  DriveAtSetSpeed driveAtSetSpeed = new DriveAtSetSpeed(drive, 130, 0.5);
 
@@ -158,7 +163,10 @@ private final TurretCCW turretCCW = new TurretCCW(turret, -TurretConstants.TURRE
  x.whileTrue(pivotUp);
  y.whileTrue(pivotDown);
  lb.whileTrue(scoreMiddleLevel);
- rb.whileTrue( new Pivot45PID(arm, 10065));
+ lm.whileTrue(stowPosition);
+ rm.whileTrue(llAngle);
+ rb.whileTrue(llDistance);
+ menu.whileTrue(llTarget);
 
 
   }
