@@ -46,9 +46,9 @@ public class Robot extends TimedRobot {
     SmartDashboard.putString("camera capture filed", "failed");
 }*/
   //Need to do this once only in order to have Limelight communication while tethered
-  //for (int port = 5800; port <= 5805; port++){
-  //  PortForwarder.add(port, "limeelight.local", port);
-  //}
+  for (int port = 5800; port <= 5805; port++){
+    PortForwarder.add(port, "limelight.local", port);
+  }
   }
   /**
    * This function is called every 20 ms, no matter the mode. Use this for items like diagnostics
