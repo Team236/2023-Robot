@@ -9,12 +9,12 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.PivotConstants;
 
-public class Pivot45PID extends CommandBase {
+public class PivotPID extends CommandBase {
   private Arm pivot2;
   private double pvtTarget;
   private final PIDController pvtPidController;
   /** Creates a new PivotPID. */
-  public Pivot45PID(Arm m_pivotpid2, double m_pvtTarget) {
+  public PivotPID(Arm m_pivotpid2, double m_pvtTarget) {
     this.pivot2 = m_pivotpid2;
     addRequirements(pivot2);
     this.pvtTarget = m_pvtTarget;
@@ -47,7 +47,7 @@ public class Pivot45PID extends CommandBase {
   public boolean isFinished() {
     double pvtSpeed = pvtPidController.calculate(pivot2.getPivotEncoder());
     //stop when near target and commanded speed close to 0
-if ((pivot2.getPivotEncoder() > 0.9*pvtTarget)&& (Math.abs(pvtSpeed) < 0.02)) {
+if ((pivot2.getPivotEncoder() > 0.9*pvtTarget)&& (Math.abs(pvtSpeed) < 0.1)) {
   SmartDashboard.putBoolean("PvtPID Finished?", true);
   return true;
 } else {

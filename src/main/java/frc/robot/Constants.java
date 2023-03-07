@@ -170,12 +170,13 @@ public static class ArmConstants { ///FOR TESTBOT: subject to change for final
   public static final int DIO_ARM_RETURN = 22; //7
   public static final int DIO_ARM_EXTEND = 11; //8  was18
 
-  public static final double ARM_OUT = 4;
+  public static final double ARM_MID = 7.25;
+  public static final double ARM_HIGH = 24.5;
 
   public static final double ARM_EX_SPEED = 0.6;
   public static final double ARM_RE_SPEED = 0.6;
 
-  public static double kParm = 0.08;
+  public static double kParm = 0.25;
   public static double kIarm = 0;
   public static double kDarm = 0;
   public static double kFarm = 0; //mooooo
@@ -238,7 +239,7 @@ public static final double pvtSPEED = 0.75;
 public static final double PIVOT_OFFSET_ANGLE = 19;
 public static final double pvtDISTANCE_PER_PULSE = 0;
 
-public static double kPpvt = 0.0005;
+public static double kPpvt = 0.0004;
 public static double kIpvt = 0;
 public static double kDpvt = 0;
 }

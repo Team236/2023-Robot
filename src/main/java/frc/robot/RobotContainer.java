@@ -15,6 +15,7 @@ import frc.robot.commands.Autos.AutoPIDDrive;
 import frc.robot.commands.Autos.AutoTrapezoidalPID;
 import frc.robot.commands.Autos.DriveAtSetSpeed;
 import frc.robot.commands.Autos.GrabScoreFlatGround;
+import frc.robot.commands.Autos.ScoreHighLevel;
 import frc.robot.commands.Autos.ScoreMiddleLevel;
 import frc.robot.commands.Autos.StowPosition;
 import frc.robot.commands.Autos.TurnPID;
@@ -27,7 +28,7 @@ import frc.robot.commands.Gripper.Grab;
 import frc.robot.commands.Gripper.GrabReleaseToggle;
 import frc.robot.commands.Gripper.ReleasePiece;
 import frc.robot.commands.Pivot.PivotDown;
-import frc.robot.commands.Pivot.Pivot45PID;
+import frc.robot.commands.Pivot.PivotPID;
 import frc.robot.commands.Pivot.PivotUp;
 import frc.robot.commands.Targeting.AprilFollow;
 import frc.robot.commands.Targeting.LLAngle;
@@ -47,6 +48,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
@@ -76,6 +78,7 @@ public class RobotContainer {
   //COMMANDS****
   //AUTO
   private final ScoreMiddleLevel scoreMiddleLevel = new ScoreMiddleLevel(arm, gripper);
+  Command scoreMid = Commands.sequence(new PivotPID(arm, 10065).andThen(new ArmPID(arm, 7.25)).andThen(new ReleasePiece(gripper)));
   private final StowPosition stowPosition = new StowPosition(arm);
   //DRIVE
  private final DoubleArcadeDrive doubleArcadeDrive = new DoubleArcadeDrive(drive, gripper, driveController);
@@ -89,6 +92,9 @@ public class RobotContainer {
  //ARM
  private final PivotUp pivotUp = new PivotUp(arm, 0.4);
  private final PivotDown pivotDown = new PivotDown(arm, 0.3);
+ private final PivotPID pivotMidPID = new PivotPID(arm, 10065);
+ private final PivotPID pivotHighPID = new PivotPID(arm, 11188);
+ private final PivotPID pivotLowPID = new PivotPID(arm, 4862);
 
  //GRIPPER
 private final Grab grab = new Grab(gripper);
@@ -160,13 +166,15 @@ private final TurretCCW turretCCW = new TurretCCW(turret, -TurretConstants.TURRE
  // y.whileTrue(new AutoTrapezoidalPID(drive, 220, 0.005, 0, 0));
   //rightPov.whileTrue(turretCW);
   //leftPov.whileTrue(turretCCW);
- x.whileTrue(pivotUp);
- y.whileTrue(pivotDown);
+ x.whileTrue(pivotDown);
+ y.whileTrue(pivotMidPID);
+ rb.whileTrue(pivotHighPID);
+ menu.whileTrue(pivotLowPID);
  lb.whileTrue(scoreMiddleLevel);
+ rm.whileTrue(scoreMid);
  lm.whileTrue(stowPosition);
- rm.whileTrue(llAngle);
- rb.whileTrue(llDistance);
- menu.whileTrue(llTarget);
+ upPov.whileTrue(pivotUp);
+ 
 
 
   }
