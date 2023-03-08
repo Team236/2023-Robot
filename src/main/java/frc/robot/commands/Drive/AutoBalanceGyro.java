@@ -37,8 +37,8 @@ public class AutoBalanceGyro extends CommandBase {
   @Override
   public void execute() {
 
-      double xAxisRate = driveController.getRightY();
-      double yAxisRate = driveController.getLeftX();
+      double xAxisRate = driveController.getLeftX();
+      double yAxisRate = driveController.getRightY();
       double pitchAngleDegrees = navx.getPitch();
       double rollAngleDegrees = navx.getRoll();
       
@@ -57,7 +57,7 @@ public class AutoBalanceGyro extends CommandBase {
             Math.abs(kOffBalanceAngleThresholdDegrees))) {
           autoBalanceYMode = true;
       }
-      else if ( autoBalanceYMode && 
+      else if (autoBalanceYMode && 
                 (Math.abs(rollAngleDegrees) <= 
                  Math.abs(kOonBalanceAngleThresholdDegrees))) {
           autoBalanceYMode = false;
@@ -75,7 +75,7 @@ public class AutoBalanceGyro extends CommandBase {
           yAxisRate = Math.sin(rollAngleRadians) * -1;
       }
 
-      drive.setBothSpeeds(xAxisRate);
+      drive.setBothSpeeds(yAxisRate);
       Timer.delay(0.005);
     }
 
@@ -88,9 +88,7 @@ public class AutoBalanceGyro extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-  if (autoBalanceXMode && !autoBalanceYMode) {
-    return false;
-  } else if (!autoBalanceXMode && autoBalanceYMode) {
+  if (autoBalanceYMode) {
     return false;
   } else {
     return true;

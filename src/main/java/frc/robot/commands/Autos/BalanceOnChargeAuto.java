@@ -7,6 +7,7 @@ import frc.robot.commands.Drive.AutoBalanceGyro;
 import frc.robot.subsystems.Drive;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -17,7 +18,9 @@ public class BalanceOnChargeAuto extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new DriveAtSetSpeed(driveauto, 92, 0.4)
+      new DriveAtSetSpeed(driveauto, 164, -0.4),
+      new WaitCommand(0.5),
+      new DriveAtSetSpeed(driveauto, 100, 0.4)
       //, new AutoBalanceGyro(driveauto, driveController1)
     );
   }

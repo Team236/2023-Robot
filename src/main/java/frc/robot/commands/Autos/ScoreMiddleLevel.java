@@ -5,6 +5,7 @@
 package frc.robot.commands.Autos;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 import frc.robot.commands.Arm.ArmPID;
 import frc.robot.commands.Gripper.GrabReleaseToggle;
@@ -27,7 +28,8 @@ public class ScoreMiddleLevel extends SequentialCommandGroup {
    
      //new GrabReleaseToggle(gripScore1),
       new PivotPID(apScore1, 10065).withTimeout(1),
-      new ArmPID(apScore1, Constants.ArmConstants.ARM_MID)
+      new ArmPID(apScore1, Constants.ArmConstants.ARM_MID),
+      new WaitCommand(0.5), new GrabReleaseToggle(gripScore1)
       );
       
   }

@@ -34,8 +34,8 @@ public class DriveAtSetSpeed extends CommandBase {
   @Override
   public void execute() {
     drive.setBothSpeeds(speed);
-    SmartDashboard.putNumber("Roll in degrees", drive.getRoll());
-    SmartDashboard.putBoolean("isLevel", drive.isLevel());
+   // SmartDashboard.putNumber("Roll in degrees", drive.getRoll());
+    //SmartDashboard.putBoolean("isLevel", drive.isLevel());
   }
   // Called once the command ends or is interrupted.
   @Override
@@ -44,7 +44,7 @@ public class DriveAtSetSpeed extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (drive.getAvgDistance() >= distance) {
+    if (Math.abs(drive.getAvgDistance()) >= Math.abs(distance)) {
       return true;
     } else {
       return false;
