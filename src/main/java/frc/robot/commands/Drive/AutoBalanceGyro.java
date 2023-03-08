@@ -13,16 +13,16 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class AutoBalanceGyro extends CommandBase {
-  static final double kOffBalanceAngleThresholdDegrees = 10;
-  static final double kOonBalanceAngleThresholdDegrees  = 5;
+  static final double kOffBalanceAngleThresholdDegrees = 5;
+  static final double kOonBalanceAngleThresholdDegrees  = 10;
   private AHRS navx;
- private XboxController controller;
+ private XboxController driveController;
  private boolean autoBalanceXMode;
   private boolean autoBalanceYMode;
   private Drive drive;
 
   /** Creates a new AutoBalanceGyro. */
-  public AutoBalanceGyro(Drive drive, XboxController controller) {
+  public AutoBalanceGyro(Drive drive, XboxController driveController) {
     navx = new AHRS();
     this.drive = drive;
     addRequirements(drive);
@@ -37,8 +37,8 @@ public class AutoBalanceGyro extends CommandBase {
   @Override
   public void execute() {
 
-      double xAxisRate = controller.getLeftX();
-      double yAxisRate = controller.getRightY();
+      double xAxisRate = driveController.getRightY();
+      double yAxisRate = driveController.getLeftX();
       double pitchAngleDegrees = navx.getPitch();
       double rollAngleDegrees = navx.getRoll();
       
@@ -88,6 +88,12 @@ public class AutoBalanceGyro extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+  if (autoBalanceXMode && !autoBalanceYMode) {
     return false;
+  } else if (!autoBalanceXMode && autoBalanceYMode) {
+    return false;
+  } else {
+    return true;
   }
+}
 }
