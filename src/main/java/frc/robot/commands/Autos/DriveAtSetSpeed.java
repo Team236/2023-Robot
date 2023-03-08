@@ -4,6 +4,8 @@
 
 package frc.robot.commands.Autos;
 
+import com.kauailabs.navx.frc.AHRS;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drive;
@@ -11,7 +13,8 @@ import frc.robot.subsystems.Drive;
 public class DriveAtSetSpeed extends CommandBase {
 
   private Drive drive;
-  private double distance, speed;  
+  private double distance, speed, L, R, kPgyro, error;  
+  private AHRS navX;
 
   /** Creates a new DriveToCS. */
   public DriveAtSetSpeed(Drive m_drive, double m_distance, double m_speed) {
@@ -26,6 +29,7 @@ public class DriveAtSetSpeed extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    navX = new AHRS();
     drive.resetLeftEncoder();
     drive.resetRightEncoder();
   }
@@ -33,7 +37,19 @@ public class DriveAtSetSpeed extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drive.setBothSpeeds(speed);
+    kPgyro = 0.09;
+    error = navX.getRate();
+
+    if (speed > 0) {
+      L = (speed- kPgyro*error);
+      R = (speed + kPgyro*error);
+    } else {
+      L = (speed + kPgyro*error);
+      R = (speed - kPgyro*error);
+    }
+
+    drive.setLeftSpeed(L);
+    drive.setRightSpeed(R);
    // SmartDashboard.putNumber("Roll in degrees", drive.getRoll());
     //SmartDashboard.putBoolean("isLevel", drive.isLevel());
   }

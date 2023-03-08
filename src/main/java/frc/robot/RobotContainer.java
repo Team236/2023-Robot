@@ -28,6 +28,7 @@ import frc.robot.commands.Gripper.ReleasePiece;
 import frc.robot.commands.Pivot.PivotDown;
 import frc.robot.commands.Pivot.PivotPID;
 import frc.robot.commands.Pivot.PivotUp;
+import frc.robot.commands.ScoringPositions.LoadStationPosition;
 import frc.robot.commands.ScoringPositions.ScoreHighPosition;
 import frc.robot.commands.ScoringPositions.ScoreMiddlePosition;
 import frc.robot.commands.ScoringPositions.StowPosition;
@@ -154,28 +155,21 @@ private final TurretCCW turretCCW = new TurretCCW(turret, -TurretConstants.TURRE
     POVButton downPov1 = new POVButton(controller, Constants.ControllerConstants.XboxController.POVXbox.DOWN_ANGLE);
     // ASSIGN BUTTONS TO COMMANDS
     //AUXController
-   //a1.whileTrue(new ArmPID(arm, 5)); // IT WORKS
-  //b1.whileTrue(new Pivot45PID(arm, 350));//pass in the encoder value that equates to 45 degrees
-  // y1.whileTrue(new TurretPID(turret, 3));
    //DRIVECONTROLLER******
-   //lb.whileTrue(armRetract);
-   //x.whileTrue(new LLDistance(drive, 0, 35)); //pass in pipeline# and desired distance offset in inches
   a.whileTrue(toggleTransmission);
   b.whileTrue(grabReleaseToggle);
-  b1.whileTrue(new ArmExtend(arm, 0.3));
-  x1.whileTrue(new ArmRetract(arm, 0.3));
- // y.whileTrue(new AutoTrapezoidalPID(drive, 220, 0.005, 0, 0));
-  //rightPov.whileTrue(turretCW);
-  //leftPov.whileTrue(turretCCW);
- x.whileTrue(pivotDown);
- y.whileTrue(pivotMidPID);
- rb.whileTrue(pivotHighPID);
- menu.whileTrue(pivotLowPID);
+  //x
+  //y
+  rb.whileTrue(new LoadStationPosition(arm));
  lb.whileTrue(scoreMiddleLevel);
  rm.whileTrue(new ScoreHighPosition(arm, gripper));
  lm.whileTrue(stowPosition);
+
+
  upPov.whileTrue(pivotUp);
- rightPov.whileTrue(new BalanceOnChargeAuto(drive, driveController));
+ downPov.whileTrue(pivotDown);
+ rightPov.whileTrue(new ArmExtend(arm, 0.3));
+  leftPov.whileTrue(new ArmRetract(arm, 0.3));
 
 
   }
