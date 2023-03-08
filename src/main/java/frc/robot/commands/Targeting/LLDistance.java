@@ -24,54 +24,58 @@ public class LLDistance extends CommandBase {
   private double kY = 0.00785; //0.00725;
   
   private double h1 = 33; //inches, from ground to center of camera lens
-  private double h2 = 18; // inches, same unit as d, to center of target
-  private double a1 = Math.toRadians(28); //20 degrees, camera tilt
-  private double d; // desired distance from camera to target; pass into command
+  //private double h2 = 18; // inches, same unit as d, to center of target
+  private double a1 = Math.toRadians(20); //20 degrees, camera tilt
+  private double dist11; // desired distance from camera to target in inches; pass into command
   //private Limelight limelight;
-  private Drive drive;
-  private double pipeline2;
+  private Drive drive11;
+  private double pipeline11;
+  private double targetHeight11;//18" for Atag, from floor to center of target
+  private double tv, disY, a2, dx, errorY;
   
   /** Creates a new LLAngle. */
-  public LLDistance(Drive m_drive, double m_pipeline, double m_standoff) {
+  public LLDistance(Drive d_drive, double d_pipeline, double d_standoff, double d_targetHeight) {
   //public LLDistance(Drive passed_drive, Limelight lime, double m_pipeline) {
-    this.drive = m_drive;
-    this.pipeline2 = m_pipeline;
-    this.d = m_standoff;
+    this.drive11 = d_drive;
+    this.pipeline11 = d_pipeline;
+    this.dist11 = d_standoff;
+    this.targetHeight11 = d_targetHeight;
    // this.limelight = lime;
-    addRequirements(drive);
+    addRequirements(drive11);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    SmartDashboard.putNumber("LLDistance init", pipeline11);
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(0);
-    NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(pipeline2);
-
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(pipeline11);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
-   double tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
+   tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
   //double tv = limelight.getTv();
  
     // TO make sure dx is positive, use abs value for disY and (h1-h2)
-   double disY = Math.abs (NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0));
+   disY = Math.abs (NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0));
   // double disY= Math.abs(limelight.getTy());  
-  NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
 
     if(tv==1){
-        double a2 = disY*Math.PI/180;
-        double dx = Math.abs(h2 - h1) / Math.tan(a1+a2);  
-        double errorY = d - dx;  
+        a2 = disY*Math.PI/180; // in radians, if disY in degrees
+        dx = Math.abs(targetHeight11 - h1) / Math.tan(a1+a2);  
+        errorY = dist11 - dx;  
     //NOTE:  CAN TRY TO USE THE Z VALUE OF THE POSE FOR errorY (use [2] or [0] for other directions)
     // double errorY = NetworkTableInstance.getDefault().getTable("limelight").
     // getIntegerTopic("targetpose_cameraspace").subscribe(new double[]{}).get()[3];
       double distanceAdjust = kY * errorY;
-       drive.setLeftSpeed(distanceAdjust);
-       drive.setRightSpeed(distanceAdjust);
-      SmartDashboard.putNumber("dx", dx);
+       drive11.setLeftSpeed(distanceAdjust);
+       drive11.setRightSpeed(distanceAdjust);
+      SmartDashboard.putNumber("dx, Y dist from target:", dx);
+      SmartDashboard.putNumber("ErrorY:", errorY);
+      SmartDashboard.putNumber("Ty, degrees:", disY);
    } else{
       SmartDashboard.putNumber("No Target", tv);
    }
@@ -80,12 +84,25 @@ public class LLDistance extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    drive.stop();
+    drive11.stop();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     return false;
-  }
+    /*if(tv==1 && Math.abs(errorY)<=1){
+      SmartDashboard.putBoolean("LLDistance isFinished:", true);
+      return true;
+      }   
+      else if(tv==1 && Math.abs(errorY)>1){
+        return false;
+      }
+      else
+      {
+      SmartDashboard.putNumber("No Shoot Target", tv);
+      return true;
+      }
+      */
 }
+  }
