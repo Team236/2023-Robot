@@ -11,7 +11,7 @@ import frc.robot.Constants.PivotConstants;
 
 public class PivotPID extends CommandBase {
   private Arm pivot2;
-  private double pvtTarget;
+  private double pvtTarget, pvtSpeed;
   private final PIDController pvtPidController;
   /** Creates a new PivotPID. */
   public PivotPID(Arm m_pivotpid2, double m_pvtTarget) {
@@ -32,7 +32,7 @@ public class PivotPID extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-   double pvtSpeed = pvtPidController.calculate(pivot2.getPivotEncoder());
+   pvtSpeed = pvtPidController.calculate(pivot2.getPivotEncoder());
   pivot2.setPivotSpeed(pvtSpeed);
   }
 
@@ -45,13 +45,12 @@ public class PivotPID extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    double pvtSpeed = pvtPidController.calculate(pivot2.getPivotEncoder());
     //stop when near target and commanded speed close to 0
 if ((pivot2.getPivotEncoder() > 0.9*pvtTarget)&& (Math.abs(pvtSpeed) < 0.1)) {
-  SmartDashboard.putBoolean("PvtPID Finished?", true);
+  //SmartDashboard.putBoolean("PvtPID Finished?", true);
   return true;
 } else {
-  SmartDashboard.putBoolean("PvtPID Finished?", false);
+  //SmartDashboard.putBoolean("PvtPID Finished?", false);
   return false;
 }
   }
