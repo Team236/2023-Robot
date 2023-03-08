@@ -7,38 +7,43 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Gripper;
 public class ReleasePiece extends CommandBase {
-  private Gripper gripper;
+  private Gripper gripper1;
   /** Creates a new ReleasePiece. */
-  public ReleasePiece(Gripper gripper) {
-    this.gripper = gripper;
-    addRequirements(gripper);
+  public ReleasePiece(Gripper relGripper) {
+    this.gripper1 = relGripper;
+    addRequirements(gripper1);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    gripper1.release();
+    gripper1.setGripperOpen();
+    gripper1.resetGripperEyeCount();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    gripper.release();
-    gripper.resetGripperEyeCount();
+  public void execute() { 
+   gripper1.release();
   }
+
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {}
+
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (gripper.isGripping()) {
-      SmartDashboard.putBoolean("Is Gripping!", gripper.isGripping());
-      return false;
-    } else {
-      SmartDashboard.putBoolean("Gripper Released - Finishing!",gripper.isGripping());
+    if (!gripper1.isGripperClosed) {
+      SmartDashboard.putBoolean("Release-isFinished", true);
       return true;
+    } else {
+      SmartDashboard.putBoolean("Release-isNotFinished", true);
+      return false;
     }
-    
-    
+  
+
   }
+  
 }

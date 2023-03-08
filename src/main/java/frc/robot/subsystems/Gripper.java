@@ -16,6 +16,7 @@ public class Gripper extends SubsystemBase {
   private DoubleSolenoid gripperSolenoid; 
   private Counter gripperEye;
   private boolean isGripperEyeUnplugged = false;
+  public boolean isGripperClosed = true;
 
   /** Creates a new Gripper. */
   public Gripper() {
@@ -43,6 +44,7 @@ public class Gripper extends SubsystemBase {
   
     //Tells if the gripper is gripping or not
   public boolean isGripping() {
+    //return false;
     if (gripperSolenoid.get() == Value.kForward) {
     return true;  
     } else {
@@ -74,9 +76,16 @@ public class Gripper extends SubsystemBase {
    } else {
     return gripperEye.get();
    }
-  
- 
   }
+
+public void setGripperClosed() {
+  isGripperClosed = true;
+}
+
+public void setGripperOpen() {
+  isGripperClosed = false;
+}
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

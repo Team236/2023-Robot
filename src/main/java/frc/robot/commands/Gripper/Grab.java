@@ -3,30 +3,55 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.commands.Gripper;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
+import frc.robot.Constants.*;
 import frc.robot.subsystems.Gripper;
 
 public class Grab extends CommandBase {
-  private Gripper gripper;
+  private Gripper gripper3;
   /** Creates a new Grab. */
-  public Grab(Gripper gripper) {
-    this.gripper = gripper;
-    addRequirements(gripper);
+  public Grab(Gripper grabGripper) {
+    this.gripper3 = grabGripper;
+    addRequirements(gripper3);
   }
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    gripper.grab();
+    gripper3.grab();
+    gripper3.setGripperClosed();
   }
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    //gripper3.grab();
+  }
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {}
+
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+  if (gripper3.isGripperClosed) {
+    SmartDashboard.putBoolean("Grab-isFinished", true);
+    return true;
+  } else {
+    SmartDashboard.putBoolean("Grab-isNotFinished", true);
     return false;
   }
+
+}
+
+
+
+
+
+
+
+
+
+
+
 }
