@@ -167,11 +167,14 @@ public static class ArmConstants { ///FOR TESTBOT: subject to change for final
   public static double RETRACTED_ARM_LENGTH = 26; // insert here length of arm when fully retracted, in inches
   public static double ARM_FLOOR_STANDOFF = 12; // insert here desired minnimum distance from arm to floor, in inches
 
+
   public static final int DIO_ARM_RETURN = 22; //7
   public static final int DIO_ARM_EXTEND = 11; //8  was18
 
-  public static final double ARM_MID = 7.25;
-  public static final double ARM_HIGH = 24.5;
+  public static final double ARM_MID = 7.25; //inches, arm extend distance for middle level
+  public static final double ARM_HIGH = 24.5; //inches, arm extend distance for high level
+  public static double ARM_STOW = 0; //inches, arm extend distance stowed and low level(fully retracted)
+  public static double ARM_LOAD_STN = 0; //inches, arm extend distance for getting pieces from loading station
 
   public static final double ARM_EX_SPEED = 0.6;
   public static final double ARM_RE_SPEED = 0.6;
@@ -184,11 +187,40 @@ public static class ArmConstants { ///FOR TESTBOT: subject to change for final
 
 public static class GripperConstants {
   //Solenoid ports on the PCM
-  public static final int GRIPPER_SOL_FOR = 0; //0
-  public static final int GRIPPER_SOL_REV = 1; //1
+  public static final int GRIPPER_SOL_FOR = 1; //0
+  public static final int GRIPPER_SOL_REV = 0; //1
   //Port used on the DIO
   public static final int DIO_GRIPPER_EYE = 10; //0
+}
 
+public static class PivotConstants {
+  public static final int PVT_LOW = 8;
+  public static final int PVT_HIGH = 9;
+
+  public static final int DIO_PVT_ENC_A = 7;
+  public static final int DIO_PVT_ENC_B = 6;
+
+//public static final double pvtREV_TO_DEG = 360; //tester numbers
+//public static final double pvtDEG_TO_REV = 1/360;
+
+public static final double pvtSPEED = 0.75;
+public static final double PIVOT_OFFSET_ANGLE = 19;
+public static final double pvtDISTANCE_PER_PULSE = 0; // do we need this?
+  //NO LINEAR RELATIONSHIP BETWEEN ANGLE AND ENCODER READING FOR PIVOT
+  //NEED TO RECORD VALUE OF ENCODER AT VARIOUS ANGLES - RECORDED BELOW:
+public static final double PVT_ENC_STOW = 0;  //20 degrees?  17 degrees?
+public static final double PVT_ENC_PICKUP = 1105;  //29 degrees
+public static final double PVT_ENC_45 = 3098; //45 degrees
+public static final double PVT_ENC_LOW_SCORE = 4862; //58 degrees
+public static final double PVT_ENC_90 = 9289; //90 degrees
+public static final double PVT_ENC_MID_SCORE = 10065;//95 degrees (7.25" arm extend)
+public static final double PVT_ENC_99 = 10548;// 99 degrees
+public static final double PVT_ENC_HIGH_SCORE = 11188; //104 degrees (24.5" arm extend)
+public static final double PVT_ENC_LOAD_STN = 11188;// need to double check
+
+public static double kPpvt = 0.0004;
+public static double kIpvt = 0;
+public static double kDpvt = 0;
 }
 
 public static class TurretConstants {
@@ -219,29 +251,6 @@ public static class TurretConstants {
 
   public static final double TURRET_SPEED = 0.2;
 
-}
-
-public static class PivotConstants {
-  public static final int PVT_LOW = 8;
-  public static final int PVT_HIGH = 9;
-
-  public static final int DIO_PVT_ENC_A = 7;
-  public static final int DIO_PVT_ENC_B = 6;
-
-//public static final double pvtREV_TO_DEG = 360; //tester numbers
-//public static final double pvtDEG_TO_REV = 1/360;
-  //NO LINEAR RELATIONSHIP BETWEEN ANGLE AND ENCODER READING FOR PIVOT
-  //NEED TO RECORD VALUE OF ENCODER AT VARIOUS ANGLES AND USE THAT IN THE CODE
-
-public static final double pvtENCODER_PULSES_AT_45 = 1; //TBD, to pass into Pivot45PID command
-
-public static final double pvtSPEED = 0.75;
-public static final double PIVOT_OFFSET_ANGLE = 19;
-public static final double pvtDISTANCE_PER_PULSE = 0;
-
-public static double kPpvt = 0.0004;
-public static double kIpvt = 0;
-public static double kDpvt = 0;
 }
 
 }
