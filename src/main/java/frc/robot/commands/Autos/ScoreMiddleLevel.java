@@ -27,8 +27,7 @@ public class ScoreMiddleLevel extends SequentialCommandGroup {
    
      //new GrabReleaseToggle(gripScore1),
       new PivotPID(apScore1, 10065).withTimeout(1),
-    new ReleasePiece(gripScore1).withTimeout(2)
-      //new ArmPID(apScore1, Constants.ArmConstants.ARM_MID)
+      new ArmPID(apScore1, Constants.ArmConstants.ARM_MID)
       );
       
   }
