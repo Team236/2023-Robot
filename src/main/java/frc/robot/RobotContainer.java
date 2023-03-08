@@ -28,8 +28,8 @@ import frc.robot.commands.Gripper.ReleasePiece;
 import frc.robot.commands.Pivot.PivotDown;
 import frc.robot.commands.Pivot.PivotPID;
 import frc.robot.commands.Pivot.PivotUp;
-import frc.robot.commands.ScoringPositions.ScoreHighLevel;
-import frc.robot.commands.ScoringPositions.ScoreMiddleLevel;
+import frc.robot.commands.ScoringPositions.ScoreHighPosition;
+import frc.robot.commands.ScoringPositions.ScoreMiddlePosition;
 import frc.robot.commands.ScoringPositions.StowPosition;
 import frc.robot.commands.Targeting.AprilFollow;
 import frc.robot.commands.Targeting.LLAngle;
@@ -78,7 +78,7 @@ public class RobotContainer {
 
   //COMMANDS****
   //AUTO
-  private final ScoreMiddleLevel scoreMiddleLevel = new ScoreMiddleLevel(arm, gripper);
+  private final ScoreMiddlePosition scoreMiddleLevel = new ScoreMiddlePosition(arm, gripper);
   Command scoreMid = Commands.sequence(new PivotPID(arm, 10065).andThen(new ArmPID(arm, 7.25)).andThen(new ReleasePiece(gripper)));
   private final StowPosition stowPosition = new StowPosition(arm);
   //DRIVE
@@ -172,7 +172,7 @@ private final TurretCCW turretCCW = new TurretCCW(turret, -TurretConstants.TURRE
  rb.whileTrue(pivotHighPID);
  menu.whileTrue(pivotLowPID);
  lb.whileTrue(scoreMiddleLevel);
- rm.whileTrue(new ScoreHighLevel(arm, gripper));
+ rm.whileTrue(new ScoreHighPosition(arm, gripper));
  lm.whileTrue(stowPosition);
  upPov.whileTrue(pivotUp);
  rightPov.whileTrue(new BalanceOnChargeAuto(drive, driveController));
