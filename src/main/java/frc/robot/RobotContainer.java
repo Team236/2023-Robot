@@ -13,6 +13,7 @@ import frc.robot.commands.Arm.ArmRetract;
 import frc.robot.commands.Arm.ArmWithAxis;
 import frc.robot.commands.Autos.AutoPIDDrive;
 import frc.robot.commands.Autos.AutoTrapezoidalPID;
+import frc.robot.commands.Autos.BalanceOnChargeAuto;
 import frc.robot.commands.Autos.DriveAtSetSpeed;
 import frc.robot.commands.Autos.GrabScoreFlatGround;
 import frc.robot.commands.Autos.ScoreHighLevel;
@@ -171,10 +172,10 @@ private final TurretCCW turretCCW = new TurretCCW(turret, -TurretConstants.TURRE
  rb.whileTrue(pivotHighPID);
  menu.whileTrue(pivotLowPID);
  lb.whileTrue(scoreMiddleLevel);
- rm.whileTrue(scoreMid);
+ rm.whileTrue(new ScoreHighLevel(arm, gripper));
  lm.whileTrue(stowPosition);
  upPov.whileTrue(pivotUp);
- 
+ rightPov.whileTrue(new BalanceOnChargeAuto(drive, driveController));
 
 
   }
