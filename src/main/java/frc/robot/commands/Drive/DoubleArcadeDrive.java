@@ -46,7 +46,7 @@ public class DoubleArcadeDrive extends CommandBase {
    // getRightY is negative when driving forward.  getLeftX and navX.getRate are positive Clockwise.
     //change 0.17 / -0.17 to refer to Constants - Deadzone
     double max, L, R, kPgyro, error;
-    kPgyro = 0.03;
+    kPgyro = 0.09;
     error = navX.getRate();
     if ((Math.abs(driveController.getLeftX()) <= -0.17) && (driveController.getRightY() > 0.17)) {
       L = (-driveController.getRightY()- (kPgyro*error));
