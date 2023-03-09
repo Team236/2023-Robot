@@ -18,8 +18,8 @@ public class TurnPID extends CommandBase {
     this.drive = drive;
     this.leftPidController = new PIDController(DriveConstants.kPTurnL, 0, 0);
     this.rightPidController = new PIDController(DriveConstants.kPTurnR, 0, 0);
-    leftPidController.setSetpoint(setpointDegrees * 0.239); // this converts the setpoint in degrees to inches, need new conversion for this year
-    rightPidController.setSetpoint(-setpointDegrees * 0.239);
+    leftPidController.setSetpoint(setpointDegrees * 0.28); // this converts the setpoint in degrees to inches, need new conversion for this year
+    rightPidController.setSetpoint(-setpointDegrees * 0.28);
     addRequirements(drive);
   }
 

@@ -35,14 +35,9 @@ public class PivotUp extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-      /* if ((speed3 > 0.008) && pivot3.isPHighLimit()) {
-      return true;
-    } else if ((speed3 < 0) && pivot3.isPLowLimit()()) {
-      pivot3.resetPivotEncoder();
+    if (pivot3.isPHighLimit()) {
       return true;
     } else {
-      return false;
-    }*/
-    return false;
+    return false;}
   }
 }

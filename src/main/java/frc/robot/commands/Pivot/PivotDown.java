@@ -36,14 +36,12 @@ public class PivotDown extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    /*  if ((speed4 > 0.008) && pivot4.isPHighLimit()) {
-      return true;
-    } else if ((speed4 < 0) && pivot4.isPLowLimit()()) {
-      pivot4.resetPivotEncoder();
-      return true;
-    } else {
-      return false;
-    }*/
+   if (pivot4.isPLowLimit()) {
+   pivot4.resetPivotEncoder();
+   return true; }
+   else {
     return false;
+   }
+
   }
 }
