@@ -13,9 +13,11 @@ import frc.robot.commands.Arm.ArmRetract;
 import frc.robot.commands.Arm.ArmWithAxis;
 import frc.robot.commands.Autos.AutoPIDDrive;
 import frc.robot.commands.Autos.AutoTrapezoidalPID;
+import frc.robot.commands.Autos.BackwardCenter;
 import frc.robot.commands.Autos.BalanceOnChargeAuto;
 import frc.robot.commands.Autos.DriveAtSetSpeed;
 import frc.robot.commands.Autos.GrabScoreFlatGround;
+import frc.robot.commands.Autos.ScoreToCenter;
 import frc.robot.commands.Autos.TurnPID;
 import frc.robot.commands.Drive.AutoBalanceGyro;
 import frc.robot.commands.Drive.DoubleArcadeDrive;
@@ -154,17 +156,17 @@ private final TurretCCW turretCCW = new TurretCCW(turret, -TurretConstants.TURRE
     // ASSIGN BUTTONS TO COMMANDS
     //AUXController
    x1.whileTrue(new LLAngle(drive, 0)); //aprilTags
-  y1.whileTrue(new LLDistance(drive, 0, 40, 8)); //apriltags
+   y1.whileTrue(new LLDistance(drive, 0, 40, 8)); //apriltags
    b1.whileTrue(new LLTarget(drive, 0, 40, 8)); //must pass in the pipeline
     a1.whileTrue(new AutoBalanceGyro(drive, driveController));
 
-    
+
     
    //DRIVECONTROLLER******
   a.whileTrue(toggleTransmission);
   b.whileTrue(grabReleaseToggle);
-  //x
-  //y
+  x.whileTrue(new BackwardCenter(arm, gripper, drive));
+  y.whileTrue(new AutoPIDDrive(drive, -180));
   rb.whileTrue(new LoadStationPosition(arm));
  lb.whileTrue(scoreMiddleLevel);
  rm.whileTrue(new ScoreHighPosition(arm, gripper));
