@@ -50,7 +50,10 @@ public class ArmPID extends CommandBase {
   if ((arm3.getArmDistance() > 0.9*armDistance)&& (Math.abs(armSpeed) < 0.02)) {
     SmartDashboard.putBoolean("ArmPID Finished?", true);
     return true;
-  } else {
+  } else if (arm3.isARetLimit()) {
+    return true; }
+    else if (arm3.isAExtLimit()) {
+      return true;} else {
     SmartDashboard.putBoolean("ArmPID Finished?", false);
     return false;
   }
