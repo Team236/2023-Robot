@@ -129,11 +129,11 @@ public static class DriveConstants {
   public static final double DISTANCE_PER_PULSE_K =  REV_TO_IN_K/512;
     
   //PID stuff
-  public static final double leftkPdrive = 0.01; 
+  public static final double leftkPdrive = 0.022; 
   public static final double leftkIdrive = 0;
   public static final double leftkDdrive = 0;
 
-  public static final double rightkPdrive = 0.01;
+  public static final double rightkPdrive = 0.022;
   public static final double rightkIdrive = 0;
   public static final double rightkDdrive = 0;
 
