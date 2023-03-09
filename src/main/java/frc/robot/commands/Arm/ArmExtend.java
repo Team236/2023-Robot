@@ -38,10 +38,7 @@ public class ArmExtend extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if ((speed1 > 0.008) && arm1.isAExtLimit()) {
-      return true;
-    } else if ((speed1 < 0) && arm1.isARetLimit()) {
-      arm1.resetArmEncoder();
+    if ((arm1.isAExtLimit())) {
       return true;
     } else {
       return false;
