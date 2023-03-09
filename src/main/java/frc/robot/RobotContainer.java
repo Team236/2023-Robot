@@ -17,6 +17,7 @@ import frc.robot.commands.Autos.BalanceOnChargeAuto;
 import frc.robot.commands.Autos.DriveAtSetSpeed;
 import frc.robot.commands.Autos.GrabScoreFlatGround;
 import frc.robot.commands.Autos.TurnPID;
+import frc.robot.commands.Drive.AutoBalanceGyro;
 import frc.robot.commands.Drive.DoubleArcadeDrive;
 //import frc.robot.commands.Drive.DriveWithJoysticks;
 import frc.robot.commands.Drive.TDWG_No;
@@ -85,9 +86,6 @@ public class RobotContainer {
   //DRIVE
  private final DoubleArcadeDrive doubleArcadeDrive = new DoubleArcadeDrive(drive, gripper, driveController);
  private final ToggleTransmission toggleTransmission = new ToggleTransmission(drive);
- private final LLAngle llAngle = new LLAngle(drive, 0); 
- private final LLDistance llDistance = new LLDistance(drive, 0, 40);
- private final LLTarget llTarget = new LLTarget(drive, 0, 40); //must pass in the pipeline
   /** Creates a new DriveToCS. */
  private final  DriveAtSetSpeed driveAtSetSpeed = new DriveAtSetSpeed(drive, 130, 0.5);
 
@@ -155,6 +153,13 @@ private final TurretCCW turretCCW = new TurretCCW(turret, -TurretConstants.TURRE
     POVButton downPov1 = new POVButton(controller, Constants.ControllerConstants.XboxController.POVXbox.DOWN_ANGLE);
     // ASSIGN BUTTONS TO COMMANDS
     //AUXController
+   x1.whileTrue(new LLAngle(drive, 0)); //aprilTags
+  y1.whileTrue(new LLDistance(drive, 0, 40, 8)); //apriltags
+   b1.whileTrue(new LLTarget(drive, 0, 40, 8)); //must pass in the pipeline
+    a1.whileTrue(new AutoBalanceGyro(drive, driveController));
+
+    
+    
    //DRIVECONTROLLER******
   a.whileTrue(toggleTransmission);
   b.whileTrue(grabReleaseToggle);

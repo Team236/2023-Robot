@@ -5,7 +5,8 @@
 package frc.robot.commands.ScoringPositions;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.Arm.ArmRetract;
+import frc.robot.Constants;
+import frc.robot.commands.Arm.ArmPID;
 import frc.robot.commands.Pivot.PivotPID;
 import frc.robot.subsystems.Arm;
 
@@ -17,7 +18,9 @@ public class StowPosition extends SequentialCommandGroup {
   public StowPosition(Arm armStow) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new ArmRetract(armStow, 0.3).withTimeout(2),
-    new PivotPID(armStow, 20));
+addCommands(new ArmPID(armStow, Constants.ArmConstants.ARM_STOW),
+  new PivotPID(armStow,Constants.PivotConstants.PVT_ENC_STOW).withTimeout(1));
   }
+
 }
+
