@@ -37,7 +37,7 @@ public class DriveAtSetSpeed extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    kPgyro = 0.09;
+    kPgyro = 0.00; //0.09
     error = navX.getRate();
 
     if (speed > 0) {

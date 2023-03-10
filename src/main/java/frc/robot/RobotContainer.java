@@ -12,10 +12,12 @@ import frc.robot.commands.Arm.ArmPID;
 import frc.robot.commands.Arm.ArmRetract;
 import frc.robot.commands.Arm.ArmWithAxis;
 import frc.robot.commands.Autos.AutoPIDDrive;
+import frc.robot.commands.Autos.AutoScoreMid;
 import frc.robot.commands.Autos.AutoTrapezoidalPID;
 import frc.robot.commands.Autos.BackwardCenter;
 import frc.robot.commands.Autos.BalanceOnChargeAuto;
 import frc.robot.commands.Autos.DriveAtSetSpeed;
+import frc.robot.commands.Autos.ScoreDrive;
 import frc.robot.commands.Autos.ScoreToCenter;
 import frc.robot.commands.Autos.TurnPID;
 import frc.robot.commands.Drive.AutoBalanceGyro;
@@ -95,8 +97,8 @@ public class RobotContainer {
  private final  DriveAtSetSpeed driveAtSetSpeed = new DriveAtSetSpeed(drive, 130, 0.5);
 
  //ARM
- private final PivotUp pivotUp = new PivotUp(pivot, 0.4);
- private final PivotDown pivotDown = new PivotDown(pivot, 0.3);
+ private final PivotUp pivotUp = new PivotUp(pivot, 0.7);
+ private final PivotDown pivotDown = new PivotDown(pivot, 0.6);
  private final PivotPID pivotMidPID = new PivotPID(pivot, 10065);
  private final PivotPID pivotHighPID = new PivotPID(pivot, 11188);
  private final PivotPID pivotLowPID = new PivotPID(pivot, 4862);
@@ -111,6 +113,7 @@ private final TurretCW turretCW = new TurretCW(turret, TurretConstants.TURRET_SP
 private final TurretCCW turretCCW = new TurretCCW(turret, -TurretConstants.TURRET_SPEED);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
+
   public RobotContainer() {
   drive.setDefaultCommand(doubleArcadeDrive);
     // Configure the trigger bindings
@@ -163,6 +166,11 @@ private final TurretCCW turretCCW = new TurretCCW(turret, -TurretConstants.TURRE
    b1.whileTrue(new LLTarget(drive, 0, 40, 8)); //must pass in the pipeline
     a1.whileTrue(new AutoBalanceGyro(drive, driveController));
     upPov1.whileTrue(new BackwardCenter(arm, gripper, drive, pivot));
+    lm1.whileTrue(new TurnPID(drive, -180));
+    rm1.whileTrue(new TurnPID(drive, 180));
+    lb1.whileTrue(new TurnPID(drive, -90));
+    rb1.whileTrue(new TurnPID(drive, 90));
+
 
 
     
@@ -189,9 +197,9 @@ private final TurretCCW turretCCW = new TurretCCW(turret, -TurretConstants.TURRE
    */
   public Command getAutonomousCommand() {
     if (!autoSwitch1.get() && autoSwitch2.get() && autoSwitch3.get() && autoSwitch4.get()) {
-      return scoreMiddleLevel;
+      return (new BackwardCenter(arm, gripper, drive, pivot));
     } else {
-      return releasePiece;
+      return (new ScoreDrive(arm, pivot, drive, gripper));
     }
      /*else if (!autoSwitch1.get() && !autoSwitch3.get()) {
       return quadruplePosition1;

@@ -137,8 +137,8 @@ public static class DriveConstants {
   public static final double rightkIdrive = 0;
   public static final double rightkDdrive = 0;
 
-  public static final double kPTurnL = 0.01;
-  public static final double kPTurnR = 0.01;
+  public static final double kPTurnL = 0.025;
+  public static final double kPTurnR = 0.025;
   public static final double kPgyro = 0.02;
   //auto distances
   public static final double AUTO_MARGIN = 0;
@@ -179,7 +179,7 @@ public static class ArmConstants { ///FOR TESTBOT: subject to change for final
   public static final double ARM_EX_SPEED = 0.6;
   public static final double ARM_RE_SPEED = 0.6;
 
-  public static double kParm = 0.25;
+  public static double kParm = 0.25; //0.25
   public static double kIarm = 0;
   public static double kDarm = 0;
   public static double kFarm = 0; //mooooo
@@ -218,7 +218,7 @@ public static final double PVT_ENC_99 = 10548;// 99 degrees
 public static final double PVT_ENC_HIGH_SCORE = 11188; //104 degrees (24.5" arm extend)
 public static final double PVT_ENC_LOAD_STN = 11188;// need to double check
 
-public static double kPpvt = 0.0004;
+public static double kPpvt = 0.0004;//0.0004
 public static double kIpvt = 0;
 public static double kDpvt = 0;
 }
