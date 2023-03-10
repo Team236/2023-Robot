@@ -163,6 +163,7 @@ private final TurretCCW turretCCW = new TurretCCW(turret, -TurretConstants.TURRE
    y1.whileTrue(new LLDistance(drive, 0, 40, 8)); //apriltags
    b1.whileTrue(new LLTarget(drive, 0, 40, 8)); //must pass in the pipeline
     a1.whileTrue(new AutoBalanceGyro(drive, driveController));
+    upPov1.whileTrue(new BackwardCenter(arm, gripper, drive, pivot));
 
 
     
@@ -170,8 +171,8 @@ private final TurretCCW turretCCW = new TurretCCW(turret, -TurretConstants.TURRE
   a.whileTrue(toggleTransmission);
   b.whileTrue(grabReleaseToggle);
   x.whileTrue(new ScoreLow(arm, gripper, pivot));
-  y.whileTrue(new PickupPosition(arm, pivot));
-  rb.whileTrue(new LoadStationPosition(arm, pivot));
+  y.whileTrue(new PickupPosition(arm, pivot, gripper));
+  rb.whileTrue(new LoadStationPosition(arm, pivot, gripper));
  lb.whileTrue(scoreMiddleLevel);
  rm.whileTrue(new ScoreHighPosition(arm, pivot, gripper));
  lm.whileTrue(stowPosition);
@@ -188,7 +189,7 @@ private final TurretCCW turretCCW = new TurretCCW(turret, -TurretConstants.TURRE
    * Use this to pass the autonomous command to the main {@link Robot} class.
    */
   public Command getAutonomousCommand() {
-    if (autoSwitch1.get() && !autoSwitch2.get() && !autoSwitch3.get() && !autoSwitch4.get()) {
+    if (!autoSwitch1.get() && autoSwitch2.get() && autoSwitch3.get() && autoSwitch4.get()) {
       return scoreMiddleLevel;
     } else {
       return releasePiece;
