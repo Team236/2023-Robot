@@ -53,7 +53,8 @@ public class ArmPID extends CommandBase {
   } else if (arm3.isARetLimit()) {
     return true; }
     else if (arm3.isAExtLimit()) {
-      return true;} else {
+      return true;
+    } else {
     SmartDashboard.putBoolean("ArmPID Finished?", false);
     return false;
   }
