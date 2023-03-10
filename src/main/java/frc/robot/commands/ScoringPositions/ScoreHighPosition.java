@@ -27,8 +27,8 @@ public class ScoreHighPosition extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new PivotPID(pvtHi, PivotConstants.PVT_ENC_HIGH_SCORE),
-      new ArmPID(hiScore, Constants.ArmConstants.ARM_HIGH),
-      new ReleasePiece(gripScore1).asProxy()
+      new ArmPID(hiScore, Constants.ArmConstants.ARM_HIGH)//,
+     // new ReleasePiece(gripScore1).asProxy()
       );
       
   }
