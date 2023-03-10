@@ -29,8 +29,9 @@ public class ScoreMiddlePosition extends SequentialCommandGroup {
    
      //new GrabReleaseToggle(gripScore1),
       new PivotPID(pvtMid, PivotConstants.PVT_ENC_MID_SCORE).withTimeout(1),
-      new ArmPID(midScore, Constants.ArmConstants.ARM_MID)//,
-      //new WaitCommand(0.5), new ReleasePiece(gripScore2)
+      new ArmPID(midScore, Constants.ArmConstants.ARM_MID),
+      //new WaitCommand(0.5), 
+      new ReleasePiece(gripScore2)
       );
       
   }}

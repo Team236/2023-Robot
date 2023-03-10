@@ -9,6 +9,7 @@ import frc.robot.Constants;
 import frc.robot.Constants.PivotConstants;
 import frc.robot.commands.Arm.ArmPID;
 import frc.robot.commands.Gripper.GrabReleaseToggle;
+import frc.robot.commands.Gripper.ReleasePiece;
 import frc.robot.commands.Pivot.PivotPID;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Gripper;
@@ -26,8 +27,8 @@ public class ScoreHighPosition extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new PivotPID(pvtHi, PivotConstants.PVT_ENC_HIGH_SCORE),
-      new ArmPID(hiScore, Constants.ArmConstants.ARM_HIGH)//,
-      //new GrabReleaseToggle(gripScore1)
+      new ArmPID(hiScore, Constants.ArmConstants.ARM_HIGH),
+      new ReleasePiece(gripScore1).asProxy()
       );
       
   }
