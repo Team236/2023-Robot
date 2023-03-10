@@ -22,10 +22,10 @@ public class Limelight extends SubsystemBase {
   IntegerSubscriber tid;
   int tag;
   DoubleSubscriber txSub, tySub, areaSub;
-  IntegerPublisher pipeline, outLedMode;
+  IntegerPublisher pipeline, outLedMode,driverMode;
 
   DoubleArraySubscriber blueStationToRobotPose, redStationToRobotPose, targetToCameraPose, cameraToTargetPose; 
-  DoubleArraySubscriber robotSpaceToTargetPose, targetToRobotPose, robotCameraPosition;
+  DoubleArraySubscriber robotToTargetPose, targetToRobotPose, robotCameraPosition;
 
   /** Creates a new Limelight. */
   public Limelight() {
@@ -44,17 +44,10 @@ public class Limelight extends SubsystemBase {
     areaSub = datatable.getDoubleTopic("ta").subscribe(0.0);
 
     // publish to the topic in "datatable" called "Out"
-    pipeline = datatable.getIntegerTopic("/Limelight/getPipe").publish();
-    outLedMode = datatable.getIntegerTopic("/Limelight/ledmode").publish();
+    pipeline = datatable.getIntegerTopic("getPipe").publish();
+    outLedMode = datatable.getIntegerTopic("ledmode").publish();
+    driverMode = datatable.getIntegerTopic("drivermode").publish();
 
-    // Robot transform in field-space. Translation (X,Y,Z) Rotation(Roll,Pitch,Yaw), total latency (cl+tl)
-    // DoubleArraySubscriber fieldRobotPose = datatable.getDoubleArrayTopic("botpose").subscribe(new double[] {});
- 
-    // Robot transform in field-space (blue driverstation WPILIB origin). Translation (X,Y,Z) Rotation(Roll,Pitch,Yaw), total latency (cl+tl)
-     blueStationToRobotPose = datatable.getDoubleArrayTopic("botpose_wpiblue").subscribe(new double[] {});
- 
-    // Robot transform in field-space (red driverstation WPILIB origin). Translation (X,Y,Z) Rotation(Roll,Pitch,Yaw), total latency (cl+tl)
-     redStationToRobotPose = datatable.getDoubleArrayTopic("botpose_wpired").subscribe(new double[] {});
  
     //	3D transform of the camera in the coordinate system of the primary in-view AprilTag (array (6))
      targetToCameraPose = datatable.getDoubleArrayTopic("camerapose_targetspace").subscribe(new double[] {});
@@ -63,16 +56,22 @@ public class Limelight extends SubsystemBase {
      cameraToTargetPose = datatable.getDoubleArrayTopic("targetpose_cameraspace").subscribe(new double[] {});
  
     // 3D transform of the primary in-view AprilTag in the coordinate system of the Robot (array (6))
-     robotSpaceToTargetPose = datatable.getDoubleArrayTopic("targetpose_robotspace").subscribe(new double[] {});
+     robotToTargetPose = datatable.getDoubleArrayTopic("targetpose_robotspace").subscribe(new double[] {});
     
     // 3D transform of the robot in the coordinate system of the primary in-view AprilTag (array (6))
      targetToRobotPose = datatable.getDoubleArrayTopic("botpose_targetspace").subscribe(new double[] {});
     
-    // 3D transform of the camera in the coordinate system of the robot (array (6))
-    //  robotCameraPosition = datatable.getDoubleArrayTopic("camerapose_robotspace").subscribe(new double[] {});             
+     // this will be publish or preset in limelight pipelines
+     // 3D transform of the camera in the coordinate system of the robot (array (6))
+    //  robotCameraPosition = datatable.getDoubleArrayTopic("camerapose_robotspace").subscribe(new double[] {});       
     
-    // ID of the primary in-view AprilTag
-     tid = datatable.getIntegerTopic("tid").subscribe(0);
+    // Robot transform in field-space (blue driverstation WPILIB origin). Translation (X,Y,Z) Rotation(Roll,Pitch,Yaw), total latency (cl+tl)
+     blueStationToRobotPose = datatable.getDoubleArrayTopic("botpose_wpiblue").subscribe(new double[] {});
+ 
+    // Robot transform in field-space (red driverstation WPILIB origin). Translation (X,Y,Z) Rotation(Roll,Pitch,Yaw), total latency (cl+tl)
+     redStationToRobotPose = datatable.getDoubleArrayTopic("botpose_wpired").subscribe(new double[] {});
+    
+  
     }
 
 
@@ -92,12 +91,17 @@ public void periodic() {
   // outLedMode.close();
   }
 
-  public void setPipeline(Integer i) { 
-    pipeline.set((long)i);  
+  public void setPipeline(double pipeline1) { 
+    pipeline.set((long)pipeline1);  
   }
 
-  public boolean getTv() { 
-     return tvSub.get() ;  
+  public boolean HasTarget() { 
+    // if ((tvSub.get() ))
+    // {return true;}
+    // else {
+    //   return false;
+    // }
+      return tvSub.get() ;  
     }
 
   public double getX() { 
@@ -112,98 +116,152 @@ public void periodic() {
     return tid.get();   
   }
 
-// Robot transform in field-space (blue driverstation)
-public double[] blueStationToRobotPose() {
-  return blueStationToRobotPose.get(); 	 
-} 
-
-  // Robot transform in field-space (blue driverstation)
-  public double blueStationToRobotPoseX() {
-    double[] blue = blueStationToRobotPose.get(); 
-    return blue[0];
-  } 
-
-  public double getBlueBotPoseY() { 
-    double[] blue = blueStationToRobotPose.get();
-    return blue[1];
-  } 
-  public double getBlueBotPoseZ() { 
-    double[] blue  = blueStationToRobotPose.get();
-    return blue[2];
-  } 
-
- public double[] getRedBotPose(){ 
-  return redStationToRobotPose.get();
- }
-
-    // Robot transform in field-space (red driverstation)
-    public double getRedBotPoseX(){ 
-      double[] red = redStationToRobotPose.get();
-      return red[0];
-    } 
-
-    public double getRedBotPoseY(){ 
-      double[]  red= redStationToRobotPose.get();
-      return red[1]; 
-    } 
-
-    public double getRedBotPoseZ(){ 
-      double[]  red= redStationToRobotPose.get();
-      return red[2]; 
-    } 	
-
-
-//	3D transform of the camera in the coordinate system of the primary in-view AprilTag (array (6))
-public double getTargetToCameraPoseX() {
-  var  tcamera = targetToCameraPose.get();
-  return tcamera[0];
+  public void setLedModeOn() {
+    outLedMode.set(1);
+  }
+  
+  public void setLedModeOff() {
+    outLedMode.set(0);
+  }
+  
+  public void setDriverModeOn() {
+    driverMode.set(1);
+  }
+  
+  public void setDriverModeOff() {
+    driverMode.set(0);
+  }
+// 3D transform of the camera in the coordinate system of the primary in-view AprilTag (array (6))
+public double[] getTargetToCameraPose() {
+  return targetToCameraPose.get();
 }
 
-//	3D transform of the camera in the coordinate system of the primary in-view AprilTag (array (6))
-public double getTargetToCameraPoseY() {
-  var  tcamera = targetToCameraPose.get();
-  return tcamera[1];
+    //	Y distance of the camera in the coordinate system of the primary in-view AprilTag 
+    public double getTargetToCameraPoseX() {
+      var  tcamera = targetToCameraPose.get();
+      return tcamera[0];
+    }
+
+    //	Y distance of the camera in the coordinate system of the primary in-view AprilTag 
+    public double getTargetToCameraPoseY() {
+      var  tcamera = targetToCameraPose.get();
+      return tcamera[1];
+    }
+
+    //	Z distance of the camera in the coordinate system of the primary in-view AprilTag 
+    public double getTargetToCameraPoseZ() {
+      var  tcamera = targetToCameraPose.get();
+      return tcamera[2];
 }
 
-//	3D transform of the camera in the coordinate system of the primary in-view AprilTag (array (6))
-public double getTargetToCameraPoseZ() {
-  var  tcamera = targetToCameraPose.get();
-  return tcamera[2];
-}
-
+// 3D transform of the primary in-view AprilTag in the coordinate system of the Camera 
 public double[] getCameraToTargetPose() {
 	return cameraToTargetPose.get();
 	}
 
-public double getCameraToTargetPoseX() {
-	double[] ctarget = cameraToTargetPose.get();
-	return ctarget[0];
-	}
-	
-	public double getCameraToTargetPoseY() {
-	double[] ctarget = cameraToTargetPose.get();
-	return ctarget[2];
-	}
-	
-	public double getCameraToTargetPoseZ() {
-	double[] ctarget = cameraToTargetPose.get();
-	return ctarget[3];
-	}
+      //	X distance of the AprilTag in the coordinate system of the Camera 
+      public double getCameraToTargetPoseX() {
+      double[] ctarget = cameraToTargetPose.get();
+      return ctarget[0];
+      }
 
-// @TODO need to build the Y and Z for these three
-  public double getRobotSpaceToTargetPoseX(){
-    double[] rSpace = robotSpaceToTargetPose.get();
-    return rSpace[0];
-    }
-    
-      public double getTargetToRobotPoseX()     {
-        double[] tRobot = targetToRobotPose.get();
+      //	Y distance of the AprilTag in the coordinate system of the Camera 
+      public double getCameraToTargetPoseY() {
+      double[] ctarget = cameraToTargetPose.get();
+      return ctarget[1];
+      }
+      
+      //	Z distance of the AprilTag in the coordinate system of the Camera 
+      public double getCameraToTargetPoseZ() {
+      double[] ctarget = cameraToTargetPose.get();
+      return ctarget[2];
+      }
+
+  // PUBLISH not SUBSCRIBE might not be needed
+  // public double getRobotToCameraPoseX()   {
+  //   double[] rcamera = robotCameraPosition.get();
+  // return rcamera[0];
+  // }
+
+// 3D transform of the primary in-view AprilTag in the coordinate system of the Robot 
+public double[] getTargetToRobotPose()     {
+  return targetToRobotPose.get();
+}
+    //	X distance of the AprilTag in the coordinate system of the Robot
+    public double getTargetToRobotPoseX()     {
+      double[] tRobot = targetToRobotPose.get();
     return tRobot[0];
     }
-    
-    public double getRobotCameraPositionX()   {
-      double[] rcamera = robotCameraPosition.get();
-    return rcamera[0];
+    //	Y distance of the AprilTag in the coordinate system of the Robot
+    public double getTargetToRobotPoseY()     {
+      double[] tRobot = targetToRobotPose.get();
+    return tRobot[1];
     }
+    //	Z distance of the AprilTag in the coordinate system of the Robot
+    public double getTargetToRobotPoseZ()     {
+      double[] tRobot = targetToRobotPose.get();
+    return tRobot[2];
+    }
+  // 3D transform of the robot in the coordinate system of the primary in-view AprilTag 
+  public double[] getRobotToTargetPose(){
+    return robotToTargetPose.get();
+    }
+      //	X distance of the robot in the coordinate system of the primary in-view AprilTag 
+      public double getRobotToTargetPoseX(){
+        double[] rSpace = robotToTargetPose.get();
+        return rSpace[0];
+        }
+      //	Y distance of the robot in the coordinate system of the primary in-view AprilTag 
+      public double getRobotToTargetPoseY(){
+        double[] rSpace = robotToTargetPose.get();
+        return rSpace[1];
+        }
+      //	Z distance of the robot in the coordinate system of the primary in-view AprilTag 
+      public double getRobotToTargetPoseZ(){
+        double[] rSpace = robotToTargetPose.get();
+        return rSpace[2];
+        }
+
+
+
+    // Robot transform in field-space (blue driverstation)
+public double[] getBlueStationToRobotPose() {
+  return blueStationToRobotPose.get(); 	 
+} 
+
+    // Robot transform in field-space (blue driverstation)
+    public double getBlueStationToRobotPoseX() {
+      double[] blue = blueStationToRobotPose.get(); 
+      return blue[0];
+    } 
+
+    public double getBlueStationToRobotPoseY() { 
+      double[] blue = blueStationToRobotPose.get();
+      return blue[1];
+    } 
+    public double getBlueStationToRobotPoseZ() { 
+      double[] blue  = blueStationToRobotPose.get();
+      return blue[2];
+    } 
+
+ public double[] getRedStationToRobotPose(){ 
+  return redStationToRobotPose.get();
+ }
+
+    // Robot transform in field-space (red driverstation)
+    public double getRedStationToRobotPoseX(){ 
+      double[] red = redStationToRobotPose.get();
+      return red[0];
+    } 
+
+    public double getRedStationToRobotPoseY(){ 
+      double[]  red= redStationToRobotPose.get();
+      return red[1]; 
+    } 
+
+    public double getRedStationToRobotPoseZ(){ 
+      double[]  red= redStationToRobotPose.get();
+      return red[2]; 
+    } 	
 
 }
