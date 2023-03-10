@@ -20,7 +20,6 @@ public class Grab extends CommandBase {
   @Override
   public void initialize() {
     gripper3.grab();
-    gripper3.setGripperClosed();
   }
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -34,14 +33,14 @@ public class Grab extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-  if (gripper3.isGripperClosed) {
-    SmartDashboard.putBoolean("Grab-isFinished", true);
-    return true;
-  } else {
-    SmartDashboard.putBoolean("Grab-isNotFinished", true);
+  // if (gripper3.isGripping()) {
+  //   SmartDashboard.putBoolean("Grab-isFinished", true);
+  //   return true;
+  // } else {
+  //   SmartDashboard.putBoolean("Grab-isNotFinished", true);
+  //   return false;
+  // }
     return false;
-  }
-
 }
 
 

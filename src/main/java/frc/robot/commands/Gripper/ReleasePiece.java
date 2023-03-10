@@ -18,14 +18,12 @@ public class ReleasePiece extends CommandBase {
   @Override
   public void initialize() {
     gripper1.release();
-    gripper1.setGripperOpen();
     gripper1.resetGripperEyeCount();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() { 
-   gripper1.release();
   }
 
   // Called once the command ends or is interrupted.
@@ -35,15 +33,15 @@ public class ReleasePiece extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (!gripper1.isGripperClosed) {
-      SmartDashboard.putBoolean("Release-isFinished", true);
-      return true;
-    } else {
-      SmartDashboard.putBoolean("Release-isNotFinished", true);
-      return false;
-    }
+    // if (!gripper1.isGripping) {
+    //   SmartDashboard.putBoolean("Release-isFinished", true);
+    //   return true;
+    // } else {
+    //   SmartDashboard.putBoolean("Release-isNotFinished", true);
+    //   return false;
+    // }
   
-
+      return false;
   }
   
 }
