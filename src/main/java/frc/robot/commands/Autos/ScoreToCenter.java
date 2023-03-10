@@ -21,7 +21,7 @@ public class ScoreToCenter extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new ScoreMiddlePosition(scoreCenter, no, pvtCent),
+      new ScoreMiddlePosition(pvtCent, scoreCenter, no),
       new DriveAtSetSpeed(driveCenter, 180, -0.4)
     );
   }

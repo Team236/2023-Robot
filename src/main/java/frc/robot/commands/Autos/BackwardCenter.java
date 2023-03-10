@@ -29,7 +29,7 @@ public class BackwardCenter extends SequentialCommandGroup {
       //new WaitCommand(1),
     // new ArmPID(backwardA, -Constants.ArmConstants.ARM_HIGH).withTimeout(1),
     //new PivotPID(backwardA, -10000).withTimeout(1),
-    new AutoPIDDrive(backwardD, -180).withTimeout(3),
+    new AutoPIDDrive(backwardD, -30).withTimeout(3),
     new WaitCommand(1),
     new TurnPID(backwardD, 180)
     );

@@ -86,7 +86,7 @@ public class RobotContainer {
 
   //COMMANDS****
   //AUTO
-  private final ScoreMiddlePosition scoreMiddleLevel = new ScoreMiddlePosition(arm, gripper, pivot);
+  private final ScoreMiddlePosition scoreMiddleLevel = new ScoreMiddlePosition(pivot, arm, gripper);
   //Command scoreMid = Commands.sequence(new PivotPID(arm, 10065).andThen(new ArmPID(arm, 7.25)).andThen(new ReleasePiece(gripper)));
   private final StowPosition stowPosition = new StowPosition(arm, pivot);
   //DRIVE
