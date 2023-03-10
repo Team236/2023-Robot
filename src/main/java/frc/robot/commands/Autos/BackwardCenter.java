@@ -12,6 +12,7 @@ import frc.robot.commands.ScoringPositions.ScoreHighPosition;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Gripper;
+import frc.robot.subsystems.Pivot;
 import frc.robot.Constants.PivotConstants;
 import frc.robot.Constants;
 
@@ -20,7 +21,7 @@ import frc.robot.Constants;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class BackwardCenter extends SequentialCommandGroup {
   /** Creates a new BackwardCenter. */
-  public BackwardCenter(Arm backwardA, Gripper backwardG, Drive backwardD) {
+  public BackwardCenter(Arm backwardA, Gripper backwardG, Drive backwardD, Pivot backwardP) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
@@ -28,7 +29,7 @@ public class BackwardCenter extends SequentialCommandGroup {
      // new ArmPID(backwardA, Constants.ArmConstants.ARM_HIGH).withTimeout(1),
       //new WaitCommand(1),
     // new ArmPID(backwardA, -Constants.ArmConstants.ARM_HIGH).withTimeout(1),
-    //new PivotPID(backwardA, -10000).withTimeout(1),
+    new PivotPID(backwardP, 1511).withTimeout(1),
     new AutoPIDDrive(backwardD, -30).withTimeout(3),
     new WaitCommand(1),
     new TurnPID(backwardD, 180)
