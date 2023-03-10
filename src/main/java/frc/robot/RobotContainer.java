@@ -16,7 +16,6 @@ import frc.robot.commands.Autos.AutoTrapezoidalPID;
 import frc.robot.commands.Autos.BackwardCenter;
 import frc.robot.commands.Autos.BalanceOnChargeAuto;
 import frc.robot.commands.Autos.DriveAtSetSpeed;
-import frc.robot.commands.Autos.GrabScoreFlatGround;
 import frc.robot.commands.Autos.ScoreToCenter;
 import frc.robot.commands.Autos.TurnPID;
 import frc.robot.commands.Drive.AutoBalanceGyro;
