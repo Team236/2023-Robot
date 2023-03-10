@@ -5,6 +5,7 @@
 package frc.robot.commands.ScoringPositions;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.Arm.ArmPID;
 import frc.robot.commands.Pivot.PivotPID;
 import frc.robot.subsystems.Arm;
@@ -20,6 +21,7 @@ public class PickupPosition extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new PivotPID(pvtPickup, 1225),
+      new WaitCommand(0.5),
       new ArmPID(armPickup, 6.55)
     );
   }
