@@ -27,7 +27,7 @@ public class ArmPID extends CommandBase {
   @Override
   public void initialize() {
     armPidController.reset();
-    arm3.resetArmEncoder();
+    //arm3.resetArmEncoder();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
