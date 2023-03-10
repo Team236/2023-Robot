@@ -9,17 +9,18 @@ import frc.robot.Constants;
 import frc.robot.commands.Arm.ArmPID;
 import frc.robot.commands.Pivot.PivotPID;
 import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.Pivot;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class StowPosition extends SequentialCommandGroup {
   /** Creates a new StowPosition. */
-  public StowPosition(Arm armStow) {
+  public StowPosition(Arm armStow, Pivot pvtStow) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
 addCommands(new ArmPID(armStow, -24),
-  new PivotPID(armStow,-11000).withTimeout(1));
+  new PivotPID(pvtStow,-11000).withTimeout(1));
   }
 
 }

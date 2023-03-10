@@ -32,7 +32,9 @@ import frc.robot.commands.Pivot.PivotDown;
 import frc.robot.commands.Pivot.PivotPID;
 import frc.robot.commands.Pivot.PivotUp;
 import frc.robot.commands.ScoringPositions.LoadStationPosition;
+import frc.robot.commands.ScoringPositions.PickupPosition;
 import frc.robot.commands.ScoringPositions.ScoreHighPosition;
+import frc.robot.commands.ScoringPositions.ScoreLow;
 import frc.robot.commands.ScoringPositions.ScoreMiddlePosition;
 import frc.robot.commands.ScoringPositions.StowPosition;
 import frc.robot.commands.Targeting.AprilFollow;
@@ -46,6 +48,7 @@ import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Gripper;
 import frc.robot.subsystems.Limelight;
+import frc.robot.subsystems.Pivot;
 import frc.robot.subsystems.Turret;
 import org.photonvision.PhotonCamera;
 
@@ -73,6 +76,7 @@ public class RobotContainer {
   private final Arm arm = new Arm();
   private final Gripper gripper = new Gripper();
   private final Turret turret = new Turret();
+  private final Pivot pivot = new Pivot();
   private static DigitalInput autoSwitch1 = new DigitalInput(Constants.DriveConstants.DIO_AUTO_1);
   private static DigitalInput autoSwitch2 = new DigitalInput(Constants.DriveConstants.DIO_AUTO_2);
   private static DigitalInput autoSwitch3 = new DigitalInput(Constants.DriveConstants.DIO_AUTO_3);
@@ -82,9 +86,9 @@ public class RobotContainer {
 
   //COMMANDS****
   //AUTO
-  private final ScoreMiddlePosition scoreMiddleLevel = new ScoreMiddlePosition(arm, gripper);
-  Command scoreMid = Commands.sequence(new PivotPID(arm, 10065).andThen(new ArmPID(arm, 7.25)).andThen(new ReleasePiece(gripper)));
-  private final StowPosition stowPosition = new StowPosition(arm);
+  private final ScoreMiddlePosition scoreMiddleLevel = new ScoreMiddlePosition(arm, gripper, pivot);
+  //Command scoreMid = Commands.sequence(new PivotPID(arm, 10065).andThen(new ArmPID(arm, 7.25)).andThen(new ReleasePiece(gripper)));
+  private final StowPosition stowPosition = new StowPosition(arm, pivot);
   //DRIVE
  private final DoubleArcadeDrive doubleArcadeDrive = new DoubleArcadeDrive(drive, gripper, driveController);
  private final ToggleTransmission toggleTransmission = new ToggleTransmission(drive);
@@ -92,11 +96,11 @@ public class RobotContainer {
  private final  DriveAtSetSpeed driveAtSetSpeed = new DriveAtSetSpeed(drive, 130, 0.5);
 
  //ARM
- private final PivotUp pivotUp = new PivotUp(arm, 0.4);
- private final PivotDown pivotDown = new PivotDown(arm, 0.3);
- private final PivotPID pivotMidPID = new PivotPID(arm, 10065);
- private final PivotPID pivotHighPID = new PivotPID(arm, 11188);
- private final PivotPID pivotLowPID = new PivotPID(arm, 4862);
+ private final PivotUp pivotUp = new PivotUp(pivot, 0.4);
+ private final PivotDown pivotDown = new PivotDown(pivot, 0.3);
+ private final PivotPID pivotMidPID = new PivotPID(pivot, 10065);
+ private final PivotPID pivotHighPID = new PivotPID(pivot, 11188);
+ private final PivotPID pivotLowPID = new PivotPID(pivot, 4862);
 
  //GRIPPER
 private final Grab grab = new Grab(gripper);
@@ -165,11 +169,11 @@ private final TurretCCW turretCCW = new TurretCCW(turret, -TurretConstants.TURRE
    //DRIVECONTROLLER******
   a.whileTrue(toggleTransmission);
   b.whileTrue(grabReleaseToggle);
-  x.whileTrue(new BackwardCenter(arm, gripper, drive));
-  y.whileTrue(new AutoPIDDrive(drive, -180));
-  rb.whileTrue(new LoadStationPosition(arm));
+  x.whileTrue(new ScoreLow(arm, gripper, pivot));
+  y.whileTrue(new PickupPosition(arm, pivot));
+  rb.whileTrue(new LoadStationPosition(arm, pivot));
  lb.whileTrue(scoreMiddleLevel);
- rm.whileTrue(new ScoreHighPosition(arm, gripper));
+ rm.whileTrue(new ScoreHighPosition(arm, pivot, gripper));
  lm.whileTrue(stowPosition);
 
 

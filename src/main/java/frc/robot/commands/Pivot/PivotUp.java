@@ -4,13 +4,13 @@
 
 package frc.robot.commands.Pivot;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.Pivot;
 
 public class PivotUp extends CommandBase {
-  private Arm pivot3;
+  private Pivot pivot3;
   private double speed3;
   /** Creates a new PivotCW. */
-  public PivotUp(Arm pivotup, double speedup) {
+  public PivotUp(Pivot pivotup, double speedup) {
     this.pivot3 = pivotup;
     this.speed3 = speedup;
     addRequirements(pivot3);

@@ -12,6 +12,7 @@ import frc.robot.commands.Gripper.GrabReleaseToggle;
 import frc.robot.commands.Pivot.PivotPID;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Gripper;
+import frc.robot.subsystems.Pivot;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -20,11 +21,11 @@ public class ScoreHighPosition extends SequentialCommandGroup {
 
   
   /** Creates a new ScoreMiddleLevel. */
-  public ScoreHighPosition(Arm hiScore, Gripper gripScore1) {
+  public ScoreHighPosition(Arm hiScore, Pivot pvtHi, Gripper gripScore1) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new PivotPID(hiScore, PivotConstants.PVT_ENC_HIGH_SCORE),
+      new PivotPID(pvtHi, PivotConstants.PVT_ENC_HIGH_SCORE),
       new ArmPID(hiScore, Constants.ArmConstants.ARM_HIGH)//,
       //new GrabReleaseToggle(gripScore1)
       );

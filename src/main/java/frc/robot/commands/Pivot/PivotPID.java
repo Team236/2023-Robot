@@ -4,17 +4,17 @@
 
 package frc.robot.commands.Pivot;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.Pivot;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.PivotConstants;
 
 public class PivotPID extends CommandBase {
-  private Arm pivot2;
+  private Pivot pivot2;
   private double pvtTarget, pvtSpeed;
   private final PIDController pvtPidController;
   /** Creates a new PivotPID. */
-  public PivotPID(Arm m_pivotpid2, double m_pvtTarget) {
+  public PivotPID(Pivot m_pivotpid2, double m_pvtTarget) {
     this.pivot2 = m_pivotpid2;
     addRequirements(pivot2);
     this.pvtTarget = m_pvtTarget;
@@ -45,13 +45,11 @@ public class PivotPID extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    //stop when near target and commanded speed close to 0
-if ((pivot2.getPivotEncoder() > 0.9*pvtTarget)&& (Math.abs(pvtSpeed) < 0.1)) {
-  //SmartDashboard.putBoolean("PvtPID Finished?", true);
-  return true;
-} else {
-  //SmartDashboard.putBoolean("PvtPID Finished?", false);
-  return false;
-}
+   if (pivot2.getPivotEncoder() >= Math.abs(0.97*pvtTarget)) {
+    return true;
+   } else {
+    return false;
+   }
+    
   }
 }

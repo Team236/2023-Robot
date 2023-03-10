@@ -9,16 +9,17 @@ import frc.robot.Constants;
 import frc.robot.commands.Pivot.PivotPID;
 import frc.robot.commands.Arm.ArmPID;
 import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.Pivot;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class LoadStationPosition extends SequentialCommandGroup {
   /** Creates a new LoadStationPosition. */
-  public LoadStationPosition(Arm loadStation) {
+  public LoadStationPosition(Arm loadStation, Pivot loadPivot) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new PivotPID(loadStation, Constants.PivotConstants.PVT_ENC_LOAD_STN).withTimeout(1),
+    addCommands(new PivotPID(loadPivot, Constants.PivotConstants.PVT_ENC_LOAD_STN).withTimeout(1),
     new ArmPID(loadStation, Constants.ArmConstants.ARM_LOAD_STN));
   }
 }
