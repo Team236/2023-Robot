@@ -13,18 +13,17 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class AutoBalanceGyro extends CommandBase {
-  static final double kOffBalanceAngleThresholdDegrees = 5;
-  static final double kOonBalanceAngleThresholdDegrees  = 10;
-  private AHRS navx;
- private XboxController driveController;
- private boolean autoBalanceXMode;
-  private boolean autoBalanceYMode;
-  private Drive drive;
+static final double kOffBalanceAngleThresholdDegrees = 5;
+static final double kOonBalanceAngleThresholdDegrees  = 10;
+private XboxController driveController;
+private boolean autoBalanceXMode;
+private boolean autoBalanceYMode;
+private Drive drive;
+private AHRS navx;
 
   /** Creates a new AutoBalanceGyro. */
-  public AutoBalanceGyro(Drive drive, XboxController driveController) {
-    navx = new AHRS();
-    this.drive = drive;
+  public AutoBalanceGyro(Drive _drive, XboxController driveController) {
+    this.drive = _drive;
     addRequirements(drive);
     // Use addRequirements() here to declare subsystem dependencies.
   }

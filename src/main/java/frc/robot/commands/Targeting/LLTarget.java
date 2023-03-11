@@ -1,11 +1,9 @@
 package frc.robot.commands.Targeting;
 
-import edu.wpi.first.math.util.Units;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drive;
-import frc.robot.subsystems.Limelight;
 
 public class LLTarget extends CommandBase {
      //tV = 1 if there are any targets found, =0 if not
@@ -31,11 +29,12 @@ public class LLTarget extends CommandBase {
   private double targetHeight12;//18" for Atag, from floor to center of target
   private double a2, dx, errorY, distanceAdjust;
   /** Creates a new LLTarget. */
-  public LLTarget(Drive t_drive, double t_pipeline, double t_standoff, double t_targetHeight) {
-    this.drive12 = t_drive;
-    this.pipeline12 = t_pipeline;
-    this.dist12 = t_standoff;
-    this.targetHeight12 = t_targetHeight;
+  
+  public LLTarget(Drive _drive, double _pipeline, double _standoff, double _targetHeight) {
+    this.drive12 = _drive;
+    this.pipeline12 = _pipeline;
+    this.dist12 = _standoff;
+    this.targetHeight12 = _targetHeight;
     //this.limelight = passed_limelight;
     addRequirements(this.drive12);
    // limelight.setPipeline(0);

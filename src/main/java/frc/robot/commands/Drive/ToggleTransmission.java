@@ -12,8 +12,8 @@ public class ToggleTransmission extends CommandBase {
   private Drive drive;
   private boolean toggle;
   /** Creates a new SwitchGear. */
-  public ToggleTransmission(Drive drive) {
-    this.drive = drive;
+  public ToggleTransmission(Drive _drive) {
+    this.drive = _drive;
     addRequirements(drive);
   }
 

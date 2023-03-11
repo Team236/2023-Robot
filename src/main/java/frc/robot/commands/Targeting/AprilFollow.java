@@ -9,10 +9,8 @@ import org.photonvision.common.hardware.VisionLEDMode;
 import org.photonvision.targeting.PhotonPipelineResult;
 
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
 import frc.robot.subsystems.Drive;
 
 public class AprilFollow extends CommandBase {
@@ -29,11 +27,11 @@ public class AprilFollow extends CommandBase {
    private double kPgyro, angleFix, dC, LS, RS;
 
 
-   public AprilFollow(Drive drive2, PhotonCamera m_camera, double m_driveDistance, double m_yOffset) {
-    this.drive = drive2;
-    this.camera = m_camera;
-    this.driveDistance = m_driveDistance;
-    this.yOffset = m_yOffset;
+   public AprilFollow(Drive _drive, PhotonCamera _camera, double _driveDistance, double _yOffset) {
+    this.drive = _drive;
+    this.camera = _camera;
+    this.driveDistance = _driveDistance;
+    this.yOffset = _yOffset;
 
     addRequirements(drive);
 

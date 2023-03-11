@@ -22,10 +22,9 @@ import frc.robot.commands.Autos.ScoreToCenter;
 import frc.robot.commands.Autos.TurnPID;
 import frc.robot.commands.Drive.AutoBalanceGyro;
 import frc.robot.commands.Drive.DoubleArcadeDrive;
-//import frc.robot.commands.Drive.DriveWithJoysticks;
+import frc.robot.commands.Drive.DriveWithJoysticks;
 import frc.robot.commands.Drive.TDWG_No;
 import frc.robot.commands.Drive.ToggleTransmission;
-//import frc.robot.commands.Drive.DriveWithJoysticks;
 import frc.robot.commands.Gripper.Grab;
 import frc.robot.commands.Gripper.GrabReleaseToggle;
 import frc.robot.commands.Gripper.ReleasePiece;
@@ -51,6 +50,9 @@ import frc.robot.subsystems.Gripper;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Pivot;
 import frc.robot.subsystems.Turret;
+
+import java.io.NotActiveException;
+
 import org.photonvision.PhotonCamera;
 
 import edu.wpi.first.wpilibj.DigitalInput;

@@ -8,13 +8,13 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Pivot;
 import frc.robot.Constants.PivotConstants;
 public class PivotDown extends CommandBase {
-  private Pivot pivot4;
-  private double speed4;
+  private Pivot pivot;
+  private double speed;
   /** Creates a new PivotCCW. */
   public PivotDown(Pivot pivotdown, double speeddown) {
-    this.pivot4 = pivotdown;
-    this.speed4 = speeddown;
-    addRequirements(pivot4);
+    this.pivot = pivotdown;
+    this.speed = speeddown;
+    addRequirements(pivot);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -25,20 +25,20 @@ public class PivotDown extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    pivot4.setPivotSpeed(-speed4);
+    pivot.setPivotSpeed(-speed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-   pivot4.pivotStop();
+   pivot.pivotStop();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-   if (pivot4.isPLowLimit()) {
-   pivot4.resetPivotEncoder();
+   if (pivot.isPLowLimit()) {
+   pivot.resetPivotEncoder();
    
    return true; }
    else {

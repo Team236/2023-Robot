@@ -16,9 +16,9 @@ public class AutoPIDDrive extends CommandBase {
   private final PIDController leftPidController, rightPidController;
 
   /** Creates a new DriveStraight. */
-  public AutoPIDDrive(Drive drive, double driveDistance) {
-    this.drive = drive;
-    this.driveDistance = driveDistance;
+  public AutoPIDDrive(Drive _drive, double _driveDistance) {
+    this.drive = _drive;
+    this.driveDistance = _driveDistance;
     this.leftPidController = new PIDController(DriveConstants.leftkPdrive, DriveConstants.leftkIdrive, DriveConstants.leftkDdrive);
     this.rightPidController = new PIDController(DriveConstants.rightkPdrive, DriveConstants.rightkIdrive, DriveConstants.rightkDdrive);
     // Use addRequirements() here to declare subsystem dependencies.

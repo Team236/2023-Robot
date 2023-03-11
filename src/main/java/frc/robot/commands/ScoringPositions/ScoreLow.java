@@ -23,16 +23,16 @@ public class ScoreLow extends SequentialCommandGroup {
 
   
   /** Creates a new ScoreMiddleLevel. */
-  public ScoreLow(Arm lowScore, Gripper gripScore2, Pivot pvtLow) {
+  public ScoreLow(Arm lowScore, Gripper gripScore, Pivot pvtLow) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
    
-     //new GrabReleaseToggle(gripScore1),
+     //new GrabReleaseToggle(gripScore),
       new PivotPID(pvtLow, PivotConstants.PVT_ENC_LOW_SCORE).withTimeout(1),
       new ArmPID(lowScore, 0)//,
       //new WaitCommand(0.5), 
-     // new ReleasePiece(gripScore2).asProxy()
+     // new ReleasePiece(gripScore).asProxy()
       );
       
   }

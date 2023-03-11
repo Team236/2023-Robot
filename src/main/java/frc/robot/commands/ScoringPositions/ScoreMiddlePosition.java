@@ -23,7 +23,7 @@ public class ScoreMiddlePosition extends SequentialCommandGroup {
 
   
   /** Creates a new ScoreMiddleLevel. */
-  public ScoreMiddlePosition(Pivot pvtMid, Arm midScore, Gripper gripScore2) {    // Add your commands in the addCommands() call, e.g.
+  public ScoreMiddlePosition(Pivot pvtMid, Arm midScore, Gripper gripScore) {    // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
    

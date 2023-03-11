@@ -3,16 +3,9 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.commands.Targeting;
-import edu.wpi.first.math.util.Units;
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.networktables.NetworkTableValue;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.Drive;
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.networktables.NetworkTableInstance;
 import java.lang.Math;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -20,23 +13,22 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class LLAngle extends CommandBase {
   private double kX = 0.03;  //0.005??
   private double tv, distX, errorX;
-  private Drive drive10;
-  private double pipeline10, cameraXoffset;
+  private Drive drive;
+  private double pipeline, cameraXoffset;
 
-  public LLAngle(Drive a_drive, double a_pipeline) {
+  public LLAngle(Drive _drive, double _pipeline) {
     //public LLAngle(Drive passed_drive, Limelight lime, double m_pipeline) {
-      this.drive10 = a_drive;
-      this.pipeline10 = a_pipeline;
-     // this.limelight = lime;
-      addRequirements(drive10);
+      this.drive = _drive;
+      this.pipeline = _pipeline;
+      addRequirements(drive);
     }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    SmartDashboard.putNumber("LLangle init", pipeline10);
+    SmartDashboard.putNumber("LLangle init", pipeline);
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(0);
-    NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(pipeline10);
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(pipeline);
     cameraXoffset = 0; //need to figure out
 
   }
@@ -57,8 +49,8 @@ public class LLAngle extends CommandBase {
       //Establishes a minimum error in the x axis 
       SmartDashboard.putNumber("Adjust Angle, ErrorX is:", errorX);
         double steeringAdjust = kX * errorX;
-        drive10.setLeftSpeed(steeringAdjust);
-        drive10.setRightSpeed(-steeringAdjust); 
+        drive.setLeftSpeed(steeringAdjust);
+        drive.setRightSpeed(-steeringAdjust); 
         }   
       else{
       SmartDashboard.putNumber("No Shoot Target", tv);
@@ -69,7 +61,7 @@ public class LLAngle extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    drive10.stop();
+    drive.stop();
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(0);
   }
 

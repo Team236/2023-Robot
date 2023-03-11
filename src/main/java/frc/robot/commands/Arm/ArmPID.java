@@ -9,16 +9,18 @@ import edu.wpi.first.math.controller.PIDController;
 import frc.robot.Constants.ArmConstants;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.WPILibVersion;
+
 public class ArmPID extends CommandBase {
   /** Creates a new ArmPID. */
   private Arm arm3;
-  private double armDistance, armSpeed;
+  private double armDistance;
+
   private final PIDController armPidController;
 
-  public ArmPID(Arm armpid, double armDistance) {
+  public ArmPID(Arm armpid, double _armDistance) {
     this.arm3 = armpid;
     addRequirements(arm3);
-    this.armDistance = armDistance;
+    this.armDistance = _armDistance;
     this.armPidController = new PIDController(ArmConstants.kParm, ArmConstants.kIarm, ArmConstants.kDarm);
     armPidController.setSetpoint(armDistance);
   }
@@ -27,7 +29,7 @@ public class ArmPID extends CommandBase {
   @Override
   public void initialize() {
     armPidController.reset();
-    //arm3.resetArmEncoder();
+    arm3.resetArmEncoder();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -45,15 +47,12 @@ public class ArmPID extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    double armSpeed = armPidController.calculate(arm3.getArmDistance());
       //stop when near target and commanded speed close to 0
-  if ((arm3.getArmDistance() > 0.97*armDistance)&& (Math.abs(armSpeed) < 0.02)) {
+  if ((arm3.getArmDistance() > 0.9*armDistance)&& (Math.abs(armSpeed) < 0.02)) {
     SmartDashboard.putBoolean("ArmPID Finished?", true);
     return true;
-  } else if (arm3.isARetLimit() && armSpeed < 0) {
-    return true; }
-    else if (arm3.isAExtLimit() && armSpeed> 0) {
-      return true;
-    } else {
+  } else {
     SmartDashboard.putBoolean("ArmPID Finished?", false);
     return false;
   }

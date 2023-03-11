@@ -8,12 +8,12 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Gripper;
 
 public class GrabReleaseToggle extends CommandBase{ 
-  private Gripper gripper2;
+  private Gripper gripper;
   private boolean toggle;
   /** Creates a new GrabReleaseToggle. */
-  public GrabReleaseToggle(Gripper toggleGripper) {
-    this.gripper2=toggleGripper;
-    addRequirements(gripper2);
+  public GrabReleaseToggle(Gripper gripper) {
+    this.gripper=gripper;
+    addRequirements(gripper);
   }
 
   // Called when the command is initially scheduled.
@@ -23,14 +23,15 @@ public class GrabReleaseToggle extends CommandBase{
 
   @Override
   public void execute() {
+    
     toggle = false;
     
-   if (gripper2.isGripping()) {
-    gripper2.release();
-    gripper2.resetGripperEyeCount();
+   if (gripper.isGripping()) {
+    gripper.release();
+    gripper.resetGripperEyeCount();
     toggle = true;
-    } else if (!gripper2.isGripping()) {
-    gripper2.grab();
+    } else if (!gripper.isGripping()) {
+    gripper.grab();
     toggle = true;
    }
   }
@@ -42,7 +43,7 @@ public class GrabReleaseToggle extends CommandBase{
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    //SmartDashboard.putBoolean("finish toggle", toggle);
+    SmartDashboard.putBoolean("finish toggle", toggle);
     return toggle;
   }
 }

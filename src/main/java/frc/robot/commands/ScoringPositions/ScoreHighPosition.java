@@ -22,7 +22,7 @@ public class ScoreHighPosition extends SequentialCommandGroup {
 
   
   /** Creates a new ScoreMiddleLevel. */
-  public ScoreHighPosition(Arm hiScore, Pivot pvtHi, Gripper gripScore1) {
+  public ScoreHighPosition(Arm hiScore, Pivot pvtHi, Gripper gripScore) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(

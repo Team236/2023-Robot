@@ -13,8 +13,7 @@ private double dist;
 private double speed;
 private Drive drive;
 
-  public TDWG_No(Drive _drive, double _kP, 
-  double _dist, double _speed) {
+  public TDWG_No(Drive _drive, double _kP, double _dist, double _speed) {
     this.kP = _kP;
     this.dist = _dist;
     this.speed = _speed;

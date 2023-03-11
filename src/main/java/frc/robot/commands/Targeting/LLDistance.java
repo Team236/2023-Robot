@@ -27,29 +27,29 @@ public class LLDistance extends CommandBase {
   //private double h2 = 18; // inches, same unit as d, to center of target
   private double a1 = Math.toRadians(20); //20 degrees, camera tilt
   private double dist11; // desired distance from camera to target in inches; pass into command
-  //private Limelight limelight;
-  private Drive drive11;
-  private double pipeline11;
+  
+  private Drive drive;
+  private double pipeline;
   private double targetHeight11;//18" for Atag, from floor to center of target
   private double tv, disY, a2, dx, errorY;
   
   /** Creates a new LLAngle. */
-  public LLDistance(Drive d_drive, double d_pipeline, double d_standoff, double d_targetHeight) {
+  public LLDistance(Drive _drive, double _pipeline, double _standoff, double _targetHeight) {
   //public LLDistance(Drive passed_drive, Limelight lime, double m_pipeline) {
-    this.drive11 = d_drive;
-    this.pipeline11 = d_pipeline;
-    this.dist11 = d_standoff;
-    this.targetHeight11 = d_targetHeight;
+    this.drive = _drive;
+    this.pipeline = _pipeline;
+    this.dist11 = _standoff;
+    this.targetHeight11 = _targetHeight;
    // this.limelight = lime;
-    addRequirements(drive11);
+    addRequirements(drive);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    SmartDashboard.putNumber("LLDistance init", pipeline11);
+    SmartDashboard.putNumber("LLDistance init", pipeline);
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(0);
-    NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(pipeline11);
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(pipeline);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -71,8 +71,8 @@ public class LLDistance extends CommandBase {
     // double errorY = NetworkTableInstance.getDefault().getTable("limelight").
     // getIntegerTopic("targetpose_cameraspace").subscribe(new double[]{}).get()[3];
       double distanceAdjust = kY * errorY;
-       drive11.setLeftSpeed(distanceAdjust);
-       drive11.setRightSpeed(distanceAdjust);
+       drive.setLeftSpeed(distanceAdjust);
+       drive.setRightSpeed(distanceAdjust);
       SmartDashboard.putNumber("dx, Y dist from target:", dx);
       SmartDashboard.putNumber("ErrorY:", errorY);
       SmartDashboard.putNumber("Ty, degrees:", disY);
@@ -84,7 +84,7 @@ public class LLDistance extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    drive11.stop();
+    drive.stop();
   }
 
   // Returns true when the command should end.

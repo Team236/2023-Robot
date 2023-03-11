@@ -18,11 +18,12 @@ public class DoubleArcadeDrive extends CommandBase {
   private double max, L, R, kPgyro, error;
   private XboxController driveController;
   private AHRS navX;
+  
   /** Creates a new DoubleArcadeDrive. */
-  public DoubleArcadeDrive(Drive drive1, Gripper gripper1, XboxController driveController1) {
-    this.gripper = gripper1;
-    this.drive = drive1;
-    this.driveController = driveController1;
+  public DoubleArcadeDrive(Drive _drive, Gripper _gripper, XboxController _driveController) {
+    this.gripper = _gripper;
+    this.drive = _drive;
+    this.driveController = _driveController;
     addRequirements(gripper);
     addRequirements(drive);
   }
@@ -30,7 +31,6 @@ public class DoubleArcadeDrive extends CommandBase {
   @Override
   public void initialize() {
     this.isDeadzone = true;
-    navX = new AHRS();
     drive.resetLeftEncoder();
     drive.resetRightEncoder();
   }

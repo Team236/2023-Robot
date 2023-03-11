@@ -17,10 +17,10 @@ public class DriveAtSetSpeed extends CommandBase {
   private AHRS navX;
 
   /** Creates a new DriveToCS. */
-  public DriveAtSetSpeed(Drive m_drive, double m_distance, double m_speed) {
-    this.drive = m_drive;
-    this.distance = m_distance;
-    this.speed = m_speed;
+  public DriveAtSetSpeed(Drive _drive, double _distance, double _speed) {
+    this.drive = _drive;
+    this.distance = _distance;
+    this.speed = _speed;
 
     addRequirements(drive);
     // Use addRequirements() here to declare subsystem dependencies.

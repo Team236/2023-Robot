@@ -4,6 +4,7 @@
 
 package frc.robot.commands.Targeting;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drive;
@@ -22,20 +23,21 @@ public class LLTagDistance extends CommandBase {
   private double kP = 0.005;  //0.005;
   private double kI = 0.0;      //0.0;
   private double kD = 0.000;  //0.0009;
+  private double tv;
   
   //private Limelight limelight;
   private Drive drive;
   private double pipeline;
   private Limelight camera;
-  boolean target;
+  private boolean target;
   PIDController distanceTagController;
 
 
   /** Creates a new LLAngle. */
-  public LLTagDistance(Drive passed_drive, double passed_pipeline, double OffsetDistance, Limelight passed_camera) {
-    this.drive = passed_drive;
-    this.pipeline = passed_pipeline;
-    this.camera = passed_camera;
+  public LLTagDistance(Drive _drive, double _pipeline, double OffsetDistance, Limelight _camera) {
+    this.drive = _drive;
+    this.pipeline = _pipeline;
+    this.camera = _camera;
     distanceTagController = new PIDController(kP, kI, kD);
     distanceTagController.setSetpoint(OffsetDistance);
     addRequirements(drive);
@@ -53,8 +55,9 @@ public class LLTagDistance extends CommandBase {
   public void execute() {
    // verify the camera  sees a tag other wise do nothing 
    target = camera.HasTarget();
+   tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
     
-    if(target) {
+    if(target || tv == 1 ) {
         
         // TO make sure dx is positive, use abs value for disY and (h1-h2)
         double absoluteDistanceZ = Math.abs (camera.getCameraToTargetPoseZ());

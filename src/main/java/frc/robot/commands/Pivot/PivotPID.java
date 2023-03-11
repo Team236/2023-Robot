@@ -10,14 +10,15 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.PivotConstants;
 
 public class PivotPID extends CommandBase {
-  private Pivot pivot2;
+  private Pivot pivot;
   private double pvtTarget, pvtSpeed;
   private final PIDController pvtPidController;
+  
   /** Creates a new PivotPID. */
-  public PivotPID(Pivot m_pivotpid2, double m_pvtTarget) {
-    this.pivot2 = m_pivotpid2;
-    addRequirements(pivot2);
-    this.pvtTarget = m_pvtTarget;
+  public PivotPID(Pivot _pivotpid, double _pvtTarget) {
+    this.pivot = _pivotpid;
+    addRequirements(pivot);
+    this.pvtTarget = _pvtTarget;
     this.pvtPidController = new PIDController(PivotConstants.kPpvt, PivotConstants.kIpvt, PivotConstants.kDpvt);
     pvtPidController.setSetpoint(pvtTarget);
   }
@@ -32,20 +33,20 @@ public class PivotPID extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-   pvtSpeed = pvtPidController.calculate(pivot2.getPivotEncoder());
-  pivot2.setPivotSpeed(pvtSpeed);
+   pvtSpeed = pvtPidController.calculate(pivot.getPivotEncoder());
+  pivot.setPivotSpeed(pvtSpeed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-   pivot2.pivotStop();
+   pivot.pivotStop();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-   if (pivot2.getPivotEncoder() >= Math.abs(0.97*pvtTarget)) {
+   if (pivot.getPivotEncoder() >= Math.abs(0.97*pvtTarget)) {
     return true;
    } else {
     return false;

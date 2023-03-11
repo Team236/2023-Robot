@@ -10,21 +10,21 @@ import frc.robot.Constants.*;
 import frc.robot.subsystems.Gripper;
 
 public class Grab extends CommandBase {
-  private Gripper gripper3;
+  private Gripper gripper;
   /** Creates a new Grab. */
   public Grab(Gripper grabGripper) {
-    this.gripper3 = grabGripper;
-    addRequirements(gripper3);
+    this.gripper = grabGripper;
+    addRequirements(gripper);
   }
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    gripper3.grab();
+    gripper.grab();
   }
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //gripper3.grab();
+    //gripper.grab();
   }
   // Called once the command ends or is interrupted.
   @Override
@@ -33,7 +33,7 @@ public class Grab extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-  // if (gripper3.isGripping()) {
+  // if (gripper.isGripping()) {
   //   SmartDashboard.putBoolean("Grab-isFinished", true);
   //   return true;
   // } else {
