@@ -22,6 +22,7 @@ import frc.robot.commands.Autos.ScoreToCenter;
 import frc.robot.commands.Autos.TurnPID;
 import frc.robot.commands.Drive.AutoBalanceGyro;
 import frc.robot.commands.Drive.DoubleArcadeDrive;
+import frc.robot.commands.Drive.LLTagDistance;
 //import frc.robot.commands.Drive.DriveWithJoysticks;
 import frc.robot.commands.Drive.TDWG_No;
 import frc.robot.commands.Drive.ToggleTransmission;
@@ -53,6 +54,7 @@ import frc.robot.subsystems.Pivot;
 import frc.robot.subsystems.Turret;
 import org.photonvision.PhotonCamera;
 
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -78,6 +80,7 @@ public class RobotContainer {
   private final Gripper gripper = new Gripper();
   private final Turret turret = new Turret();
   private final Pivot pivot = new Pivot();
+   private final Limelight camera = new Limelight();
   private static DigitalInput autoSwitch1 = new DigitalInput(Constants.DriveConstants.DIO_AUTO_1);
   private static DigitalInput autoSwitch2 = new DigitalInput(Constants.DriveConstants.DIO_AUTO_2);
   private static DigitalInput autoSwitch3 = new DigitalInput(Constants.DriveConstants.DIO_AUTO_3);
@@ -162,9 +165,10 @@ private final TurretCCW turretCCW = new TurretCCW(turret, -TurretConstants.TURRE
     // ASSIGN BUTTONS TO COMMANDS
     //AUXController
    x1.whileTrue(new LLAngle(drive, 0)); //aprilTags
-   y1.whileTrue(new LLDistance(drive, 0, 40, 8)); //apriltags
+   y1.whileTrue(new LLDistance(drive, 0, 37, 27.5)); //apriltags //27.5
+  //y1.whileTrue(new LLTagDistance(drive, 0, 37,camera)); 
    b1.whileTrue(new LLTarget(drive, 0, 40, 8)); //must pass in the pipeline
-    a1.whileTrue(new AutoBalanceGyro(drive, driveController));
+    a1.whileTrue(new ToggleTransmission(drive));
     upPov1.whileTrue(new BackwardCenter(arm, gripper, drive, pivot));
     lm1.whileTrue(new TurnPID(drive, -180));
     rm1.whileTrue(new TurnPID(drive, 180));
@@ -175,7 +179,7 @@ private final TurretCCW turretCCW = new TurretCCW(turret, -TurretConstants.TURRE
 
     
    //DRIVECONTROLLER******
-  a.whileTrue(toggleTransmission);
+  a.whileTrue(new ToggleTransmission(drive));
   b.whileTrue(grabReleaseToggle);
   x.whileTrue(new ScoreLow(arm, gripper, pivot));
   y.whileTrue(new PickupPosition(arm, pivot, gripper));
@@ -187,8 +191,8 @@ private final TurretCCW turretCCW = new TurretCCW(turret, -TurretConstants.TURRE
 
  upPov.whileTrue(pivotUp);
  downPov.whileTrue(pivotDown);
- rightPov.whileTrue(new ArmExtend(arm, 0.3));
-  leftPov.whileTrue(new ArmRetract(arm, 0.3));
+ rightPov.whileTrue(new ArmExtend(arm, 0.5));
+  leftPov.whileTrue(new ArmRetract(arm, 0.5));
 
 
   }
