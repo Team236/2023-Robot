@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.Targeting;
+package frc.robot.commands.Drive;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Limelight;
 
-public class LLTagDistance extends CommandBase {
+public class LLTagAngleDistance extends CommandBase {
     //tV = 1 if there are any targets found, =0 if not
     //ty = vertical offset from crosshair to target -20.5 to +20.5 degrees
     //h1 = distance from floor to center of Limelight lens
@@ -23,7 +23,6 @@ public class LLTagDistance extends CommandBase {
   private double distancekP = 0.005;  //0.005;
   private double distancekI = 0.0;      //0.0;
   private double distancekD = 0.000;  //0.0009;
-  
   private double anglekP = 0.005;  //0.005;
   private double anglekI = 0.0;      //0.0;
   private double anglekD = 0.000;  //0.0009;
@@ -34,15 +33,16 @@ public class LLTagDistance extends CommandBase {
   private double pipeline;
   private Limelight camera;
   private boolean target;
-  PIDController distanceTagController;
+  PIDController distanceTagController, angleTagController;
 
 
   /** Creates a new LLAngle. */
-  public LLTagDistance(Drive _drive, double _pipeline, double OffsetDistance, Limelight _camera) {
+  public LLTagAngleDistance(Drive _drive, double _pipeline, double OffsetDistance, Limelight _camera) {
     this.drive = _drive;
     this.pipeline = _pipeline;
     this.camera = _camera;
     distanceTagController = new PIDController(distancekP, distancekI, distancekD);
+    angleTagController = new PIDController(anglekP, anglekI, anglekD);
     distanceTagController.setSetpoint(OffsetDistance);
     addRequirements(drive);
   }
@@ -68,9 +68,10 @@ public class LLTagDistance extends CommandBase {
 
         // the Z direction is out the front of robot 
         double distanceAdjust = distanceTagController.calculate(absoluteDistanceZ);
-        drive.setLeftSpeed(distanceAdjust);
-        drive.setRightSpeed(distanceAdjust);
-        SmartDashboard.putNumber ("found distance tag", camera.getTagData() );
+        double angleAdjust = angleTagController.calculate(camera.getCameraToTargetPoseX());
+        drive.setLeftSpeed(distanceAdjust-angleAdjust);
+        drive.setRightSpeed(distanceAdjust+angleAdjust);
+        // SmartDashboard.putNumber ("found distance tag", camera.getTagData() );
     } 
    else {
     SmartDashboard.putNumber ("found distance tag", 999 );

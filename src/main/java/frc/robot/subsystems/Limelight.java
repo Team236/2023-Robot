@@ -96,12 +96,12 @@ public void periodic() {
   }
 
   public boolean HasTarget() { 
-    // if ((tvSub.get() ))
-    // {return true;}
-    // else {
-    //   return false;
-    // }
-      return tvSub.get() ;  
+    if ((tvSub.get() == true))
+    {return true;}
+    else {
+      return false;
+    }
+      // return tvSub.get() ;  
     }
 
   public double getX() { 

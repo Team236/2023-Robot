@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.Targeting;
+package frc.robot.commands.Drive;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -20,13 +20,9 @@ public class LLTagDistance extends CommandBase {
     //d = Distance to target (want 14" or 16" distance in order to be in front of Grid)
     //tan(a1 +a2)  = (h2-h1)/dx;
 
-  private double distancekP = 0.005;  //0.005;
-  private double distancekI = 0.0;      //0.0;
-  private double distancekD = 0.000;  //0.0009;
-  
-  private double anglekP = 0.005;  //0.005;
-  private double anglekI = 0.0;      //0.0;
-  private double anglekD = 0.000;  //0.0009;
+  private double kP = 0.005;  //0.005;
+  private double kI = 0.0;      //0.0;
+  private double kD = 0.000;  //0.0009;
   private double tv;
   
   //private Limelight limelight;
@@ -42,7 +38,7 @@ public class LLTagDistance extends CommandBase {
     this.drive = _drive;
     this.pipeline = _pipeline;
     this.camera = _camera;
-    distanceTagController = new PIDController(distancekP, distancekI, distancekD);
+    distanceTagController = new PIDController(kP, kI, kD);
     distanceTagController.setSetpoint(OffsetDistance);
     addRequirements(drive);
   }
