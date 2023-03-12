@@ -24,7 +24,7 @@ public class PickupPosition extends SequentialCommandGroup {
     addCommands(
       new PivotPID(pvtPickup, 1238).withTimeout(1.5),
       //new WaitCommand(0.5),
-      new ArmPID(armPickup, 6.4).withTimeout(1)//,
+      new ArmPID(armPickup, pvtPickup,  6.4).withTimeout(1)//,
       //new ReleasePiece(gripPickup).asProxy()
     );
   }

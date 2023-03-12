@@ -20,7 +20,7 @@ public class StowPosition extends SequentialCommandGroup {
   public StowPosition(Arm armStow, Pivot pvtStow) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-addCommands(new ArmPID(armStow, -20),
+addCommands(new ArmPID(armStow, pvtStow, -20),
   new PivotPID(pvtStow,-11000).withTimeout(1));
   }
 

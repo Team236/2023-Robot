@@ -22,7 +22,7 @@ public class LoadStationPosition extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(new PivotPID(loadPivot, Constants.PivotConstants.PVT_ENC_90).withTimeout(1),
-    new ArmPID(loadStation, Constants.ArmConstants.ARM_LOAD_STN),
+    new ArmPID(loadStation, loadPivot, Constants.ArmConstants.ARM_LOAD_STN),
     new ReleasePiece(gripLoad).asProxy()
     );
     

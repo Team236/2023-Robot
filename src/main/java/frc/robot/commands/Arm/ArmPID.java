@@ -17,9 +17,12 @@ public class ArmPID extends CommandBase {
   private double armDistance, armSpeed, kpArm, kiArm, kdArm;
   private final PIDController armPidController;
 
-  public ArmPID(Arm armpid, double armDistance) {
+  public ArmPID(Arm armpid, Pivot pivotpid1,double armDistance) {
     this.arm3 = armpid;
+    this.pivot7 = pivotpid1;
     addRequirements(arm3);
+    addRequirements(pivot7);
+
     this.armDistance = armDistance;
     if (pivot7.getPivotEncoder() > 10065) {  //going up
       kpArm = ArmConstants.kParm;  kiArm = ArmConstants.kIarm; kdArm = ArmConstants.kDarm;
@@ -60,7 +63,7 @@ public class ArmPID extends CommandBase {
     return true;
   } else if (arm3.isARetLimit() && armSpeed < 0) {
     return true; }
-    else if (arm3.isAExtLimit() && armSpeed> 0) {
+    else if (arm3.isAExtLimit() && armSpeed > 0) {
       return true;
     } else {
     SmartDashboard.putBoolean("ArmPID Finished?", false);

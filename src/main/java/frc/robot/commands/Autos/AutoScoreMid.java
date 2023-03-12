@@ -23,15 +23,15 @@ public class AutoScoreMid extends SequentialCommandGroup {
 
   
   /** Creates a new ScoreMiddleLevel. */
-  public AutoScoreMid(Pivot pvtMid, Arm midScore, Gripper gripScore2) {    // Add your commands in the addCommands() call, e.g.
+  public AutoScoreMid(Pivot pvtMid1, Arm midScore1, Gripper gripScore22) {    // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
    
      //new GrabReleaseToggle(gripScore1),
-      new PivotPID(pvtMid, PivotConstants.PVT_ENC_MID_SCORE).withTimeout(1),
-      new ArmPID(midScore, Constants.ArmConstants.ARM_MID),
+      new PivotPID(pvtMid1, PivotConstants.PVT_ENC_MID_SCORE).withTimeout(1),
+      new ArmPID(midScore1, pvtMid1, Constants.ArmConstants.ARM_MID),
       //new WaitCommand(0.5), 
-      new ReleasePiece(gripScore2).asProxy()
+      new ReleasePiece(gripScore22).asProxy()
       );
       
   }}
