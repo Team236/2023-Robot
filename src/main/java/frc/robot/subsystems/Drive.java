@@ -136,7 +136,7 @@ public class Drive extends SubsystemBase {
     return rightEncoder.getRate();
   }
   public double getLeftEncoder(){
-    SmartDashboard.getNumber("getting raw", leftEncoder.getRaw());
+    //SmartDashboard.getNumber("getting raw", leftEncoder.getRaw());
     return leftEncoder.getRaw();  // USE THIS IF WE GET EXTERNAL ENCODER WORKING
  //return leftEncoder.getPosition();
  //return leftEncoder.get()/128; //revs from encoder ticks
@@ -177,8 +177,8 @@ public class Drive extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("pitch", navX.getPitch());
-    SmartDashboard.putNumber("roll", navX.getRoll());
+    //SmartDashboard.putNumber("pitch", navX.getPitch());
+   // SmartDashboard.putNumber("roll", navX.getRoll());
     //SmartDashboard.getBoolean("In Low Gear?", inLowGear());
     //SmartDashboard.putNumber("left enc", getLeftEncoder());
     //SmartDashboard.putNumber("right enc", getRightEncoder());
