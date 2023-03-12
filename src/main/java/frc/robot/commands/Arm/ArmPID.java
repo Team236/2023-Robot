@@ -5,6 +5,7 @@
 package frc.robot.commands.Arm;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.Pivot;
 import edu.wpi.first.math.controller.PIDController;
 import frc.robot.Constants.ArmConstants;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -12,14 +13,22 @@ import edu.wpi.first.wpilibj.util.WPILibVersion;
 public class ArmPID extends CommandBase {
   /** Creates a new ArmPID. */
   private Arm arm3;
-  private double armDistance, armSpeed;
+  private Pivot pivot7;
+  private double armDistance, armSpeed, kpArm, kiArm, kdArm;
   private final PIDController armPidController;
 
   public ArmPID(Arm armpid, double armDistance) {
     this.arm3 = armpid;
     addRequirements(arm3);
     this.armDistance = armDistance;
-    this.armPidController = new PIDController(ArmConstants.kParm, ArmConstants.kIarm, ArmConstants.kDarm);
+    if (pivot7.getPivotEncoder() > 10065) {  //going up
+      kpArm = ArmConstants.kParm;  kiArm = ArmConstants.kIarm; kdArm = ArmConstants.kDarm;
+    }
+      else {  //going down
+       kpArm = ArmConstants.kParmDown;  kiArm = ArmConstants.kIarmDown; kdArm = ArmConstants.kDarmDown;
+    }
+   
+     this.armPidController = new PIDController(kpArm, kiArm, kdArm);  //delete line below after inserting this line
     armPidController.setSetpoint(armDistance);
   }
 

@@ -189,6 +189,11 @@ public static class ArmConstants { ///FOR TESTBOT: subject to change for final
   public static double kIarm = 0;
   public static double kDarm = 0;
   public static double kFarm = 0; //mooooo
+
+  //Use Down constants below when pivot angle less than 90 (gravity is assisting - lower kp)
+  public static double kParmDown = 0.001;
+  public static double kIarmDown = 0;
+  public static double kDarmDown = 0;
 }
 
 public static class GripperConstants {
