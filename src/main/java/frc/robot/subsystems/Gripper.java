@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 
 public class Gripper extends SubsystemBase {
-  private DoubleSolenoid gripperSolenoid; 
+  private DoubleSolenoid gripperSolenoid, gripperSolenoid2; 
   private Counter gripperEye;
   private boolean isGripperEyeUnplugged = false;
   public boolean isGripperClosed = true;
@@ -22,6 +22,9 @@ public class Gripper extends SubsystemBase {
   public Gripper() {
     gripperSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 
     Constants.GripperConstants.GRIPPER_SOL_FOR, Constants.GripperConstants.GRIPPER_SOL_REV);
+
+    gripperSolenoid2 = new DoubleSolenoid(PneumaticsModuleType.CTREPCM,
+    Constants.GripperConstants.GRIPPER_SOL2_FOR, Constants.GripperConstants.GRIPPER_SOL2_REV);
 
     try {
       gripperEye = new Counter();
@@ -35,17 +38,19 @@ public class Gripper extends SubsystemBase {
   //Makes the gripper grab
   public void grab() {
     gripperSolenoid.set(Value.kForward);
+    gripperSolenoid2.set(Value.kForward);
     }
   
     //makes the gripper release
     public void release() {
       gripperSolenoid.set(Value.kReverse);
+      gripperSolenoid2.set(Value.kReverse);
     }
   
     //Tells if the gripper is gripping or not
   public boolean isGripping() {
     //return false;
-    if (gripperSolenoid.get() == Value.kForward) {
+    if (gripperSolenoid.get() == Value.kForward && gripperSolenoid2.get() == Value.kForward) {
     return true;  
     } else {
       return false;

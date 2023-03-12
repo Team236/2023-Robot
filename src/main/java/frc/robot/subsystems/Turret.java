@@ -8,12 +8,15 @@ import frc.robot.Constants.TurretConstants;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Turret extends SubsystemBase {
   private CANSparkMax turretMotor;
   private Encoder turretEncoder;
+  private DoubleSolenoid turretBrake;
   private DigitalInput cwLimit, ccwLimit;
   private boolean isCWUnplugged = false;
   private boolean isCCWUnplugged = false;
@@ -24,6 +27,8 @@ public class Turret extends SubsystemBase {
     turretMotor.setInverted(true);
     turretEncoder = new Encoder(TurretConstants.DIO_TRRT_ENC_A, TurretConstants.DIO_TRRT_ENC_B); //external encoder
     turretEncoder.setDistancePerPulse(TurretConstants.turretDISTANCE_PER_PULSE);
+
+    turretBrake = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, TurretConstants.TURRET_BRAKE_FOR, TurretConstants.TURRET_BRAKE_REV);
 
     try {
       cwLimit = new DigitalInput(TurretConstants.DIO_TCW_LIMIT);
@@ -36,7 +41,7 @@ public class Turret extends SubsystemBase {
       isCCWUnplugged = true;
     }
 
-  }
+}
 
   public boolean isCWLimit() {
     if (isCWUnplugged) {
@@ -56,6 +61,13 @@ public class Turret extends SubsystemBase {
   public void turretStop() {
     turretMotor.set(0);
   }
+
+  public void turretBrake() {
+    turretBrake.set(Value.kForward);
+  }
+  public void turretRelease() {
+    turretBrake.set(Value.kReverse);
+  }
   public void resetTurretEncoder() {
     turretEncoder.reset();
   }
@@ -72,13 +84,16 @@ public class Turret extends SubsystemBase {
     //DO NOT REACH LIMIT GOING CW, SO DON'T CHECK LIMIT HERE:
     if (speed > 0 && isCWLimit()) {
      turretStop();
+     turretBrake();
     } else if (speed < 0 && isCCWLimit()) {
         // mast going down and bottom limit is tripped, stop and zero encoder
         turretStop();
+        turretBrake();
         resetTurretEncoder();
       } else {
         // mast going down but bottom limit is not tripped, go at commanded speed
         turretMotor.set(speed);
+        turretBrake.set(Value.kReverse);
       }
     } 
     
