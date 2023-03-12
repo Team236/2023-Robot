@@ -22,10 +22,10 @@ public class PickupPosition extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new PivotPID(pvtPickup, 1225),
+      new PivotPID(pvtPickup, 1238).withTimeout(1.5),
       //new WaitCommand(0.5),
-      new ArmPID(armPickup, 6.55),
-      new ReleasePiece(gripPickup).asProxy()
+      new ArmPID(armPickup, 6.4).withTimeout(1)//,
+      //new ReleasePiece(gripPickup).asProxy()
     );
   }
 }
