@@ -99,13 +99,13 @@ public final class Constants {
   public static class MotorControllers {
 
     //placeholder numbers for beginning of season //testbed OG - 2022 old - testbed swapped - 2022 new
-    public static final int ID_LEFT_FRONT = 1; //10 - 30 - 11 - 1
-    public static final int ID_RIGHT_FRONT = 2; //15 - 43 - 16 - 2
-    public static final int ID_LEFT_REAR = 3;// 11 - 44 - 10 - 3
+    public static final int ID_LEFT_FRONT = 13; //10 - 30 - 11 - 1
+    public static final int ID_RIGHT_FRONT = 15; //15 - 43 - 16 - 2
+    public static final int ID_LEFT_REAR = 37;// 11 - 44 - 10 - 3
     public static final int ID_RIGHT_REAR = 4; //16 - 45 - 15 - 4
 
     public static final int ID_ARM = 10;
-    public static final int ID_TURRET = 15; //test value
+    public static final int ID_TURRET = 27; //test value
     public static final int ID_PIVOT = 24;
     }
 
@@ -161,7 +161,7 @@ public static class DriveConstants {
   //auto selector switches
  public static final int DIO_AUTO_1 = 0;
   public static final int DIO_AUTO_2 = 1;
-  public static final int DIO_AUTO_3 = 2;
+  public static final int DIO_AUTO_3 = 2; //2
   public static final int DIO_AUTO_4 = 3;
 
 }
@@ -178,20 +178,20 @@ public static class ArmConstants { ///FOR TESTBOT: subject to change for final
   public static final int DIO_ARM_EXTEND = 11; //8  was18
 
   public static final double ARM_MID = 7.25; //inches, arm extend distance for middle level
-  public static final double ARM_HIGH = 24.5; //inches, arm extend distance for high level
+  public static final double ARM_HIGH = 24.0; //inches, arm extend distance for high level
   public static double ARM_STOW = 0; //inches, arm extend distance stowed and low level(fully retracted)
   public static double ARM_LOAD_STN = 0; //inches, arm extend distance for getting pieces from loading station
 
   public static final double ARM_EX_SPEED = 0.6;
   public static final double ARM_RE_SPEED = 0.6;
 
-  public static double kParm = 0.25; //0.25
+  public static double kParm = 0.24; //0.25
   public static double kIarm = 0;
   public static double kDarm = 0;
   public static double kFarm = 0; //mooooo
 
   //Use Down constants below when pivot angle less than 90 (gravity is assisting - lower kp)
-  public static double kParmDown = 0.001;
+  public static double kParmDown = 0.01;
   public static double kIarmDown = 0;
   public static double kDarmDown = 0;
 }
@@ -200,6 +200,8 @@ public static class GripperConstants {
   //Solenoid ports on the PCM
   public static final int GRIPPER_SOL_FOR = 1; //0
   public static final int GRIPPER_SOL_REV = 0; //1
+  public static final int GRIPPER_SOL2_FOR = 4;
+  public static final int GRIPPER_SOL2_REV = 5;
   //Port used on the DIO
   public static final int DIO_GRIPPER_EYE = 10; //0
 }
@@ -234,7 +236,7 @@ public static double kIpvt = 0;
 public static double kDpvt = 0;
 
 //Use the constants below for pivot going DOWN (gravity assisting)
-public static double kPpvtDown = 0.00001;
+public static double kPpvtDown = 0.0001;
 public static double kIpvtDown = 0;
 public static double kDpvtDown = 0;
 
@@ -267,6 +269,9 @@ public static class TurretConstants {
   public static final double TURRET_LEFT = -90;
 
   public static final double TURRET_SPEED = 0.2;
+
+  public static final int TURRET_BRAKE_FOR = 6;
+  public static final int TURRET_BRAKE_REV = 7;
 
 }
 
