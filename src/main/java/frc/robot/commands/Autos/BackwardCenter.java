@@ -10,7 +10,7 @@ import frc.robot.commands.Arm.ArmPID;
 import frc.robot.commands.Arm.ArmRetract;
 import frc.robot.commands.Pivot.PivotDown;
 import frc.robot.commands.Pivot.PivotPID;
-import frc.robot.commands.ScoringPositions.ScoreHighPosition;
+import frc.robot.commands.Autos.AutoScoreMid;
 import frc.robot.commands.ScoringPositions.StowPosition;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Drive;
@@ -32,7 +32,7 @@ public class BackwardCenter extends SequentialCommandGroup {
      // new ArmPID(backwardA, Constants.ArmConstants.ARM_HIGH).withTimeout(1),
       //new WaitCommand(1),
     // new ArmPID(backwardA, -Constants.ArmConstants.ARM_HIGH).withTimeout(1),
-    new AutoScoreHigh(backwardA, backwardP, backwardG).withTimeout(3),
+    new AutoScoreMid(backwardP, backwardA, backwardG).withTimeout(3),
     new ArmRetract(backwardA, 0.5).withTimeout(2),
    // new StowPosition(backwardA, backwardP).withTimeout(4),
     new PivotDown(backwardP, 0.5).withTimeout(2),

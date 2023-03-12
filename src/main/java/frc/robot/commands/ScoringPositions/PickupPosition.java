@@ -6,7 +6,10 @@ package frc.robot.commands.ScoringPositions;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.Constants;
+import frc.robot.Constants.PivotConstants;
 import frc.robot.commands.Arm.ArmPID;
+import frc.robot.commands.Gripper.GrabReleaseToggle;
 import frc.robot.commands.Gripper.ReleasePiece;
 import frc.robot.commands.Pivot.PivotPID;
 import frc.robot.subsystems.Arm;
@@ -17,15 +20,23 @@ import frc.robot.subsystems.Pivot;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class PickupPosition extends SequentialCommandGroup {
-  /** Creates a new PickupPosition. */
-  public PickupPosition(Arm armPickup, Pivot pvtPickup, Gripper gripPickup) {
+
+  
+  /** Creates a new ScoreMiddleLevel. */
+  public PickupPosition (Arm lowScore, Gripper gripScore2, Pivot pvtLow) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new PivotPID(pvtPickup, 1238).withTimeout(1.5),
-      //new WaitCommand(0.5),
-      new ArmPID(armPickup, pvtPickup,  6.4).withTimeout(1)//,
-      //new ReleasePiece(gripPickup).asProxy()
-    );
+   
+     //new GrabReleaseToggle(gripScore1),
+
+      //new ArmPID(lowScore, pvtLow, 0),
+      //new WaitCommand(1),
+      new PivotPID(pvtLow, 4865).withTimeout(1)//,
+      //new WaitCommand(0.5), 
+      //new ArmPID(lowScore, pvtLow, 6.5)
+     // new ReleasePiece(gripScore2).asProxy()
+      );
+      
   }
 }

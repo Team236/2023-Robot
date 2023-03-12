@@ -8,6 +8,7 @@ import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Pivot;
 import edu.wpi.first.math.controller.PIDController;
 import frc.robot.Constants.ArmConstants;
+import frc.robot.Constants.PivotConstants;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.WPILibVersion;
 public class ArmPID extends CommandBase {
@@ -24,14 +25,14 @@ public class ArmPID extends CommandBase {
     addRequirements(pivot7);
 
     this.armDistance = armDistance;
-    if (pivot7.getPivotEncoder() > 10065) {  //going up
-      kpArm = ArmConstants.kParm;  kiArm = ArmConstants.kIarm; kdArm = ArmConstants.kDarm;
-    }
-      else {  //going down
-       kpArm = ArmConstants.kParmDown;  kiArm = ArmConstants.kIarmDown; kdArm = ArmConstants.kDarmDown;
-    }
+    // if ((armDistance > arm3.getArmEncoder()* ArmConstants.armREV_TO_IN) && pivot7.getPivotEncoder() < PivotConstants.PVT_ENC_90) {  //going up
+    //   kpArm = ArmConstants.kParmDown;  kiArm = ArmConstants.kIarmDown; kdArm = ArmConstants.kDarmDown;
+    // }
+    //   else { 
+    //    kpArm = ArmConstants.kParm;  kiArm = ArmConstants.kIarm; kdArm = ArmConstants.kDarm;
+    // }
    
-     this.armPidController = new PIDController(kpArm, kiArm, kdArm);  //delete line below after inserting this line
+     this.armPidController = new PIDController(ArmConstants.kParm, ArmConstants.kIarm, ArmConstants.kDarm);  //delete line below after inserting this line
     armPidController.setSetpoint(armDistance);
   }
 

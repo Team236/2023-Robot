@@ -12,6 +12,7 @@ import frc.robot.commands.Arm.ArmPID;
 import frc.robot.commands.Arm.ArmRetract;
 import frc.robot.commands.Arm.ArmWithAxis;
 import frc.robot.commands.Autos.AutoPIDDrive;
+import frc.robot.commands.Autos.AutoScoreHigh;
 import frc.robot.commands.Autos.AutoScoreMid;
 import frc.robot.commands.Autos.AutoTrapezoidalPID;
 import frc.robot.commands.Autos.BackwardCenter;
@@ -165,11 +166,12 @@ private final TurretCCW turretCCW = new TurretCCW(turret, -TurretConstants.TURRE
     // ASSIGN BUTTONS TO COMMANDS
     //AUXController
    x1.whileTrue(new LLAngle(drive, 0)); //aprilTags
-   y1.whileTrue(new LLDistance(drive, 0, 37, 27.5)); //apriltags //27.5
-  //y1.whileTrue(new LLTagDistance(drive, 0, 37,camera)); 
-   b1.whileTrue(new LLTarget(drive, 0, 40, 8)); //must pass in the pipeline
+   //y1.whileTrue(new LLDistance(drive, 0, 37, 27.5)); //apriltags //27.5
+  y1.whileTrue(new LLTagDistance(drive, 0, 30, camera)); 
+   b1.whileTrue(new DriveAtSetSpeed(drive, 50, 0.3)); //must pass in the pipeline
     a1.whileTrue(new ToggleTransmission(drive));
     upPov1.whileTrue(new BackwardCenter(arm, gripper, drive, pivot));
+    downPov1.whileTrue(new AutoScoreHigh(arm, pivot, gripper));
     lm1.whileTrue(new TurnPID(drive, -180));
     rm1.whileTrue(new TurnPID(drive, 180));
     lb1.whileTrue(new TurnPID(drive, -90));
@@ -182,7 +184,7 @@ private final TurretCCW turretCCW = new TurretCCW(turret, -TurretConstants.TURRE
   a.whileTrue(new ToggleTransmission(drive));
   b.whileTrue(grabReleaseToggle);
   x.whileTrue(new ScoreLow(arm, gripper, pivot));
-  y.whileTrue(new PickupPosition(arm, pivot, gripper));
+  y.whileTrue(new PickupPosition(arm, gripper, pivot));
   rb.whileTrue(new LoadStationPosition(arm, pivot, gripper));
  lb.whileTrue(scoreMiddleLevel);
  rm.whileTrue(new ScoreHighPosition(arm, pivot, gripper));

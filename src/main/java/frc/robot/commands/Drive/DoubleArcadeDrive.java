@@ -46,7 +46,7 @@ public class DoubleArcadeDrive extends CommandBase {
    // getRightY is negative when driving forward.  getLeftX and navX.getRate are positive Clockwise.
     //change 0.17 / -0.17 to refer to Constants - Deadzone
     double max, L, R, kPgyro, error;
-    kPgyro = 0.09;
+    kPgyro = 0.00; //0.09
     error = navX.getRate();
     if ((Math.abs(driveController.getLeftX()) <= -0.17) && (driveController.getRightY() > 0.17)) {
       L = (-driveController.getRightY()- (kPgyro*error));
@@ -78,7 +78,7 @@ public class DoubleArcadeDrive extends CommandBase {
     drive.setRightSpeedWithDeadzone(R);
    // SmartDashboard.putNumber("Arcade Drive Left Encoder", drive.getLeftDistance());
     //SmartDashboard.putNumber("Roll in Arcade Drive", drive.getRoll());
-   gripper.autoGrab();
+   //gripper.autoGrab();
     
   }
   // Called once the command ends or is interrupted.

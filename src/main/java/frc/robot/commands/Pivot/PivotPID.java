@@ -20,12 +20,12 @@ public class PivotPID extends CommandBase {
     addRequirements(pivot2);
     this.pvtTarget = m_pvtTarget;
 
- if (pvtTarget > pivot2.getPivotEncoder()) {  //going up
+ //if (pvtTarget > pivot2.getPivotEncoder()) {  //going up
    kpPiv = PivotConstants.kPpvt;  kiPiv = PivotConstants.kIpvt; kdPiv = PivotConstants.kDpvt;
- }
-   else {  //going down
-    kpPiv = PivotConstants.kPpvtDown;  kiPiv = PivotConstants.kIpvtDown; kdPiv = PivotConstants.kDpvtDown;
- }
+ //}
+  // else {  //going down
+   // kpPiv = PivotConstants.kPpvtDown;  kiPiv = PivotConstants.kIpvtDown; kdPiv = PivotConstants.kDpvtDown;
+ //}
 
   this.pvtPidController = new PIDController(kpPiv, kiPiv, kdPiv);  //delete line below after inserting this line
     

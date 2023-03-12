@@ -37,8 +37,8 @@ public class Drive extends SubsystemBase {
 
   /** Creates a new ExampleSubsystem. */
   public Drive() {
-    leftFront = new CANSparkMax(Constants.MotorControllers.ID_LEFT_FRONT, MotorType.kBrushless);
-    leftRear = new CANSparkMax(Constants.MotorControllers.ID_LEFT_REAR, MotorType.kBrushless);
+    leftRear = new CANSparkMax(Constants.MotorControllers.ID_LEFT_FRONT, MotorType.kBrushless);
+    leftFront = new CANSparkMax(Constants.MotorControllers.ID_LEFT_REAR, MotorType.kBrushless);
     rightFront = new CANSparkMax(Constants.MotorControllers.ID_RIGHT_FRONT, MotorType.kBrushless);
     rightRear = new CANSparkMax(Constants.MotorControllers.ID_RIGHT_REAR, MotorType.kBrushless);
 
@@ -58,6 +58,11 @@ public class Drive extends SubsystemBase {
     
     rightEncoder.setDistancePerPulse(DriveConstants.DISTANCE_PER_PULSE_K);
     leftEncoder.setDistancePerPulse(DriveConstants.DISTANCE_PER_PULSE_K);
+
+    leftFront.setSmartCurrentLimit(40);
+    rightFront.setSmartCurrentLimit(40);
+    leftRear.setSmartCurrentLimit(40);
+    rightRear.setSmartCurrentLimit(40); 
 
     
 
