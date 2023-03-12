@@ -36,8 +36,8 @@ public class BackwardCenter extends SequentialCommandGroup {
     new ArmRetract(backwardA, 0.5).withTimeout(2),
    // new StowPosition(backwardA, backwardP).withTimeout(4),
     new PivotDown(backwardP, 0.5).withTimeout(2),
-    new DriveAtSetSpeed(backwardD, 140, -0.3),
-    new DriveAtSetSpeed(backwardD, 61, 0.3)
+    new DriveAtSetSpeed(backwardD, 148, -0.3),
+    new DriveAtSetSpeed(backwardD, 70, 0.3)
    // new WaitCommand(1),
    // new TurnPID(backwardD, 180)
     );
