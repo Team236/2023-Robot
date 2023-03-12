@@ -18,10 +18,10 @@ public class Limelight extends SubsystemBase {
   
   NetworkTable table;
 
-  BooleanSubscriber tvSub;
+  // BooleanSubscriber tvSub;
   IntegerSubscriber tid;
   int tag;
-  DoubleSubscriber txSub, tySub, areaSub;
+  DoubleSubscriber tvSub,txSub, tySub, areaSub;
   IntegerPublisher pipeline, outLedMode,driverMode;
 
   DoubleArraySubscriber blueStationToRobotPose, redStationToRobotPose, targetToCameraPose, cameraToTargetPose; 
@@ -36,7 +36,7 @@ public class Limelight extends SubsystemBase {
 
     // subscribe to the Topics in "datatable"    
     // set default value in subscribe at zero
-    tvSub = datatable.getBooleanTopic("tv").subscribe(false);
+    tvSub = datatable.getDoubleTopic("tv").subscribe(0);
     tid = datatable.getIntegerTopic("tid").subscribe(0);
 
     txSub = datatable.getDoubleTopic("tx").subscribe(0.0);
@@ -79,8 +79,8 @@ public void periodic() {
   // read a double value from Y, and set Out to that value multiplied by 2
   // set the pipiline value to change 
   tag = (int) tid.get();
-  SmartDashboard.putBoolean("HasTarget", tvSub.get());
-  SmartDashboard.putNumber("TargetNumber", tag);
+  SmartDashboard.putNumber("LLSubsystem HasTarget", tvSub.get());
+  // SmartDashboard.putNumber("TargetNumber", tag);
   }
 
   // often not required in robot code, unless this class doesn't exist for
@@ -96,12 +96,11 @@ public void periodic() {
   }
 
   public boolean HasTarget() { 
-    if ((tvSub.get() == true))
+   if ((tvSub.get() > 0.0 ))
     {return true;}
     else {
       return false;
-    }
-      // return tvSub.get() ;  
+   }
     }
 
   public double getX() { 
