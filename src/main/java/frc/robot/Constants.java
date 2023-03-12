@@ -128,6 +128,12 @@ public static class DriveConstants {
   public static final double IN_TO_REV_K = GEAR_RATIO / CIRCUMFERENCE;
   public static final double DISTANCE_PER_PULSE_K =  REV_TO_IN_K/512;
     
+  // limelight targeting pipelines and settings
+  public static final double PICKUP_STATION_PIPELINE= 0;
+  public static final double TAG_STATION_OFFSET_LEFT=0;
+  public static final double TAG_CONELEFT_OFFSET_PIPELINE=0;   // used if pipeline contains the left offset
+  public static final double TAG_CONERIGHT_OFFSET_PIPELINE=0;  // used if pipeline contains the right offset
+
   //PID stuff
   public static final double leftkPdrive = 0.022; 
   public static final double leftkIdrive = 0;
@@ -221,6 +227,12 @@ public static final double PVT_ENC_LOAD_STN = 11188;// need to double check
 public static double kPpvt = 0.0004;//0.0004
 public static double kIpvt = 0;
 public static double kDpvt = 0;
+
+//Use the constants below for pivot going DOWN (gravity assisting)
+public static double kPpvtDown = 0.00001;
+public static double kIpvtDown = 0;
+public static double kDpvtDown = 0;
+
 }
 
 public static class TurretConstants {
