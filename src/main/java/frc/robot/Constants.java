@@ -99,10 +99,10 @@ public final class Constants {
   public static class MotorControllers {
 
     //placeholder numbers for beginning of season //testbed OG - 2022 old - testbed swapped - 2022 new
-    public static final int ID_LEFT_FRONT = 13; //10 - 30 - 11 - 1
-    public static final int ID_RIGHT_FRONT = 15; //15 - 43 - 16 - 2
-    public static final int ID_LEFT_REAR = 37;// 11 - 44 - 10 - 3
-    public static final int ID_RIGHT_REAR = 4; //16 - 45 - 15 - 4
+    public static final int ID_LEFT_FRONT = 35; //10 - 30 - 11 - 1
+    public static final int ID_RIGHT_FRONT = 31; //15 - 43 - 16 - 2
+    public static final int ID_LEFT_REAR = 34;// 11 - 44 - 10 - 3
+    public static final int ID_RIGHT_REAR = 32; //16 - 45 - 15 - 4
 
     public static final int ID_ARM = 10;
     public static final int ID_TURRET = 27; //test value
@@ -179,8 +179,13 @@ public static class ArmConstants { ///FOR TESTBOT: subject to change for final
 
   public static final double ARM_MID = 7.25; //inches, arm extend distance for middle level
   public static final double ARM_HIGH = 24.0; //inches, arm extend distance for high level
+  public static final double ARM_LOW = 0;  // may need to revise after shortening the arm
+  public static final double ARM_90_MID = 7.25; //ADJUST- for when turret at 90 or 270
+  public static final double ARM_90_HIGH = 24.0; //ADJUST- for when turret at 90 or 270
+  public static final double ARM_90_LOW = 0; //ADJUST- for when turret at 90 or 270
   public static double ARM_STOW = 0; //inches, arm extend distance stowed and low level(fully retracted)
   public static double ARM_LOAD_STN = 0; //inches, arm extend distance for getting pieces from loading station
+  public static double ARM_PICKUP = 6.5;
 
   public static final double ARM_EX_SPEED = 0.6;
   public static final double ARM_RE_SPEED = 0.6;
@@ -197,7 +202,7 @@ public static class ArmConstants { ///FOR TESTBOT: subject to change for final
 }
 
 public static class GripperConstants {
-  //Solenoid ports on the PCM
+  //Solenoid ports on the PCM (Channels A and B)
   public static final int GRIPPER_SOL_FOR = 1; //0
   public static final int GRIPPER_SOL_REV = 0; //1
   public static final int GRIPPER_SOL2_FOR = 4;
@@ -207,28 +212,28 @@ public static class GripperConstants {
 }
 
 public static class PivotConstants {
+//Pivot switches
   public static final int PVT_LOW = 8;
   public static final int PVT_HIGH = 9;
-
+//Pivot Encoder Channels A/B
   public static final int DIO_PVT_ENC_A = 7;
   public static final int DIO_PVT_ENC_B = 6;
 
-//public static final double pvtREV_TO_DEG = 360; //tester numbers
-//public static final double pvtDEG_TO_REV = 1/360;
+//public static final double pvtSPEED = 0.75;
 
-public static final double pvtSPEED = 0.75;
-public static final double PIVOT_OFFSET_ANGLE = 19;
-public static final double pvtDISTANCE_PER_PULSE = 0; // do we need this?
   //NO LINEAR RELATIONSHIP BETWEEN ANGLE AND ENCODER READING FOR PIVOT
-  //NEED TO RECORD VALUE OF ENCODER AT VARIOUS ANGLES - RECORDED BELOW:
+  //BELOW ARE VALUES OF PIVOT ENCODER AT VARIOUS ANGLES 
 public static final double PVT_ENC_STOW = 0;  //20 degrees?  17 degrees?
 public static final double PVT_ENC_PICKUP = 1105;  //29 degrees
 public static final double PVT_ENC_45 = 3098; //45 degrees
 public static final double PVT_ENC_LOW_SCORE = 4862; //58 degrees
+public static final double PVT_ENC_90_LOW_SCORE = 4862; //ADJUST - for when turret at 90 or 270
 public static final double PVT_ENC_90 = 9289; //90 degrees
 public static final double PVT_ENC_MID_SCORE = 10065;//95 degrees (7.25" arm extend)
+public static final double PVT_ENC_90_MID_SCORE = 10065; //ADJUST- for when turret at 90 or 270
 public static final double PVT_ENC_99 = 10548;// 99 degrees
 public static final double PVT_ENC_HIGH_SCORE = 11188; //104 degrees (24.5" arm extend)
+public static final double PVT_ENC_90_HIGH_SCORE = 11188; //ADJUST- for when turret at 90 or 270
 public static final double PVT_ENC_LOAD_STN = 11188;// need to double check
 
 public static double kPpvt = 0.0004;//0.0004
@@ -243,16 +248,14 @@ public static double kDpvtDown = 0;
 }
 
 public static class TurretConstants {
-  //public static final double turretREV_TO_DEG = 1;
-  //public static final double turretDEG_TO_REV = 1;
-  //DIST PER PULSE BELOW REPRESENTS DEGREES PER PULSE 
+  //DIST PER PULSE BELOW REALLY REPRESENTS DEGREES PER PULSE 
   //DETERMINE DIST PER PULSE BY READING ENCODER VALUES AT VARIOUS ANGLES
-  //THE GET TURRET ENCODER METHOD NOW READS PULSES, NOT REVOLUTIONS
+  //THE GetTurret ENCODER METHOD READS PULSES, NOT REVOLUTIONS
   //IF WE NEED REV_TO_DEG, IT CAN BE CALCULATED BY MULTIPLYING DIST_PER_PULSE times 128
-  public static final double turretDISTANCE_PER_PULSE = 1;  //TBD
+  public static final double turretDISTANCE_PER_PULSE = 1;  //TBD- 128 pulses per Rev
   public static final double turretANGLE_OFFSET = 0;//Encoder pulses reading when arm in front center
 
-  public static final double kPturret = 0.02;
+  public static final double kPturret = 0.0002;
   public static final double kIturret = 0;
   public static final double kDturret = 0;
 
@@ -261,15 +264,19 @@ public static class TurretConstants {
   public static final int DIO_TRRT_ENC_A = 4;
   public static final int DIO_TRRT_ENC_B = 5;
 
-  public static final double TURRET_RANGE = 360;  // -180 to +180 
+  public static final double TURRET_CW_STOP_ANGLE = 320;
+
+ // public static final double TURRET_RANGE = 360;  // -180 to +180 
   public static final double TURRET_FRNTCENT = 0; 
-  public static final double TURRET_LFRNT = -45;
+  public static final double TURRET_LFRNT = 315;
   public static final double TURRET_RFRNT = 45;
   public static final double TURRET_RIGHT = 90;
-  public static final double TURRET_LEFT = -90;
+  public static final double TURRET_LEFT = 270;
 
-  public static final double TURRET_SPEED = 0.2;
+  public static final double TURRET_CW_SPEED = 0.2;
+  public static final double TURRET_CCW_SPEED = 0.2; //This must also be positive.  Negative added in method
 
+//TUrret Brake Solenoid
   public static final int TURRET_BRAKE_FOR = 6;
   public static final int TURRET_BRAKE_REV = 7;
 
