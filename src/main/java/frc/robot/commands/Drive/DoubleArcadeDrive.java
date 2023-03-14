@@ -78,7 +78,7 @@ public class DoubleArcadeDrive extends CommandBase {
     drive.setRightSpeedWithDeadzone(R);
    // SmartDashboard.putNumber("Arcade Drive Left Encoder", drive.getLeftDistance());
     //SmartDashboard.putNumber("Roll in Arcade Drive", drive.getRoll());
-   //gripper.autoGrab();
+   gripper.autoGrab();
     
   }
   // Called once the command ends or is interrupted.
