@@ -3,40 +3,47 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.commands.Turret;
-import frc.robot.subsystems.Turret;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
-public class TurretCW extends CommandBase {
-  private Turret turret2;
-  private double speed6;
-  /** Creates a new TurretClockwise. */
-  public TurretCW(Turret turretcw, double speedcw) {
-    this.turret2 = turretcw;
-    this.speed6 = speedcw;
-    addRequirements(turret2);
-  }
+import frc.robot.subsystems.Turret;
+
+
+public class BrakeReleaseToggle extends CommandBase {
+  
+private Turret turret4;
+private boolean toggle;
+
+  /** Creates a new TurretBrakeRelease. */
+  public BrakeReleaseToggle(Turret toggleTurret){
+      this.turret4 = toggleTurret;
+      addRequirements(turret4);
+    }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    turret2.turretRelease();
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    turret2.setTurretSpeed(speed6);
+    toggle = false;
+    
+   if (turret4.isBraking()) {
+    turret4.turretBrake();
+    toggle = true;
+    } else if (!turret4.isBraking()) {
+    turret4.turretRelease();
+    toggle = true;
+   }
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    turret2.turretStop();
-    turret2.turretBrake();
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return toggle;
   }
-  }
+}

@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Turret extends SubsystemBase {
   private CANSparkMax turretMotor;
@@ -25,6 +26,7 @@ public class Turret extends SubsystemBase {
     turretMotor = new CANSparkMax(Constants.MotorControllers.ID_TURRET, MotorType.kBrushless);
     turretMotor.restoreFactoryDefaults();
     turretMotor.setInverted(true);
+    turretMotor.setSmartCurrentLimit(40);
     turretEncoder = new Encoder(TurretConstants.DIO_TRRT_ENC_A, TurretConstants.DIO_TRRT_ENC_B); //external encoder
     turretEncoder.setDistancePerPulse(TurretConstants.turretDISTANCE_PER_PULSE);
 
@@ -68,6 +70,16 @@ public class Turret extends SubsystemBase {
   public void turretRelease() {
     turretBrake.set(Value.kReverse);
   }
+
+  public boolean isBraking() {
+    //return false;
+    if (turretBrake.get() == Value.kForward) {
+    return true;  
+    } else {
+      return false;
+    }
+  }
+
   public void resetTurretEncoder() {
     turretEncoder.reset();
   }
@@ -81,17 +93,17 @@ public class Turret extends SubsystemBase {
   } 
   
    public void setTurretSpeed(double speed) {
-    //DO NOT REACH LIMIT GOING CW, SO DON'T CHECK LIMIT HERE:
-    if (speed > 0 && isCWLimit()) {
+    //DO NOT REACH LIMIT GOING CW, STOP AT 320 degress CW
+    if (speed > 0 && (getTurretAngle() > Constants.TurretConstants.TURRET_CW_STOP_ANGLE)) {
      turretStop();
      turretBrake();
     } else if (speed < 0 && isCCWLimit()) {
-        // mast going down and bottom limit is tripped, stop and zero encoder
+        // turret going CCW and  limit is tripped, stop and zero encoder
         turretStop();
         turretBrake();
         resetTurretEncoder();
       } else {
-        // mast going down but bottom limit is not tripped, go at commanded speed
+        // not a limit going CCW, and not past 300 degrees going CW, go at commanded speed
         turretMotor.set(speed);
         turretBrake.set(Value.kReverse);
       }
@@ -104,8 +116,9 @@ public class Turret extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-   //SmartDashboard.putNumber("turret encoder", getTurretEncoder());
-    //SmartDashboard.putNumber("turret angle", getTurretAngle());
-  
+  SmartDashboard.putNumber("turret encoder", getTurretEncoder());
+  SmartDashboard.putNumber("turret angle", getTurretAngle());
+  SmartDashboard.putBoolean("turret limit hit CW", isCWLimit());
+
   }
 }

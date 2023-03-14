@@ -25,6 +25,7 @@ public class TurretPID extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    turret3.turretRelease();
     turret3.resetTurretEncoder();
     turretPidController.reset();
   }
@@ -39,7 +40,8 @@ public class TurretPID extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-   turret3.turretStop();
+    turret3.turretStop();
+   turret3.turretBrake();
   }
 
   // Returns true when the command should end.

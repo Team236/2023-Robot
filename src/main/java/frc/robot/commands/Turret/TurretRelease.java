@@ -3,40 +3,39 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.commands.Turret;
-import frc.robot.subsystems.Turret;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-public class TurretCW extends CommandBase {
-  private Turret turret2;
-  private double speed6;
-  /** Creates a new TurretClockwise. */
-  public TurretCW(Turret turretcw, double speedcw) {
-    this.turret2 = turretcw;
-    this.speed6 = speedcw;
-    addRequirements(turret2);
+import frc.robot.subsystems.Turret;
+
+public class TurretRelease extends CommandBase {
+
+  private Turret turret6;
+
+  /** Creates a new TurretBrake. */
+  public TurretRelease(Turret releaseTurret){
+      this.turret6 = releaseTurret;
+      addRequirements(turret6);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    turret2.turretRelease();
+    turret6.turretRelease();
+   SmartDashboard.putBoolean("turret brake is on:", false);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    turret2.setTurretSpeed(speed6);
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    turret2.turretStop();
-    turret2.turretBrake();
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     return false;
   }
-  }
+}
