@@ -15,24 +15,18 @@ public class ArmPID extends CommandBase {
   /** Creates a new ArmPID. */
   private Arm arm3;
   private Pivot pivot7;
-  private double armDistance, armSpeed, kpArm, kiArm, kdArm;
+  private double armDistance, armSpeed;
   private final PIDController armPidController;
 
-  public ArmPID(Arm armpid, Pivot pivotpid1,double armDistance) {
+  public ArmPID(Arm armpid, double armDistance) {
     this.arm3 = armpid;
-    this.pivot7 = pivotpid1;
+   // this.pivot7 = pivotpid1;
     addRequirements(arm3);
-    addRequirements(pivot7);
+   // addRequirements(pivot7);
 
     this.armDistance = armDistance;
-    // if ((armDistance > arm3.getArmEncoder()* ArmConstants.armREV_TO_IN) && pivot7.getPivotEncoder() < PivotConstants.PVT_ENC_90) {  //going up
-    //   kpArm = ArmConstants.kParmDown;  kiArm = ArmConstants.kIarmDown; kdArm = ArmConstants.kDarmDown;
-    // }
-    //   else { 
-    //    kpArm = ArmConstants.kParm;  kiArm = ArmConstants.kIarm; kdArm = ArmConstants.kDarm;
-    // }
    
-     this.armPidController = new PIDController(ArmConstants.kParm, ArmConstants.kIarm, ArmConstants.kDarm);  //delete line below after inserting this line
+    this.armPidController = new PIDController(ArmConstants.kParm, ArmConstants.kIarm, ArmConstants.kDarm);  //delete line below after inserting this line
     armPidController.setSetpoint(armDistance);
   }
 
@@ -40,7 +34,6 @@ public class ArmPID extends CommandBase {
   @Override
   public void initialize() {
     armPidController.reset();
-    //arm3.resetArmEncoder();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
