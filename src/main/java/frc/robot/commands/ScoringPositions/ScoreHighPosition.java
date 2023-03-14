@@ -22,15 +22,13 @@ import frc.robot.subsystems.Pivot;
 public class ScoreHighPosition extends SequentialCommandGroup {
 
   
-  /** Creates a new ScoreMiddleLevel. */
-  public ScoreHighPosition(Arm hiScore, Pivot pvtHi, Gripper gripScore1) {
-    // Add your commands in the addCommands() call, e.g.
-    // addCommands(new FooCommand(), new BarCommand());
+  /** Creates a new ScoreHighPosition. */
+  public ScoreHighPosition(Arm hiScore, Pivot pvtHi, Gripper gripHi) {
+   
     addCommands(
       new PivotPID(pvtHi, PivotConstants.PVT_ENC_HIGH_SCORE),
-      new ArmPID(hiScore, pvtHi, Constants.ArmConstants.ARM_HIGH)//,
-      //new ArmExtend(hiScore, 0.5).withTimeout(2)
-     // new ReleasePiece(gripScore1).asProxy()
+      new ArmPID(hiScore, Constants.ArmConstants.ARM_HIGH),
+      new ReleasePiece(gripHi).asProxy()
       );
       
   }

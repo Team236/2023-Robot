@@ -18,10 +18,12 @@ import frc.robot.subsystems.Pivot;
 public class StowPosition extends SequentialCommandGroup {
   /** Creates a new StowPosition. */
   public StowPosition(Arm armStow, Pivot pvtStow) {
-    // Add your commands in the addCommands() call, e.g.
-    // addCommands(new FooCommand(), new BarCommand());
-addCommands(new ArmPID(armStow, pvtStow, -20),
-  new PivotPID(pvtStow,-11000).withTimeout(1));
+
+addCommands(
+  new ArmPID(armStow,Constants.ArmConstants.ARM_STOW).withTimeout(1),
+  new PivotPID(pvtStow,Constants.PivotConstants.PVT_ENC_STOW).withTimeout(1)
+  );
+
   }
 
 }
