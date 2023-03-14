@@ -37,8 +37,8 @@ public class Drive extends SubsystemBase {
 
   /** Creates a new ExampleSubsystem. */
   public Drive() {
-    leftRear = new CANSparkMax(Constants.MotorControllers.ID_LEFT_FRONT, MotorType.kBrushless);
-    leftFront = new CANSparkMax(Constants.MotorControllers.ID_LEFT_REAR, MotorType.kBrushless);
+    leftFront = new CANSparkMax(Constants.MotorControllers.ID_LEFT_FRONT, MotorType.kBrushless);
+    leftRear = new CANSparkMax(Constants.MotorControllers.ID_LEFT_REAR, MotorType.kBrushless);
     rightFront = new CANSparkMax(Constants.MotorControllers.ID_RIGHT_FRONT, MotorType.kBrushless);
     rightRear = new CANSparkMax(Constants.MotorControllers.ID_RIGHT_REAR, MotorType.kBrushless);
 
@@ -63,9 +63,6 @@ public class Drive extends SubsystemBase {
     rightFront.setSmartCurrentLimit(40);
     leftRear.setSmartCurrentLimit(40);
     rightRear.setSmartCurrentLimit(40); 
-
-    
-
 
    navX = new AHRS();
    xboxController = new XboxController(Constants.ControllerConstants.USB_DRIVECONTROLLER);
@@ -99,6 +96,15 @@ public class Drive extends SubsystemBase {
   }
      }
 
+     public void closedRampRate() {
+      leftFront.setClosedLoopRampRate(0.08);
+      rightFront.setClosedLoopRampRate(0.08);
+    }
+  
+    public void openRampRate() {
+      leftFront.setOpenLoopRampRate(0.08);
+      rightFront.setOpenLoopRampRate(0.08);
+    }
 
   public void setLeftSpeed(double speed) {
     leftFront.set(speed);

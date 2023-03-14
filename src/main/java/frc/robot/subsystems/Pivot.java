@@ -83,7 +83,8 @@ public class Pivot extends SubsystemBase {
         // mast going up but top limit is not tripped, go at commanded speed
         pivotMotor.set(ControlMode.PercentOutput, speed);
       }
-    } else {
+    } 
+    else {
       if (isPLowLimit()) {
         // mast going down and bottom limit is tripped, stop and zero encoder
         pivotStop();
