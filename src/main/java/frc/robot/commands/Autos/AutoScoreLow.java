@@ -30,7 +30,7 @@ public class AutoScoreLow extends SequentialCommandGroup {
    
      //new GrabReleaseToggle(gripScore1),
       new PivotPID(pvtLow1, PivotConstants.PVT_ENC_LOW_SCORE).withTimeout(1),
-      new ArmPID(lowScore1, pvtLow1, 0),
+      new ArmPID(lowScore1, 0),
       //new WaitCommand(0.5), 
       new ReleasePiece(gripScore21).asProxy()
       );

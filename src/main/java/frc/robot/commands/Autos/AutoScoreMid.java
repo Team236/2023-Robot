@@ -29,7 +29,7 @@ public class AutoScoreMid extends SequentialCommandGroup {
    
      //new GrabReleaseToggle(gripScore1),
       new PivotPID(pvtMid1, PivotConstants.PVT_ENC_MID_SCORE).withTimeout(1),
-      new ArmPID(midScore1, pvtMid1, Constants.ArmConstants.ARM_MID),
+      new ArmPID(midScore1, Constants.ArmConstants.ARM_MID),
       //new WaitCommand(0.5), 
       new ReleasePiece(gripScore22).asProxy()
       );
