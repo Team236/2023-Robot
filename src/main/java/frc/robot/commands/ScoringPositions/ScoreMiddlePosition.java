@@ -11,6 +11,7 @@ import frc.robot.Constants.PivotConstants;
 import frc.robot.commands.Arm.ArmPID;
 import frc.robot.commands.Gripper.GrabReleaseToggle;
 import frc.robot.commands.Gripper.ReleasePiece;
+import frc.robot.commands.Pivot.PivotDownPID;
 import frc.robot.commands.Pivot.PivotPID;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Gripper;
@@ -21,19 +22,30 @@ import frc.robot.subsystems.Pivot;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class ScoreMiddlePosition extends SequentialCommandGroup {
 
-  
   /** Creates a new ScoreMiddleLevel. */
-  public ScoreMiddlePosition(Pivot pvtMid, Arm midScore, Gripper gripScore2) {    // Add your commands in the addCommands() call, e.g.
-    // addCommands(new FooCommand(), new BarCommand());
+  public ScoreMiddlePosition(Arm midScore, Pivot pvtMid,Gripper gripMid) {   
+
+  if (pvtMid.getPivotEncoder() > Constants.PivotConstants.PVT_ENC_MID_SCORE) {
+
+    //From higher angle (getPivotEncoder > target): ArmPID then PivotDownPID
     addCommands(
-   
-     //new GrabReleaseToggle(gripScore1),
-      new PivotPID(pvtMid, PivotConstants.PVT_ENC_MID_SCORE).withTimeout(1),
-      new ArmPID(midScore, pvtMid, Constants.ArmConstants.ARM_MID)//,
-      //new WaitCommand(0.5), 
-      //new ReleasePiece(gripScore2).asProxy()
-      );
-      
-  }}
- 
+    new ArmPID(midScore, Constants.ArmConstants.ARM_MID).withTimeout(1),
+    new PivotDownPID(pvtMid, Constants.PivotConstants.PVT_ENC_MID_SCORE).withTimeout(1),
+    new ReleasePiece(gripMid).asProxy()
+    );
+    }
+    else {
+
+    //From lower angle (getPivotEncoder < target):  PivotPID (pivoting up) then ArmPID 
+    addCommands(
+    new PivotPID(pvtMid, Constants.PivotConstants.PVT_ENC_MID_SCORE).withTimeout(1),
+    new ArmPID(midScore, Constants.ArmConstants.ARM_MID).withTimeout(1),
+    new ReleasePiece(gripMid).asProxy()
+    );
+
+    }
+
+  }
+}
+
 

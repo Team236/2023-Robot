@@ -11,6 +11,7 @@ import frc.robot.Constants.PivotConstants;
 import frc.robot.commands.Arm.ArmPID;
 import frc.robot.commands.Gripper.GrabReleaseToggle;
 import frc.robot.commands.Gripper.ReleasePiece;
+import frc.robot.commands.Pivot.PivotDownPID;
 import frc.robot.commands.Pivot.PivotPID;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Gripper;
@@ -23,17 +24,26 @@ public class ScoreLow extends SequentialCommandGroup {
 
   
   /** Creates a new ScoreMiddleLevel. */
-  public ScoreLow(Arm lowScore, Gripper gripScore2, Pivot pvtLow) {
-    // Add your commands in the addCommands() call, e.g.
-    // addCommands(new FooCommand(), new BarCommand());
-    addCommands(
-   
-     //new GrabReleaseToggle(gripScore1),
-      new PivotPID(pvtLow, PivotConstants.PVT_ENC_LOW_SCORE).withTimeout(1),
-      new ArmPID(lowScore, pvtLow, 0)//,
-      //new WaitCommand(0.5), 
-     // new ReleasePiece(gripScore2).asProxy()
+  public ScoreLow(Arm lowScore, Pivot pvtLow, Gripper gripScore2) {
+
+    if (pvtLow.getPivotEncoder() > Constants.PivotConstants.PVT_ENC_LOW_SCORE) {
+
+      //From higher angle (getPivotEncoder > target): ArmPID then PivotDownPID
+      addCommands(
+      new ArmPID(lowScore,Constants.ArmConstants.ARM_LOW).withTimeout(1),
+      new PivotDownPID(pvtLow, Constants.PivotConstants.PVT_ENC_LOW_SCORE).withTimeout(1),
+      new ReleasePiece(gripScore2).asProxy()
       );
-      
+      }
+      else {
+
+      //From lower angle (getPivotEncoder < target):  PivotPID (pivoting up) then ArmPID 
+      addCommands(
+      new PivotPID(pvtLow, Constants.PivotConstants.PVT_ENC_LOW_SCORE).withTimeout(1),
+      new ArmPID(lowScore, Constants.ArmConstants.ARM_LOW).withTimeout(1),
+      new ReleasePiece(gripScore2).asProxy()
+      );
+  
+      }
   }
 }

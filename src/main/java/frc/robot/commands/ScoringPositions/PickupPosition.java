@@ -11,6 +11,7 @@ import frc.robot.Constants.PivotConstants;
 import frc.robot.commands.Arm.ArmPID;
 import frc.robot.commands.Gripper.GrabReleaseToggle;
 import frc.robot.commands.Gripper.ReleasePiece;
+import frc.robot.commands.Pivot.PivotDownPID;
 import frc.robot.commands.Pivot.PivotPID;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Gripper;
@@ -21,22 +22,29 @@ import frc.robot.subsystems.Pivot;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class PickupPosition extends SequentialCommandGroup {
 
-  
-  /** Creates a new ScoreMiddleLevel. */
-  public PickupPosition (Arm lowScore, Gripper gripScore2, Pivot pvtLow) {
-    // Add your commands in the addCommands() call, e.g.
-    // addCommands(new FooCommand(), new BarCommand());
-    addCommands(
-   
-     //new GrabReleaseToggle(gripScore1),
+  /** Creates a new PickupPosition. */
+  public PickupPosition (Arm Armpickup, Pivot pvtPickup, Gripper gripPickup) {
 
-      //new ArmPID(lowScore, pvtLow, 0),
-      //new WaitCommand(1),
-      new PivotPID(pvtLow, 4865).withTimeout(1)//,
-      //new WaitCommand(0.5), 
-      //new ArmPID(lowScore, pvtLow, 6.5)
-     // new ReleasePiece(gripScore2).asProxy()
-      );
-      
-  }
+  if (pvtPickup.getPivotEncoder() > Constants.PivotConstants.PVT_ENC_PICKUP) {
+    
+    //From higher angle (getPivotEncoder > target): ArmPID then PivotDownPID
+    addCommands(
+    new ArmPID(Armpickup, Constants.ArmConstants.ARM_PICKUP).withTimeout(1),
+    new PivotDownPID(pvtPickup, Constants.PivotConstants.PVT_ENC_PICKUP).withTimeout(1),
+    new ReleasePiece(gripPickup).asProxy()
+    );
+    }
+    else {
+
+    //From lower angle (getPivotEncoder < target):  PivotPID (pivoting up) then ArmPID 
+    addCommands(
+    new PivotPID(pvtPickup, Constants.PivotConstants.PVT_ENC_PICKUP).withTimeout(1),
+    new ArmPID(Armpickup, Constants.ArmConstants.ARM_PICKUP).withTimeout(1),
+    new ReleasePiece(gripPickup).asProxy()
+    );
+    }
+
 }
+}
+
+  
