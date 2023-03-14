@@ -91,7 +91,7 @@ public class RobotContainer {
 
   //COMMANDS****
   //AUTO
-  private final ScoreMiddlePosition scoreMiddleLevel = new ScoreMiddlePosition(pivot, arm, gripper);
+  private final ScoreMiddlePosition scoreMiddleLevel = new ScoreMiddlePosition(arm, pivot, gripper);
   //Command scoreMid = Commands.sequence(new PivotPID(arm, 10065).andThen(new ArmPID(arm, 7.25)).andThen(new ReleasePiece(gripper)));
   private final StowPosition stowPosition = new StowPosition(arm, pivot);
   //DRIVE
@@ -113,8 +113,8 @@ private final ReleasePiece releasePiece = new ReleasePiece(gripper);
 private final GrabReleaseToggle grabReleaseToggle = new GrabReleaseToggle(gripper);
 
 //TURRET
-private final TurretCW turretCW = new TurretCW(turret, TurretConstants.TURRET_SPEED);
-private final TurretCCW turretCCW = new TurretCCW(turret, -TurretConstants.TURRET_SPEED);
+private final TurretCW turretCW = new TurretCW(turret, TurretConstants.TURRET_CW_SPEED);
+private final TurretCCW turretCCW = new TurretCCW(turret, TurretConstants.TURRET_CCW_SPEED);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
 
@@ -172,10 +172,10 @@ private final TurretCCW turretCCW = new TurretCCW(turret, -TurretConstants.TURRE
     a1.whileTrue(new ToggleTransmission(drive));
     upPov1.whileTrue(new BackwardCenter(arm, gripper, drive, pivot));
     downPov1.whileTrue(new AutoScoreHigh(arm, pivot, gripper));
-    lm1.whileTrue(new TurnPID(drive, -180));
-    rm1.whileTrue(new TurnPID(drive, 180));
-    lb1.whileTrue(new TurnPID(drive, -90));
-    rb1.whileTrue(new TurnPID(drive, 90));
+    lm1.whileTrue(new TurnPID(drive, 0));
+    rm1.whileTrue(new TurnPID(drive, 90));
+    lb1.whileTrue(new TurnPID(drive, 270));
+   // rb1.whileTrue(new TurnPID(drive, 90));
 
 
 
@@ -183,8 +183,8 @@ private final TurretCCW turretCCW = new TurretCCW(turret, -TurretConstants.TURRE
    //DRIVECONTROLLER******
   a.whileTrue(new ToggleTransmission(drive));
   b.whileTrue(grabReleaseToggle);
-  x.whileTrue(new ScoreLow(arm, gripper, pivot));
-  y.whileTrue(new PickupPosition(arm, gripper, pivot));
+  x.whileTrue(new ScoreLow(arm, pivot, gripper));
+  y.whileTrue(new PickupPosition(arm, pivot, gripper));
   rb.whileTrue(new LoadStationPosition(arm, pivot, gripper));
  lb.whileTrue(scoreMiddleLevel);
  rm.whileTrue(new ScoreHighPosition(arm, pivot, gripper));
