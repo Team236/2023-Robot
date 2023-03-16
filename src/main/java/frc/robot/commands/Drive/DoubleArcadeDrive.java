@@ -48,19 +48,20 @@ public class DoubleArcadeDrive extends CommandBase {
     double max, L, R, kPgyro, error;
     kPgyro = 0.00; //0.09
     error = navX.getRate();
-    if ((Math.abs(driveController.getLeftX()) <= -0.17) && (driveController.getRightY() > 0.17)) {
-      L = (-driveController.getRightY()- (kPgyro*error));
-      R = (-driveController.getRightY() + (kPgyro*error));
-    } else if ((Math.abs(driveController.getLeftX()) <= -0.17) && (driveController.getRightY() <=-0.17)) {
-      L = (-driveController.getRightY() + (kPgyro*error));
-      R = (-driveController.getRightY() - (kPgyro*error));
-    } else if ((Math.abs(driveController.getLeftX()) > 0.17) && (driveController.getRightY() > 0.17)) {
-      L = driveController.getRightY() - driveController.getLeftX();
-      R = driveController.getRightY() + driveController.getLeftX();
-    } else 
-    //The only condition left is: Math.abs(driveController.getLeftX()) > 0.17) && (driveController.getRightY() <= -0.17
-        L = -driveController.getRightY() + driveController.getLeftX();
-        R = -driveController.getRightY() - driveController.getLeftX();
+    if ((Math.abs(driveController.getLeftX()) > 0.17) && (Math.abs(driveController.getRightY()) <= 0.17)) {
+      L = driveController.getLeftX();
+      R = -driveController.getLeftX();
+    } else if ((Math.abs(driveController.getLeftX()) <= 0.17) && (Math.abs(driveController.getRightY()) <= 0.17)) {
+      L = (0);//-driveController.getRightY() //+ (kPgyro*error));
+      R = (0);//-driveController.getRightY() //- (kPgyro*error));
+    } else if ((Math.abs(driveController.getLeftX()) > 0.17) && (Math.abs(driveController.getRightY()) > 0.17)) {
+      L = -driveController.getRightY() + driveController.getLeftX();
+      R = -driveController.getRightY() - driveController.getLeftX();
+    } else {
+      L = (-driveController.getRightY());//- (kPgyro*error));
+      R = (-driveController.getRightY()); //+ (kPgyro*error));
+    }
+  
     
     max = Math.abs(L);
     if (max < Math.abs(R)) {
@@ -74,8 +75,8 @@ public class DoubleArcadeDrive extends CommandBase {
     // SmartDashboard.putNumber("left arcade speed", L);
     // SmartDashboard.putNumber("right Arcade speed", R);
 
-    drive.setLeftSpeedWithDeadzone(L);
-    drive.setRightSpeedWithDeadzone(R);
+    drive.setLeftSpeed(L);
+    drive.setRightSpeed(R);
    // SmartDashboard.putNumber("Arcade Drive Left Encoder", drive.getLeftDistance());
     //SmartDashboard.putNumber("Roll in Arcade Drive", drive.getRoll());
    gripper.autoGrab();
