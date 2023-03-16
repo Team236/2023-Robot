@@ -96,10 +96,10 @@ public void periodic() {
   }
 
   public boolean HasTarget() { 
-   if ((tvSub.get() > 0.0 ))
-    {return true;}
+   if ((tvSub.get() == 0.0 ))
+    {return false;}
     else {
-      return false;
+      return true;
    }
     }
 
