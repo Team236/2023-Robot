@@ -203,8 +203,8 @@ public static class ArmConstants { ///FOR TESTBOT: subject to change for final
 
 public static class GripperConstants {
   //Solenoid ports on the PCM (Channels A and B)
-  public static final int GRIPPER_SOL_FOR = 1; //0
-  public static final int GRIPPER_SOL_REV = 0; //1
+  public static final int GRIPPER_SOL_FOR = 0; //0
+  public static final int GRIPPER_SOL_REV = 1; //1
   public static final int GRIPPER_SOL2_FOR = 4;
   public static final int GRIPPER_SOL2_REV = 5;
   //Port used on the DIO

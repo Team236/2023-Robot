@@ -38,13 +38,13 @@ public class Gripper extends SubsystemBase {
   //Makes the gripper grab
   public void grab() {
     gripperSolenoid.set(Value.kForward);
-    gripperSolenoid2.set(Value.kForward);
+    //gripperSolenoid2.set(Value.kForward);
     }
   
     //makes the gripper release
     public void release() {
       gripperSolenoid.set(Value.kReverse);
-      gripperSolenoid2.set(Value.kReverse);
+      //gripperSolenoid2.set(Value.kReverse);
     }
   
     //Tells if the gripper is gripping or not
