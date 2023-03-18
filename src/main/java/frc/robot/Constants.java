@@ -105,7 +105,7 @@ public final class Constants {
     public static final int ID_RIGHT_REAR = 32; //16 - 45 - 15 - 4
 
     public static final int ID_ARM = 10;
-    public static final int ID_TURRET = 27; //test value
+    public static final int ID_TURRET = 16; //the tested one 
     public static final int ID_PIVOT = 24;
     }
 
@@ -252,7 +252,7 @@ public static class TurretConstants {
   //DETERMINE DIST PER PULSE BY READING ENCODER VALUES AT VARIOUS ANGLES
   //THE GetTurret ENCODER METHOD READS PULSES, NOT REVOLUTIONS
   //IF WE NEED REV_TO_DEG, IT CAN BE CALCULATED BY MULTIPLYING DIST_PER_PULSE times 128
-  public static final double turretDISTANCE_PER_PULSE = 1;  //TBD- 128 pulses per Rev
+  public static final double turretDEGREES_PER_PULSE = 1;  //TBD- 128 pulses per Rev
   public static final double turretANGLE_OFFSET = 0;//Encoder pulses reading when arm in front center
 
   public static final double kPturret = 0.0002;
@@ -264,7 +264,9 @@ public static class TurretConstants {
   public static final int DIO_TRRT_ENC_A = 4;
   public static final int DIO_TRRT_ENC_B = 5;
 
-  public static final double TURRET_CW_STOP_ANGLE = 320;
+  public static final double TURRET_CW_STOP_ANGLE = 200;
+  public static final double TURRET_CCW_STOP_ANGLE = -140;
+
 
  // public static final double TURRET_RANGE = 360;  // -180 to +180 
   public static final double TURRET_FRNTCENT = 0; 

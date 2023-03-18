@@ -37,16 +37,21 @@ import frc.robot.commands.Pivot.PivotUp;
 import frc.robot.commands.ScoringPositions.LoadStationPosition;
 import frc.robot.commands.ScoringPositions.PickupPosition;
 import frc.robot.commands.ScoringPositions.ScoreHighPosition;
+import frc.robot.commands.ScoringPositions.ScoreHighPosition90;
 import frc.robot.commands.ScoringPositions.ScoreLow;
+import frc.robot.commands.ScoringPositions.ScoreLow90;
 import frc.robot.commands.ScoringPositions.ScoreMiddlePosition;
+import frc.robot.commands.ScoringPositions.ScoreMiddlePosition90;
 import frc.robot.commands.ScoringPositions.StowPosition;
 import frc.robot.commands.Targeting.AprilFollow;
 import frc.robot.commands.Targeting.LLAngle;
 import frc.robot.commands.Targeting.LLDistance;
 import frc.robot.commands.Targeting.LLTarget;
+import frc.robot.commands.Turret.TurretBrake;
 import frc.robot.commands.Turret.TurretCCW;
 import frc.robot.commands.Turret.TurretCW;
 import frc.robot.commands.Turret.TurretPID;
+import frc.robot.commands.Turret.TurretRelease;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Gripper;
@@ -163,19 +168,25 @@ private final TurretCCW turretCCW = new TurretCCW(turret, TurretConstants.TURRET
     JoystickButton menu1 = new JoystickButton(controller, ControllerConstants.XboxController.MENU);
     POVButton upPov1 = new POVButton(controller, Constants.ControllerConstants.XboxController.POVXbox.UP_ANGLE);
     POVButton downPov1 = new POVButton(controller, Constants.ControllerConstants.XboxController.POVXbox.DOWN_ANGLE);
+    POVButton leftPov1 = new POVButton(driveController, Constants.ControllerConstants.XboxController.POVXbox.LEFT_ANGLE);
+    POVButton rightPov1 = new POVButton(driveController, Constants.ControllerConstants.XboxController.POVXbox.RIGHT_ANGLE);
     // ASSIGN BUTTONS TO COMMANDS
     //AUXController
-   x1.whileTrue(new LLAngle(drive, 0)); //aprilTags
-   //y1.whileTrue(new LLDistance(drive, 0, 37, 27.5)); //apriltags //27.5
-  y1.whileTrue(new LLTagDistance(drive, 0, 30, camera)); 
-   b1.whileTrue(new DriveAtSetSpeed(drive, 50, 0.3)); //must pass in the pipeline
-    a1.whileTrue(new ToggleTransmission(drive));
-    upPov1.whileTrue(new BackwardCenter(arm, gripper, drive, pivot));
-    downPov1.whileTrue(new AutoScoreHigh(arm, pivot, gripper));
-    lm1.whileTrue(new TurnPID(drive, 0));
-    rm1.whileTrue(new TurnPID(drive, 90));
-    lb1.whileTrue(new TurnPID(drive, 270));
-   // rb1.whileTrue(new TurnPID(drive, 90));
+    y1.whileTrue(new TurretPID(turret, 0));
+    x1.whileTrue(new TurretPID(turret, -90));
+    b1.whileTrue(new TurretPID(turret, 90));
+    a1.whileTrue(new TurretPID(turret, 180));
+    lb1.whileTrue(new ScoreHighPosition90(arm, pivot, gripper));
+    lm1.whileTrue(new ScoreLow90(arm, pivot, gripper));
+    rb1.whileTrue(new ScoreMiddlePosition90(arm, pivot, gripper));
+    rm1.whileTrue(new Grab(gripper));
+    menu1.whileTrue(new ReleasePiece(gripper));
+  
+   upPov1.whileTrue(new TurretBrake(turret));
+   downPov1.whileTrue(new TurretRelease(turret));
+   leftPov1.whileTrue(new TurretCCW(turret, TurretConstants.TURRET_CCW_SPEED));
+   rightPov1.whileTrue(new TurretCW(turret, TurretConstants.TURRET_CW_SPEED));
+ 
 
 
 

@@ -18,9 +18,8 @@ public class Turret extends SubsystemBase {
   private CANSparkMax turretMotor;
   private Encoder turretEncoder;
   private DoubleSolenoid turretBrake;
-  private DigitalInput cwLimit, ccwLimit;
-  private boolean isCWUnplugged = false;
-  private boolean isCCWUnplugged = false;
+  private DigitalInput trrtLimit;
+  private boolean isTUnplugged = false;
   /** Creates a new Turret. */
   public Turret() {
     turretMotor = new CANSparkMax(Constants.MotorControllers.ID_TURRET, MotorType.kBrushless);
@@ -28,38 +27,45 @@ public class Turret extends SubsystemBase {
     turretMotor.setInverted(true);
     turretMotor.setSmartCurrentLimit(40);
     turretEncoder = new Encoder(TurretConstants.DIO_TRRT_ENC_A, TurretConstants.DIO_TRRT_ENC_B); //external encoder
-    turretEncoder.setDistancePerPulse(TurretConstants.turretDISTANCE_PER_PULSE);
+    turretEncoder.setDistancePerPulse(TurretConstants.turretDEGREES_PER_PULSE);
 
     turretBrake = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, TurretConstants.TURRET_BRAKE_FOR, TurretConstants.TURRET_BRAKE_REV);
 
     try {
-      cwLimit = new DigitalInput(TurretConstants.DIO_TCW_LIMIT);
+      trrtLimit = new DigitalInput(TurretConstants.DIO_TCW_LIMIT);
     } catch (Exception e) {
-      isCWUnplugged = true;
-    }
-    try {
-      ccwLimit = new DigitalInput(TurretConstants.DIO_TCCW_LIMIT);
-    } catch (Exception e) {
-      isCCWUnplugged = true;
+      isTUnplugged = true;
     }
 
 }
 
-  public boolean isCWLimit() {
-    if (isCWUnplugged) {
+  public boolean isTLimit() {
+    if (isTUnplugged) {
       return true;
     } else {
-      return !cwLimit.get();
+      return !trrtLimit.get();
     }
   }
 
-  public boolean isCCWLimit() {
-    if (isCCWUnplugged) {
+
+  public boolean isCWLimit() {
+
+
+    if (getTurretAngle() >= Constants.TurretConstants.TURRET_CW_STOP_ANGLE) {
       return true;
     } else {
-      return !ccwLimit.get();
+      return false;
     }
-  }
+    }
+
+   public boolean isCCWLimit() {
+        if (getTurretAngle() <= Constants.TurretConstants.TURRET_CCW_STOP_ANGLE) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+
   public void turretStop() {
     turretMotor.set(0);
   }
@@ -89,24 +95,28 @@ public class Turret extends SubsystemBase {
   }
   public double getTurretAngle() {
     //could also use turretEncoder.getDistance() here, since dist per pulse is provided at top of this subystem
-    return (getTurretEncoder() - TurretConstants.turretANGLE_OFFSET)* TurretConstants.turretDISTANCE_PER_PULSE;
+    return (getTurretEncoder() - TurretConstants.turretANGLE_OFFSET)* TurretConstants.turretDEGREES_PER_PULSE;
   } 
   
    public void setTurretSpeed(double speed) {
     //DO NOT REACH LIMIT GOING CW, STOP AT 320 degress CW
-    if (speed > 0 && (getTurretAngle() > Constants.TurretConstants.TURRET_CW_STOP_ANGLE)) {
-     turretStop();
-     turretBrake();
-    } else if (speed < 0 && isCCWLimit()) {
-        // turret going CCW and  limit is tripped, stop and zero encoder
-        turretStop();
-        turretBrake();
-        resetTurretEncoder();
-      } else {
-        // not a limit going CCW, and not past 300 degrees going CW, go at commanded speed
-        turretMotor.set(speed);
-        turretBrake.set(Value.kReverse);
-      }
+    if ((speed < 0) && isTLimit()) {
+      resetTurretEncoder();
+}
+//DO NOT REACH LIMIT GOING CW, STOP AT 320 degress CW
+if ((speed > 0) && isCWLimit()) {
+ turretStop();
+ turretBrake();
+} else if (speed < 0 && isCCWLimit()) {
+    // turret going CCW and  limit is tripped, stop and zero encoder
+    turretStop();
+    turretBrake();
+  } else {
+    // not a limit going CCW, and not past 300 degrees going CW, go at commanded speed
+    turretMotor.set(speed);
+    turretBrake.set(Value.kReverse);
+  }
+
     } 
     
     /*public void setTurretSpeed(double speed) {
@@ -116,9 +126,10 @@ public class Turret extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-  SmartDashboard.putNumber("turret encoder", getTurretEncoder());
-  SmartDashboard.putNumber("turret angle", getTurretAngle());
-  SmartDashboard.putBoolean("turret limit hit CW", isCWLimit());
+    SmartDashboard.putBoolean("turret magnetic limit switch", isTLimit());
+    SmartDashboard.putBoolean("turret CW limit (200) ", isCWLimit());
+   SmartDashboard.putBoolean("turretCCW limit (-140) ", isCCWLimit());
+
 
   }
 }

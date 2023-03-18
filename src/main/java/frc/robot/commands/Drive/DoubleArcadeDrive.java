@@ -47,7 +47,7 @@ public class DoubleArcadeDrive extends CommandBase {
     //change 0.17 / -0.17 to refer to Constants - Deadzone
     double max, L, R, kPgyro, error;
     kPgyro = 0.00; //0.09
-    error = navX.getRate();
+    error = 0;//navX.getRate(); // until we verify that this doesn't break drive
     if ((Math.abs(driveController.getLeftX()) > 0.17) && (Math.abs(driveController.getRightY()) <= 0.17)) {
       L = driveController.getLeftX();
       R = -driveController.getLeftX();
