@@ -3,6 +3,11 @@
     "Persistent Values": {
       "open": false
     },
+    "retained": {
+      "limelight": {
+        "open": true
+      }
+    },
     "transitory": {
       "Shuffleboard": {
         "open": true

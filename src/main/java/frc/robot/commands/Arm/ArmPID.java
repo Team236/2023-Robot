@@ -5,23 +5,29 @@
 package frc.robot.commands.Arm;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.Pivot;
 import edu.wpi.first.math.controller.PIDController;
 import frc.robot.Constants.ArmConstants;
+import frc.robot.Constants.PivotConstants;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.WPILibVersion;
 
 public class ArmPID extends CommandBase {
   /** Creates a new ArmPID. */
   private Arm arm3;
-  private double armDistance;
-
+  private Pivot pivot;
+  private double armDistance, armSpeed;
   private final PIDController armPidController;
 
   public ArmPID(Arm armpid, double _armDistance) {
     this.arm3 = armpid;
+   // this.pivot7 = pivotpid1;
     addRequirements(arm3);
-    this.armDistance = _armDistance;
-    this.armPidController = new PIDController(ArmConstants.kParm, ArmConstants.kIarm, ArmConstants.kDarm);
+   // addRequirements(pivot);
+
+    this.armDistance = armDistance;
+   
+    this.armPidController = new PIDController(ArmConstants.kParm, ArmConstants.kIarm, ArmConstants.kDarm);  //delete line below after inserting this line
     armPidController.setSetpoint(armDistance);
   }
 
@@ -29,7 +35,6 @@ public class ArmPID extends CommandBase {
   @Override
   public void initialize() {
     armPidController.reset();
-    arm3.resetArmEncoder();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -52,7 +57,11 @@ public class ArmPID extends CommandBase {
   if ((arm3.getArmDistance() > 0.9*armDistance)&& (Math.abs(armSpeed) < 0.02)) {
     SmartDashboard.putBoolean("ArmPID Finished?", true);
     return true;
-  } else {
+  } else if (arm3.isARetLimit() && armSpeed < 0) {
+    return true; }
+    else if (arm3.isAExtLimit() && armSpeed > 0) {
+      return true;
+    } else {
     SmartDashboard.putBoolean("ArmPID Finished?", false);
     return false;
   }

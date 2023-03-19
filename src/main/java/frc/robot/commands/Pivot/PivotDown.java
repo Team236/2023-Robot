@@ -11,9 +11,9 @@ public class PivotDown extends CommandBase {
   private Pivot pivot;
   private double speed;
   /** Creates a new PivotCCW. */
-  public PivotDown(Pivot pivotdown, double speeddown) {
-    this.pivot = pivotdown;
-    this.speed = speeddown;
+  public PivotDown(Pivot _pivotdown, double _speeddown) {
+    this.pivot = _pivotdown;
+    this.speed = _speeddown;
     addRequirements(pivot);
     // Use addRequirements() here to declare subsystem dependencies.
   }

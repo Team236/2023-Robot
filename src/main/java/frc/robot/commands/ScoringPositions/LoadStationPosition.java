@@ -6,6 +6,10 @@ package frc.robot.commands.ScoringPositions;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
+import frc.robot.Constants.PivotConstants;
+import frc.robot.Constants.ArmConstants;
+import frc.robot.commands.Pivot.PivotDown;
+import frc.robot.commands.Pivot.PivotDownPID;
 import frc.robot.commands.Pivot.PivotPID;
 import frc.robot.commands.Arm.ArmPID;
 import frc.robot.commands.Gripper.ReleasePiece;
@@ -17,15 +21,30 @@ import frc.robot.subsystems.Pivot;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class LoadStationPosition extends SequentialCommandGroup {
+
   /** Creates a new LoadStationPosition. */
   public LoadStationPosition(Arm loadStation, Pivot loadPivot, Gripper gripLoad) {
-    // Add your commands in the addCommands() call, e.g.
-    // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new PivotPID(loadPivot, Constants.PivotConstants.PVT_ENC_90).withTimeout(1),
-    new ArmPID(loadStation, Constants.ArmConstants.ARM_LOAD_STN),
+     
+    if (loadPivot.getPivotEncoder() > Constants.PivotConstants.PVT_ENC_LOAD_STN) {
+
+    //From higher angle (getPivotEncoder > target): ArmPID then PivotDownPID
+    addCommands(
+    new ArmPID(loadStation,Constants.ArmConstants.ARM_LOAD_STN).withTimeout(1),
+    new PivotDownPID(loadPivot, Constants.PivotConstants.PVT_ENC_90).withTimeout(1),
     new ReleasePiece(gripLoad).asProxy()
     );
-    
+    }
+    else {
+
+    //From lower angle (getPivotEncoder < target):  PivotPID (pivoting up) then ArmPID 
+    addCommands(
+    new PivotPID(loadPivot, Constants.PivotConstants.PVT_ENC_90).withTimeout(1),
+    new ArmPID(loadStation, Constants.ArmConstants.ARM_LOAD_STN).withTimeout(1),
+    new ReleasePiece(gripLoad).asProxy()
+    );
+
+    }
+
   }
 }
 

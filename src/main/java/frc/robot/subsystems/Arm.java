@@ -22,9 +22,9 @@ public class Arm extends SubsystemBase {
   private DigitalInput armExtendLimit, armReturnLimit;
   private boolean isArmExtLimitUnplugged = false;
   private boolean isArmRetLimitUnplugged = false;
+  
   /** Creates a new ArmExtend. */
   public Arm() {
-
     armMotor = new CANSparkMax(Constants.MotorControllers.ID_ARM, MotorType.kBrushless); 
 
     armMotor.restoreFactoryDefaults();

@@ -12,16 +12,15 @@ import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Gripper;
 import frc.robot.subsystems.Pivot;
 
-// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
-// information, see:
+// NOTE:  Consider using this command inline, rather than writing a subclass.  For more information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class ScoreToCenter extends SequentialCommandGroup {
   /** Creates a new ScoreToCenter. */
-  public ScoreToCenter(Arm scoreCenter, Gripper _gripper, Drive driveCenter, Pivot pvtCent, XboxController driver) {
+  public ScoreToCenter(Arm scoreCenter, Gripper gripper, Drive driveCenter, Pivot pvtCent, XboxController driver) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new ScoreMiddlePosition(pvtCent, scoreCenter, _gripper),
+      new ScoreMiddlePosition(scoreCenter, pvtCent, gripper),
       new DriveAtSetSpeed(driveCenter, 180, -0.4)
     );
   }

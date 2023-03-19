@@ -20,27 +20,27 @@ import frc.robot.subsystems.Pivot;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class ScoreMiddlePosition extends SequentialCommandGroup {
+public class ScoreMiddlePosition90 extends SequentialCommandGroup {
 
-  /** Creates a new ScoreMiddleLevel. */
-  public ScoreMiddlePosition(Arm midScore, Pivot pvtMid,Gripper gripMid) {   
+  /** Creates a new ScoreMiddleLevel for when Turret at 90 or 270 degrees */
+  public ScoreMiddlePosition90(Arm midScore90, Pivot pvtMid90, Gripper gripMid90) {   
 
-  if (pvtMid.getPivotEncoder() > Constants.PivotConstants.PVT_ENC_MID_SCORE) {
+  if (pvtMid90.getPivotEncoder() > Constants.PivotConstants.PVT_ENC_MID_SCORE) {
 
     //From higher angle (getPivotEncoder > target): ArmPID then PivotDownPID
     addCommands(
-    new ArmPID(midScore, Constants.ArmConstants.ARM_MID).withTimeout(1),
-    new PivotDownPID(pvtMid, Constants.PivotConstants.PVT_ENC_MID_SCORE).withTimeout(1),
-    new ReleasePiece(gripMid).asProxy()
+    new ArmPID(midScore90, Constants.ArmConstants.ARM_90_MID).withTimeout(1),
+    new PivotDownPID(pvtMid90, Constants.PivotConstants.PVT_ENC_90_MID_SCORE).withTimeout(1),
+    new ReleasePiece(gripMid90).asProxy()
     );
     }
     else {
 
     //From lower angle (getPivotEncoder < target):  PivotPID (pivoting up) then ArmPID 
     addCommands(
-    new PivotPID(pvtMid, Constants.PivotConstants.PVT_ENC_MID_SCORE).withTimeout(1),
-    new ArmPID(midScore, Constants.ArmConstants.ARM_MID).withTimeout(1),
-    new ReleasePiece(gripMid).asProxy()
+    new PivotPID(pvtMid90, Constants.PivotConstants.PVT_ENC_90_MID_SCORE).withTimeout(1),
+    new ArmPID(midScore90, Constants.ArmConstants.ARM_90_MID).withTimeout(1),
+    new ReleasePiece(gripMid90).asProxy()
     );
 
     }

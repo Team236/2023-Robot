@@ -11,8 +11,8 @@ public class GrabReleaseToggle extends CommandBase{
   private Gripper gripper;
   private boolean toggle;
   /** Creates a new GrabReleaseToggle. */
-  public GrabReleaseToggle(Gripper gripper) {
-    this.gripper=gripper;
+  public GrabReleaseToggle(Gripper _toggleGripper) {
+    this.gripper=_toggleGripper;
     addRequirements(gripper);
   }
 

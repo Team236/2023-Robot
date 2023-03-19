@@ -6,29 +6,32 @@ package frc.robot.commands.Turret;
 import frc.robot.subsystems.Turret;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 public class TurretCW extends CommandBase {
-  private Turret turret2;
-  private double speed6;
+  private Turret turret;
+  private double speed;
   /** Creates a new TurretClockwise. */
-  public TurretCW(Turret turretcw, double speedcw) {
-    this.turret2 = turretcw;
-    this.speed6 = speedcw;
-    addRequirements(turret2);
+  public TurretCW(Turret _turretcw, double _speedcw) {
+    this.turret = _turretcw;
+    this.speed = _speedcw;
+    addRequirements(turret);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    turret.turretRelease();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    turret2.setTurretSpeed(speed6);
+    turret.setTurretSpeed(speed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    turret2.turretStop();
+    turret.turretStop();
+    turret.turretBrake();
   }
 
   // Returns true when the command should end.

@@ -6,6 +6,10 @@ package frc.robot.commands.Targeting;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.Drive;
+import frc.robot.subsystems.Limelight;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import java.lang.Math;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -15,11 +19,13 @@ public class LLAngle extends CommandBase {
   private double tv, distX, errorX;
   private Drive drive;
   private double pipeline, cameraXoffset;
+  private Limelight limelight;
 
   public LLAngle(Drive _drive, double _pipeline) {
-    //public LLAngle(Drive passed_drive, Limelight lime, double m_pipeline) {
+    //public LLAngle(Drive _drive, Limelight _lime, double _pipeline) {
       this.drive = _drive;
       this.pipeline = _pipeline;
+      // this.limelight = _lime;
       addRequirements(drive);
     }
 

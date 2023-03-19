@@ -53,8 +53,8 @@ public class Drive extends SubsystemBase {
 
     //leftEncoder = leftFront.getEncoder();
    //rightEncoder = rightFront.getEncoder();
-   leftEncoder = new Encoder(DriveConstants.DIO_LDRIVE_ENC_A, DriveConstants.DIO_LDRIVE_ENC_B);
-    rightEncoder = new Encoder(DriveConstants.DIO_RDRIVE_ENC_A, DriveConstants.DIO_RDIRVE_ENC_B);
+   leftEncoder = new Encoder(DriveConstants.DIO_LDRIVE_ENC_A, DriveConstants.DIO_LDRIVE_ENC_B); // DIO 18 19
+    rightEncoder = new Encoder(DriveConstants.DIO_RDRIVE_ENC_A, DriveConstants.DIO_RDIRVE_ENC_B); // DIO 13 12
     
     rightEncoder.setDistancePerPulse(DriveConstants.DISTANCE_PER_PULSE_K);
     leftEncoder.setDistancePerPulse(DriveConstants.DISTANCE_PER_PULSE_K);

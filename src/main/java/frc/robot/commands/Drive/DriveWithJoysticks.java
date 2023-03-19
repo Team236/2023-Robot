@@ -24,8 +24,8 @@ public class DriveWithJoysticks extends CommandBase {
     this.drive = _drive;
     this.gripper = _gripper;
     this.xboxController = _xboxController;
-    addRequirements(this.drive);
-    addRequirements(this.gripper);
+    addRequirements(drive);
+    addRequirements(gripper);
   }
   // Called when the command is initially scheduled.
   @Override

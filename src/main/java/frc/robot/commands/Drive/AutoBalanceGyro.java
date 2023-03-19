@@ -22,7 +22,9 @@ private Drive drive;
 private AHRS navx;
 
   /** Creates a new AutoBalanceGyro. */
-  public AutoBalanceGyro(Drive _drive, XboxController driveController) {
+  public AutoBalanceGyro(Drive _drive, XboxController _driveController) {
+    navx = new AHRS();
+    this.driveController = _driveController;
     this.drive = _drive;
     addRequirements(drive);
     // Use addRequirements() here to declare subsystem dependencies.

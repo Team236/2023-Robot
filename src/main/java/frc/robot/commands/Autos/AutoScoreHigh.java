@@ -22,13 +22,13 @@ public class AutoScoreHigh extends SequentialCommandGroup {
 
   
   /** Creates a new ScoreMiddleLevel. */
-  public AutoScoreHigh(Arm hiScore, Pivot pvtHi, Gripper gripScore1) {
+  public AutoScoreHigh(Arm hiScore1, Pivot pvtHi1, Gripper gripScore11) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new PivotPID(pvtHi, PivotConstants.PVT_ENC_HIGH_SCORE),
-      new ArmPID(hiScore, Constants.ArmConstants.ARM_HIGH),
-      new ReleasePiece(gripScore1).asProxy()
+      new PivotPID(pvtHi1, PivotConstants.PVT_ENC_HIGH_SCORE),
+      new ArmPID(hiScore1, Constants.ArmConstants.ARM_HIGH),
+      new ReleasePiece(gripScore11).asProxy()
       );
       
   }

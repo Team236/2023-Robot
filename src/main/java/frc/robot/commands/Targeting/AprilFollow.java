@@ -32,7 +32,6 @@ public class AprilFollow extends CommandBase {
     this.camera = _camera;
     this.driveDistance = _driveDistance;
     this.yOffset = _yOffset;
-
     addRequirements(drive);
 
     distanceController = new PIDController(kPdistance, kIdistance, kDdistance);

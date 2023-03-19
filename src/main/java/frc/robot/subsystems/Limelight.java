@@ -101,9 +101,11 @@ public void periodic() {
    * @return
    */
   public boolean HasTarget() { 
-    if ( tvSub.get() == 0.0 )  { return false; } 
-    else { return true; }
-  }
+     if ((tvSub.get()== 0.0 ))
+      {return false;}
+     else { return true; }
+
+    }
 
   /**
    * @return

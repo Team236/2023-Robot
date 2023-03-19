@@ -27,10 +27,10 @@ public class LLDistance extends CommandBase {
   //private double h2 = 18; // inches, same unit as d, to center of target
   private double a1 = Math.toRadians(20); //20 degrees, camera tilt
   private double dist11; // desired distance from camera to target in inches; pass into command
-  
+  //private Limelight limelight;
   private Drive drive;
   private double pipeline;
-  private double targetHeight11;//18" for Atag, from floor to center of target
+  private double targetHeight;//18" for Atag, from floor to center of target
   private double tv, disY, a2, dx, errorY;
   
   /** Creates a new LLAngle. */
@@ -39,7 +39,7 @@ public class LLDistance extends CommandBase {
     this.drive = _drive;
     this.pipeline = _pipeline;
     this.dist11 = _standoff;
-    this.targetHeight11 = _targetHeight;
+    this.targetHeight = _targetHeight;
    // this.limelight = lime;
     addRequirements(drive);
   }
@@ -65,7 +65,7 @@ public class LLDistance extends CommandBase {
 
     if(tv==1){
         a2 = disY*Math.PI/180; // in radians, if disY in degrees
-        dx = Math.abs(targetHeight11 - h1) / Math.tan(a1+a2);  
+        dx = Math.abs(targetHeight - h1) / Math.tan(a1+a2);  
         errorY = dist11 - dx;  
     //NOTE:  CAN TRY TO USE THE Z VALUE OF THE POSE FOR errorY (use [2] or [0] for other directions)
     // double errorY = NetworkTableInstance.getDefault().getTable("limelight").

@@ -22,11 +22,11 @@ public class AutoPIDDrive extends CommandBase {
     this.leftPidController = new PIDController(DriveConstants.leftkPdrive, DriveConstants.leftkIdrive, DriveConstants.leftkDdrive);
     this.rightPidController = new PIDController(DriveConstants.rightkPdrive, DriveConstants.rightkIdrive, DriveConstants.rightkDdrive);
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(drive);
+    addRequirements(_drive);
     leftPidController.setSetpoint(driveDistance);
     rightPidController.setSetpoint(driveDistance);
     //getRate returns rate of change of the gyro angle, hence it is "spin"
-   error = drive.navX.getRate();
+   error = _drive.navX.getRate();
     gyrokP = 0.03;
   }
 

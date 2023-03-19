@@ -12,6 +12,7 @@ import frc.robot.Constants.PivotConstants;
 public class PivotPID extends CommandBase {
   private Pivot pivot;
   private double pvtTarget, pvtSpeed;
+  private double kpPiv, kiPiv, kdPiv;
   private final PIDController pvtPidController;
   
   /** Creates a new PivotPID. */
@@ -19,7 +20,17 @@ public class PivotPID extends CommandBase {
     this.pivot = _pivotpid;
     addRequirements(pivot);
     this.pvtTarget = _pvtTarget;
-    this.pvtPidController = new PIDController(PivotConstants.kPpvt, PivotConstants.kIpvt, PivotConstants.kDpvt);
+
+ //if (pvtTarget > pivot2.getPivotEncoder()) {  //going up
+   kpPiv = PivotConstants.kPpvt;     kiPiv = PivotConstants.kIpvt;    kdPiv = PivotConstants.kDpvt;
+ //}
+  // else {  //going down
+   // kpPiv = PivotConstants.kPpvtDown;     kiPiv = PivotConstants.kIpvtDown;    kdPiv = PivotConstants.kDpvtDown;
+ //}
+
+  this.pvtPidController = new PIDController(kpPiv, kiPiv, kdPiv);  //delete line below after inserting this line
+    
+  //this.pvtPidController = new PIDController(PivotConstants.kPpvt, PivotConstants.kIpvt, PivotConstants.kDpvt);
     pvtPidController.setSetpoint(pvtTarget);
   }
 
