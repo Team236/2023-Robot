@@ -53,16 +53,14 @@ public class Drive extends SubsystemBase {
 
     //leftEncoder = leftFront.getEncoder();
    //rightEncoder = rightFront.getEncoder();
-   leftEncoder = new Encoder(DriveConstants.DIO_LDRIVE_ENC_A, DriveConstants.DIO_LDRIVE_ENC_B);
-    rightEncoder = new Encoder(DriveConstants.DIO_RDRIVE_ENC_A, DriveConstants.DIO_RDIRVE_ENC_B);
+   leftEncoder = new Encoder(DriveConstants.DIO_LDRIVE_ENC_A, DriveConstants.DIO_LDRIVE_ENC_B); // DIO 18 19
+    rightEncoder = new Encoder(DriveConstants.DIO_RDRIVE_ENC_A, DriveConstants.DIO_RDIRVE_ENC_B); // DIO 13 12
     
     rightEncoder.setDistancePerPulse(DriveConstants.DISTANCE_PER_PULSE_K);
     leftEncoder.setDistancePerPulse(DriveConstants.DISTANCE_PER_PULSE_K);
 
-    leftFront.setSmartCurrentLimit(40);
-    rightFront.setSmartCurrentLimit(40);
-    leftRear.setSmartCurrentLimit(40);
-    rightRear.setSmartCurrentLimit(40); 
+    
+
 
    navX = new AHRS();
    xboxController = new XboxController(Constants.ControllerConstants.USB_DRIVECONTROLLER);
@@ -96,15 +94,6 @@ public class Drive extends SubsystemBase {
   }
      }
 
-     public void closedRampRate() {
-      leftFront.setClosedLoopRampRate(0.08);
-      rightFront.setClosedLoopRampRate(0.08);
-    }
-  
-    public void openRampRate() {
-      leftFront.setOpenLoopRampRate(0.08);
-      rightFront.setOpenLoopRampRate(0.08);
-    }
 
   public void setLeftSpeed(double speed) {
     leftFront.set(speed);
@@ -147,7 +136,7 @@ public class Drive extends SubsystemBase {
     return rightEncoder.getRate();
   }
   public double getLeftEncoder(){
-    //SmartDashboard.getNumber("getting raw", leftEncoder.getRaw());
+    SmartDashboard.getNumber("getting raw", leftEncoder.getRaw());
     return leftEncoder.getRaw();  // USE THIS IF WE GET EXTERNAL ENCODER WORKING
  //return leftEncoder.getPosition();
  //return leftEncoder.get()/128; //revs from encoder ticks
@@ -188,8 +177,8 @@ public class Drive extends SubsystemBase {
 
   @Override
   public void periodic() {
-    //SmartDashboard.putNumber("pitch", navX.getPitch());
-   // SmartDashboard.putNumber("roll", navX.getRoll());
+    SmartDashboard.putNumber("pitch", navX.getPitch());
+    SmartDashboard.putNumber("roll", navX.getRoll());
     //SmartDashboard.getBoolean("In Low Gear?", inLowGear());
     //SmartDashboard.putNumber("left enc", getLeftEncoder());
     //SmartDashboard.putNumber("right enc", getRightEncoder());

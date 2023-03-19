@@ -24,7 +24,7 @@ public class ScoreLow extends SequentialCommandGroup {
 
   
   /** Creates a new ScoreMiddleLevel. */
-  public ScoreLow(Arm lowScore, Pivot pvtLow, Gripper gripScore2) {
+  public ScoreLow(Arm lowScore, Pivot pvtLow, Gripper gripScore) {
 
     if (pvtLow.getPivotEncoder() > Constants.PivotConstants.PVT_ENC_LOW_SCORE) {
 
@@ -32,7 +32,7 @@ public class ScoreLow extends SequentialCommandGroup {
       addCommands(
       new ArmPID(lowScore,Constants.ArmConstants.ARM_LOW).withTimeout(1),
       new PivotDownPID(pvtLow, Constants.PivotConstants.PVT_ENC_LOW_SCORE).withTimeout(1),
-      new ReleasePiece(gripScore2).asProxy()
+      new ReleasePiece(gripScore).asProxy()
       );
       }
       else {
@@ -41,7 +41,7 @@ public class ScoreLow extends SequentialCommandGroup {
       addCommands(
       new PivotPID(pvtLow, Constants.PivotConstants.PVT_ENC_LOW_SCORE).withTimeout(1),
       new ArmPID(lowScore, Constants.ArmConstants.ARM_LOW).withTimeout(1),
-      new ReleasePiece(gripScore2).asProxy()
+      new ReleasePiece(gripScore).asProxy()
       );
   
       }

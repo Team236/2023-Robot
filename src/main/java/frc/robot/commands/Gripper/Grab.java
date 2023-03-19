@@ -10,16 +10,16 @@ import frc.robot.Constants.*;
 import frc.robot.subsystems.Gripper;
 
 public class Grab extends CommandBase {
-  private Gripper gripper3;
+  private Gripper gripper;
   /** Creates a new Grab. */
-  public Grab(Gripper grabGripper) {
-    this.gripper3 = grabGripper;
-    addRequirements(gripper3);
+  public Grab(Gripper _grabGripper) {
+    this.gripper = _grabGripper;
+    addRequirements(gripper);
   }
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    gripper3.grab();
+    gripper.grab();
   }
   // Called every time the scheduler runs while the command is scheduled.
   @Override

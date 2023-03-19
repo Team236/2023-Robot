@@ -19,10 +19,10 @@ public class DoubleArcadeDrive extends CommandBase {
   private XboxController driveController;
   private AHRS navX;
   /** Creates a new DoubleArcadeDrive. */
-  public DoubleArcadeDrive(Drive drive1, Gripper gripper1, XboxController driveController1) {
-    this.gripper = gripper1;
-    this.drive = drive1;
-    this.driveController = driveController1;
+  public DoubleArcadeDrive(Drive _drive, Gripper _gripper, XboxController _driveController) {
+    this.gripper = _gripper;
+    this.drive = _drive;
+    this.driveController = _driveController;
     addRequirements(gripper);
     addRequirements(drive);
   }
@@ -47,21 +47,20 @@ public class DoubleArcadeDrive extends CommandBase {
     //change 0.17 / -0.17 to refer to Constants - Deadzone
     double max, L, R, kPgyro, error;
     kPgyro = 0.00; //0.09
-    error = 0;//navX.getRate(); // until we verify that this doesn't break drive
-    if ((Math.abs(driveController.getLeftX()) > 0.17) && (Math.abs(driveController.getRightY()) <= 0.17)) {
-      L = driveController.getLeftX();
-      R = -driveController.getLeftX();
-    } else if ((Math.abs(driveController.getLeftX()) <= 0.17) && (Math.abs(driveController.getRightY()) <= 0.17)) {
-      L = (0);//-driveController.getRightY() //+ (kPgyro*error));
-      R = (0);//-driveController.getRightY() //- (kPgyro*error));
-    } else if ((Math.abs(driveController.getLeftX()) > 0.17) && (Math.abs(driveController.getRightY()) > 0.17)) {
-      L = -driveController.getRightY() + driveController.getLeftX();
-      R = -driveController.getRightY() - driveController.getLeftX();
-    } else {
-      L = (-driveController.getRightY());//- (kPgyro*error));
-      R = (-driveController.getRightY()); //+ (kPgyro*error));
-    }
-  
+    error = navX.getRate();
+    if ((Math.abs(driveController.getLeftX()) <= -0.17) && (driveController.getRightY() > 0.17)) {
+      L = (-driveController.getRightY()- (kPgyro*error));
+      R = (-driveController.getRightY() + (kPgyro*error));
+    } else if ((Math.abs(driveController.getLeftX()) <= -0.17) && (driveController.getRightY() <=-0.17)) {
+      L = (-driveController.getRightY() + (kPgyro*error));
+      R = (-driveController.getRightY() - (kPgyro*error));
+    } else if ((Math.abs(driveController.getLeftX()) > 0.17) && (driveController.getRightY() > 0.17)) {
+      L = driveController.getRightY() - driveController.getLeftX();
+      R = driveController.getRightY() + driveController.getLeftX();
+    } else 
+    //The only condition left is: Math.abs(driveController.getLeftX()) > 0.17) && (driveController.getRightY() <= -0.17
+        L = -driveController.getRightY() + driveController.getLeftX();
+        R = -driveController.getRightY() - driveController.getLeftX();
     
     max = Math.abs(L);
     if (max < Math.abs(R)) {
@@ -75,8 +74,8 @@ public class DoubleArcadeDrive extends CommandBase {
     // SmartDashboard.putNumber("left arcade speed", L);
     // SmartDashboard.putNumber("right Arcade speed", R);
 
-    drive.setLeftSpeed(L);
-    drive.setRightSpeed(R);
+    drive.setLeftSpeedWithDeadzone(L);
+    drive.setRightSpeedWithDeadzone(R);
    // SmartDashboard.putNumber("Arcade Drive Left Encoder", drive.getLeftDistance());
     //SmartDashboard.putNumber("Roll in Arcade Drive", drive.getRoll());
    gripper.autoGrab();

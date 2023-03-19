@@ -22,9 +22,9 @@ public class AutoBalanceGyro extends CommandBase {
   private Drive drive;
 
   /** Creates a new AutoBalanceGyro. */
-  public AutoBalanceGyro(Drive drive, XboxController driveController) {
+  public AutoBalanceGyro(Drive _drive, XboxController driveController) {
     navx = new AHRS();
-    this.drive = drive;
+    this.drive = _drive;
     addRequirements(drive);
     // Use addRequirements() here to declare subsystem dependencies.
   }

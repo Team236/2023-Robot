@@ -10,13 +10,13 @@ import frc.robot.subsystems.Turret;
 
 public class BrakeReleaseToggle extends CommandBase {
   
-private Turret turret4;
+private Turret turret;
 private boolean toggle;
 
   /** Creates a new TurretBrakeRelease. */
-  public BrakeReleaseToggle(Turret toggleTurret){
-      this.turret4 = toggleTurret;
-      addRequirements(turret4);
+  public BrakeReleaseToggle(Turret _toggleTurret){
+      this.turret = _toggleTurret;
+      addRequirements(turret);
     }
 
   // Called when the command is initially scheduled.
@@ -28,11 +28,11 @@ private boolean toggle;
   public void execute() {
     toggle = false;
     
-   if (turret4.isBraking()) {
-    turret4.turretBrake();
+   if (turret.isBraking()) {
+    turret.turretBrake();
     toggle = true;
-    } else if (!turret4.isBraking()) {
-    turret4.turretRelease();
+    } else if (!turret.isBraking()) {
+    turret.turretRelease();
     toggle = true;
    }
   }

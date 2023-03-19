@@ -10,7 +10,7 @@ import frc.robot.Constants;
 import edu.wpi.first.wpilibj.XboxController;
 /** An example command that uses an example subsystem. */
 public class DriveWithJoysticks extends CommandBase {
- private Gripper gripper2;
+ private Gripper gripper;
   private Drive drive;
   private XboxController xboxController;
   private Boolean isDeadzone = Constants.DriveConstants.IS_DEADZONE;
@@ -20,12 +20,12 @@ public class DriveWithJoysticks extends CommandBase {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public DriveWithJoysticks(Drive drive, Gripper gripper2, XboxController xboxController) {
-    this.drive = drive;
-    this.gripper2 = gripper2;
-    this.xboxController = xboxController;
-    addRequirements(this.drive);
-    addRequirements(this.gripper2);
+  public DriveWithJoysticks(Drive _drive, Gripper _gripper, XboxController _xboxController) {
+    this.drive = _drive;
+    this.gripper = _gripper;
+    this.xboxController = _xboxController;
+    addRequirements(drive);
+    addRequirements(gripper);
   }
   // Called when the command is initially scheduled.
   @Override
@@ -38,11 +38,11 @@ public class DriveWithJoysticks extends CommandBase {
     if (this.isDeadzone) {
       drive.setRightSpeedWithDeadzone(-xboxController.getRightY());
       drive.setLeftSpeedWithDeadzone(-xboxController.getLeftY());
-      gripper2.autoGrab();
+      gripper.autoGrab();
     } else {
       drive.setLeftSpeed(-xboxController.getLeftY());
       drive.setRightSpeed(-xboxController.getRightY());
-      gripper2.autoGrab();
+      gripper.autoGrab();
     }
   }
   // Called once the command ends or is interrupted.

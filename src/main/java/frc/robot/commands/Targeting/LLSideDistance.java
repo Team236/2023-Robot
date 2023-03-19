@@ -20,24 +20,24 @@ import java.lang.Math;
 public class LLSideDistance extends CommandBase {
   private double kX = 0.03;  //0.005??
   private double tv, distX, errorX;
-  private Drive drive13;
-  private double pipeline13, cameraXoffset;
+  private Drive drive;
+  private double pipeline, cameraXoffset;
 
   /** Creates a new LLSideDistace. */
-  public LLSideDistance(Drive s_drive, double s_pipeline) {
+  public LLSideDistance(Drive _drive, double _pipeline) {
     //public LLAngle(Drive passed_drive, Limelight lime, double m_pipeline) {
-      this.drive13 = s_drive;
-      this.pipeline13 = s_pipeline;
+      this.drive = _drive;
+      this.pipeline = _pipeline;
      // this.limelight = lime;
-      addRequirements(drive13);
+      addRequirements(drive);
     }
   
     // Called when the command is initially scheduled.
     @Override
     public void initialize()  {  
-      SmartDashboard.putNumber("LLangle init", pipeline13);
+      SmartDashboard.putNumber("LLangle init", pipeline);
       NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(0);
-      NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(pipeline13);
+      NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(pipeline);
       cameraXoffset = 0; //need to figure out- camera x offset as angle in degrees
     }
   
@@ -58,7 +58,7 @@ public class LLSideDistance extends CommandBase {
         SmartDashboard.putNumber("Adjust Position Sideways, ErrorX is:", errorX);
           double steeringAdjust = kX * errorX;
           //if Turret at 270, want to drive fwd for positive error
-          drive13.setBothSpeeds(steeringAdjust);
+          drive.setBothSpeeds(steeringAdjust);
           //if Turret at 90, want to drive revers for positive error - ADD LOGIC
           //drive13.setBothSpeeds(-sterringAdjust);
         }
@@ -71,7 +71,7 @@ public class LLSideDistance extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    drive13.stop();
+    drive.stop();
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(0);
   }
 

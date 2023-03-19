@@ -10,38 +10,39 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.WPILibVersion;
 public class TurretPID extends CommandBase {
-  private Turret turret3;
+  private Turret turret;
   private double turretAngle;
   private final PIDController turretPidController;
+
   /** Creates a new TurretPID. */
-  public TurretPID(Turret turretpid, double turretAngle) {
-    this.turret3 = turretpid;
-    addRequirements(turret3);
+  public TurretPID(Turret _turretpid, double _turretAngle) {
+    this.turret = _turretpid;
+    addRequirements(turret);
     turretPidController = new PIDController(TurretConstants.kPturret, TurretConstants.kIturret, TurretConstants.kDturret);
-    this.turretAngle = turretAngle;
-    turretPidController.setSetpoint(turretAngle);
+    this.turretAngle = _turretAngle;
+    turretPidController.setSetpoint(_turretAngle);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    turret3.turretRelease();
-    turret3.resetTurretEncoder();
+    turret.turretRelease();
+    turret.resetTurretEncoder();
     turretPidController.reset();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double turretSpeed = turretPidController.calculate(turret3.getTurretAngle());
-    turret3.setTurretSpeed(turretSpeed);
+    double turretSpeed = turretPidController.calculate(turret.getTurretAngle());
+    turret.setTurretSpeed(turretSpeed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    turret3.turretStop();
-   turret3.turretBrake();
+    turret.turretStop();
+   turret.turretBrake();
   }
 
   // Returns true when the command should end.

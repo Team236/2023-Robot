@@ -10,17 +10,17 @@ import frc.robot.Constants.PivotConstants;
 import frc.robot.subsystems.Pivot;
 
 public class PivotDownPID extends CommandBase {
-  private Pivot pivot4;
-  private double pvtTarget4, pvtSpeed;
+  private Pivot pivot;
+  private double pvtTarget, pvtSpeed;
   private final PIDController pvtPidController;
 
   /** Creates a new PivotDownPID. */
-  public PivotDownPID(Pivot m_pivotpid4, double m_pvtTarget4) {
-    this.pivot4 = m_pivotpid4;
-    addRequirements(pivot4);
-    this.pvtTarget4 = m_pvtTarget4;
+  public PivotDownPID(Pivot _pivotpid, double _pvtTarget) {
+    this.pivot = _pivotpid;
+    addRequirements(pivot);
+    this.pvtTarget = _pvtTarget;
     this.pvtPidController = new PIDController(PivotConstants.kPpvtDown, PivotConstants.kIpvtDown, PivotConstants.kDpvtDown);
-    pvtPidController.setSetpoint(pvtTarget4);
+    pvtPidController.setSetpoint(pvtTarget);
   }
 
   // Called when the command is initially scheduled.
@@ -32,20 +32,20 @@ public class PivotDownPID extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    pvtSpeed = pvtPidController.calculate(pivot4.getPivotEncoder());
-    pivot4.setPivotSpeed(pvtSpeed);
+    pvtSpeed = pvtPidController.calculate(pivot.getPivotEncoder());
+    pivot.setPivotSpeed(pvtSpeed);
     }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    pivot4.pivotStop();
+    pivot.pivotStop();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (pivot4.getPivotEncoder() >= Math.abs(0.97*pvtTarget4)) {
+    if (pivot.getPivotEncoder() >= Math.abs(0.97*pvtTarget)) {
       return true;
      } else {
       return false;

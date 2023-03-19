@@ -18,12 +18,12 @@ public class AutoTrapezoidalPID extends CommandBase {
   private final ProfiledPIDController pidController;
   public static double LL, RR, adjustL, adjustR, kPgyro, error;
   /** Creates a new AutoTrapezoidalPID. */
-  public AutoTrapezoidalPID(Drive _drive, double _trapDriveDistance, double kPtrap, double kItrap, double kDtrap) {
+  public AutoTrapezoidalPID(Drive _drive, double _trapDriveDistance, double _kPtrap, double _kItrap, double _kDtrap) {
     this.drive = _drive;
     this.trapDriveDistance = _trapDriveDistance;
-    this.kPtrap = kPtrap;
-    this.kItrap = kItrap;
-    this.kDtrap = kDtrap;
+    this.kPtrap = _kPtrap;
+    this.kItrap = _kItrap;
+    this.kDtrap = _kDtrap;
      //this is from AutoPID drive - may need to change here depending on how fast robot is going 0.03
      kPgyro = 0.03; 
 

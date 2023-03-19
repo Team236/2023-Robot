@@ -29,12 +29,11 @@ public class AprilFollow extends CommandBase {
    private double kPgyro, angleFix, dC, LS, RS;
 
 
-   public AprilFollow(Drive drive2, PhotonCamera m_camera, double m_driveDistance, double m_yOffset) {
-    this.drive = drive2;
-    this.camera = m_camera;
-    this.driveDistance = m_driveDistance;
-    this.yOffset = m_yOffset;
-
+   public AprilFollow(Drive _drive, PhotonCamera _camera, double _driveDistance, double _yOffset) {
+    this.drive = _drive;
+    this.camera = _camera;
+    this.driveDistance = _driveDistance;
+    this.yOffset = _yOffset;
     addRequirements(drive);
 
     distanceController = new PIDController(kPdistance, kIdistance, kDdistance);

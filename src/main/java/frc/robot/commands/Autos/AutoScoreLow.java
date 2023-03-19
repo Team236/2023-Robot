@@ -27,7 +27,6 @@ public class AutoScoreLow extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-   
      //new GrabReleaseToggle(gripScore1),
       new PivotPID(pvtLow1, PivotConstants.PVT_ENC_LOW_SCORE).withTimeout(1),
       new ArmPID(lowScore1, 0),

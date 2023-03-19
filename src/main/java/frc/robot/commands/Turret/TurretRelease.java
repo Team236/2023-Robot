@@ -10,18 +10,18 @@ import frc.robot.subsystems.Turret;
 
 public class TurretRelease extends CommandBase {
 
-  private Turret turret6;
+  private Turret turret;
 
   /** Creates a new TurretBrake. */
-  public TurretRelease(Turret releaseTurret){
-      this.turret6 = releaseTurret;
-      addRequirements(turret6);
+  public TurretRelease(Turret _releaseTurret){
+      this.turret = _releaseTurret;
+      addRequirements(turret);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    turret6.turretRelease();
+    turret.turretRelease();
    SmartDashboard.putBoolean("turret brake is on:", false);
   }
 

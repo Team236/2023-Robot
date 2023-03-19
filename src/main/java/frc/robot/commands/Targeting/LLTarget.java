@@ -19,34 +19,34 @@ public class LLTarget extends CommandBase {
 
   private double kX = 0.03;//ADJUST!!!  0.005??
   private double kY = 0.00785; //0.00725;
-  private Drive drive12;
+  private Drive drive;
   private double h1 = 33; //inches, distance from floor to center of camera lens
   //private double h2 = 18; // inches, same unit as d, to center of target
   private double a1 = Math.toRadians(20); //20 degrees - camera angle
-  private double dist12; //desired distance from camera to target - pass into command
+  private double dist; //desired distance from camera to target - pass into command
   private double steeringAdjust;
   private double cameraXoffset; 
   //private Limelight limelight;
-  private double pipeline12;
-  private double targetHeight12;//18" for Atag, from floor to center of target
+  private double pipeline;
+  private double targetHeight;//18" for Atag, from floor to center of target
   private double a2, dx, errorY, distanceAdjust;
   /** Creates a new LLTarget. */
-  public LLTarget(Drive t_drive, double t_pipeline, double t_standoff, double t_targetHeight) {
-    this.drive12 = t_drive;
-    this.pipeline12 = t_pipeline;
-    this.dist12 = t_standoff;
-    this.targetHeight12 = t_targetHeight;
+  public LLTarget(Drive _drive, double _pipeline, double _standoff, double _targetHeight) {
+    this.drive = _drive;
+    this.pipeline = _pipeline;
+    this.dist = _standoff;
+    this.targetHeight = _targetHeight;
     //this.limelight = passed_limelight;
-    addRequirements(this.drive12);
+    addRequirements(this.drive);
    // limelight.setPipeline(0);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    SmartDashboard.putNumber("LLTarget init", pipeline12);
+    SmartDashboard.putNumber("LLTarget init", pipeline);
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(0);
-    NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(pipeline12);
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(pipeline);
     cameraXoffset = 0; //figure out
 
   }
@@ -69,12 +69,12 @@ public class LLTarget extends CommandBase {
         steeringAdjust = 0;  
       }
          a2 = disY*Math.PI/180;  //make sure disY is positive
-         dx = Math.abs((h1-targetHeight12)) / Math.tan(a1+a2);
-         errorY = dist12 - dx;
+         dx = Math.abs((h1-targetHeight)) / Math.tan(a1+a2);
+         errorY = dist - dx;
          distanceAdjust = kY * errorY; 
          
-       drive12.setLeftSpeed(distanceAdjust + steeringAdjust);
-       drive12.setRightSpeed(distanceAdjust - steeringAdjust); 
+       drive.setLeftSpeed(distanceAdjust + steeringAdjust);
+       drive.setRightSpeed(distanceAdjust - steeringAdjust); 
        
       SmartDashboard.putNumber("ErrorX - Angle Error tX", errorX);
       SmartDashboard.putNumber("dx, Y dist from target:", dx);
@@ -88,7 +88,7 @@ public class LLTarget extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    drive12.stop();
+    drive.stop();
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(0);
     //NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(0);
   }

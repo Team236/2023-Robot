@@ -10,18 +10,18 @@ import frc.robot.subsystems.Turret;
 
 public class TurretBrake extends CommandBase {
 
-  private Turret turret5;
+  private Turret turret;
 
   /** Creates a new TurretBrake. */
-  public TurretBrake(Turret brakeTurret){
-      this.turret5 = brakeTurret;
-      addRequirements(turret5);
+  public TurretBrake(Turret _brakeTurret){
+      this.turret = _brakeTurret;
+      addRequirements(turret);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    turret5.turretBrake();
+    turret.turretBrake();
    SmartDashboard.putBoolean("turret brake is on:", true);
   }
 
