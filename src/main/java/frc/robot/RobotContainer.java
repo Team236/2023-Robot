@@ -18,9 +18,7 @@ import frc.robot.commands.Autos.BackwardCenter;
 import frc.robot.commands.Autos.DriveAtSetSpeed;
 import frc.robot.commands.Autos.ScoreDrive;
 import frc.robot.commands.Drive.DoubleArcadeDrive;
-import frc.robot.commands.Drive.LLTagDistance;
-import frc.robot.commands.Drive.DriveWithJoysticks;
-import frc.robot.commands.Drive.TDWG_No;
+import frc.robot.commands.Drive.LLTagDriveDistance;
 import frc.robot.commands.Drive.ToggleTransmission;
 import frc.robot.commands.Gripper.Grab;
 import frc.robot.commands.Gripper.GrabReleaseToggle;
@@ -37,6 +35,7 @@ import frc.robot.commands.ScoringPositions.ScoreLow90;
 import frc.robot.commands.ScoringPositions.ScoreMiddlePosition;
 import frc.robot.commands.ScoringPositions.ScoreMiddlePosition90;
 import frc.robot.commands.ScoringPositions.StowPosition;
+import frc.robot.commands.Targeting.LLTagDistance;
 import frc.robot.commands.Turret.TurretBrake;
 import frc.robot.commands.Turret.TurretCCW;
 import frc.robot.commands.Turret.TurretCW;
@@ -48,18 +47,6 @@ import frc.robot.subsystems.Gripper;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Pivot;
 import frc.robot.subsystems.Turret;
-import org.photonvision.PhotonCamera;
-
-import edu.wpi.first.math.util.Units;
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import edu.wpi.first.wpilibj2.command.button.POVButton;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -84,15 +71,15 @@ public class RobotContainer {
   // *DRIVE
 
 
-  //COMMANDS****
-  //AUTO
-  private final ScoreMiddlePosition scoreMiddleLevel = new ScoreMiddlePosition(arm, pivot, gripper);
-  //Command scoreMid = Commands.sequence(new PivotPID(arm, 10065).andThen(new ArmPID(arm, 7.25)).andThen(new ReleasePiece(gripper)));
-  private final StowPosition stowPosition = new StowPosition(arm, pivot);
-  //DRIVE
+ //COMMANDS****
+ //AUTO
+ private final ScoreMiddlePosition scoreMiddleLevel = new ScoreMiddlePosition(arm, pivot, gripper);
+ //Command scoreMid = Commands.sequence(new PivotPID(arm, 10065).andThen(new ArmPID(arm, 7.25)).andThen(new ReleasePiece(gripper)));
+ private final StowPosition stowPosition = new StowPosition(arm, pivot);
+ //DRIVE
  private final DoubleArcadeDrive doubleArcadeDrive = new DoubleArcadeDrive(drive, gripper, driveController);
  private final ToggleTransmission toggleTransmission = new ToggleTransmission(drive);
-  /** Creates a new DriveToCS. */
+ //** Creates a new DriveToCS. */
  private final  DriveAtSetSpeed driveAtSetSpeed = new DriveAtSetSpeed(drive, 130, 0.5);
 
  //ARM
@@ -176,9 +163,7 @@ private final TurretCCW turretCCW = new TurretCCW(turret, TurretConstants.TURRET
    downPov1.whileTrue(new TurretRelease(turret));
    leftPov1.whileTrue(new TurretCCW(turret, TurretConstants.TURRET_CCW_SPEED));
    rightPov1.whileTrue(new TurretCW(turret, TurretConstants.TURRET_CW_SPEED));
- 
-
-
+   view1.whileTrue(new LLTagDriveDistance(drive, 7, 0.5 , camera));   
 
     
    //DRIVECONTROLLER******
@@ -187,16 +172,15 @@ private final TurretCCW turretCCW = new TurretCCW(turret, TurretConstants.TURRET
   x.whileTrue(new ScoreLow(arm, pivot, gripper));
   y.whileTrue(new PickupPosition(arm, pivot, gripper));
   rb.whileTrue(new LoadStationPosition(arm, pivot, gripper));
- lb.whileTrue(scoreMiddleLevel);
- rm.whileTrue(new ScoreHighPosition(arm, pivot, gripper));
- lm.whileTrue(stowPosition);
+  lb.whileTrue(scoreMiddleLevel);
+  rm.whileTrue(new ScoreHighPosition(arm, pivot, gripper));
+  lm.whileTrue(stowPosition);
 
 
- upPov.whileTrue(pivotUp);
- downPov.whileTrue(pivotDown);
- rightPov.whileTrue(new ArmExtend(arm, 0.5));
+  upPov.whileTrue(pivotUp);
+  downPov.whileTrue(pivotDown);
+  rightPov.whileTrue(new ArmExtend(arm, 0.5));
   leftPov.whileTrue(new ArmRetract(arm, 0.5));
-
 
   }
   /**
