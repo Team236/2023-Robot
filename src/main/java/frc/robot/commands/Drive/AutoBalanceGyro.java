@@ -19,13 +19,13 @@ public class AutoBalanceGyro extends CommandBase {
  private XboxController driveController;
  private boolean autoBalanceXMode;
   private boolean autoBalanceYMode;
-  private Drive drive;
+  private Drive drive9;
 
   /** Creates a new AutoBalanceGyro. */
-  public AutoBalanceGyro(Drive drive, XboxController driveController) {
+  public AutoBalanceGyro(Drive _drive, XboxController driveController) {
     navx = new AHRS();
-    this.drive = drive;
-    addRequirements(drive);
+    this.drive9 = _drive;
+    addRequirements(drive9);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -75,14 +75,14 @@ public class AutoBalanceGyro extends CommandBase {
           yAxisRate = Math.sin(rollAngleRadians) * -1;
       }
 
-      drive.setBothSpeeds(yAxisRate);
+      drive9.setBothSpeeds(yAxisRate);
       Timer.delay(0.005);
     }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    drive.stop();
+    drive9.stop();
   }
 
   // Returns true when the command should end.

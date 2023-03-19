@@ -7,11 +7,9 @@ package frc.robot.commands.ScoringPositions;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
+import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.PivotConstants;
-import frc.robot.commands.Arm.ArmPID;
-import frc.robot.commands.Gripper.GrabReleaseToggle;
-import frc.robot.commands.Gripper.ReleasePiece;
-import frc.robot.commands.Pivot.PivotDownPID;
+import frc.robot.commands.Arm.ArmDownPID;
 import frc.robot.commands.Pivot.PivotPID;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Gripper;
@@ -24,8 +22,10 @@ public class PickupPosition extends SequentialCommandGroup {
 
   /** Creates a new PickupPosition. */
   public PickupPosition (Arm Armpickup, Pivot pvtPickup, Gripper gripPickup) {
+    addCommands( new PivotPID(pvtPickup, PivotConstants.PVT_ENC_PICKUP).withTimeout(1),
+    new ArmDownPID(Armpickup, ArmConstants.ARM_PICKUP).withTimeout(1.5));
 
-  if (pvtPickup.getPivotEncoder() > Constants.PivotConstants.PVT_ENC_PICKUP) {
+  /*if (pvtPickup.getPivotEncoder() > Constants.PivotConstants.PVT_ENC_PICKUP) {
     
     //From higher angle (getPivotEncoder > target): ArmPID then PivotDownPID
     addCommands(
@@ -41,10 +41,10 @@ public class PickupPosition extends SequentialCommandGroup {
     new PivotPID(pvtPickup, Constants.PivotConstants.PVT_ENC_PICKUP).withTimeout(1),
     new ArmPID(Armpickup, Constants.ArmConstants.ARM_PICKUP).withTimeout(1),
     new ReleasePiece(gripPickup).asProxy()
-    );
+    );*/
     }
 
 }
-}
+//}
 
   

@@ -36,6 +36,7 @@ import frc.robot.commands.Pivot.PivotPID;
 import frc.robot.commands.Pivot.PivotUp;
 import frc.robot.commands.ScoringPositions.LoadStationPosition;
 import frc.robot.commands.ScoringPositions.PickupPosition;
+import frc.robot.commands.ScoringPositions.PickupToStow;
 import frc.robot.commands.ScoringPositions.ScoreHighPosition;
 import frc.robot.commands.ScoringPositions.ScoreHighPosition90;
 import frc.robot.commands.ScoringPositions.ScoreLow;
@@ -168,8 +169,8 @@ private final TurretCCW turretCCW = new TurretCCW(turret, TurretConstants.TURRET
     JoystickButton menu1 = new JoystickButton(controller, ControllerConstants.XboxController.MENU);
     POVButton upPov1 = new POVButton(controller, Constants.ControllerConstants.XboxController.POVXbox.UP_ANGLE);
     POVButton downPov1 = new POVButton(controller, Constants.ControllerConstants.XboxController.POVXbox.DOWN_ANGLE);
-    POVButton leftPov1 = new POVButton(driveController, Constants.ControllerConstants.XboxController.POVXbox.LEFT_ANGLE);
-    POVButton rightPov1 = new POVButton(driveController, Constants.ControllerConstants.XboxController.POVXbox.RIGHT_ANGLE);
+    POVButton leftPov1 = new POVButton(controller, Constants.ControllerConstants.XboxController.POVXbox.LEFT_ANGLE);
+    POVButton rightPov1 = new POVButton(controller, Constants.ControllerConstants.XboxController.POVXbox.RIGHT_ANGLE);
     // ASSIGN BUTTONS TO COMMANDS
     //AUXController
     y1.whileTrue(new TurretPID(turret, 0));
@@ -179,8 +180,9 @@ private final TurretCCW turretCCW = new TurretCCW(turret, TurretConstants.TURRET
     lb1.whileTrue(new ScoreHighPosition90(arm, pivot, gripper));
     lm1.whileTrue(new ScoreLow90(arm, pivot, gripper));
     rb1.whileTrue(new ScoreMiddlePosition90(arm, pivot, gripper));
-    rm1.whileTrue(new Grab(gripper));
-    menu1.whileTrue(new ReleasePiece(gripper));
+    rm1.whileTrue(new PickupToStow(pivot, arm));
+    
+   // menu1.whileTrue(new ReleasePiece(gripper));
   
    upPov1.whileTrue(new TurretBrake(turret));
    downPov1.whileTrue(new TurretRelease(turret));
@@ -193,13 +195,14 @@ private final TurretCCW turretCCW = new TurretCCW(turret, TurretConstants.TURRET
     
    //DRIVECONTROLLER******
   a.whileTrue(new ToggleTransmission(drive));
-  b.whileTrue(grabReleaseToggle);
+  b.whileTrue(new GrabReleaseToggle(gripper));
   x.whileTrue(new ScoreLow(arm, pivot, gripper));
   y.whileTrue(new PickupPosition(arm, pivot, gripper));
   rb.whileTrue(new LoadStationPosition(arm, pivot, gripper));
  lb.whileTrue(scoreMiddleLevel);
  rm.whileTrue(new ScoreHighPosition(arm, pivot, gripper));
  lm.whileTrue(stowPosition);
+ 
 
 
  upPov.whileTrue(pivotUp);
