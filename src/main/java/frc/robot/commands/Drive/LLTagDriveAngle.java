@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Limelight;
 
-public class LLTagAngle extends CommandBase {
+public class LLTagDriveAngle extends CommandBase {
   private double kPX = 0.02;  //0.005??
   private double kIX = 0.0;  //0.005??
   private double kDX = 0.002;  //0.005??
@@ -21,7 +21,7 @@ public class LLTagAngle extends CommandBase {
   private double tv;
 
 
-  public LLTagAngle(Drive _drive, double _pipeline,Limelight _camera) {
+  public LLTagDriveAngle(Drive _drive, double _pipeline,Limelight _camera) {
     //public LLAngle(Drive passed_drive, Limelight lime, double m_pipeline) {
       this.drive = _drive;
       this.pipeline = (int) _pipeline;

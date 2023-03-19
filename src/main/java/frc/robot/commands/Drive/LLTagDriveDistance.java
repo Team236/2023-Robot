@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Limelight;
 
-public class LLTagDistance extends CommandBase {
+public class LLTagDriveDistance extends CommandBase {
     //tV = 1 if there are any targets found, =0 if not
     //ty = vertical offset from crosshair to target -20.5 to +20.5 degrees
     //h1 = distance from floor to center of Limelight lens
@@ -34,7 +34,7 @@ public class LLTagDistance extends CommandBase {
 
 
   /** Creates a new LLAngle. */
-  public LLTagDistance(Drive _drive, double _pipeline, double OffsetDistance, Limelight _camera) {
+  public LLTagDriveDistance(Drive _drive, double _pipeline, double OffsetDistance, Limelight _camera) {
     this.drive = _drive;
     this.pipeline = _pipeline;
     this.camera = _camera;
