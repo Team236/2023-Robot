@@ -15,7 +15,7 @@ public class LLTagAngle extends CommandBase {
   private double kIX = 0.0;  //0.005??
   private double kDX = 0.002;  //0.005??
   private Drive drive;
-  private int pipeline;
+  private double pipeline;
   private Limelight camera;
   private PIDController anglePidController;
   private double tv;
@@ -24,7 +24,7 @@ public class LLTagAngle extends CommandBase {
   public LLTagAngle(Drive _drive, double _pipeline,Limelight _camera) {
     //public LLAngle(Drive passed_drive, Limelight lime, double m_pipeline) {
       this.drive = _drive;
-      this.pipeline = (int) _pipeline;
+      this.pipeline = _pipeline;
       this.camera = _camera;
      // this.limelight = lime;
       addRequirements(drive);
