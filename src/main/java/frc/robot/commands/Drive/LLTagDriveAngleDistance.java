@@ -7,18 +7,12 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.LimelightHelpers;
 import frc.robot.subsystems.Drive;
-import frc.robot.subsystems.Limelight;
+
 
 public class LLTagDriveAngleDistance extends CommandBase {
-    //tV = 1 if there are any targets found, =0 if not
-    //ty = vertical offset from crosshair to target -20.5 to +20.5 degrees
-    //h1 = distance from floor to center of Limelight lens
-    //h2 = distance from floor to center of target
-    //a1 = angle between floor (horizontal) and camera's centerline (camera mount angle, how far rotated from vertical?)
-    //a2 = getTy (angle between camera's centerline and line extending from center of camera to center of target)
-    //d = Distance to target (want 14" or 16" distance in order to be in front of Grid)
-    //tan(a1 +a2)  = (h2-h1)/dx;
+
 
   private double distancekP = 0.005;  //0.005;
   private double distancekI = 0.0;      //0.0;
@@ -26,21 +20,19 @@ public class LLTagDriveAngleDistance extends CommandBase {
   private double anglekP = 0.005;  //0.005;
   private double anglekI = 0.0;      //0.0;
   private double anglekD = 0.000;  //0.0009;
-  private double tv;
+ 
   
   //private Limelight limelight;
   private Drive drive;
-  private double pipeline;
-  private Limelight camera;
   private boolean target;
   PIDController distanceTagController, angleTagController;
 
-
   /** Creates a new LLAngle. */
-  public LLTagDriveAngleDistance(Drive _drive, double _pipeline, double OffsetDistance, Limelight _camera) {
+  public LLTagDriveAngleDistance(Drive _drive, int _pipeline, double OffsetDistance) {
     this.drive = _drive;
-    this.pipeline = _pipeline;
-    this.camera = _camera;
+    LimelightHelpers.setPipelineIndex("",_pipeline);
+    LimelightHelpers.setLEDMode_ForceOff("");
+    
     distanceTagController = new PIDController(distancekP, distancekI, distancekD);
     angleTagController = new PIDController(anglekP, anglekI, anglekD);
     distanceTagController.setSetpoint(OffsetDistance);
@@ -50,28 +42,34 @@ public class LLTagDriveAngleDistance extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    camera.setDriverModeOff();
-    camera.setLedModeOff();
+   
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
    // verify the camera  sees a tag other wise do nothing 
-   target = camera.HasTarget();
-   tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
-    
-    if(target || tv == 1 ) {
-        
-        // TO make sure dx is positive, use abs value for disY and (h1-h2)
-        double absoluteDistanceZ = Math.abs (camera.getCameraToTargetPoseZ());
+   
+    if(target) {
+        SmartDashboard.putNumber ("found distance tag", LimelightHelpers.getFiducialID("") );
 
-        // the Z direction is out the front of robot 
+        // TODO make sure dx is positive, use abs value for disY and (h1-h2)
+        double[] currentPose = LimelightHelpers.getBotPose_TargetSpace("");
+        double absoluteDistanceX = currentPose[0];              // the X direction is robot out right side
+        double absoluteDistanceZ = Math.abs (currentPose[2]);   // the Z direction is out the front of robot
+                 
+        SmartDashboard.putBoolean("Has Target", target);
+
+        double angleAdjust = angleTagController.calculate(absoluteDistanceX);
         double distanceAdjust = distanceTagController.calculate(absoluteDistanceZ);
-        double angleAdjust = angleTagController.calculate(camera.getCameraToTargetPoseX());
+        
+        if (distanceAdjust+angleAdjust <= 1) {
+          drive.setLeftSpeed(distanceAdjust-angleAdjust);
+          drive.setRightSpeed(distanceAdjust+angleAdjust);
+        } else {
         drive.setLeftSpeed(distanceAdjust-angleAdjust);
-        drive.setRightSpeed(distanceAdjust+angleAdjust);
-        // SmartDashboard.putNumber ("found distance tag", camera.getTagData() );
+        drive.setRightSpeed(distanceAdjust);
+        }
     } 
    else {
     SmartDashboard.putNumber ("found distance tag", 999 );

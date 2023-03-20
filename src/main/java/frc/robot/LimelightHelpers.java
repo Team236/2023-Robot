@@ -668,14 +668,25 @@ public class LimelightHelpers {
         setLimelightNTDouble(limelightName, "ledMode", 3);
     }
 
+    /**
+     * The streamMode Standard set zero value driver_mode 
+     */
     public static void setStreamMode_Standard(String limelightName) {
         setLimelightNTDouble(limelightName, "stream", 0);
     }
-
+    
+    /**
+     * The streamMode PIPMain stream value of 1 where  limelight camera 
+     * is set as main image with secondary image as picture-in-picture 
+     */
     public static void setStreamMode_PiPMain(String limelightName) {
         setLimelightNTDouble(limelightName, "stream", 1);
     }
-
+    
+    /**
+     * The streamMode PIPMain stream value of 2 where  limelight camera 
+     * is set secondary image in-picture, and other camera is main image
+     */
     public static void setStreamMode_PiPSecondary(String limelightName) {
         setLimelightNTDouble(limelightName, "stream", 2);
     }

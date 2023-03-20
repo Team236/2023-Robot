@@ -61,7 +61,7 @@ public class RobotContainer {
   private final Drive drive = new Drive();
   private final Arm arm = new Arm();
   private final Gripper gripper = new Gripper();
-  private final Turret turret = new Turret();
+  public final Turret turret = new Turret();
   private final Pivot pivot = new Pivot();
    private final Limelight camera = new Limelight();
   private static DigitalInput autoSwitch1 = new DigitalInput(Constants.DriveConstants.DIO_AUTO_1);
@@ -163,7 +163,7 @@ private final TurretCCW turretCCW = new TurretCCW(turret, TurretConstants.TURRET
    downPov1.whileTrue(new TurretRelease(turret));
    leftPov1.whileTrue(new TurretCCW(turret, TurretConstants.TURRET_CCW_SPEED));
    rightPov1.whileTrue(new TurretCW(turret, TurretConstants.TURRET_CW_SPEED));
-   view1.whileTrue(new LLTagDriveDistance(drive, 7, 0.5 , camera));   
+   view1.whileTrue(new LLTagDriveDistance(drive, 7, 0.5));   
 
     
    //DRIVECONTROLLER******
