@@ -113,7 +113,7 @@ if ((speed > 0) && isCWLimit()) {
     turretBrake();
   } else {
     // not a limit going CCW, and not past 300 degrees going CW, go at commanded speed
-    turretBrake.set(Value.kReverse);
+    turretRelease(); //??? is this any better than before???
     turretMotor.set(speed);
   }
 
