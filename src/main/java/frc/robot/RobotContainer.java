@@ -35,7 +35,6 @@ import frc.robot.commands.ScoringPositions.ScoreLow90;
 import frc.robot.commands.ScoringPositions.ScoreMiddlePosition;
 import frc.robot.commands.ScoringPositions.ScoreMiddlePosition90;
 import frc.robot.commands.ScoringPositions.StowPosition;
-import frc.robot.commands.Targeting.LLTagDistance;
 import frc.robot.commands.Turret.TurretBrake;
 import frc.robot.commands.Turret.TurretCCW;
 import frc.robot.commands.Turret.TurretCW;
@@ -44,7 +43,6 @@ import frc.robot.commands.Turret.TurretRelease;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Gripper;
-import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Pivot;
 import frc.robot.subsystems.Turret;
 /**
@@ -63,7 +61,7 @@ public class RobotContainer {
   private final Gripper gripper = new Gripper();
   public final Turret turret = new Turret();
   private final Pivot pivot = new Pivot();
-   private final Limelight camera = new Limelight();
+  //  private final Limelight camera = new Limelight();
   private static DigitalInput autoSwitch1 = new DigitalInput(Constants.DriveConstants.DIO_AUTO_1);
   private static DigitalInput autoSwitch2 = new DigitalInput(Constants.DriveConstants.DIO_AUTO_2);
   private static DigitalInput autoSwitch3 = new DigitalInput(Constants.DriveConstants.DIO_AUTO_3);
@@ -148,6 +146,9 @@ private final TurretCCW turretCCW = new TurretCCW(turret, TurretConstants.TURRET
     POVButton leftPov1 = new POVButton(driveController, Constants.ControllerConstants.XboxController.POVXbox.LEFT_ANGLE);
     POVButton rightPov1 = new POVButton(driveController, Constants.ControllerConstants.XboxController.POVXbox.RIGHT_ANGLE);
     // ASSIGN BUTTONS TO COMMANDS
+    
+
+    
     //AUXController
     y1.whileTrue(new TurretPID(turret, 0));
     x1.whileTrue(new TurretPID(turret, -90));
@@ -163,9 +164,7 @@ private final TurretCCW turretCCW = new TurretCCW(turret, TurretConstants.TURRET
    downPov1.whileTrue(new TurretRelease(turret));
    leftPov1.whileTrue(new TurretCCW(turret, TurretConstants.TURRET_CCW_SPEED));
    rightPov1.whileTrue(new TurretCW(turret, TurretConstants.TURRET_CW_SPEED));
-   view1.whileTrue(new LLTagDriveDistance(drive, 7, 0.5));   
-
-    
+     
    //DRIVECONTROLLER******
   a.whileTrue(new ToggleTransmission(drive));
   b.whileTrue(grabReleaseToggle);
@@ -176,11 +175,14 @@ private final TurretCCW turretCCW = new TurretCCW(turret, TurretConstants.TURRET
   rm.whileTrue(new ScoreHighPosition(arm, pivot, gripper));
   lm.whileTrue(stowPosition);
 
-
   upPov.whileTrue(pivotUp);
   downPov.whileTrue(pivotDown);
   rightPov.whileTrue(new ArmExtend(arm, 0.5));
   leftPov.whileTrue(new ArmRetract(arm, 0.5));
+
+  // TODO - testing limelight pipeline change
+  view.whileTrue(new LLTagDriveDistance(drive, 6, 0.5));   // left target
+  menu.whileTrue(new LLTagDriveDistance(drive, 7, 0.5));   // right target
 
   }
   /**
