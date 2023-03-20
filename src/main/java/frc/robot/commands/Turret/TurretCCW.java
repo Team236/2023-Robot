@@ -5,6 +5,7 @@
 package frc.robot.commands.Turret;
 import frc.robot.subsystems.Turret;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 public class TurretCCW extends CommandBase {
   private Turret turret1;
   private double speed7;
@@ -19,6 +20,7 @@ public class TurretCCW extends CommandBase {
   @Override
   public void initialize() {
     turret1.turretRelease();
+    new WaitCommand(0.25);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
