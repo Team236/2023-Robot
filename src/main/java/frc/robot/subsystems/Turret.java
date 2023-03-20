@@ -126,6 +126,8 @@ if ((speed > 0) && isCWLimit()) {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("turret encoder", getTurretEncoder());
+    SmartDashboard.putNumber("turret Angle", getTurretAngle());
     SmartDashboard.putBoolean("turret magnetic limit switch", isTLimit());
     SmartDashboard.putBoolean("turret CW limit (200) ", isCWLimit());
    SmartDashboard.putBoolean("turretCCW limit (-140) ", isCCWLimit());
