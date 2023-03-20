@@ -61,7 +61,7 @@ public class RobotContainer {
   private final Drive drive = new Drive();
   private final Arm arm = new Arm();
   private final Gripper gripper = new Gripper();
-  private final Turret turret = new Turret();
+  public final Turret turret = new Turret();
   private final Pivot pivot = new Pivot();
    private final Limelight camera = new Limelight();
   private static DigitalInput autoSwitch1 = new DigitalInput(Constants.DriveConstants.DIO_AUTO_1);
