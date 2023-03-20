@@ -14,7 +14,10 @@ import edu.wpi.first.util.sendable.Sendable;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-  public static class ControllerConstants {
+ 
+ public static  double[] DEFAULT_CAMER_POSITION = { 4, -32.625, 3, 0.0, 0.0, 0.0 };
+
+ public static class ControllerConstants {
     //public static final int USB_LEFT_STICK = 0;
     //public static final int USB_RIGHT_STICK = 1;
     public static final int USB_AUXCONTROLLER = 1;
