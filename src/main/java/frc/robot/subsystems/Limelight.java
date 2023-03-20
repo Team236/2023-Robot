@@ -30,10 +30,10 @@ public class Limelight extends SubsystemBase {
     SmartDashboard.putNumber("starting Angle of turret", startAngle);
     
   // maintain updates to Network table camera to robot position based on turret rotation 
-  double xValue = SQRT((radius*radius)-(radius*Math.sin(turret.getTurretAngle() ))^2 );  // pivot is located on x axis no offset required
+  // double xValue = SQRT((radius*radius)-(radius*Math.sin(turret.getTurretAngle() ))^2 );  // pivot is located on x axis no offset required
     
    // (SQRT( (5^2)-(5*cos(turret.turretEncoder.get() )^2) )-pivotZoffset 
-   double yValue = (SQRT((radius*radius)-(radius*Math.cos( turret.getTurretAngle() ))^2))-pivotZoffset;
+  //  double yValue = (SQRT((radius*radius)-(radius*Math.cos( turret.getTurretAngle() ))^2))-pivotZoffset;
    double zValue = -32.625;
   }
 
