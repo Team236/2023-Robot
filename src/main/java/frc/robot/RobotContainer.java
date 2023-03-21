@@ -34,16 +34,16 @@ import frc.robot.commands.Gripper.ReleasePiece;
 import frc.robot.commands.Pivot.PivotDown;
 import frc.robot.commands.Pivot.PivotPID;
 import frc.robot.commands.Pivot.PivotUp;
-import frc.robot.commands.ScoringPositions.LoadStationPosition;
-import frc.robot.commands.ScoringPositions.PickupPosition;
+import frc.robot.commands.ScoringPositions.LoadStation;
+import frc.robot.commands.ScoringPositions.Pickup;
 import frc.robot.commands.ScoringPositions.PickupToStow;
-import frc.robot.commands.ScoringPositions.ScoreHighPosition;
-import frc.robot.commands.ScoringPositions.ScoreHighPosition90;
+import frc.robot.commands.ScoringPositions.ScoreHigh;
+import frc.robot.commands.ScoringPositions.ScoreHigh90;
 import frc.robot.commands.ScoringPositions.ScoreLow;
 import frc.robot.commands.ScoringPositions.ScoreLow90;
-import frc.robot.commands.ScoringPositions.ScoreMiddlePosition;
-import frc.robot.commands.ScoringPositions.ScoreMiddlePosition90;
-import frc.robot.commands.ScoringPositions.StowPosition;
+import frc.robot.commands.ScoringPositions.ScoreMid;
+import frc.robot.commands.ScoringPositions.ScoreMid90;
+import frc.robot.commands.ScoringPositions.Stowe;
 import frc.robot.commands.Targeting.AprilFollow;
 import frc.robot.commands.Targeting.LLAngle;
 import frc.robot.commands.Targeting.LLDistance;
@@ -92,38 +92,9 @@ public class RobotContainer {
   private static DigitalInput autoSwitch2 = new DigitalInput(Constants.DriveConstants.DIO_AUTO_2);
   private static DigitalInput autoSwitch3 = new DigitalInput(Constants.DriveConstants.DIO_AUTO_3);
   private static DigitalInput autoSwitch4 = new DigitalInput(Constants.DriveConstants.DIO_AUTO_4);
-  // *DRIVE
-
-
-  //COMMANDS****
-  //AUTO
-  private final ScoreMiddlePosition scoreMiddleLevel = new ScoreMiddlePosition(arm, pivot, gripper);
-  //Command scoreMid = Commands.sequence(new PivotPID(arm, 10065).andThen(new ArmPID(arm, 7.25)).andThen(new ReleasePiece(gripper)));
-  private final StowPosition stowPosition = new StowPosition(arm, pivot);
   //DRIVE
  private final DoubleArcadeDrive doubleArcadeDrive = new DoubleArcadeDrive(drive, gripper, driveController);
- private final ToggleTransmission toggleTransmission = new ToggleTransmission(drive);
-  /** Creates a new DriveToCS. */
- private final  DriveAtSetSpeed driveAtSetSpeed = new DriveAtSetSpeed(drive, 130, 0.5);
-
- //ARM
- private final PivotUp pivotUp = new PivotUp(pivot, 0.7);
- private final PivotDown pivotDown = new PivotDown(pivot, 0.6);
- private final PivotPID pivotMidPID = new PivotPID(pivot, 10065);
- private final PivotPID pivotHighPID = new PivotPID(pivot, 11188);
- private final PivotPID pivotLowPID = new PivotPID(pivot, 4862);
-
- //GRIPPER
-private final Grab grab = new Grab(gripper);
-private final ReleasePiece releasePiece = new ReleasePiece(gripper);
-private final GrabReleaseToggle grabReleaseToggle = new GrabReleaseToggle(gripper);
-
-//TURRET
-private final TurretCW turretCW = new TurretCW(turret, TurretConstants.TURRET_CW_SPEED);
-private final TurretCCW turretCCW = new TurretCCW(turret, TurretConstants.TURRET_CCW_SPEED);
-
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
-
   public RobotContainer() {
   drive.setDefaultCommand(doubleArcadeDrive);
     // Configure the trigger bindings
@@ -177,9 +148,9 @@ private final TurretCCW turretCCW = new TurretCCW(turret, TurretConstants.TURRET
     x1.whileTrue(new TurretPID(turret, -90));
     b1.whileTrue(new TurretPID(turret, 90));
     a1.whileTrue(new TurretPID(turret, 180));
-    lb1.whileTrue(new ScoreHighPosition90(arm, pivot, gripper, turret));
+    lb1.whileTrue(new ScoreHigh90(arm, pivot, gripper, turret));
     lm1.whileTrue(new ScoreLow90(arm, pivot, gripper, turret));
-    rb1.whileTrue(new ScoreMiddlePosition90(arm, pivot, gripper, turret));
+    rb1.whileTrue(new ScoreMid90(arm, pivot, gripper, turret));
     rm1.whileTrue(new PickupToStow(pivot, arm));
     
    // menu1.whileTrue(new ReleasePiece(gripper));
@@ -197,16 +168,16 @@ private final TurretCCW turretCCW = new TurretCCW(turret, TurretConstants.TURRET
   a.whileTrue(new ToggleTransmission(drive));
   b.whileTrue(new GrabReleaseToggle(gripper));
   x.whileTrue(new ScoreLow(arm, pivot, gripper));
-  y.whileTrue(new PickupPosition(arm, pivot, gripper));
-  rb.whileTrue(new LoadStationPosition(arm, pivot, gripper));
- lb.whileTrue(scoreMiddleLevel);
- rm.whileTrue(new ScoreHighPosition(arm, pivot, gripper));
- lm.whileTrue(stowPosition);
+  y.whileTrue(new Pickup(arm, pivot, gripper));
+  rb.whileTrue(new LoadStation(arm, pivot, gripper));
+ lb.whileTrue(new ScoreMid(arm, pivot, gripper));
+ rm.whileTrue(new ScoreHigh(arm, pivot, gripper));
+ lm.whileTrue(new PickupToStow(pivot, arm));
  
 
 
- upPov.whileTrue(pivotUp);
- downPov.whileTrue(pivotDown);
+ upPov.whileTrue(new PivotUp(pivot, 0.7));
+ downPov.whileTrue(new PivotDown(pivot, 0.6));
  rightPov.whileTrue(new ArmExtend(arm, 0.5));
   leftPov.whileTrue(new ArmRetract(arm, 0.5));
 
