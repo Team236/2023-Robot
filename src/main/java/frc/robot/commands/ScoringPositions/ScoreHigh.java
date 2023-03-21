@@ -12,26 +12,23 @@ import frc.robot.commands.Arm.ArmPID;
 import frc.robot.commands.Gripper.GrabReleaseToggle;
 import frc.robot.commands.Gripper.ReleasePiece;
 import frc.robot.commands.Pivot.PivotPID;
-import frc.robot.commands.Turret.TurretPID;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Gripper;
 import frc.robot.subsystems.Pivot;
-import frc.robot.subsystems.Turret;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class ScoreHighPosition90 extends SequentialCommandGroup {
+public class ScoreHigh extends SequentialCommandGroup {
 
   
-  /** Creates a new ScoreHighPosition when Turret at 90 or 270 degrees. */
-  public ScoreHighPosition90(Arm hiScore90, Pivot pvtHi90, Gripper gripHigh90, Turret turHigh90) {
+  /** Creates a new ScoreHighPosition. */
+  public ScoreHigh(Arm hiScore, Pivot pvtHi, Gripper gripHi) {
    
     addCommands(
-      new PivotPID(pvtHi90, PivotConstants.PVT_ENC_90_HIGH_SCORE),
-      new TurretPID(turHigh90, 90).withTimeout(1),
-      new ArmPID(hiScore90, Constants.ArmConstants.ARM_90_HIGH)//,
-      //new ReleasePiece(gripHigh90).asProxy()
+      new PivotPID(pvtHi, PivotConstants.PVT_ENC_HIGH_SCORE),
+      new ArmPID(hiScore, Constants.ArmConstants.ARM_HIGH)//,
+     // new ReleasePiece(gripHi).asProxy()
       );
       
   }

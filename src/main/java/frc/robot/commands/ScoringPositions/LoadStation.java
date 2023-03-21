@@ -20,10 +20,10 @@ import frc.robot.subsystems.Pivot;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class LoadStationPosition extends SequentialCommandGroup {
+public class LoadStation extends SequentialCommandGroup {
 
   /** Creates a new LoadStationPosition. */
-  public LoadStationPosition(Arm loadStation, Pivot loadPivot, Gripper gripLoad) {
+  public LoadStation(Arm loadStation, Pivot loadPivot, Gripper gripLoad) {
      
     if (loadPivot.getPivotEncoder() > Constants.PivotConstants.PVT_ENC_LOAD_STN) {
 

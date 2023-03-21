@@ -23,10 +23,10 @@ import frc.robot.subsystems.Turret;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class ScoreMiddlePosition90 extends SequentialCommandGroup {
+public class ScoreMid90 extends SequentialCommandGroup {
 
   /** Creates a new ScoreMiddleLevel for when Turret at 90 or 270 degrees */
-  public ScoreMiddlePosition90(Arm midScore90, Pivot pvtMid90, Gripper gripMid90, Turret turMid90) {   
+  public ScoreMid90(Arm midScore90, Pivot pvtMid90, Gripper gripMid90, Turret turMid90) {   
 
   // if (pvtMid90.getPivotEncoder() > Constants.PivotConstants.PVT_ENC_MID_SCORE) {
 
