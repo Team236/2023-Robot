@@ -6,7 +6,7 @@ package frc.robot.commands.Autos;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.ScoringPositions.ScoreMiddlePosition;
+import frc.robot.commands.ScoringPositions.ScoreMid;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Gripper;
@@ -21,7 +21,7 @@ public class ScoreToCenter extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new ScoreMiddlePosition(scoreCenter, pvtCent, no),
+      new ScoreMid(scoreCenter, pvtCent, no),
       new DriveAtSetSpeed(driveCenter, 180, -0.4)
     );
   }
