@@ -33,8 +33,8 @@ public class LLAngle extends CommandBase {
   @Override
   public void initialize() {
     SmartDashboard.putNumber("LLangle init", pipeline);
-    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(0);
-    NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(pipeline);
+    //NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(0);
+    //NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(pipeline);
     cameraXoffset = 0; //need to figure out
 
   }
@@ -42,10 +42,10 @@ public class LLAngle extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
-    tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
-    distX = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
-    errorX = distX - cameraXoffset;////
+    //NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
+    //tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
+    //distX = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
+    //errorX = distX - cameraXoffset;////
 //TRY FOR errorX
      // double errorY = NetworkTableInstance.getDefault().getTable("limelight").
        // getIntegerTopic("targetpose_cameraspace").subscribe(new double[]{}).get()[2];  //or 0?
@@ -68,7 +68,7 @@ public class LLAngle extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     drive.stop();
-    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(0);
+    //NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(0);
   }
 
   // Returns true when the command should end.
