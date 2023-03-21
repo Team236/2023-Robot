@@ -21,7 +21,7 @@ public class StowPosition extends SequentialCommandGroup {
 
 addCommands(
   new ArmRetract(armStow, 0.5).withTimeout(2),
-  new PivotDown(pvtStow, 0.25).withTimeout(1)
+  new PivotDown(pvtStow, 0.25).withTimeout(6)
 
 
   );

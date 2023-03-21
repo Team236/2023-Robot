@@ -179,7 +179,7 @@ private final TurretCCW turretCCW = new TurretCCW(turret, TurretConstants.TURRET
     a1.whileTrue(new TurretPID(turret, 180));
     lb1.whileTrue(new ScoreHighPosition90(arm, pivot, gripper));
     lm1.whileTrue(new ScoreLow90(arm, pivot, gripper));
-    rb1.whileTrue(new ScoreMiddlePosition90(arm, pivot, gripper));
+    rb1.whileTrue(new ScoreMiddlePosition90(arm, pivot, gripper, turret));
     rm1.whileTrue(new PickupToStow(pivot, arm));
     
    // menu1.whileTrue(new ReleasePiece(gripper));

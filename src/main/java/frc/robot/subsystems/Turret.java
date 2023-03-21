@@ -105,17 +105,17 @@ public class Turret extends SubsystemBase {
 }
 //DO NOT REACH LIMIT GOING CW, STOP AT 320 degress CW
 if ((speed > 0) && isCWLimit()) {
- turretStop();
- turretBrake();
-} else if (speed < 0 && isCCWLimit()) {
-    // turret going CCW and  limit is tripped, stop and zero encoder
-    turretStop();
+  turretStop();
+  turretBrake();
+ } else if (speed < 0 && isCCWLimit()) {
+     // turret going CCW and  limit is tripped, stop and zero encoder
+     turretStop();
     turretBrake();
   } else {
-    // not a limit going CCW, and not past 300 degrees going CW, go at commanded speed
+     // not a limit going CCW, and not past 300 degrees going CW, go at commanded speed
     //turretRelease(); //??? is this any better than before???
     turretMotor.set(speed);
-  }
+ }
 
     } 
     

@@ -27,14 +27,16 @@ public class TurretPID extends CommandBase {
   @Override
   public void initialize() {
     turret3.turretRelease();
-    turret3.resetTurretEncoder();
+    new WaitCommand(1);
+    //turret3.resetTurretEncoder();
     turretPidController.reset();
-    new WaitCommand(0.25);
+   // new WaitCommand(0.25);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    //SmartDashboard.putBoolean("executing the turret PID", true);
     double turretSpeed = turretPidController.calculate(turret3.getTurretAngle());
     turret3.setTurretSpeed(turretSpeed);
   }
@@ -49,6 +51,7 @@ public class TurretPID extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+   // SmartDashboard.putBoolean("done with midscore pid", true);
     return false;
   }
 }

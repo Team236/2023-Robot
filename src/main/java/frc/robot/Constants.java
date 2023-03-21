@@ -230,7 +230,7 @@ public static final double PVT_ENC_LOW_SCORE = 4862; //58 degrees
 public static final double PVT_ENC_90_LOW_SCORE = 4862; //ADJUST - for when turret at 90 or 270
 public static final double PVT_ENC_90 = 9289; //90 degrees
 public static final double PVT_ENC_MID_SCORE = 10065;//95 degrees (7.25" arm extend) //7666
-public static final double PVT_ENC_90_MID_SCORE = 10065; //ADJUST- for when turret at 90 or 270
+public static final double PVT_ENC_90_MID_SCORE = 9414; //determinied on 3/20/23
 public static final double PVT_ENC_99 = 10548;// 99 degrees
 public static final double PVT_ENC_HIGH_SCORE = 11188; //104 degrees (24.5" arm extend)
 public static final double PVT_ENC_90_HIGH_SCORE = 11188; //ADJUST- for when turret at 90 or 270
@@ -252,20 +252,20 @@ public static class TurretConstants {
   //DETERMINE DIST PER PULSE BY READING ENCODER VALUES AT VARIOUS ANGLES
   //THE GetTurret ENCODER METHOD READS PULSES, NOT REVOLUTIONS
   //IF WE NEED REV_TO_DEG, IT CAN BE CALCULATED BY MULTIPLYING DIST_PER_PULSE times 128
-  public static final double turretDEGREES_PER_PULSE = 1;  //TBD- 128 pulses per Rev
+  public static final double turretDEGREES_PER_PULSE = 1/4.29;  //TBD- 128 pulses per Rev
   public static final double turretANGLE_OFFSET = 0;//Encoder pulses reading when arm in front center
 
-  public static final double kPturret = 0.0002;
+  public static final double kPturret = 0.004;
   public static final double kIturret = 0;
   public static final double kDturret = 0;
 
   public static final int DIO_TCW_LIMIT = 20; //was 16
   public static final int DIO_TCCW_LIMIT = 21; //:)
-  public static final int DIO_TRRT_ENC_A = 4;
-  public static final int DIO_TRRT_ENC_B = 5;
+  public static final int DIO_TRRT_ENC_A = 5;
+  public static final int DIO_TRRT_ENC_B = 4;
 
-  public static final double TURRET_CW_STOP_ANGLE = 200;
-  public static final double TURRET_CCW_STOP_ANGLE = -140;
+  public static final double TURRET_CW_STOP_ANGLE = 115;
+  public static final double TURRET_CCW_STOP_ANGLE = -115;
 
 
  // public static final double TURRET_RANGE = 360;  // -180 to +180 
