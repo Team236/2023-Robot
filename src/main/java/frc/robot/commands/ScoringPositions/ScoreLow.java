@@ -31,8 +31,8 @@ public class ScoreLow extends SequentialCommandGroup {
       //From higher angle (getPivotEncoder > target): ArmPID then PivotDownPID
       addCommands(
       new ArmPID(lowScore,Constants.ArmConstants.ARM_LOW).withTimeout(1),
-      new PivotDownPID(pvtLow, Constants.PivotConstants.PVT_ENC_LOW_SCORE).withTimeout(1),
-      new ReleasePiece(gripScore2).asProxy()
+      new PivotDownPID(pvtLow, Constants.PivotConstants.PVT_ENC_LOW_SCORE).withTimeout(1)//,
+      //new ReleasePiece(gripScore2).asProxy()
       );
       }
       else {
@@ -40,8 +40,8 @@ public class ScoreLow extends SequentialCommandGroup {
       //From lower angle (getPivotEncoder < target):  PivotPID (pivoting up) then ArmPID 
       addCommands(
       new PivotPID(pvtLow, Constants.PivotConstants.PVT_ENC_LOW_SCORE).withTimeout(1),
-      new ArmPID(lowScore, Constants.ArmConstants.ARM_LOW).withTimeout(1),
-      new ReleasePiece(gripScore2).asProxy()
+      new ArmPID(lowScore, Constants.ArmConstants.ARM_LOW).withTimeout(1)//,
+      //new ReleasePiece(gripScore2).asProxy()
       );
   
       }
