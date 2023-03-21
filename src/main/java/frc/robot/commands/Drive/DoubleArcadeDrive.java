@@ -4,7 +4,6 @@
 
 package frc.robot.commands.Drive;
 import com.kauailabs.navx.frc.AHRS;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drive;
@@ -20,17 +19,16 @@ public class DoubleArcadeDrive extends CommandBase {
   private AHRS navX;
   
   /** Creates a new DoubleArcadeDrive. */
-  public DoubleArcadeDrive(Drive _drive, Gripper _gripper, XboxController _driveController) {
-    this.gripper = _gripper;
+    public DoubleArcadeDrive(Drive _drive, XboxController _driveController) {
+    // this.gripper = _gripper;
     this.drive = _drive;
     this.driveController = _driveController;
-    addRequirements(gripper);
-    addRequirements(drive);
+        addRequirements(drive);
   }
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    this.isDeadzone = true;
+    isDeadzone = true;
     drive.resetLeftEncoder();
     drive.resetRightEncoder();
   }
@@ -45,7 +43,6 @@ public class DoubleArcadeDrive extends CommandBase {
     //SmartDashboard.putNumber( "Controller Right Stick Y Value:", driveController.getRightY());
    // getRightY is negative when driving forward.  getLeftX and navX.getRate are positive Clockwise.
     //change 0.17 / -0.17 to refer to Constants - Deadzone
-    double max, L, R, kPgyro, error;
     kPgyro = 0.00; //0.09
     error = navX.getRate();
     if ((Math.abs(driveController.getLeftX()) <= -0.17) && (driveController.getRightY() > 0.17)) {
