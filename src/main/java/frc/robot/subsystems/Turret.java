@@ -32,7 +32,7 @@ public class Turret extends SubsystemBase {
     turretBrake = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, TurretConstants.TURRET_BRAKE_FOR, TurretConstants.TURRET_BRAKE_REV);
 
     try {
-      trrtLimit = new DigitalInput(TurretConstants.DIO_TCW_LIMIT);
+      trrtLimit = new DigitalInput(TurretConstants.DIO_TCCW_LIMIT);
     } catch (Exception e) {
       isTUnplugged = true;
     }
@@ -113,8 +113,8 @@ if ((speed > 0) && isCWLimit()) {
     turretBrake();
   } else {
     // not a limit going CCW, and not past 300 degrees going CW, go at commanded speed
+    //turretRelease(); //??? is this any better than before???
     turretMotor.set(speed);
-    turretBrake.set(Value.kReverse);
   }
 
     } 
@@ -126,6 +126,8 @@ if ((speed > 0) && isCWLimit()) {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("turret encoder", getTurretEncoder());
+    SmartDashboard.putNumber("turret Angle", getTurretAngle());
     SmartDashboard.putBoolean("turret magnetic limit switch", isTLimit());
     SmartDashboard.putBoolean("turret CW limit (200) ", isCWLimit());
    SmartDashboard.putBoolean("turretCCW limit (-140) ", isCCWLimit());

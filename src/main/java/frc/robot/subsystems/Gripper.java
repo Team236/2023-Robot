@@ -35,6 +35,16 @@ public class Gripper extends SubsystemBase {
     gripperEye.reset();
   }
 
+   //gets the gripper eye count
+   public int getGripperEyeCount() {
+    if (isGripperEyeUnplugged) {
+     SmartDashboard.putBoolean("Gripper eye unplugged", isGripperEyeUnplugged);
+     return 0;
+    } else {
+     return gripperEye.get();
+    }
+   }
+
   //Makes the gripper grab
   public void grab() {
     gripperSolenoid.set(Value.kForward);
@@ -50,7 +60,8 @@ public class Gripper extends SubsystemBase {
     //Tells if the gripper is gripping or not
   public boolean isGripping() {
     //return false;
-    if (gripperSolenoid.get() == Value.kForward && gripperSolenoid2.get() == Value.kForward) {
+    if (gripperSolenoid.get() == Value.kForward) {
+    //&& gripperSolenoid2.get() == Value.kForward) {
     return true;  
     } else {
       return false;
@@ -67,20 +78,11 @@ public class Gripper extends SubsystemBase {
     if (getGripperEyeCount() >= 1) {
       grab();
       SmartDashboard.putNumber("Eye Count ABOVE ZER0 so should Grab", getGripperEyeCount());
+      //resetGripperEyeCount();
     }
     else {
       SmartDashboard.putNumber("Eye Count not above zero", getGripperEyeCount());
     }
-  }
-  
-  //gets the gripper eye count
-  public int getGripperEyeCount() {
-   if (isGripperEyeUnplugged) {
-    SmartDashboard.putBoolean("Gripper eye unplugged", isGripperEyeUnplugged);
-    return 0;
-   } else {
-    return gripperEye.get();
-   }
   }
 
   @Override

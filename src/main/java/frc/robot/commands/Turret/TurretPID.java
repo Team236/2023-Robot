@@ -7,6 +7,7 @@ import frc.robot.subsystems.Turret;
 import edu.wpi.first.math.controller.PIDController;
 import frc.robot.Constants.TurretConstants;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.WPILibVersion;
 public class TurretPID extends CommandBase {
@@ -29,6 +30,7 @@ public class TurretPID extends CommandBase {
     turret.turretRelease();
     turret.resetTurretEncoder();
     turretPidController.reset();
+    new WaitCommand(0.25);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

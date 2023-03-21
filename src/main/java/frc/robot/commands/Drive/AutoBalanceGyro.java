@@ -5,28 +5,25 @@
 package frc.robot.commands.Drive;
 import frc.robot.subsystems.Drive;
 import com.kauailabs.navx.frc.AHRS;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class AutoBalanceGyro extends CommandBase {
-static final double kOffBalanceAngleThresholdDegrees = 5;
-static final double kOonBalanceAngleThresholdDegrees  = 10;
-private XboxController driveController;
-private boolean autoBalanceXMode;
-private boolean autoBalanceYMode;
-private Drive drive;
-private AHRS navx;
+  static final double kOffBalanceAngleThresholdDegrees = 5;
+  static final double kOonBalanceAngleThresholdDegrees  = 10;
+  private AHRS navx;
+ private XboxController driveController;
+ private boolean autoBalanceXMode;
+  private boolean autoBalanceYMode;
+  private Drive drive9;
 
   /** Creates a new AutoBalanceGyro. */
   public AutoBalanceGyro(Drive _drive, XboxController _driveController) {
     navx = new AHRS();
-    this.driveController = _driveController;
-    this.drive = _drive;
-    addRequirements(drive);
+    this.drive9 = _drive;
+    addRequirements(drive9);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -76,14 +73,14 @@ private AHRS navx;
           yAxisRate = Math.sin(rollAngleRadians) * -1;
       }
 
-      drive.setBothSpeeds(yAxisRate);
+      drive9.setBothSpeeds(yAxisRate);
       Timer.delay(0.005);
     }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    drive.stop();
+    drive9.stop();
   }
 
   // Returns true when the command should end.

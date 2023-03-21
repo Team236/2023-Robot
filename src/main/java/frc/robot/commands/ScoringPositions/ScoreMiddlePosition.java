@@ -39,7 +39,7 @@ public class ScoreMiddlePosition extends SequentialCommandGroup {
     //From lower angle (getPivotEncoder < target):  PivotPID (pivoting up) then ArmPID 
     addCommands(
     new PivotPID(pvtMid, Constants.PivotConstants.PVT_ENC_MID_SCORE).withTimeout(1),
-    new ArmPID(midScore, Constants.ArmConstants.ARM_MID).withTimeout(1),
+    new ArmPID(midScore, Constants.ArmConstants.ARM_MID).withTimeout(3),
     new ReleasePiece(gripMid).asProxy()
     );
 

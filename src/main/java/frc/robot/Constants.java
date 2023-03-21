@@ -180,34 +180,34 @@ public static class ArmConstants { ///FOR TESTBOT: subject to change for final
   public static final int DIO_ARM_RETURN = 22; //7
   public static final int DIO_ARM_EXTEND = 11; //8  was18
 
-  public static final double ARM_MID = 7.25; //inches, arm extend distance for middle level
-  public static final double ARM_HIGH = 24.0; //inches, arm extend distance for high level
+  public static final double ARM_MID = 13.25; //inches, arm extend distance for middle level
+  public static final double ARM_HIGH = 28.5; //inches, arm extend distance for high level
   public static final double ARM_LOW = 0;  // may need to revise after shortening the arm
-  public static final double ARM_90_MID = 7.25; //ADJUST- for when turret at 90 or 270
+  public static final double ARM_90_MID = 7.25; //ADJUST- for when turret at 90 or 270 //11.35
   public static final double ARM_90_HIGH = 24.0; //ADJUST- for when turret at 90 or 270
   public static final double ARM_90_LOW = 0; //ADJUST- for when turret at 90 or 270
   public static double ARM_STOW = 0; //inches, arm extend distance stowed and low level(fully retracted)
   public static double ARM_LOAD_STN = 0; //inches, arm extend distance for getting pieces from loading station
-  public static double ARM_PICKUP = 6.5;
+  public static double ARM_PICKUP = 12.5;
 
   public static final double ARM_EX_SPEED = 0.6;
   public static final double ARM_RE_SPEED = 0.6;
 
-  public static double kParm = 0.24; //0.25
+  public static double kParm = 0.26; //0.25
   public static double kIarm = 0;
   public static double kDarm = 0;
   public static double kFarm = 0; //mooooo
 
   //Use Down constants below when pivot angle less than 90 (gravity is assisting - lower kp)
-  public static double kParmDown = 0.01;
+  public static double kParmDown = 0.12;
   public static double kIarmDown = 0;
   public static double kDarmDown = 0;
 }
 
 public static class GripperConstants {
   //Solenoid ports on the PCM (Channels A and B)
-  public static final int GRIPPER_SOL_FOR = 0; //0
-  public static final int GRIPPER_SOL_REV = 1; //1
+  public static final int GRIPPER_SOL_FOR = 1; //0
+  public static final int GRIPPER_SOL_REV = 0; //1
   public static final int GRIPPER_SOL2_FOR = 4;
   public static final int GRIPPER_SOL2_REV = 5;
   //Port used on the DIO
@@ -227,12 +227,12 @@ public static class PivotConstants {
   //NO LINEAR RELATIONSHIP BETWEEN ANGLE AND ENCODER READING FOR PIVOT
   //BELOW ARE VALUES OF PIVOT ENCODER AT VARIOUS ANGLES 
 public static final double PVT_ENC_STOW = 0;  //20 degrees?  17 degrees?
-public static final double PVT_ENC_PICKUP = 1105;  //29 degrees
+public static final double PVT_ENC_PICKUP = 1324;  //29 degrees
 public static final double PVT_ENC_45 = 3098; //45 degrees
 public static final double PVT_ENC_LOW_SCORE = 4862; //58 degrees
 public static final double PVT_ENC_90_LOW_SCORE = 4862; //ADJUST - for when turret at 90 or 270
 public static final double PVT_ENC_90 = 9289; //90 degrees
-public static final double PVT_ENC_MID_SCORE = 10065;//95 degrees (7.25" arm extend)
+public static final double PVT_ENC_MID_SCORE = 10065;//95 degrees (7.25" arm extend) //7666
 public static final double PVT_ENC_90_MID_SCORE = 10065; //ADJUST- for when turret at 90 or 270
 public static final double PVT_ENC_99 = 10548;// 99 degrees
 public static final double PVT_ENC_HIGH_SCORE = 11188; //104 degrees (24.5" arm extend)
@@ -263,7 +263,7 @@ public static class TurretConstants {
   public static final double kDturret = 0;
 
   public static final int DIO_TCW_LIMIT = 20; //was 16
-  public static final int DIO_TCCW_LIMIT = 21;
+  public static final int DIO_TCCW_LIMIT = 21; //:)
   public static final int DIO_TRRT_ENC_A = 4;
   public static final int DIO_TRRT_ENC_B = 5;
 
