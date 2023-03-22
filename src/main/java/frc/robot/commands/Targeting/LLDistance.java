@@ -3,13 +3,10 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.commands.Targeting;
-import frc.robot.subsystems.Drive;
-import frc.robot.subsystems.Limelight;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import java.lang.Math;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.Drive;
 
 public class LLDistance extends CommandBase {
     //tV = 1 if there are any targets found, =0 if not
@@ -27,7 +24,7 @@ public class LLDistance extends CommandBase {
   //private double h2 = 18; // inches, same unit as d, to center of target
   private double a1 = Math.toRadians(20); //20 degrees, camera tilt
   private double dist11; // desired distance from camera to target in inches; pass into command
-  //private Limelight limelight;
+ 
   private Drive drive;
   private double pipeline;
   private double targetHeight;//18" for Atag, from floor to center of target
