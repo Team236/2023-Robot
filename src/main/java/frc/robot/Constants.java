@@ -180,8 +180,9 @@ public static class ArmConstants { ///FOR TESTBOT: subject to change for final
   public static final double ARM_MID = 13.25; //inches, arm extend distance for middle level
   public static final double ARM_HIGH = 28.5; //inches, arm extend distance for high level
   public static final double ARM_LOW = 0;  // may need to revise after shortening the arm
-  public static final double ARM_90_MID = 7.25; //ADJUST- for when turret at 90 or 270 //11.35
+  public static final double ARM_90_MID = 5.86; //ADJUST- for when turret at 90 or 270 //11.35
   public static final double ARM_90_HIGH = 24.0; //ADJUST- for when turret at 90 or 270
+
   public static final double ARM_90_LOW = 0; //ADJUST- for when turret at 90 or 270
   public static double ARM_STOW = 0; //inches, arm extend distance stowed and low level(fully retracted)
   public static double ARM_LOAD_STN = 0; //inches, arm extend distance for getting pieces from loading station
@@ -190,7 +191,7 @@ public static class ArmConstants { ///FOR TESTBOT: subject to change for final
   public static final double ARM_EX_SPEED = 0.6;
   public static final double ARM_RE_SPEED = 0.6;
 
-  public static double kParm = 0.26; //0.25
+  public static double kParm = 0.23; //0.25
   public static double kIarm = 0;
   public static double kDarm = 0;
   public static double kFarm = 0; //mooooo
@@ -255,7 +256,7 @@ public static class TurretConstants {
   public static final double turretDEGREES_PER_PULSE = 1/4.29;  //TBD- 128 pulses per Rev
   public static final double turretANGLE_OFFSET = 0;//Encoder pulses reading when arm in front center
 
-  public static final double kPturret = 0.004;
+  public static final double kPturret = 0.006;
   public static final double kIturret = 0;
   public static final double kDturret = 0;
 
@@ -275,8 +276,8 @@ public static class TurretConstants {
   public static final double TURRET_RIGHT = 90;
   public static final double TURRET_LEFT = 270;
 
-  public static final double TURRET_CW_SPEED = 0.2;
-  public static final double TURRET_CCW_SPEED = 0.2; //This must also be positive.  Negative added in method
+  public static final double TURRET_CW_SPEED = 0.1;
+  public static final double TURRET_CCW_SPEED = 0.1; //This must also be positive.  Negative added in method
 
 //TUrret Brake Solenoid
   public static final int TURRET_BRAKE_FOR = 6;

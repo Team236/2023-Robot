@@ -39,10 +39,12 @@ import frc.robot.commands.ScoringPositions.Pickup;
 import frc.robot.commands.ScoringPositions.PickupToStow;
 import frc.robot.commands.ScoringPositions.ScoreHigh;
 import frc.robot.commands.ScoringPositions.ScoreHigh90;
+import frc.robot.commands.ScoringPositions.ScoreHighN90;
 import frc.robot.commands.ScoringPositions.ScoreLow;
 import frc.robot.commands.ScoringPositions.ScoreLow90;
 import frc.robot.commands.ScoringPositions.ScoreMid;
 import frc.robot.commands.ScoringPositions.ScoreMid90;
+import frc.robot.commands.ScoringPositions.ScoreMidN90;
 import frc.robot.commands.ScoringPositions.Stowe;
 import frc.robot.commands.Targeting.AprilFollow;
 import frc.robot.commands.Targeting.LLAngle;
@@ -97,6 +99,8 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
   drive.setDefaultCommand(doubleArcadeDrive);
+  //arm.setDefaultCommand(new ArmWithAxis(arm, controller));
+  //pivot.setDefaultCommand();
     // Configure the trigger bindings
     configureBindings();
   }
@@ -144,16 +148,17 @@ public class RobotContainer {
     POVButton rightPov1 = new POVButton(controller, Constants.ControllerConstants.XboxController.POVXbox.RIGHT_ANGLE);
     // ASSIGN BUTTONS TO COMMANDS
     //AUXController
-    y1.whileTrue(new TurretPID(turret, 0));
-    x1.whileTrue(new TurretPID(turret, -90));
-    b1.whileTrue(new TurretPID(turret, 90));
-    a1.whileTrue(new TurretPID(turret, 180));
-    lb1.whileTrue(new ScoreHigh90(arm, pivot, gripper, turret));
-    lm1.whileTrue(new ScoreLow90(arm, pivot, gripper, turret));
-    rb1.whileTrue(new ScoreMid90(arm, pivot, gripper, turret));
-    rm1.whileTrue(new PickupToStow(pivot, arm));
-    
-   // menu1.whileTrue(new ReleasePiece(gripper));
+    menu1.whileTrue(new GrabReleaseToggle(gripper));
+    y1.whileTrue(new LoadStation(arm, pivot, gripper));
+    x1.whileTrue(new Pickup(arm, pivot, gripper));
+    b1.whileTrue(new PickupToStow(pivot, arm));
+    a1.whileTrue(new ToggleTransmission(drive));
+    rb1.whileTrue(new ScoreHigh90(arm, pivot, gripper, turret));
+    rm1.whileTrue(new ScoreMid90(arm, pivot, gripper, turret));
+    lb1.whileTrue(new ScoreHighN90(arm, pivot, gripper, turret));
+    lm1.whileTrue(new ScoreMidN90(arm, pivot, gripper, turret));
+
+
   
    upPov1.whileTrue(new TurretBrake(turret));
    downPov1.whileTrue(new TurretRelease(turret));
@@ -174,7 +179,7 @@ public class RobotContainer {
  rm.whileTrue(new ScoreHigh(arm, pivot, gripper));
  lm.whileTrue(new PickupToStow(pivot, arm));
  
-
+menu.whileTrue(new TurretPID(turret, 1));
 
  upPov.whileTrue(new PivotUp(pivot, 0.7));
  downPov.whileTrue(new PivotDown(pivot, 0.6));

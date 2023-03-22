@@ -75,7 +75,7 @@ public class Gripper extends SubsystemBase {
   }
 
   public void autoGrab() {
-    if (getGripperEyeCount() >= 1) {
+    if (getGripperEyeCount() > 0) {
       grab();
       SmartDashboard.putNumber("Eye Count ABOVE ZER0 so should Grab", getGripperEyeCount());
       //resetGripperEyeCount();
@@ -87,6 +87,7 @@ public class Gripper extends SubsystemBase {
 
   @Override
   public void periodic() {
+    SmartDashboard.putNumber("Eye Count is", getGripperEyeCount());
     // This method will be called once per scheduler run
   }
 }
