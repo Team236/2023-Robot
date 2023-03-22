@@ -3,36 +3,23 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
-import frc.robot.Constants;
-import frc.robot.Constants.ArmConstants;
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.Constants.TurretConstants;
 import frc.robot.commands.Arm.ArmExtend;
-import frc.robot.commands.Arm.ArmPID;
 import frc.robot.commands.Arm.ArmRetract;
-import frc.robot.commands.Arm.ArmWithAxis;
-import frc.robot.commands.Autos.AutoPIDDrive;
-import frc.robot.commands.Autos.AutoScoreHigh;
-import frc.robot.commands.Autos.AutoScoreMid;
-import frc.robot.commands.Autos.AutoTrapezoidalPID;
 import frc.robot.commands.Autos.BackwardCenter;
-import frc.robot.commands.Autos.BalanceOnChargeAuto;
-import frc.robot.commands.Autos.DriveAtSetSpeed;
 import frc.robot.commands.Autos.ScoreDrive;
-import frc.robot.commands.Autos.ScoreToCenter;
-import frc.robot.commands.Autos.TurnPID;
-import frc.robot.commands.Drive.AutoBalanceGyro;
 import frc.robot.commands.Drive.DoubleArcadeDrive;
-import frc.robot.commands.Drive.LLTagDistance;
-//import frc.robot.commands.Drive.DriveWithJoysticks;
-import frc.robot.commands.Drive.TDWG_No;
 import frc.robot.commands.Drive.ToggleTransmission;
-//import frc.robot.commands.Drive.DriveWithJoysticks;
-import frc.robot.commands.Gripper.Grab;
 import frc.robot.commands.Gripper.GrabReleaseToggle;
-import frc.robot.commands.Gripper.ReleasePiece;
 import frc.robot.commands.Pivot.PivotDown;
-import frc.robot.commands.Pivot.PivotPID;
 import frc.robot.commands.Pivot.PivotUp;
 import frc.robot.commands.ScoringPositions.LoadStation;
 import frc.robot.commands.ScoringPositions.Pickup;
@@ -43,34 +30,16 @@ import frc.robot.commands.ScoringPositions.ScoreLow;
 import frc.robot.commands.ScoringPositions.ScoreLow90;
 import frc.robot.commands.ScoringPositions.ScoreMid;
 import frc.robot.commands.ScoringPositions.ScoreMid90;
-import frc.robot.commands.ScoringPositions.Stowe;
-import frc.robot.commands.Targeting.AprilFollow;
-import frc.robot.commands.Targeting.LLAngle;
-import frc.robot.commands.Targeting.LLDistance;
-import frc.robot.commands.Targeting.LLTarget;
 import frc.robot.commands.Turret.TurretBrake;
 import frc.robot.commands.Turret.TurretCCW;
 import frc.robot.commands.Turret.TurretCW;
 import frc.robot.commands.Turret.TurretPID;
 import frc.robot.commands.Turret.TurretRelease;
-import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Gripper;
-import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Pivot;
 import frc.robot.subsystems.Turret;
-import org.photonvision.PhotonCamera;
-
-import edu.wpi.first.math.util.Units;
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import edu.wpi.first.wpilibj2.command.button.POVButton;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -87,7 +56,6 @@ public class RobotContainer {
   private final Gripper gripper = new Gripper();
   private final Turret turret = new Turret();
   private final Pivot pivot = new Pivot();
-   private final Limelight camera = new Limelight();
   private static DigitalInput autoSwitch1 = new DigitalInput(Constants.DriveConstants.DIO_AUTO_1);
   private static DigitalInput autoSwitch2 = new DigitalInput(Constants.DriveConstants.DIO_AUTO_2);
   private static DigitalInput autoSwitch3 = new DigitalInput(Constants.DriveConstants.DIO_AUTO_3);
