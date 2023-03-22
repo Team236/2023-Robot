@@ -42,20 +42,20 @@ public class DoubleArcadeDrive extends CommandBase {
    // SmartDashboard.putNumber("Controller Left Stick X Value:", driveController.getLeftX());
     //SmartDashboard.putNumber( "Controller Right Stick Y Value:", driveController.getRightY());
    // getRightY is negative when driving forward.  getLeftX and navX.getRate are positive Clockwise.
-    //change 0.17 / -0.17 to refer to Constants - Deadzone
+    //change 0.05 / -0.05 to refer to Constants - Deadzone
     kPgyro = 0.00; //0.09
     error = navX.getRate();
-    if ((Math.abs(driveController.getLeftX()) <= -0.17) && (driveController.getRightY() > 0.17)) {
+    if ((Math.abs(driveController.getLeftX()) <= -0.05) && (driveController.getRightY() > 0.05)) {
       L = (-driveController.getRightY()- (kPgyro*error));
       R = (-driveController.getRightY() + (kPgyro*error));
-    } else if ((Math.abs(driveController.getLeftX()) <= -0.17) && (driveController.getRightY() <=-0.17)) {
+    } else if ((Math.abs(driveController.getLeftX()) <= -0.05) && (driveController.getRightY() <=-0.05)) {
       L = (-driveController.getRightY() + (kPgyro*error));
       R = (-driveController.getRightY() - (kPgyro*error));
-    } else if ((Math.abs(driveController.getLeftX()) > 0.17) && (driveController.getRightY() > 0.17)) {
+    } else if ((Math.abs(driveController.getLeftX()) > 0.05) && (driveController.getRightY() > 0.05)) {
       L = driveController.getRightY() - driveController.getLeftX();
       R = driveController.getRightY() + driveController.getLeftX();
     } else 
-    //The only condition left is: Math.abs(driveController.getLeftX()) > 0.17) && (driveController.getRightY() <= -0.17
+    //The only condition left is: Math.abs(driveController.getLeftX()) > 0.05) && (driveController.getRightY() <= -0.05
         L = -driveController.getRightY() + driveController.getLeftX();
         R = -driveController.getRightY() - driveController.getLeftX();
     
