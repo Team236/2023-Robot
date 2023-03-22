@@ -14,6 +14,7 @@ public class LLTagDriveDistance extends CommandBase {
   private double kP = 0.005;  //0.005;
   private double kI = 0.0;      //0.0;
   private double kD = 0.000;  //0.0009;
+
   private Drive drive;
   private boolean target;
   PIDController distanceTagController;
@@ -22,21 +23,20 @@ public class LLTagDriveDistance extends CommandBase {
   /** Creates a new LLAngle. */
   public LLTagDriveDistance(Drive _drive, int _pipeline, double OffsetDistance) {
     this.drive = _drive;
-    LimelightHelpers.setPipelineIndex("", _pipeline);
+    addRequirements(drive);
+	// for all LimelightHelpers the empty string value is assumed to be "limelight" if blank
+    LimelightHelpers.setPipelineIndex("",_pipeline);
+    LimelightHelpers.setLEDMode_ForceOff("");   
 
     distanceTagController = new PIDController(kP, kI, kD);
     distanceTagController.setSetpoint(OffsetDistance);
-    addRequirements(drive);
+    
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
 
-    // for all LimelightHelpers the empty string value is assumed to be "limelight" if blank
-    LimelightHelpers.setStreamMode_PiPMain("");
-    LimelightHelpers.setLEDMode_PipelineControl("");  
-    LimelightHelpers.setLEDMode_ForceOff("");         
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -44,22 +44,22 @@ public class LLTagDriveDistance extends CommandBase {
   public void execute() {
    // verify the limelight  sees a tag otherwise do nothing 
    target = LimelightHelpers.getTV("");
+   SmartDashboard.putBoolean("Has Target", target);
     
     if(target) {  
-        // TO make sure dx is positive, use abs value for disY and (h1-h2)
-        SmartDashboard.putBoolean("No Target", target);
+	
+        // TODO make sure dx is positive, use abs value for disY 
         double[] robotpose = LimelightHelpers.getBotPose_TargetSpace("");
         double absoluteDistanceZ = Math.abs(robotpose[2]);    // index two is z-positive out the front of robot
 
-        // the Z direction is out the front of robot 
+        // the Z direction is out the front of robot 																 
         double distanceAdjust = distanceTagController.calculate(absoluteDistanceZ);
-        drive.setLeftSpeed(distanceAdjust);
+        drive.setLeftSpeed(distanceAdjust);													   
         drive.setRightSpeed(distanceAdjust);
         SmartDashboard.putNumber ("TagDistance tag id: ", LimelightHelpers.getFiducialID("") );
     } 
    else {
     SmartDashboard.putNumber ("found distance tag", 999 );
-    SmartDashboard.putBoolean("No Target", target);
    }
   }
 

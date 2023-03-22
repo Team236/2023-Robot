@@ -4,7 +4,6 @@
 
 package frc.robot.commands.Drive;
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.LimelightHelpers;
@@ -17,12 +16,12 @@ public class LLTagDriveAngleDistance extends CommandBase {
   private double distancekP = 0.005;  //0.005;
   private double distancekI = 0.0;      //0.0;
   private double distancekD = 0.000;  //0.0009;
+
   private double anglekP = 0.005;  //0.005;
   private double anglekI = 0.0;      //0.0;
   private double anglekD = 0.000;  //0.0009;
  
-  
-  //private Limelight limelight;
+ 
   private Drive drive;
   private boolean target;
   PIDController distanceTagController, angleTagController;
@@ -30,13 +29,15 @@ public class LLTagDriveAngleDistance extends CommandBase {
   /** Creates a new LLAngle. */
   public LLTagDriveAngleDistance(Drive _drive, int _pipeline, double OffsetDistance) {
     this.drive = _drive;
+    addRequirements(drive);
+
     LimelightHelpers.setPipelineIndex("",_pipeline);
     LimelightHelpers.setLEDMode_ForceOff("");
-    
+
     distanceTagController = new PIDController(distancekP, distancekI, distancekD);
     angleTagController = new PIDController(anglekP, anglekI, anglekD);
     distanceTagController.setSetpoint(OffsetDistance);
-    addRequirements(drive);
+    angleTagController.setSetpoint(0); 
   }
 
   // Called when the command is initially scheduled.
@@ -50,19 +51,23 @@ public class LLTagDriveAngleDistance extends CommandBase {
   public void execute() {
    // verify the camera  sees a tag other wise do nothing 
    
+
+   target = LimelightHelpers.getTV("");
+   SmartDashboard.putBoolean("Has Target", target);
+
     if(target) {
         SmartDashboard.putNumber ("found distance tag", LimelightHelpers.getFiducialID("") );
 
-        // TODO make sure dx is positive, use abs value for disY and (h1-h2)
+        // TODO make sure dX right is positive, use abs value for distance in dZ 
         double[] currentPose = LimelightHelpers.getBotPose_TargetSpace("");
-        double absoluteDistanceX = currentPose[0];              // the X direction is robot out right side
+
+        double DistanceX = currentPose[0];    // the X direction is robot out right side
         double absoluteDistanceZ = Math.abs (currentPose[2]);   // the Z direction is out the front of robot
                  
-        SmartDashboard.putBoolean("Has Target", target);
-
-        double angleAdjust = angleTagController.calculate(absoluteDistanceX);
+        double angleAdjust = angleTagController.calculate(DistanceX);
         double distanceAdjust = distanceTagController.calculate(absoluteDistanceZ);
         
+        // make sure stearing plus drive command not > 100 percent
         if (distanceAdjust+angleAdjust <= 1) {
           drive.setLeftSpeed(distanceAdjust-angleAdjust);
           drive.setRightSpeed(distanceAdjust+angleAdjust);
@@ -73,7 +78,6 @@ public class LLTagDriveAngleDistance extends CommandBase {
     } 
    else {
     SmartDashboard.putNumber ("found distance tag", 999 );
-    SmartDashboard.putBoolean("No Target", target);
    }
   }
 

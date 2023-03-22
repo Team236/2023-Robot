@@ -10,49 +10,52 @@ import frc.robot.LimelightHelpers;
 import frc.robot.subsystems.Drive;
 
 public class LLTagDriveAngle extends CommandBase {
+
   private double kPX = 0.0002;  //0.005??
   private double kIX = 0.0;  //0.005??
   private double kDX = 0.0;  //0.005??
 
   private Drive drive;
+  private boolean target;
   private PIDController anglePidController;
 
-
   public LLTagDriveAngle(Drive _drive, int _pipeline) {
-    //public LLAngle(Drive passed_drive, Limelight lime, double m_pipeline) {
       this.drive = _drive;
+      addRequirements(drive);
       LimelightHelpers.setPipelineIndex("", _pipeline);
       LimelightHelpers.setLEDMode_ForceOff("");
-      addRequirements(drive);
+
+      anglePidController = new PIDController(kPX, kIX, kDX );
+      anglePidController.setSetpoint(0);
     }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-       anglePidController = new PIDController(kPX, kIX, kDX );
+       
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     
-    // determine if camera has a target  
-    boolean target = LimelightHelpers.getTV("");
-    
-    // get the published X value in limelight tables to use in PID loop to steer with 
-    // if the camera to robot is not set then it should align with camera not robot
-    double[] currentPose = LimelightHelpers.getBotPose_TargetSpace("");
-    double distanceX = currentPose[0]; 
+    // verify the camera  sees a tag otherwise do nothing   
+    target = LimelightHelpers.getTV("");
     SmartDashboard.putBoolean("Has Target", target);
 
+    // get the published X value in limelight tables to use in PID loop to steer with 
+    double[] currentPose = LimelightHelpers.getBotPose_TargetSpace("");
+    double distanceX = currentPose[0]; 
+    
     // test if target is visible by camera
     if( target ){
         double steeringAdjust = anglePidController.calculate(distanceX);
         drive.setLeftSpeed(steeringAdjust);
         drive.setRightSpeed(-steeringAdjust); 
+        SmartDashboard.putNumber ("found distance tag", LimelightHelpers.getFiducialID("") );
         } 
         else { }
-  }
+    }  // enf-if target
 
   // Called once the command ends or is interrupted.
   @Override
