@@ -11,11 +11,10 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.ControllerConstants;
+import frc.robot.commands.Autos.DriveAtSetSpeed;
 import frc.robot.commands.Drive.DoubleArcadeDrive;
 import frc.robot.commands.Drive.LLTagDriveDistance;
-import frc.robot.commands.Drive.ToggleTransmission;
 import frc.robot.subsystems.Drive;
-import frc.robot.commands.Autos.DriveAtSetSpeed;
 
 /* 
 import frc.robot.Constants.TurretConstants;
@@ -23,6 +22,7 @@ import frc.robot.commands.Arm.ArmExtend;
 import frc.robot.commands.Arm.ArmRetract;
 import frc.robot.commands.Autos.BackwardCenter;
 import frc.robot.commands.Autos.ScoreDrive;
+import frc.robot.commands.Drive.ToggleTransmission;
 
     import frc.robot.commands.Gripper.Grab;
     import frc.robot.commands.Gripper.GrabReleaseToggle;
@@ -128,7 +128,11 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-      // CREATE BUTTONS
+
+    // TODO determine if this sets USB camera as main and limelight picture-in-picture
+    LimelightHelpers.setStreamMode_PiPSecondary("");
+
+    // CREATE BUTTONS
     // *XBOXCONTROLLER - DRIVER
     JoystickButton x = new JoystickButton(driveController, ControllerConstants.XboxController.X);
     JoystickButton a = new JoystickButton(driveController, ControllerConstants.XboxController.A);
