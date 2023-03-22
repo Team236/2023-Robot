@@ -52,7 +52,7 @@ public class ArmPID extends CommandBase {
   @Override
   public boolean isFinished() {
       //stop when near target and commanded speed close to 0
-  if ((arm3.getArmDistance() > 0.97*armDistance)&& (Math.abs(armSpeed) < 0.02)) {
+  /*if ((arm3.getArmDistance() > 0.97*armDistance)&& (Math.abs(armSpeed) < 0.02)) {
     SmartDashboard.putBoolean("ArmPID Finished?", true);
     return true;
   } else if (arm3.isARetLimit() && armSpeed < 0) {
@@ -60,8 +60,8 @@ public class ArmPID extends CommandBase {
     else if (arm3.isAExtLimit() && armSpeed > 0) {
       return true;
     } else {
-    SmartDashboard.putBoolean("ArmPID Finished?", false);
+    SmartDashboard.putBoolean("ArmPID Finished?", false);*/
     return false;
-  }
+  //}
   }
 }

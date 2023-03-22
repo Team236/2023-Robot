@@ -45,11 +45,11 @@ public class PivotDownPID extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (pivot4.getPivotEncoder() >= Math.abs(0.97*pvtTarget4)) {
+    /*if (pivot4.getPivotEncoder() >= Math.abs(0.97*pvtTarget4)) {
       return true;
-     } else {
+     } else {*/
       return false;
-     }
+    // }
       
   }
 }
