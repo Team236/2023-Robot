@@ -3,13 +3,10 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.commands.Targeting;
-import frc.robot.subsystems.Drive;
-import frc.robot.subsystems.Limelight;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import java.lang.Math;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.Drive;
 
 public class LLDistance extends CommandBase {
     //tV = 1 if there are any targets found, =0 if not
