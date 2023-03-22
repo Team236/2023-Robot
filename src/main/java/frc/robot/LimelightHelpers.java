@@ -641,10 +641,8 @@ public class LimelightHelpers {
         return 1.0 == getLimelightNTDouble(limelightName, "tv");
     }
 
-    /////
-    /////
-
     public static void setPipelineIndex(String limelightName, int pipelineIndex) {
+        // TODO evaluate if this is causing the override of network table data
         setLimelightNTDouble(limelightName, "pipeline", pipelineIndex);
     }
 

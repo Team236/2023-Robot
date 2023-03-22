@@ -9,31 +9,30 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.LimelightHelpers;
 
-public class Limelight extends SubsystemBase {
+public class LimelightPosition extends SubsystemBase {
   private Turret turret;
   private double xValue, yValue, zValue , radius, startAngle; 
   private double pivotZoffset; 
   
   /** Creates a new Limelight. */
-  public Limelight(Turret _turret) {
+  public LimelightPosition(Turret _turret) {
     this.turret = _turret;
 
-    // xpos-robot right, ypos-down, zpos-out front , Rx,Ry,Rz
-    ;  
+    // xpos-robot right, ypos-down, zpos-out front , Rx,Ry,Rz  
     xValue = Constants.DEFAULT_CAMER_POSITION[0];
     yValue = Constants.DEFAULT_CAMER_POSITION[1];
     zValue = Constants.DEFAULT_CAMER_POSITION[2];
-    pivotZoffset = 8;  // this is the distance the rotation of the turret center is from the robot center
+    pivotZoffset = 5;  // this is the distance the rotation of the turret center is from the robot center
 
     radius = Math.sqrt( xValue*xValue + zValue*zValue );  // 3-4-5 right triangle has 36.87 angle
     startAngle = Math.asin(xValue/radius);   // sin(angle) = opp/hyp
     SmartDashboard.putNumber("starting Angle of turret", startAngle);
     
   // maintain updates to Network table camera to robot position based on turret rotation 
-  // double xValue = SQRT((radius*radius)-(radius*Math.sin(turret.getTurretAngle() ))^2 );  // pivot is located on x axis no offset required
+  double xValue = Math.sqrt((Math.pow(radius,2))-Math.pow((radius*Math.sin(turret.getTurretAngle())),2) );  // pivot is located on x axis no offset required
     
    // (SQRT( (5^2)-(5*cos(turret.turretEncoder.get() )^2) )-pivotZoffset 
-  //  double yValue = (SQRT((radius*radius)-(radius*Math.cos( turret.getTurretAngle() ))^2))-pivotZoffset;
+   double yValue = (Math.sqrt((radius*radius)-Math.pow((radius*Math.cos(turret.getTurretAngle())),2)))-pivotZoffset;
    double zValue = -32.625;
   }
 
