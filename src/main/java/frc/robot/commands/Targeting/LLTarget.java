@@ -17,10 +17,10 @@ public class LLTarget extends CommandBase {
     //d = Distance to target (want 14" or 16" distance in order to be in front of Grid)
     //tan(a1 +a2)  = (h2-h1)/dx;
 
-  private double kX = 0.03;//ADJUST!!!  0.005??
-  private double kY = 0.00785; //0.00725;
+  private double kX = 0.017;//ADJUST!!!  0.005??
+  private double kY = 0.03; //0.00725;
   private Drive drive12;
-  private double h1 = 33; //inches, distance from floor to center of camera lens
+  private double h1 = 32.5; //inches, distance from floor to center of camera lens
   //private double h2 = 18; // inches, same unit as d, to center of target
   private double a1 = Math.toRadians(20); //20 degrees - camera angle
   private double dist12; //desired distance from camera to target - pass into command
@@ -47,7 +47,7 @@ public class LLTarget extends CommandBase {
     SmartDashboard.putNumber("LLTarget init", pipeline12);
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(0);
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(pipeline12);
-    cameraXoffset = 0; //figure out
+    cameraXoffset = 4; 
 
   }
 
@@ -62,7 +62,7 @@ public class LLTarget extends CommandBase {
     double errorX = disX - cameraXoffset; 
     
     if(tv==1){
-      if(Math.abs(errorX)>2){
+      if(Math.abs(errorX)>0.5){
         steeringAdjust = (kX * errorX); 
         }
       else {

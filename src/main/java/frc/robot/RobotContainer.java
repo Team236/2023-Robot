@@ -3,9 +3,10 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
+import java.util.LinkedList;
+
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.XboxController.Axis;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -34,9 +35,11 @@ import frc.robot.commands.ScoringPositions.ScoreMid;
 import frc.robot.commands.ScoringPositions.ScoreMid90;
 import frc.robot.commands.ScoringPositions.ScoreMidN90;
 import frc.robot.commands.ScoringPositions.Stowe;
+import frc.robot.commands.ScoringPositions.StoweFromUP;
 import frc.robot.commands.Targeting.AprilFollow;
 import frc.robot.commands.Targeting.LLAngle;
 import frc.robot.commands.Targeting.LLDistance;
+import frc.robot.commands.Targeting.LLSideDistance;
 import frc.robot.commands.Targeting.LLTarget;
 import frc.robot.commands.Turret.TurretBrake;
 import frc.robot.commands.Turret.TurretCCW;
@@ -105,7 +108,6 @@ public class RobotContainer {
     POVButton downPov = new POVButton(driveController, Constants.ControllerConstants.XboxController.POVXbox.DOWN_ANGLE); 
     POVButton leftPov = new POVButton(driveController, Constants.ControllerConstants.XboxController.POVXbox.LEFT_ANGLE);
     POVButton rightPov = new POVButton(driveController, Constants.ControllerConstants.XboxController.POVXbox.RIGHT_ANGLE);
-   // Axis leftX = new Axis(driveController, Constants.ControllerConstants.XboxController.AxesXbox.LX);
 // XBOX CONTROLLER - CONTROLLER
     JoystickButton x1 = new JoystickButton(controller, ControllerConstants.XboxController.X);
     JoystickButton a1 = new JoystickButton(controller, ControllerConstants.XboxController.A);
@@ -133,10 +135,13 @@ public class RobotContainer {
     lb1.whileTrue(new ScoreHighN90(arm, pivot, gripper, turret));
     lm1.whileTrue(new ScoreMidN90(arm, pivot, gripper, turret));
 
-
-  
-   upPov1.whileTrue(new TurretBrake(turret));
-   downPov1.whileTrue(new TurretRelease(turret));
+   //upPov1.whileTrue(new TurretBrake(turret));
+ // upPov1.whileTrue(new LLAngle(drive, 0));
+   upPov1.whileTrue(new StoweFromUP(arm, pivot, turret));
+   downPov1.whileTrue(new LLSideDistance(drive, turret, 0));
+  //downPov1.whileTrue(new LLDistance(drive, 0, 40, 18));
+  //downPov1.whileTrue(new Stowe(arm, pivot, turret));
+   //downPov1.whileTrue(new TurretRelease(turret));
    leftPov1.whileTrue(new TurretCCW(turret, TurretConstants.TURRET_CCW_SPEED));
    rightPov1.whileTrue(new TurretCW(turret, TurretConstants.TURRET_CW_SPEED));
  
@@ -160,8 +165,6 @@ menu.whileTrue(new TurretPID(turret, 1));
  downPov.whileTrue(new PivotDown(pivot, 0.6));
  rightPov.whileTrue(new ArmExtend(arm, 0.5));
   leftPov.whileTrue(new ArmRetract(arm, 0.5));
-
-
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

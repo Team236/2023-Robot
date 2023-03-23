@@ -25,12 +25,12 @@ public class ScoreHighN90 extends SequentialCommandGroup {
 
   
   /** Creates a new ScoreHighPosition when Turret at 90 or 270 degrees. */
-  public ScoreHighN90(Arm hiScore90, Pivot pvtHi90, Gripper gripHigh90, Turret turHigh90) {
+  public ScoreHighN90(Arm hiScoreN90, Pivot pvtHiN90, Gripper gripHighN90, Turret turHighN90) {
    
     addCommands(
-      new PivotPID(pvtHi90, PivotConstants.PVT_ENC_90_HIGH_SCORE),
-      new TurretPID(turHigh90, -90).withTimeout(1),
-      new ArmPID(hiScore90, Constants.ArmConstants.ARM_90_HIGH)//,
+      new PivotPID(pvtHiN90, PivotConstants.PVT_ENC_90_HIGH_SCORE).withTimeout(2),
+      new TurretPID(turHighN90, -90).withTimeout(1),
+      new ArmPID(hiScoreN90, Constants.ArmConstants.ARM_90_HIGH).withTimeout(2)//,
       //new ReleasePiece(gripHigh90).asProxy()
       );
       
