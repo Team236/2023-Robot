@@ -18,11 +18,11 @@ public class LLDistance extends CommandBase {
     //d = Distance to target (want 14" or 16" distance in order to be in front of Grid)
     //tan(a1 +a2)  = (h2-h1)/dx;
 
-  private double kY = 0.00785; //0.00725;
+  private double kY = 0.02; //0.00725;
   
-  private double h1 = 33; //inches, from ground to center of camera lens
+  private double h1 = 32.5; //inches, from ground to center of camera lens
   //private double h2 = 18; // inches, same unit as d, to center of target
-  private double a1 = Math.toRadians(20); //20 degrees, camera tilt
+  private double a1 = Math.toRadians(21); //20 degrees, camera tilt
   private double dist11; // desired distance from camera to target in inches; pass into command
   //private Limelight limelight;
   private Drive drive11;
@@ -87,8 +87,8 @@ public class LLDistance extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
-    /*if(tv==1 && Math.abs(errorY)<=1){
+    //return false;
+    if(tv==1 && Math.abs(errorY)<=1){
       SmartDashboard.putBoolean("LLDistance isFinished:", true);
       return true;
       }   
@@ -100,6 +100,6 @@ public class LLDistance extends CommandBase {
       SmartDashboard.putNumber("No Shoot Target", tv);
       return true;
       }
-      */
+      
 }
   }

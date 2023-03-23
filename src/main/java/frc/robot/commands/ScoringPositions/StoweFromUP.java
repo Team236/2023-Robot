@@ -4,6 +4,7 @@
 
 package frc.robot.commands.ScoringPositions;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
 import frc.robot.commands.Arm.ArmRetract;
@@ -14,23 +15,26 @@ import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Pivot;
 import frc.robot.subsystems.Turret;
 
+
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class Stowe extends SequentialCommandGroup {
-  /** Creates a new StowPosition. */
-  public Stowe(Arm armStow, Pivot pvtStow, Turret turretStow) {
+public class StoweFromUP extends SequentialCommandGroup {
 
-addCommands(
+  /** Creates a new StoweFromUP. */
+  public StoweFromUP(Arm armSFU, Pivot pivotSFU, Turret turretSFU) {
 
-  new ArmRetract(armStow, 0.5).withTimeout(3),
- // new TurretPID(turretStow, 1).withTimeout(4),
-  new PivotDown(pvtStow, 0.25).withTimeout(6)
+    SmartDashboard.putNumber("turret angle in SFU: ", turretSFU.getTurretAngle());
+    // Add your commands in the addCommands() call, e.g.
+    // addCommands(new FooCommand(), new BarCommand());
+    addCommands(
+    new ArmRetract(armSFU, 0.5).withTimeout(3),  //arm retracts to limit at speed of 0.5
+    new TurretPID(turretSFU, 0.5).withTimeout(1),  //moves Turret to 0.5 degrees
+    new PivotDown(pivotSFU, 0.25).withTimeout(12)  //pivot down to limit as speed 0.25
 
-
-  );
-
-  }
-
+    );
+  
 }
-
+}

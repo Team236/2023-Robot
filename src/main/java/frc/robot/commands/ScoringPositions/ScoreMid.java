@@ -30,8 +30,9 @@ public class ScoreMid extends SequentialCommandGroup {
     //From higher angle (getPivotEncoder > target): ArmPID then PivotDownPID
     addCommands(
     new ArmPID(midScore, Constants.ArmConstants.ARM_MID).withTimeout(1),
-    new PivotDownPID(pvtMid, Constants.PivotConstants.PVT_ENC_MID_SCORE).withTimeout(1),
-    new ReleasePiece(gripMid).asProxy()
+    new PivotDownPID(pvtMid, Constants.PivotConstants.PVT_ENC_MID_SCORE).withTimeout(1)
+    //,
+    //new ReleasePiece(gripMid).asProxy()
     );
     }
     else {

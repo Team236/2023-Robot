@@ -11,7 +11,7 @@ import java.lang.Math;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class LLAngle extends CommandBase {
-  private double kX = 0.03;  //0.005??
+  private double kX = 0.017;  //0.005??
   private double tv, distX, errorX;
   private Drive drive10;
   private double pipeline10, cameraXoffset;
@@ -30,7 +30,7 @@ public class LLAngle extends CommandBase {
     SmartDashboard.putNumber("LLangle init", pipeline10);
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(0);
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(pipeline10);
-    cameraXoffset = 0; //need to figure out
+    cameraXoffset = 4; //need to figure out
 
   }
 
@@ -45,7 +45,7 @@ public class LLAngle extends CommandBase {
      // double errorY = NetworkTableInstance.getDefault().getTable("limelight").
        // getIntegerTopic("targetpose_cameraspace").subscribe(new double[]{}).get()[2];  //or 0?
     if(tv==1) {
-      if (Math.abs(errorX)>2){
+      if (Math.abs(errorX)>0.5){
       //double x = (errorX-160)/320;
       //Establishes a minimum error in the x axis 
       SmartDashboard.putNumber("Adjust Angle, ErrorX is:", errorX);
@@ -69,8 +69,8 @@ public class LLAngle extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-     return false;
-/* 
+    // return false;
+
     if(tv==1 && Math.abs(errorX)<=2){
       SmartDashboard.putBoolean("LLAngle isFinished:", true);
       return true;
@@ -83,7 +83,6 @@ public class LLAngle extends CommandBase {
       SmartDashboard.putNumber("No Shoot Target", tv);
       return true;
       }
-  */
 }
 
 }

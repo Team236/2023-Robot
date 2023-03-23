@@ -179,11 +179,11 @@ public static class ArmConstants { ///FOR TESTBOT: subject to change for final
 
   public static final double ARM_MID = 13.25; //inches, arm extend distance for middle level
   public static final double ARM_HIGH = 28.5; //inches, arm extend distance for high level
-  public static final double ARM_LOW = 0;  // may need to revise after shortening the arm
+  public static final double ARM_LOW = 9;  // may need to revise after shortening the arm
   public static final double ARM_90_MID = 5.86; //ADJUST- for when turret at 90 or 270 //11.35
   public static final double ARM_90_HIGH = 24.0; //ADJUST- for when turret at 90 or 270
 
-  public static final double ARM_90_LOW = 0; //ADJUST- for when turret at 90 or 270
+  public static final double ARM_90_LOW = 9; //ADJUST- for when turret at 90 or 270
   public static double ARM_STOW = 0; //inches, arm extend distance stowed and low level(fully retracted)
   public static double ARM_LOAD_STN = 0; //inches, arm extend distance for getting pieces from loading station
   public static double ARM_PICKUP = 12.5;
@@ -276,8 +276,8 @@ public static class TurretConstants {
   public static final double TURRET_RIGHT = 90;
   public static final double TURRET_LEFT = 270;
 
-  public static final double TURRET_CW_SPEED = 0.1;
-  public static final double TURRET_CCW_SPEED = 0.1; //This must also be positive.  Negative added in method
+  public static final double TURRET_CW_SPEED = 0.06;
+  public static final double TURRET_CCW_SPEED = 0.07; //This must also be positive.  Negative added in method
 
 //TUrret Brake Solenoid
   public static final int TURRET_BRAKE_FOR = 6;
