@@ -100,7 +100,7 @@ public final class Constants {
 
     //placeholder numbers for beginning of season //testbed OG - 2022 old - testbed swapped - 2022 new
     public static final int ID_LEFT_FRONT = 35; //10 - 30 - 11 - 1
-    public static final int ID_RIGHT_FRONT = 31; //15 - 43 - 16 - 2
+    public static final int ID_RIGHT_FRONT = 1; //15 - 43 - 16 - 2 - 31 is fried now
     public static final int ID_LEFT_REAR = 34;// 11 - 44 - 10 - 3
     public static final int ID_RIGHT_REAR = 32; //16 - 45 - 15 - 4
 
