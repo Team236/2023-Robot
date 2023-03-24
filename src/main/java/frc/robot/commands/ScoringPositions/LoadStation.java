@@ -39,8 +39,8 @@ public class LoadStation extends SequentialCommandGroup {
     //From lower angle (getPivotEncoder < target):  PivotPID (pivoting up) then ArmPID 
     addCommands(
     new PivotPID(loadPivot, Constants.PivotConstants.PVT_ENC_90).withTimeout(1),
-    new ArmPID(loadStation, Constants.ArmConstants.ARM_LOAD_STN).withTimeout(1)//,
-   // new ReleasePiece(gripLoad).asProxy()
+    new ArmPID(loadStation, Constants.ArmConstants.ARM_LOAD_STN).withTimeout(1),
+    new ReleasePiece(gripLoad).asProxy()
     );
 
     }
