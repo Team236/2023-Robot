@@ -19,6 +19,8 @@ import frc.robot.commands.Arm.ArmRetract;
 import frc.robot.commands.Autos.BackwardCenter;
 import frc.robot.commands.Autos.ScoreDrive;
 import frc.robot.commands.Drive.DoubleArcadeDrive;
+import frc.robot.commands.Drive.HighGear;
+import frc.robot.commands.Drive.LowGear;
 import frc.robot.commands.Drive.ToggleTransmission;
 import frc.robot.commands.Gripper.GrabReleaseToggle;
 import frc.robot.commands.Pivot.PivotDown;
@@ -125,11 +127,12 @@ public class RobotContainer {
     POVButton rightPov1 = new POVButton(controller, Constants.ControllerConstants.XboxController.POVXbox.RIGHT_ANGLE);
     // ASSIGN BUTTONS TO COMMANDS
     //AUXController
-    menu1.whileTrue(new GrabReleaseToggle(gripper));
+    menu1.whileTrue(new HighGear(drive));
+    view1.whileTrue(new LowGear(drive));
     y1.whileTrue(new LoadStation(arm, pivot, gripper));
     x1.whileTrue(new Pickup(arm, pivot, gripper));
     b1.whileTrue(new PickupToStow(pivot, arm));
-    a1.whileTrue(new ToggleTransmission(drive));
+    a1.whileTrue(new GrabReleaseToggle(gripper));
     rb1.whileTrue(new ScoreHigh90(arm, pivot, gripper, turret));
     rm1.whileTrue(new ScoreMid90(arm, pivot, gripper, turret));
     lb1.whileTrue(new ScoreHighN90(arm, pivot, gripper, turret));
