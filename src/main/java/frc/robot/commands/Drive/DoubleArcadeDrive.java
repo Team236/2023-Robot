@@ -33,6 +33,7 @@ public class DoubleArcadeDrive extends CommandBase {
     navX = new AHRS();
     drive.resetLeftEncoder();
     drive.resetRightEncoder();
+    drive.openRampRate();
   }
   // Called every time the scheduler runs while the command is scheduled.
   @Override
