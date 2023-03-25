@@ -23,9 +23,9 @@ public class Stowe extends SequentialCommandGroup {
 
 addCommands(
 
-  new ArmRetract(armStow, 0.5).withTimeout(3),
+  new ArmRetract(armStow, 0.75).withTimeout(3),
  // new TurretPID(turretStow, 1).withTimeout(4),
-  new PivotDown(pvtStow, 0.25).withTimeout(6)
+  new PivotDown(pvtStow, 0.55).withTimeout(6)
 
 
   );

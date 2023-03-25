@@ -45,8 +45,8 @@ public class ScoreMid90 extends SequentialCommandGroup {
     addCommands(
     new PivotPID(pvtMid90, Constants.PivotConstants.PVT_ENC_90_MID_SCORE).withTimeout(1),
     
-    new TurretPID(turMid90, 90).withTimeout(1),
-    new ArmPID(midScore90, Constants.ArmConstants.ARM_90_MID).withTimeout(1)
+    parallel(new TurretPID(turMid90, 90).withTimeout(1),
+    new ArmPID(midScore90, Constants.ArmConstants.ARM_90_MID).withTimeout(1))
     //,
     //new ReleasePiece(gripMid90).asProxy()
     );
