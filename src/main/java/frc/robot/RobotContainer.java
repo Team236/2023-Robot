@@ -164,10 +164,10 @@ public class RobotContainer {
  
 menu.whileTrue(new TurretPID(turret, 1));
 
- upPov.whileTrue(new PivotUp(pivot, 0.7));
- downPov.whileTrue(new PivotDown(pivot, 0.6));
- rightPov.whileTrue(new ArmExtend(arm, 0.5));
-  leftPov.whileTrue(new ArmRetract(arm, 0.5));
+ upPov.whileTrue(new PivotUp(pivot, 0.8));
+ downPov.whileTrue(new PivotDown(pivot, 0.7));
+ rightPov.whileTrue(new ArmExtend(arm, 0.75));
+  leftPov.whileTrue(new ArmRetract(arm, 0.75));
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
