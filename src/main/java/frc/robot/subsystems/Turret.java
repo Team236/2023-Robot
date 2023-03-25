@@ -47,6 +47,14 @@ public class Turret extends SubsystemBase {
     }
   }
 
+  public void closedRampRate() {
+    turretMotor.setClosedLoopRampRate(0.08);
+  }
+
+  public void openRampRate() {
+    turretMotor.setOpenLoopRampRate(0.08);
+  }
+
 
   public boolean isCWLimit() {
 

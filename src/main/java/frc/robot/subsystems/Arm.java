@@ -26,6 +26,7 @@ public class Arm extends SubsystemBase {
   public Arm() {
 
     armMotor = new CANSparkMax(Constants.MotorControllers.ID_ARM, MotorType.kBrushless); 
+    armMotor.setSmartCurrentLimit(40);
 
     armMotor.restoreFactoryDefaults();
     armMotor.setInverted(false);
@@ -41,6 +42,14 @@ public class Arm extends SubsystemBase {
     } catch (Exception e) {
       isArmRetLimitUnplugged = true;
     }
+  }
+
+  public void closedRampRate() {
+    armMotor.setClosedLoopRampRate(0.08);
+  }
+
+  public void openRampRate() {
+    armMotor.setOpenLoopRampRate(0.08);
   }
   public void armStop() {
     armMotor.set(0);;
