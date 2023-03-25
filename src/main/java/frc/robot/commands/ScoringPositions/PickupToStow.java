@@ -21,8 +21,8 @@ public class PickupToStow extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new PivotPID(pvtPs, 3000).withTimeout(1),
-      new ArmRetract(armPs, 0.5).withTimeout(3),
-      new PivotDown(pvtPs, 0.5).withTimeout(5)
+      new ArmRetract(armPs, 0.75).withTimeout(3),
+      new PivotDown(pvtPs, 0.75).withTimeout(5)
     );
   }
 }
