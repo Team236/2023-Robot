@@ -19,6 +19,7 @@ public class TurretCCW extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    turret1.openRampRate();
     turret1.turretRelease();
     new WaitCommand(0.25);
   }
