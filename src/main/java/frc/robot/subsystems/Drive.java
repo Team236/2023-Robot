@@ -191,8 +191,8 @@ public class Drive extends SubsystemBase {
     //SmartDashboard.putNumber("pitch", navX.getPitch());
    // SmartDashboard.putNumber("roll", navX.getRoll());
     SmartDashboard.getBoolean("In Low Gear?", inLowGear());
-    //SmartDashboard.putNumber("left enc", getLeftEncoder());
-    //SmartDashboard.putNumber("right enc", getRightEncoder());
+    SmartDashboard.putNumber("left enc", getLeftEncoder());
+    SmartDashboard.putNumber("right enc", getRightEncoder());
     //SmartDashboard.putNumber("rightDis", getRightDistance());
     //SmartDashboard.putNumber("left dis", getLeftDistance());
     // This method will be called once per scheduler run

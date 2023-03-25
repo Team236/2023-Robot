@@ -123,7 +123,7 @@ public class Arm extends SubsystemBase {
    //SmartDashboard.putNumber("arm encoder", getArmEncoder());
    SmartDashboard.putBoolean("arm extend limit", isAExtLimit());
     SmartDashboard.putBoolean("arm ret lim", isARetLimit());
-   SmartDashboard.putNumber("armDist", getArmDistance());
-   SmartDashboard.putNumber("arm Encoder: ", getArmEncoder());
+   //SmartDashboard.putNumber("armDist", getArmDistance());
+   //SmartDashboard.putNumber("arm Encoder: ", getArmEncoder());
   }
 }
