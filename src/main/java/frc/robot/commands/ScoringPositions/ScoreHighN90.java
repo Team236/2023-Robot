@@ -28,7 +28,7 @@ public class ScoreHighN90 extends SequentialCommandGroup {
   public ScoreHighN90(Arm hiScoreN90, Pivot pvtHiN90, Gripper gripHighN90, Turret turHighN90) {
    
     addCommands(
-      new PivotPID(pvtHiN90, PivotConstants.PVT_ENC_90_HIGH_SCORE).withTimeout(2),
+      new PivotPID(pvtHiN90, PivotConstants.PVT_ENC_90_HIGH_SCORE).withTimeout(1.5),
       parallel(new TurretPID(turHighN90, -90).withTimeout(1),
       new ArmPID(hiScoreN90, Constants.ArmConstants.ARM_90_HIGH).withTimeout(2))//,
       //new ReleasePiece(gripHigh90).asProxy()

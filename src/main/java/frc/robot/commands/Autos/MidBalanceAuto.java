@@ -14,9 +14,9 @@ import frc.robot.subsystems.Pivot;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class BackwardCenter extends SequentialCommandGroup {
+public class MidBalanceAuto extends SequentialCommandGroup {
   /** Creates a new BackwardCenter. */
-  public BackwardCenter(Arm backwardA, Gripper backwardG, Drive backwardD, Pivot backwardP) {
+  public MidBalanceAuto(Arm backwardA, Gripper backwardG, Drive backwardD, Pivot backwardP) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(

@@ -16,7 +16,8 @@ import frc.robot.Constants.ControllerConstants;
 import frc.robot.Constants.TurretConstants;
 import frc.robot.commands.Arm.ArmExtend;
 import frc.robot.commands.Arm.ArmRetract;
-import frc.robot.commands.Autos.BackwardCenter;
+import frc.robot.commands.Autos.HighBalanceAuto;
+import frc.robot.commands.Autos.MidBalanceAuto;
 import frc.robot.commands.Autos.ScoreDrive;
 import frc.robot.commands.Drive.DoubleArcadeDrive;
 import frc.robot.commands.Drive.HighGear;
@@ -127,20 +128,20 @@ public class RobotContainer {
     POVButton rightPov1 = new POVButton(controller, Constants.ControllerConstants.XboxController.POVXbox.RIGHT_ANGLE);
     // ASSIGN BUTTONS TO COMMANDS
     //AUXController
-    menu1.whileTrue(new HighGear(drive));
-    view1.whileTrue(new LowGear(drive));
-    y1.whileTrue(new LoadStation(arm, pivot, gripper));
-    x1.whileTrue(new Pickup(arm, pivot, gripper));
-    b1.whileTrue(new PickupToStow(pivot, arm));
-    a1.whileTrue(new GrabReleaseToggle(gripper));
-    rb1.whileTrue(new ScoreHigh90(arm, pivot, gripper, turret));
-    rm1.whileTrue(new ScoreMid90(arm, pivot, gripper, turret));
-    lb1.whileTrue(new ScoreHighN90(arm, pivot, gripper, turret));
-    lm1.whileTrue(new ScoreMidN90(arm, pivot, gripper, turret));
+    menu1.onTrue(new HighGear(drive));
+    view1.onTrue(new LowGear(drive));
+    y1.onTrue(new LoadStation(arm, pivot, gripper));
+    x1.onTrue(new Pickup(arm, pivot, gripper));
+    b1.onTrue(new PickupToStow(pivot, arm));
+    a1.onTrue(new GrabReleaseToggle(gripper));
+    rb1.onTrue(new ScoreHigh90(arm, pivot, gripper, turret));
+    rm1.onTrue(new ScoreMid90(arm, pivot, gripper, turret));
+    lb1.onTrue(new ScoreHighN90(arm, pivot, gripper, turret));
+    lm1.onTrue(new ScoreMidN90(arm, pivot, gripper, turret));
 
    //upPov1.whileTrue(new TurretBrake(turret));
  // upPov1.whileTrue(new LLAngle(drive, 0));
-   upPov1.whileTrue(new StoweFromUP(arm, pivot, turret));
+   upPov1.onTrue(new StoweFromUP(arm, pivot, turret));
    downPov1.whileTrue(new LLSideDistance(drive, turret, 0));
   //downPov1.whileTrue(new LLDistance(drive, 0, 40, 18));
   //downPov1.whileTrue(new Stowe(arm, pivot, turret));
@@ -153,16 +154,16 @@ public class RobotContainer {
 
     
    //DRIVECONTROLLER******
-  a.whileTrue(new ToggleTransmission(drive));
-  b.whileTrue(new GrabReleaseToggle(gripper));
-  x.whileTrue(new ScoreLow(arm, pivot, gripper));
-  y.whileTrue(new Pickup(arm, pivot, gripper));
-  rb.whileTrue(new LoadStation(arm, pivot, gripper));
- lb.whileTrue(new ScoreMid(arm, pivot, gripper));
- rm.whileTrue(new ScoreHigh(arm, pivot, gripper));
- lm.whileTrue(new PickupToStow(pivot, arm));
+  a.onTrue(new ToggleTransmission(drive));
+  b.onTrue(new GrabReleaseToggle(gripper));
+  x.onTrue(new ScoreLow(arm, pivot, gripper));
+  y.onTrue(new Pickup(arm, pivot, gripper));
+  rb.onTrue(new LoadStation(arm, pivot, gripper));
+ lb.onTrue(new ScoreMid(arm, pivot, gripper));
+ rm.onTrue(new ScoreHigh(arm, pivot, gripper));
+ lm.onTrue(new PickupToStow(pivot, arm));
  
-menu.whileTrue(new TurretPID(turret, 1));
+menu.onTrue(new TurretPID(turret, 1));
 
  upPov.whileTrue(new PivotUp(pivot, 0.8));
  downPov.whileTrue(new PivotDown(pivot, 0.7));
@@ -174,10 +175,12 @@ menu.whileTrue(new TurretPID(turret, 1));
    */
   public Command getAutonomousCommand() {
     if (!autoSwitch1.get() && autoSwitch2.get() && autoSwitch3.get() && autoSwitch4.get()) {
-      return (new BackwardCenter(arm, gripper, drive, pivot));
-    } else {
-      return (new ScoreDrive(arm, pivot, drive, gripper));
-    }
+      return (new MidBalanceAuto(arm, gripper, drive, pivot));
+    } else if (autoSwitch1.get() && !autoSwitch2.get() && autoSwitch3.get() && autoSwitch4.get())
+  {
+    return (new HighBalanceAuto(arm, gripper, drive, pivot));
+  } else {
+      return (new ScoreDrive(arm, pivot, drive, gripper)); }
      /*else if (!autoSwitch1.get() && !autoSwitch3.get()) {
       return quadruplePosition1;
     } else if (!autoSwitch1.get() && !autoSwitch4.get()) {

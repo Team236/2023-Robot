@@ -225,11 +225,11 @@ public static class PivotConstants {
   //NO LINEAR RELATIONSHIP BETWEEN ANGLE AND ENCODER READING FOR PIVOT
   //BELOW ARE VALUES OF PIVOT ENCODER AT VARIOUS ANGLES 
 public static final double PVT_ENC_STOW = 0;  //20 degrees?  17 degrees?
-public static final double PVT_ENC_PICKUP = 1324;  //29 degrees
+public static final double PVT_ENC_PICKUP = 1224;  //29 degrees
 public static final double PVT_ENC_45 = 3098; //45 degrees
 public static final double PVT_ENC_LOW_SCORE = 4862; //58 degrees
 public static final double PVT_ENC_90_LOW_SCORE = 4862; //ADJUST - for when turret at 90 or 270
-public static final double PVT_ENC_90 = 9000; //90 degrees - 9289
+public static final double PVT_ENC_90 = 8700; //90 degrees - 9289
 public static final double PVT_ENC_MID_SCORE = 10065;//95 degrees (7.25" arm extend) //7666
 public static final double PVT_ENC_90_MID_SCORE = 9414; //determinied on 3/20/23
 public static final double PVT_ENC_99 = 10548;// 99 degrees
