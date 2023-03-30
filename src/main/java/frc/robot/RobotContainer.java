@@ -128,9 +128,9 @@ public class RobotContainer {
     POVButton rightPov1 = new POVButton(controller, Constants.ControllerConstants.XboxController.POVXbox.RIGHT_ANGLE);
     // ASSIGN BUTTONS TO COMMANDS
     //AUXController
-    menu1.onTrue(new HighGear(drive));
-    view1.onTrue(new LowGear(drive));
-    y1.onTrue(new LoadStation(arm, pivot, gripper));
+    menu1.whileTrue(new HighGear(drive));
+    view1.whileTrue(new LowGear(drive));
+    y1.whileTrue(new LoadStation(arm, pivot, gripper));
     x1.onTrue(new Pickup(arm, pivot, gripper));
     b1.onTrue(new PickupToStow(pivot, arm));
     a1.onTrue(new GrabReleaseToggle(gripper));

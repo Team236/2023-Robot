@@ -137,7 +137,7 @@ if ((speed > 0) && isCWLimit()) {
     //SmartDashboard.putNumber("turret encoder", getTurretEncoder());
    // SmartDashboard.putNumber("turret Angle", getTurretAngle());
     SmartDashboard.putBoolean("turret magnetic limit switch", isTLimit());
-    SmartDashboard.putBoolean("turret CW limit (115) ", isCWLimit());
+    SmartDashboard.putBoolean("turret CW limit (190) ", isCWLimit());
    SmartDashboard.putBoolean("turretCCW limit (-115) ", isCCWLimit());
 
 

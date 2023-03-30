@@ -265,7 +265,7 @@ public static class TurretConstants {
   public static final int DIO_TRRT_ENC_A = 5;
   public static final int DIO_TRRT_ENC_B = 4;
 
-  public static final double TURRET_CW_STOP_ANGLE = 115;
+  public static final double TURRET_CW_STOP_ANGLE = 190;
   public static final double TURRET_CCW_STOP_ANGLE = -115;
 
 
