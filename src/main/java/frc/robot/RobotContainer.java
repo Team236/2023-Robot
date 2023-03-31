@@ -16,8 +16,11 @@ import frc.robot.Constants.ControllerConstants;
 import frc.robot.Constants.TurretConstants;
 import frc.robot.commands.Arm.ArmExtend;
 import frc.robot.commands.Arm.ArmRetract;
+import frc.robot.commands.Autos.DriveAtSetSpeed;
 import frc.robot.commands.Autos.HighBalanceAuto;
 import frc.robot.commands.Autos.MidBalanceAuto;
+import frc.robot.commands.Autos.Score2Attempt1;
+import frc.robot.commands.Autos.ScoreCubeCone;
 import frc.robot.commands.Autos.ScoreDrive;
 import frc.robot.commands.Drive.DoubleArcadeDrive;
 import frc.robot.commands.Drive.HighGear;
@@ -154,9 +157,9 @@ public class RobotContainer {
 
     
    //DRIVECONTROLLER******
-  a.onTrue(new ToggleTransmission(drive));
+  a.whileTrue(new ScoreCubeCone(arm, pivot, turret, gripper, drive));
   b.onTrue(new GrabReleaseToggle(gripper));
-  x.onTrue(new ScoreLow(arm, pivot, gripper));
+  x.whileTrue(new DriveAtSetSpeed(drive, 165, 0.7));
   y.onTrue(new Pickup(arm, pivot, gripper));
   rb.onTrue(new LoadStation(arm, pivot, gripper));
  lb.onTrue(new ScoreMid(arm, pivot, gripper));
@@ -164,11 +167,12 @@ public class RobotContainer {
  lm.onTrue(new PickupToStow(pivot, arm));
  
 menu.onTrue(new TurretPID(turret, 1));
+view.onTrue(new TurretBrake(turret));
 
  upPov.whileTrue(new PivotUp(pivot, 0.8));
  downPov.whileTrue(new PivotDown(pivot, 0.7));
  rightPov.whileTrue(new ArmExtend(arm, 0.75));
-  leftPov.whileTrue(new ArmRetract(arm, 0.75));
+  leftPov.whileTrue(new ArmRetract(arm, 0.55));
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -180,7 +184,7 @@ menu.onTrue(new TurretPID(turret, 1));
   {
     return (new HighBalanceAuto(arm, gripper, drive, pivot));
   } else {
-      return (new ScoreDrive(arm, pivot, drive, gripper)); }
+      return (new ScoreCubeCone(arm, gripper, drive, pivot, turret, driveController)); }
      /*else if (!autoSwitch1.get() && !autoSwitch3.get()) {
       return quadruplePosition1;
     } else if (!autoSwitch1.get() && !autoSwitch4.get()) {

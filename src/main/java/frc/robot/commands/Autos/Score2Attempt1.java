@@ -22,21 +22,21 @@ import frc.robot.subsystems.Turret;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class Score2withSpin extends SequentialCommandGroup {
+public class Score2Attempt1 extends SequentialCommandGroup {
   /** Creates a new ScoreToCenter. */
-  public Score2withSpin(Arm scoreSpin, Gripper gripSpin, Drive driveSpin, Pivot pvtSpin, Turret trrtSpin, XboxController driver) {
+  public Score2Attempt1(Arm scoreSpin, Gripper gripSpin, Drive driveSpin, Pivot pvtSpin, Turret trrtSpin, XboxController driver) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-    //   new AutoScoreHigh(scoreSpin, pvtSpin, gripSpin).withTimeout(2),
-    //  parallel(new DriveAtSetSpeed(driveSpin, 180, -0.5).withTimeout(4),
-    //   new TurretPID(trrtSpin, 180).withTimeout(2),  
-    //   new ArmRetract(scoreSpin, 0.7).withTimeout(1.5),
-    //   new PivotDown(scoreSpin, 0.75).withTimeout(1.5)),
-    //   new Pickup(scoreSpin, pvtSpin, gripSpin),
-    //   new Grab(gripSpin).asProxy(),
-    //   parallel(new TurretCCW(trrtSpin, 0.2).withTimeout(2), new DriveAtSetSpeed(driveSpin, 180, 0.5)).withTimeout(4),
-    //   //new AutoScoreMid(pvtSpin, scoreSpin, gripSpin).withTimeout(2)
+     new AutoScoreHigh(scoreSpin, pvtSpin, gripSpin).withTimeout(2),
+    parallel(new DriveAtSetSpeed(driveSpin, 180, -0.5).withTimeout(4),
+     new TurretPID(trrtSpin, 180).withTimeout(2),  
+     new ArmRetract(scoreSpin, 0.7).withTimeout(1.5),
+     new PivotDown(pvtSpin, 0.75).withTimeout(1.5)),
+     new Pickup(scoreSpin, pvtSpin, gripSpin).withTimeout(1),
+     new Grab(gripSpin).asProxy().withTimeout(1),
+     parallel(new TurretCCW(trrtSpin, 0.2).withTimeout(2), new DriveAtSetSpeed(driveSpin, 180, 0.5)).withTimeout(4),
+    new AutoScoreMid(pvtSpin, scoreSpin, gripSpin).withTimeout(2)
 
     );
   }

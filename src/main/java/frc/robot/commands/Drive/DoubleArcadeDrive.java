@@ -15,7 +15,7 @@ public class DoubleArcadeDrive extends CommandBase {
   private Drive drive;
   private Gripper gripper;
   private Boolean isDeadzone = Constants.DriveConstants.IS_DEADZONE;
-  private double max, L, R, kPgyro, error;
+  private double max, L, R, kPgyro, error, sensitivityX,sensitivityY;
   private XboxController driveController;
   private AHRS navX;
   /** Creates a new DoubleArcadeDrive. */
@@ -49,18 +49,26 @@ public class DoubleArcadeDrive extends CommandBase {
     double max, L, R, kPgyro, error;
     kPgyro = 0.00; //0.09
     error = 0;//navX.getRate(); // until we verify that this doesn't break drive
+    if (drive.inLowGear()) {
+      sensitivityX = 1;
+      sensitivityY = 1;
+     } else if (!drive.inLowGear()) {
+       sensitivityX = 0.9;
+       sensitivityY = 0.75;
+     }
+
     if ((Math.abs(driveController.getLeftX()) > 0.05) && (Math.abs(driveController.getRightY()) <= 0.05)) {
-      L = driveController.getLeftX();
-      R = -driveController.getLeftX();
+      L = driveController.getLeftX()*sensitivityX;
+      R = -driveController.getLeftX()*sensitivityX;
     } else if ((Math.abs(driveController.getLeftX()) <= 0.05) && (Math.abs(driveController.getRightY()) <= 0.05)) {
       L = (0);//-driveController.getRightY() //+ (kPgyro*error));
       R = (0);//-driveController.getRightY() //- (kPgyro*error));
     } else if ((Math.abs(driveController.getLeftX()) > 0.05) && (Math.abs(driveController.getRightY()) > 0.05)) {
-      L = -driveController.getRightY() + driveController.getLeftX();
-      R = -driveController.getRightY() - driveController.getLeftX();
+      L = -driveController.getRightY()*sensitivityY + driveController.getLeftX()*sensitivityX;
+      R = -driveController.getRightY()*sensitivityY - driveController.getLeftX()*sensitivityX;
     } else {
-      L = (-driveController.getRightY());//- (kPgyro*error));
-      R = (-driveController.getRightY()); //+ (kPgyro*error));
+      L = (-driveController.getRightY()*sensitivityY);//- (kPgyro*error));
+      R = (-driveController.getRightY()*sensitivityY); //+ (kPgyro*error));
     }
   
     
