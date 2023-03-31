@@ -184,7 +184,7 @@ view.onTrue(new TurretBrake(turret));
   {
     return (new HighBalanceAuto(arm, gripper, drive, pivot));
   } else {
-      return (new ScoreCubeCone(arm, gripper, drive, pivot, turret, driveController)); }
+      return (new ScoreCubeCone(arm, pivot, turret, gripper, drive));} 
      /*else if (!autoSwitch1.get() && !autoSwitch3.get()) {
       return quadruplePosition1;
     } else if (!autoSwitch1.get() && !autoSwitch4.get()) {

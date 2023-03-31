@@ -5,6 +5,7 @@
 package frc.robot.commands.ScoringPositions;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.commands.Arm.ArmPID;
 import frc.robot.commands.Arm.ArmRetract;
 import frc.robot.commands.Pivot.PivotDown;
 import frc.robot.commands.Pivot.PivotPID;
@@ -21,7 +22,7 @@ public class PickupToStow extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new PivotPID(pvtPs, 3000).withTimeout(1),
-      new ArmRetract(armPs, 0.75).withTimeout(3),
+      new ArmPID(armPs, 0.1).withTimeout(2),
       new PivotDown(pvtPs, 0.75).withTimeout(5)
     );
   }
