@@ -7,9 +7,11 @@ package frc.robot.commands.ScoringPositions;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
+import frc.robot.commands.Arm.ArmPID;
 import frc.robot.commands.Arm.ArmRetract;
 import frc.robot.commands.Gripper.ReleasePiece;
 import frc.robot.commands.Pivot.PivotDown;
+import frc.robot.commands.Turret.TurretBrake;
 import frc.robot.commands.Turret.TurretPID;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Pivot;
@@ -30,9 +32,10 @@ public class StoweFromUP extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-    new ArmRetract(armSFU, 0.85).withTimeout(2),  //arm retracts to limit at speed of 0.5
+    new ArmPID(armSFU, 0.01).withTimeout(1),  //arm retracts to limit at speed of 0.5
     parallel(new TurretPID(turretSFU, 0.5).withTimeout(3),  //moves Turret to 0.5 degrees
-    new PivotDown(pivotSFU, 0.55).withTimeout(4))  //pivot down to limit as speed 0.25
+    new PivotDown(pivotSFU, 0.55).withTimeout(3)),
+    new TurretBrake(turretSFU).asProxy() //pivot down to limit as speed 0.25
 
     );
   

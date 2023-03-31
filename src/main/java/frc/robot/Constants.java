@@ -230,7 +230,7 @@ public static final double PVT_ENC_45 = 3098; //45 degrees
 public static final double PVT_ENC_LOW_SCORE = 4862; //58 degrees
 public static final double PVT_ENC_90_LOW_SCORE = 4862; //ADJUST - for when turret at 90 or 270
 public static final double PVT_ENC_90 = 8700; //90 degrees - 9289
-public static final double PVT_ENC_MID_SCORE = 10065;//95 degrees (7.25" arm extend) //7666
+public static final double PVT_ENC_MID_SCORE = 9900;//95 degrees (7.25" arm extend) //7666
 public static final double PVT_ENC_90_MID_SCORE = 9414; //determinied on 3/20/23
 public static final double PVT_ENC_99 = 10548;// 99 degrees
 public static final double PVT_ENC_HIGH_SCORE = 11188; //104 degrees (24.5" arm extend)
@@ -266,7 +266,7 @@ public static class TurretConstants {
   public static final int DIO_TRRT_ENC_B = 4;
 
   public static final double TURRET_CW_STOP_ANGLE = 190;
-  public static final double TURRET_CCW_STOP_ANGLE = -115;
+  public static final double TURRET_CCW_STOP_ANGLE = -190;
 
 
  // public static final double TURRET_RANGE = 360;  // -180 to +180 
