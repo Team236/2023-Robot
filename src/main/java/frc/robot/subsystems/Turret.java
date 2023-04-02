@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 import frc.robot.Constants;
 import frc.robot.Constants.TurretConstants;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -16,7 +17,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Turret extends SubsystemBase {
   private CANSparkMax turretMotor;
-  private Encoder turretEncoder;
+  //private Encoder turretEncoder;
+  private RelativeEncoder turretEncoder;
   private DoubleSolenoid turretBrake;
   private DigitalInput trrtLimit;
   private boolean isTUnplugged = false;
@@ -26,8 +28,9 @@ public class Turret extends SubsystemBase {
     turretMotor.restoreFactoryDefaults();
     turretMotor.setInverted(true);
     turretMotor.setSmartCurrentLimit(40);
-    turretEncoder = new Encoder(TurretConstants.DIO_TRRT_ENC_A, TurretConstants.DIO_TRRT_ENC_B); //external encoder
-    turretEncoder.setDistancePerPulse(TurretConstants.turretDEGREES_PER_PULSE);
+    turretEncoder = turretMotor.getEncoder();
+    //turretEncoder = new Encoder(TurretConstants.DIO_TRRT_ENC_A, TurretConstants.DIO_TRRT_ENC_B); //external encoder
+    //turretEncoder.setDistancePerPulse(TurretConstants.turretDEGREES_PER_PULSE);
 
     turretBrake = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, TurretConstants.TURRET_BRAKE_FOR, TurretConstants.TURRET_BRAKE_REV);
 
@@ -95,15 +98,17 @@ public class Turret extends SubsystemBase {
   }
 
   public void resetTurretEncoder() {
-    turretEncoder.reset();
+    turretEncoder.setPosition(0);
+    //turretEncoder.reset();
   }
   public double getTurretEncoder() {
-    return turretEncoder.getRaw();  //returns encoder reading in pulses, not Rev
+    return turretEncoder.getPosition();
+    //return turretEncoder.getRaw();  //returns encoder reading in pulses, not Rev
    //return turretEncoder.get()/128;  //128 ticks per rev, returns REVS
   }
   public double getTurretAngle() {
     //could also use turretEncoder.getDistance() here, since dist per pulse is provided at top of this subystem
-    return (getTurretEncoder() - TurretConstants.turretANGLE_OFFSET)* TurretConstants.turretDEGREES_PER_PULSE;
+    return (getTurretEncoder())* TurretConstants.turretRevsToDeg;
   } 
   
    public void setTurretSpeed(double speed) {
@@ -134,7 +139,7 @@ if ((speed > 0) && isCWLimit()) {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    //SmartDashboard.putNumber("turret encoder", getTurretEncoder());
+    SmartDashboard.putNumber("turret encoder", getTurretEncoder());
    SmartDashboard.putNumber("turret Angle", getTurretAngle());
     SmartDashboard.putBoolean("turret magnetic limit switch", isTLimit());
     SmartDashboard.putBoolean("turret CW limit (190) ", isCWLimit());

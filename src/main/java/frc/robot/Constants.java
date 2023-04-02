@@ -235,7 +235,7 @@ public static final double PVT_ENC_90_MID_SCORE = 9414; //determinied on 3/20/23
 public static final double PVT_ENC_99 = 10548;// 99 degrees
 public static final double PVT_ENC_HIGH_SCORE = 10650; //104 degrees (24.5" arm extend)
 public static final double PVT_ENC_90_HIGH_SCORE = 11188; //ADJUST- for when turret at 90 or 270
-public static final double PVT_ENC_LOAD_STN = 11188;// need to double check
+public static final double PVT_ENC_LOAD_STN = 9450;// need to double check
 
 public static double kPpvt = 0.0004;//0.0004
 public static double kIpvt = 0;
@@ -253,7 +253,7 @@ public static class TurretConstants {
   //DETERMINE DIST PER PULSE BY READING ENCODER VALUES AT VARIOUS ANGLES
   //THE GetTurret ENCODER METHOD READS PULSES, NOT REVOLUTIONS
   //IF WE NEED REV_TO_DEG, IT CAN BE CALCULATED BY MULTIPLYING DIST_PER_PULSE times 128
-  public static final double turretDEGREES_PER_PULSE = 1/4.29;  //TBD- 128 pulses per Rev
+  public static final double turretRevsToDeg = 10.4136;  //TBD- 128 pulses per Rev
   public static final double turretANGLE_OFFSET = 0;//Encoder pulses reading when arm in front center
 
   public static final double kPturret = 0.006;

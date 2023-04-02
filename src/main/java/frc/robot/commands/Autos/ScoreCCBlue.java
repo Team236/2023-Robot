@@ -31,15 +31,15 @@ public class ScoreCCBlue extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      parallel(new PivotPID(pvtCC, 10500), new TurretPID(trrtCC, -144)).withTimeout(1.25), //-144, 10482
+      parallel(new PivotPID(pvtCC, 10500), new TurretPID(trrtCC, -139)).withTimeout(1.25), //-144, 10482
       new ArmPID(armCC, 29.2).withTimeout(1), //29.2
       new ReleasePiece(gripCC).asProxy().withTimeout(0.75),
       new StoweFromUP(armCC, pvtCC, trrtCC).withTimeout(2),
-     parallel(new DriveAtSetSpeed(drCC, 182, 0.65), new Pickup(armCC, pvtCC, gripCC)).withTimeout(3),
+     parallel(new DriveAtSetSpeed(drCC, 180.5, 0.65), new Pickup(armCC, pvtCC, gripCC)).withTimeout(3),
      new WaitCommand(0.2),
      new Grab(gripCC).asProxy().withTimeout(1),
      //new PickupToStow(pvtCC, armCC).withTimeout(2),
-     parallel(new DriveAtSetSpeed(drCC, 182, -0.65), new PivotPID(pvtCC, 9500),
+     parallel(new DriveAtSetSpeed(drCC, 180.5, -0.65), new PivotPID(pvtCC, 9500),
      new TurretPID(trrtCC, -171), new ArmPID(armCC, 20.8)).withTimeout(3.9),
      new ReleasePiece(gripCC).asProxy().withTimeout(1)
     );
