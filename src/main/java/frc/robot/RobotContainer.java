@@ -15,12 +15,13 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.Constants.TurretConstants;
 import frc.robot.commands.Arm.ArmExtend;
+import frc.robot.commands.Arm.ArmPID;
 import frc.robot.commands.Arm.ArmRetract;
 import frc.robot.commands.Autos.DriveAtSetSpeed;
 import frc.robot.commands.Autos.HighBalanceAuto;
 import frc.robot.commands.Autos.MidBalanceAuto;
-import frc.robot.commands.Autos.Score2Attempt1;
-import frc.robot.commands.Autos.ScoreCubeCone;
+import frc.robot.commands.Autos.ScoreCCRed;
+import frc.robot.commands.Autos.ScoreCCBlue;
 import frc.robot.commands.Autos.ScoreDrive;
 import frc.robot.commands.Drive.DoubleArcadeDrive;
 import frc.robot.commands.Drive.HighGear;
@@ -28,6 +29,7 @@ import frc.robot.commands.Drive.LowGear;
 import frc.robot.commands.Drive.ToggleTransmission;
 import frc.robot.commands.Gripper.GrabReleaseToggle;
 import frc.robot.commands.Pivot.PivotDown;
+import frc.robot.commands.Pivot.PivotPID;
 import frc.robot.commands.Pivot.PivotUp;
 import frc.robot.commands.ScoringPositions.LoadStation;
 import frc.robot.commands.ScoringPositions.Pickup;
@@ -157,9 +159,9 @@ public class RobotContainer {
 
     
    //DRIVECONTROLLER******
-  a.whileTrue(new ScoreCubeCone(arm, pivot, turret, gripper, drive));
+  a.whileTrue(new ScoreCCBlue(arm, pivot, turret, gripper, drive));
   b.onTrue(new GrabReleaseToggle(gripper));
-  x.whileTrue(new DriveAtSetSpeed(drive, 165, 0.7));
+  //x.whileTrue;
   y.onTrue(new Pickup(arm, pivot, gripper));
   rb.onTrue(new LoadStation(arm, pivot, gripper));
  lb.onTrue(new ScoreMid(arm, pivot, gripper));
@@ -183,8 +185,13 @@ view.onTrue(new TurretBrake(turret));
     } else if (autoSwitch1.get() && !autoSwitch2.get() && autoSwitch3.get() && autoSwitch4.get())
   {
     return (new HighBalanceAuto(arm, gripper, drive, pivot));
-  } else {
-      return (new ScoreCubeCone(arm, pivot, turret, gripper, drive));} 
+  } else if (!autoSwitch3.get()) {
+      return (new ScoreCCBlue(arm, pivot, turret, gripper, drive));} 
+      else if (!autoSwitch4.get()) {
+        return (new ScoreCCRed(arm, pivot, turret, gripper, drive));
+      } else {
+        return null;
+      }
      /*else if (!autoSwitch1.get() && !autoSwitch3.get()) {
       return quadruplePosition1;
     } else if (!autoSwitch1.get() && !autoSwitch4.get()) {

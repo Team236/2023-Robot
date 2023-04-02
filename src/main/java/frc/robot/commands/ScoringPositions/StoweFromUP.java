@@ -32,7 +32,7 @@ public class StoweFromUP extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-    new ArmPID(armSFU, 0.01).withTimeout(1),  //arm retracts to limit at speed of 0.5
+    new ArmPID(armSFU, 0.01).withTimeout(0.5),  //arm retracts to limit at speed of 0.5
     parallel(new TurretPID(turretSFU, 0.5).withTimeout(3),  //moves Turret to 0.5 degrees
     new PivotDown(pivotSFU, 0.55).withTimeout(3)),
     new TurretBrake(turretSFU).asProxy() //pivot down to limit as speed 0.25

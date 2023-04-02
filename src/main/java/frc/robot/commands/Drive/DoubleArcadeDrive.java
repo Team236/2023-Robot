@@ -54,7 +54,7 @@ public class DoubleArcadeDrive extends CommandBase {
       sensitivityY = 1;
      } else if (!drive.inLowGear()) {
        sensitivityX = 0.9;
-       sensitivityY = 0.75;
+       sensitivityY = 0.9; //0.75
      }
 
     if ((Math.abs(driveController.getLeftX()) > 0.05) && (Math.abs(driveController.getRightY()) <= 0.05)) {
@@ -88,7 +88,7 @@ public class DoubleArcadeDrive extends CommandBase {
     drive.setRightSpeed(R);
    // SmartDashboard.putNumber("Arcade Drive Left Encoder", drive.getLeftDistance());
     //SmartDashboard.putNumber("Roll in Arcade Drive", drive.getRoll());
-   gripper.autoGrab();
+   //gripper.autoGrab();
     
   }
   // Called once the command ends or is interrupted.

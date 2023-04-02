@@ -25,14 +25,14 @@ import frc.robot.subsystems.Turret;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class ScoreCubeCone extends SequentialCommandGroup {
+public class ScoreCCRed extends SequentialCommandGroup {
   /** Creates a new ScoreCubeCone. */
-  public ScoreCubeCone(Arm armCC, Pivot pvtCC, Turret trrtCC, Gripper gripCC, Drive drCC) {
+  public ScoreCCRed(Arm armCC, Pivot pvtCC, Turret trrtCC, Gripper gripCC, Drive drCC) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      parallel(new PivotPID(pvtCC, 10900), new TurretPID(trrtCC, -145)).withTimeout(1.25),
-      new ArmPID(armCC, 26.5).withTimeout(1),
+      parallel(new PivotPID(pvtCC, 10500), new TurretPID(trrtCC, 144)).withTimeout(1.25),
+      new ArmPID(armCC, 29.2).withTimeout(1),
       new ReleasePiece(gripCC).asProxy().withTimeout(0.75),
       new StoweFromUP(armCC, pvtCC, trrtCC).withTimeout(2),
      parallel(new DriveAtSetSpeed(drCC, 182, 0.65), new Pickup(armCC, pvtCC, gripCC)).withTimeout(3),
@@ -40,12 +40,8 @@ public class ScoreCubeCone extends SequentialCommandGroup {
      new Grab(gripCC).asProxy().withTimeout(1),
      //new PickupToStow(pvtCC, armCC).withTimeout(2),
      parallel(new DriveAtSetSpeed(drCC, 182, -0.65), new PivotPID(pvtCC, 9500),
-     new TurretPID(trrtCC, -171), new ArmPID(armCC, 20.8)).withTimeout(3.9),
+     new TurretPID(trrtCC, 171), new ArmPID(armCC, 20.8)).withTimeout(3.9),
      new ReleasePiece(gripCC).asProxy().withTimeout(1)
     );
-  }
-
-  public ScoreCubeCone(Arm arm, Gripper gripper, Drive drive, Pivot pivot, Turret turret,
-      XboxController driveController) {
   }
 }

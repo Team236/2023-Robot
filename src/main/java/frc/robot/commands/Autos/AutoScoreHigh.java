@@ -27,7 +27,7 @@ public class AutoScoreHigh extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new PivotPID(pvtHi1, PivotConstants.PVT_ENC_HIGH_SCORE).withTimeout(2),
-      new ArmPID(hiScore1, Constants.ArmConstants.ARM_HIGH).withTimeout(2),
+      new ArmPID(hiScore1, Constants.ArmConstants.ARM_HIGH).withTimeout(1.5),
       new ReleasePiece(gripScore11).asProxy()
       );
       

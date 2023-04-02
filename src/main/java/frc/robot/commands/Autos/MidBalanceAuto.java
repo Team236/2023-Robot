@@ -23,8 +23,8 @@ public class MidBalanceAuto extends SequentialCommandGroup {
     new AutoScoreMid(backwardP, backwardA, backwardG).withTimeout(3),
     new ArmRetract(backwardA, 0.7).withTimeout(1.5),
     new PivotDown(backwardP, 0.75).withTimeout(1.5),
-    new DriveAtSetSpeed(backwardD, 148, -0.3),
-    new DriveAtSetSpeed(backwardD, 70, 0.3)
+    new DriveAtSetSpeed(backwardD, 153, -0.3),
+    new DriveAtSetSpeed(backwardD, 77, 0.3)
     );
   }
 }
