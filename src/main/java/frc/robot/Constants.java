@@ -17,7 +17,7 @@ public final class Constants {
   public static class ControllerConstants {
     //public static final int USB_LEFT_STICK = 0;
     //public static final int USB_RIGHT_STICK = 1;
-    public static final int USB_AUXCONTROLLER = 1;
+    public static final int USB_AUXCONTROLLER = 1; //TEST COMMENT FOR COMMIT2
     public static final int USB_DRIVECONTROLLER = 0;
     public static class Thrustmaster {
         public static final int TRIGGER = 1;
